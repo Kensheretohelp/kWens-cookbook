@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>kWen’s Cookbook</title>
+<style>
+:root {
+  --bg: #fff8ef;
+  --card: #fffdf8;
+  --ink: #2b2118;
+  --muted: #755f4d;
+  --accent: #b45f2a;
+  --accent2: #274c77;
+  --line: #ead8c4;
+  --shadow: 0 10px 30px rgba(68, 41, 22, .12);
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: radial-gradient(circle at top left, #fff3d7 0, var(--bg) 42%, #f7efe5 100%);
+  color: var(--ink);
+}
+header {
+  position: sticky;
+  top: 0;
+  z-index: 3;
+  padding: calc(12px + env(safe-area-inset-top)) 16px 12px;
+  background: rgba(255, 248, 239, .94);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+}
+h1 {
+  margin: 0 0 8px;
+  font-size: 1.7rem;
+  letter-spacing: -.03em;
+}
+.subtitle {
+  margin: 0 0 12px;
+  color: var(--muted);
+  font-size: .95rem;
+}
+.search {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 13px 16px;
+  font-size: 1rem;
+  background: white;
+  color: var(--ink);
+  outline: none;
+}
+main {
+  padding: 14px 14px 40px;
+  max-width: 920px;
+  margin: 0 auto;
+}
+.chips {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 4px 0 12px;
+  -webkit-overflow-scrolling: touch;
+}
+.chip {
+  border: 1px solid var(--line);
+  background: var(--card);
+  color: var(--ink);
+  border-radius: 999px;
+  padding: 9px 12px;
+  white-space: nowrap;
+  font-weight: 650;
+}
+.chip.active {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+.count {
+  color: var(--muted);
+  margin: 4px 2px 14px;
+  font-size: .92rem;
+}
+.grid {
+  display: grid;
+  gap: 12px;
+}
+.card {
+  border: 1px solid var(--line);
+  background: rgba(255,253,248,.94);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.card button {
+  width: 100%;
+  appearance: none;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  padding: 16px;
+  color: var(--ink);
+}
+.card-title {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: start;
+  font-size: 1.08rem;
+  font-weight: 800;
+}
+.badge {
+  display: inline-flex;
+  font-size: .75rem;
+  color: white;
+  background: var(--accent2);
+  border-radius: 999px;
+  padding: 4px 8px;
+  white-space: nowrap;
+}
+.meta {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: .9rem;
+}
+.panel {
+  display: none;
+  padding: 0 16px 16px;
+  border-top: 1px dashed var(--line);
+}
+.card.open .panel { display: block; }
+h2 {
+  margin: 16px 0 8px;
+  font-size: 1rem;
+}
+ul, ol {
+  padding-left: 22px;
+  margin-top: 8px;
+}
+li {
+  margin: 7px 0;
+  line-height: 1.38;
+}
+.notes {
+  background: #fff4df;
+  border: 1px solid #eed3a9;
+  border-radius: 14px;
+  padding: 12px;
+  margin-top: 14px;
+  color: #543a20;
+}
+.footer {
+  color: var(--muted);
+  font-size: .85rem;
+  text-align: center;
+  padding: 28px 8px;
+}
+.empty {
+  text-align: center;
+  color: var(--muted);
+  padding: 40px 10px;
+}
+@media (min-width: 720px) {
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media print {
+  header, .chips, .count, .footer { display:none; }
+  body { background:white; }
+  .grid { display:block; }
+  .card { box-shadow:none; break-inside: avoid; margin-bottom: 16px; }
+  .panel { display:block; }
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>kWen’s Cookbook</h1>
+  <p class="subtitle">Searchable, phone-friendly, and ready for kitchen chaos.</p>
+  <input id="search" class="search" placeholder="Search recipes, ingredients, tags..." autocomplete="off">
+</header>
+
+<main>
+  <div id="chips" class="chips"></div>
+  <div id="count" class="count"></div>
+  <section id="grid" class="grid"></section>
+  <div class="footer">Tip: On iPhone, open this file in Safari, tap Share, then “Add to Home Screen.”</div>
+</main>
+
+<script>
+const recipes = [{"title": "Chicken Rice Soup (Ken’s Classic Version)", "category": "Soups & Stews", "tags": ["chicken", "rice", "soup", "comfort"], "yield": "Family pot", "ingredients": ["3 L / 12 cups chicken broth", "2 chicken breasts, cooked or raw, cubed or small pieces", "3 celery stalks, sliced", "1 large carrot, shredded", "3 green onions, chopped and divided", "1 tbsp parsley", "1 cup Minute Rice", "Salt and pepper, to taste", "Optional: pinch of chicken bouillon"], "method": ["Bring chicken broth to a gentle boil in a large pot.", "Add celery and boil about 5 minutes.", "Add shredded carrot, parsley, and half the green onions. Season with salt and pepper.", "Add chicken. Simmer until cooked and tender, about 10–15 minutes if raw or 5 minutes if cooked.", "Stir in Minute Rice and simmer 5–10 minutes until soft and slightly thickened.", "Stir in remaining green onions just before serving."], "notes": "Works beautifully with leftover or rotisserie chicken."}, {"title": "Italian Wedding Soup (Frozen Meatballs & Orzo)", "category": "Soups & Stews", "tags": ["meatballs", "orzo", "spinach", "soup"], "yield": "Large pot", "ingredients": ["Olive oil", "1 onion, diced", "1 carrot, diced", "1 celery stalk, diced", "Garlic, minced", "8 cups / 2 L chicken broth", "500 g frozen fully cooked Italian meatballs", "150 g / 3/4 cup orzo", "2 cups spinach", "Oregano and thyme, to taste", "Parmesan, to serve", "Optional: lemon"], "method": ["Sauté onion, carrot, celery, and garlic in olive oil until softened.", "Add chicken broth and bring to a simmer.", "Add frozen meatballs and simmer until heated through.", "Add orzo and simmer 8–10 minutes, until tender.", "Stir in spinach until wilted.", "Finish with parmesan and optional lemon."], "notes": "Optional egg drizzle variation can be added at the end."}, {"title": "Hamburger Stew (NB Classic)", "category": "Soups & Stews", "tags": ["ground beef", "potatoes", "carrots", "stew"], "yield": "Large pot", "ingredients": ["Ground beef", "Potatoes, diced", "Carrots, sliced", "Onion, diced", "Tomato", "Broth", "Salt, pepper, and seasonings to taste"], "method": ["Brown ground beef in a large pot.", "Add onion and cook until softened.", "Add potatoes, carrots, tomato, and broth.", "Simmer until potatoes and carrots are tender.", "Adjust seasoning and serve hot."], "notes": "Saved as your NB classic ground beef, potato, carrot, onion, tomato, broth version."}, {"title": "Poached Haddock in Tomato Broth", "category": "Fish & Seafood", "tags": ["haddock", "tomato", "low-fat", "Mediterranean"], "yield": "4–6 servings", "ingredients": ["4 haddock fillets", "1 can / 28 oz diced tomatoes", "1 1/2 cups broth", "Onion, garlic, herbs, and seasonings to taste", "Optional: parsley or lemon to finish"], "method": ["Build the tomato broth by simmering tomatoes, broth, aromatics, and seasonings.", "Gently place haddock fillets into the broth.", "Cover and poach gently until the fish flakes easily.", "Finish with herbs or lemon if desired."], "notes": "Tilapia works as a substitute; cook gently so it does not break apart."}, {"title": "Garlic Soy Butter Salmon", "category": "Fish & Seafood", "tags": ["salmon", "soy", "butter", "garlic"], "yield": "2–3 servings", "ingredients": ["2–3 salmon fillets, 150–180 g / 5–6 oz each", "Salt and pepper, to taste", "1 tbsp / 14 g neutral oil", "2 tbsp / 28 g butter", "1 1/2 tbsp / 24 g soy sauce or tamari", "3/4 tsp / 3.75 g apple cider vinegar", "1 small garlic clove, finely minced or grated, about 3 g", "Optional: chili flakes, black pepper, 1/2 tsp honey or maple"], "method": ["Season salmon lightly.", "For pan-seared: heat oil over medium and sear skin-side down 7–8 minutes.", "Flip, lower heat, and add butter, soy sauce, vinegar, and garlic.", "Baste 5–6 minutes until just cooked. Remove and spoon sauce over.", "For oven-baked: heat oven to 400°F / 205°C, place salmon skin-side down, spoon sauce over, and bake 15–17 minutes.", "Optional: broil 1–2 minutes at the end."], "notes": "Keep heat moderate because soy and butter can scorch. Aim for 125–130°F / 52–54°C internal."}, {"title": "Egg-Heavy Ravioli Dough", "category": "Pasta", "tags": ["ravioli", "pasta dough", "00 flour", "egg yolk"], "yield": "Enough for ravioli", "ingredients": ["300 g 00 flour", "2 whole eggs", "5 egg yolks", "1 tbsp olive oil", "Pinch of salt"], "method": ["Mound flour and make a deep well.", "Add whole eggs, yolks, olive oil, and salt.", "Beat eggs gently with a fork, gradually incorporating flour until shaggy.", "Knead 8–10 minutes until smooth and elastic.", "Wrap tightly and rest at least 1 hour at room temperature.", "Roll thin, Marcato/Atlas setting 6–7, for ravioli."], "notes": "Rich, golden dough ideal for hearty fillings. If stiff, knead with lightly damp hands instead of adding water directly."}, {"title": "Classic Ricotta–Spinach Ravioli Filling", "category": "Pasta", "tags": ["ravioli", "ricotta", "spinach"], "yield": "20–24 ravioli", "ingredients": ["250 g ricotta", "80–100 g cooked spinach, well squeezed", "50 g parmesan", "1 egg yolk, about 18 g", "About 3 g garlic", "Nutmeg", "Salt and pepper"], "method": ["Mix all ingredients until evenly combined.", "Taste and adjust seasoning.", "Use to fill ravioli and seal with water or egg white."], "notes": "Classic filling saved with gram measurements."}, {"title": "Crisco Pie Dough", "category": "Bread & Dough", "tags": ["pie crust", "Crisco", "KitchenAid"], "yield": "4 crusts", "ingredients": ["2 1/2 cups / 315 g all-purpose flour", "1 tsp / 6 g salt", "1 cup / 200 g Crisco shortening", "1/4 cup / 60 ml cold water"], "method": ["In KitchenAid bowl, combine flour and salt.", "Using paddle attachment, cut in shortening until mixture resembles coarse crumbs.", "Gradually add cold water, mixing on low until dough begins to form.", "Divide into 4 portions and roll out as needed."], "notes": "No egg, no vinegar version."}, {"title": "1-Hour Crispy Skin Oven-Roasted Chicken", "category": "Chicken", "tags": ["roast chicken", "crispy skin", "baking powder"], "yield": "One chicken", "ingredients": ["Whole chicken", "Salt and seasoning", "Baking powder for skin crisping", "Oil or butter as desired"], "method": ["Use a cookie sheet with a wire rack.", "Optional: lightly truss chicken.", "Roast at 450°F to start, then reduce to 400°F.", "Cook until chicken reaches safe internal temperature and skin is crisp.", "Rest before carving."], "notes": "No overnight drying. Timed to pair with separately roasted potatoes."}, {"title": "Mémère’s Crêpes", "category": "Breakfast", "tags": ["crepes", "sour milk", "crispy edges"], "yield": "Small batch", "ingredients": ["1 cup flour", "1 cup sour milk: milk plus 1 tbsp white vinegar", "1 tsp baking powder", "1 egg", "Pinch of salt", "Canola oil for cooking"], "method": ["Mix ingredients into a thin batter.", "Heat stainless pan with canola oil.", "Cook crêpes until golden with crispy edges."], "notes": "Family-style crêpes with crispy edges."}, {"title": "Sugar Pie (Tarte au Sucre)", "category": "Desserts", "tags": ["sugar pie", "maple", "cream", "pie"], "yield": "One 9-inch pie", "ingredients": ["210 g brown sugar", "40 g all-purpose flour", "30 ml cornstarch", "1 pinch salt", "375 ml / 1 1/2 cups 35% whipping cream", "125 ml / 1/2 cup maple syrup", "2 pie crusts / pâte brisée", "Milk for brushing"], "method": ["In a saucepan off heat, whisk brown sugar, flour, cornstarch, and salt.", "Add cream and maple syrup. Mix, then bring to a boil while stirring.", "Remove from heat and let cool slightly.", "Line a 23 cm / 9-inch pie plate with one crust and pour in filling.", "Brush edges with milk.", "Cut second crust into 2.5 cm / 1-inch strips, brush with milk, and weave lattice over filling.", "Trim and seal edges.", "Bake at 200°C / 400°F on the low rack for 35–40 minutes until crust is golden and filling bubbles."], "notes": "Serve warm or cold."}, {"title": "Old-Fashioned Graham Pie", "category": "Desserts", "tags": ["graham pie", "custard", "New Brunswick"], "yield": "One pie", "ingredients": ["1 graham cracker crust", "1/2 cup / 100 g brown sugar", "1 tbsp / 8 g all-purpose flour", "2 tbsp / 16 g cornstarch", "3 large eggs", "1 1/2 cups / 360 ml heavy cream", "1 tsp vanilla extract"], "method": ["Preheat oven to 350°F / 175°C.", "In saucepan, whisk brown sugar, flour, and cornstarch.", "Gradually add heavy cream, stirring constantly until thickened.", "Remove from heat and stir in eggs and vanilla.", "Pour into graham crust.", "Bake 30–35 minutes or until filling is set.", "Cool before serving."], "notes": "New Brunswick style."}, {"title": "KWen’s Bouillie", "category": "Acadian & Family", "tags": ["bouillie", "cottage roll", "beans", "ployes"], "yield": "Large family pot", "ingredients": ["Yellow beans", "Green beans", "Cottage roll pork", "Baby potatoes", "Carrots", "2 tbsp summer savory", "Brayon ployes, to serve"], "method": ["Simmer cottage roll pork until tender.", "Add vegetables and summer savory.", "Cook until vegetables are tender.", "Serve with Brayon ployes."], "notes": "Your saved bouillie version."}];
+
+const grid = document.getElementById('grid');
+const search = document.getElementById('search');
+const chips = document.getElementById('chips');
+const count = document.getElementById('count');
+let activeCategory = 'All';
+
+const categories = ['All', ...Array.from(new Set(recipes.map(r => r.category))).sort()];
+
+function escapeHtml(str) {
+  return String(str ?? '').replace(/[&<>"']/g, m => ({
+    '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#039;'
+  }[m]));
+}
+
+function renderChips() {
+  chips.innerHTML = categories.map(cat => `
+    <button class="chip ${cat === activeCategory ? 'active' : ''}" onclick="setCategory('${escapeHtml(cat)}')">${escapeHtml(cat)}</button>
+  `).join('');
+}
+
+function setCategory(cat) {
+  activeCategory = cat;
+  renderChips();
+  renderRecipes();
+}
+
+function recipeMatches(recipe, query) {
+  const blob = [
+    recipe.title,
+    recipe.category,
+    recipe.yield,
+    recipe.notes,
+    ...(recipe.tags || []),
+    ...(recipe.ingredients || []),
+    ...(recipe.method || [])
+  ].join(' ').toLowerCase();
+  return blob.includes(query.toLowerCase());
+}
+
+function renderRecipes() {
+  const q = search.value.trim();
+  const filtered = recipes
+    .filter(r => activeCategory === 'All' || r.category === activeCategory)
+    .filter(r => !q || recipeMatches(r, q))
+    .sort((a,b) => a.title.localeCompare(b.title));
+
+  count.textContent = `${filtered.length} recipe${filtered.length === 1 ? '' : 's'} shown`;
+
+  if (!filtered.length) {
+    grid.innerHTML = `<div class="empty">No recipes found. The cookbook gremlins came up empty.</div>`;
+    return;
+  }
+
+  grid.innerHTML = filtered.map((r, i) => `
+    <article class="card">
+      <button onclick="this.closest('.card').classList.toggle('open')" aria-expanded="false">
+        <div class="card-title">
+          <span>${escapeHtml(r.title)}</span>
+          <span class="badge">${escapeHtml(r.category)}</span>
+        </div>
+        <div class="meta">${escapeHtml(r.yield || '')}${r.tags?.length ? ' · ' + r.tags.map(escapeHtml).join(', ') : ''}</div>
+      </button>
+      <div class="panel">
+        <h2>Ingredients</h2>
+        <ul>${(r.ingredients || []).map(x => `<li>${escapeHtml(x)}</li>`).join('')}</ul>
+        <h2>Method</h2>
+        <ol>${(r.method || []).map(x => `<li>${escapeHtml(x)}</li>`).join('')}</ol>
+        ${r.notes ? `<div class="notes"><strong>Notes:</strong> ${escapeHtml(r.notes)}</div>` : ''}
+      </div>
+    </article>
+  `).join('');
+}
+
+search.addEventListener('input', renderRecipes);
+renderChips();
+renderRecipes();
+</script>
+</body>
+</html>
