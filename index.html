@@ -6,298 +6,1228 @@
   <title>kWen’s Cookbook</title>
   <style>
     :root {
-      --bg: #fff7e8;
-      --card: #fffdf7;
-      --text: #2b2118;
-      --muted: #6f5e4a;
-      --accent: #b63a2b;
-      --green: #2f5d50;
-      --gold: #e2a93b;
-      --border: #ead8b8;
-      --shadow: rgba(43, 33, 24, 0.10);
+      --bg: #f6e7cf;
+      --card: #fff8e7;
+      --ink: #3f2b22;
+      --muted: #7b6256;
+      --rose: #c46a6a;
+      --mustard: #d9a441;
+      --teal: #3f7c78;
+      --sky: #88aeb7;
+      --brown: #6b4432;
+      --border: #dfbf93;
+      --shadow: rgba(63, 43, 34, 0.16);
     }
-
     * { box-sizing: border-box; }
-
+    html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      font-family: Georgia, "Times New Roman", serif;
       background:
-        radial-gradient(circle at top left, rgba(226, 169, 59, 0.20), transparent 28rem),
-        var(--bg);
-      color: var(--text);
+        radial-gradient(circle at 14% 8%, rgba(196,106,106,.28), transparent 20rem),
+        radial-gradient(circle at 82% 10%, rgba(63,124,120,.24), transparent 22rem),
+        linear-gradient(180deg, #f1d7b7, var(--bg));
+      color: var(--ink);
       line-height: 1.55;
     }
-
     header {
-      padding: 28px 18px 18px;
+      position: relative;
       text-align: center;
-      background: linear-gradient(135deg, var(--green), #23463c);
-      color: #fffdf7;
-      border-bottom: 5px solid var(--gold);
+      padding: 34px 18px 28px;
+      color: var(--ink);
+      border-bottom: 7px solid var(--mustard);
+      background:
+        linear-gradient(90deg, rgba(196,106,106,.34), rgba(217,164,65,.34), rgba(63,124,120,.28)),
+        #f7dfbd;
     }
-
-    header h1 {
-      margin: 0;
-      font-size: clamp(2rem, 7vw, 3.25rem);
-      letter-spacing: -0.04em;
+    header:before, header:after {
+      content: ""; position: absolute; top: 0; bottom: 0; width: 18px;
+      background: repeating-linear-gradient(45deg, var(--rose) 0 10px, var(--mustard) 10px 20px, var(--teal) 20px 30px);
+      opacity: .75;
     }
-
-    header p {
-      margin: 8px auto 0;
-      max-width: 720px;
-      color: rgba(255, 253, 247, 0.86);
-    }
-
-    main {
-      width: min(980px, 100%);
-      margin: 0 auto;
-      padding: 18px;
-    }
-
-    .toolbar {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      padding: 14px 0;
-      background: linear-gradient(to bottom, var(--bg) 78%, rgba(255,247,232,0));
-    }
-
-    .search-box {
-      width: 100%;
-      padding: 13px 15px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      background: #fffdf7;
-      color: var(--text);
-      font-size: 1rem;
-      box-shadow: 0 3px 12px var(--shadow);
-    }
-
-    .recipe-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 20px;
-      margin: 18px 0;
-      box-shadow: 0 7px 22px var(--shadow);
-      overflow: hidden;
-    }
-
-    .recipe-card h2 {
-      margin: 0 0 6px;
-      color: var(--accent);
-      font-size: 1.55rem;
-      letter-spacing: -0.02em;
-    }
-
-    .recipe-meta {
-      margin: 0 0 14px;
-      color: var(--muted);
-      font-size: 0.95rem;
-    }
-
-    .scale-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin: 10px 0 16px;
-    }
-
-    .scale-buttons button {
-      padding: 8px 15px;
-      border-radius: 999px;
-      border: 1px solid var(--green);
-      background: #fffdf7;
-      color: var(--green);
-      font-weight: 800;
-      cursor: pointer;
-      transition: transform 0.15s ease, background 0.15s ease, color 0.15s ease;
-    }
-
-    .scale-buttons button:hover { transform: translateY(-1px); }
-
-    .scale-buttons button.active {
-      background: var(--green);
-      color: white;
-    }
-
-    h3 {
-      margin-top: 18px;
-      margin-bottom: 8px;
-      color: var(--green);
-    }
-
-    ul, ol { padding-left: 1.35rem; }
-    li { margin: 5px 0; }
-
-    .note {
-      background: rgba(226, 169, 59, 0.18);
-      border-left: 4px solid var(--gold);
-      padding: 10px 12px;
-      border-radius: 12px;
-      color: var(--text);
-      margin-top: 14px;
-    }
-
-    .recipe-card.scaled { animation: scalePop 0.25s ease; }
-
-    @keyframes scalePop {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.012); }
-      100% { transform: scale(1); }
-    }
-
-    footer {
-      text-align: center;
-      padding: 28px 18px 36px;
-      color: var(--muted);
-    }
+    header:before { left: 0; } header:after { right: 0; }
+    header h1 { margin: 0; font-size: clamp(2.25rem, 8vw, 4.4rem); letter-spacing: -0.055em; }
+    header p { margin: 8px auto 0; max-width: 760px; color: var(--brown); font-style: italic; }
+    main { width: min(1080px, 100%); margin: 0 auto; padding: 18px; }
+    .toolbar { position: sticky; top: 0; z-index: 10; padding: 14px 0; background: linear-gradient(to bottom, var(--bg) 75%, rgba(246,231,207,0)); }
+    .search-box { width: 100%; padding: 14px 16px; border-radius: 999px; border: 2px solid var(--border); background: #fff8e7; color: var(--ink); font: 1rem system-ui, -apple-system, Segoe UI, sans-serif; box-shadow: 0 5px 16px var(--shadow); }
+    .filters { display: flex; gap: 8px; overflow-x: auto; padding: 10px 2px 2px; }
+    .filter-btn { flex: 0 0 auto; border: 1px solid var(--brown); background: #f9d88f; color: var(--ink); border-radius: 999px; padding: 7px 12px; font-weight: 700; cursor: pointer; }
+    .filter-btn.active { background: var(--rose); color: #fff8e7; }
+    .recipe-count { color: var(--brown); font-size: .9rem; margin: 6px 4px 0; font-family: system-ui, -apple-system, Segoe UI, sans-serif; }
+    .recipe-card { background: var(--card); border: 2px solid var(--border); border-radius: 26px; padding: 21px; margin: 20px 0; box-shadow: 0 9px 24px var(--shadow); overflow: hidden; }
+    .card-topline { display: flex; justify-content: flex-end; margin-bottom: 6px; }
+    .category-pill { background: var(--sky); color: #fff8e7; border: 1px solid var(--teal); border-radius: 999px; padding: 3px 10px; font: 700 .78rem system-ui, -apple-system, Segoe UI, sans-serif; letter-spacing: .03em; text-transform: uppercase; }
+    .recipe-card h2 { margin: 0 0 6px; color: var(--rose); font-size: 1.75rem; letter-spacing: -0.035em; }
+    .recipe-meta { margin: 0 0 14px; color: var(--muted); font-style: italic; }
+    .scale-buttons { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 16px; }
+    .scale-buttons button { padding: 8px 15px; border-radius: 999px; border: 1px solid var(--teal); background: #f9d88f; color: var(--ink); font-weight: 900; cursor: pointer; transition: transform .15s ease, background .15s ease, color .15s ease; }
+    .scale-buttons button:hover { transform: translateY(-1px) rotate(-.5deg); }
+    .scale-buttons button.active { background: var(--teal); color: #fff8e7; }
+    h3 { margin-top: 18px; margin-bottom: 8px; color: var(--teal); font-size: 1.15rem; }
+    ul, ol { padding-left: 1.35rem; } li { margin: 5px 0; }
+    .note { background: rgba(217,164,65,.22); border-left: 5px solid var(--mustard); padding: 10px 12px; border-radius: 14px; color: var(--ink); margin-top: 14px; }
+    .recipe-card.scaled { animation: scalePop .25s ease; }
+    @keyframes scalePop { 0% { transform: scale(1); } 50% { transform: scale(1.012) rotate(.15deg); } 100% { transform: scale(1); } }
+    footer { text-align: center; padding: 28px 18px 36px; color: var(--brown); }
+    @media print { .toolbar, .scale-buttons, footer { display:none; } body { background:#fff; } .recipe-card { break-inside: avoid; box-shadow:none; } }
   </style>
 </head>
 <body>
   <header>
     <h1>kWen’s Cookbook</h1>
-    <p>Cozy classics, weeknight wins, and the recipes worth locking in.</p>
+    <p>Cozy classics, weeknight wins, pasta projects, and a little symmetrical oddball charm.</p>
   </header>
-
   <main>
     <section class="toolbar">
       <input class="search-box" id="recipeSearch" type="search" placeholder="Search recipes or ingredients…" aria-label="Search recipes">
+      <div class="filters" aria-label="Recipe categories">
+        <button class="filter-btn" data-filter="All">All</button>
+<button class="filter-btn" data-filter="Baking">Baking</button>
+<button class="filter-btn" data-filter="Basics">Basics</button>
+<button class="filter-btn" data-filter="Breakfast">Breakfast</button>
+<button class="filter-btn" data-filter="Dessert">Dessert</button>
+<button class="filter-btn" data-filter="Macarons">Macarons</button>
+<button class="filter-btn" data-filter="Main Dishes">Main Dishes</button>
+<button class="filter-btn" data-filter="Pasta">Pasta</button>
+<button class="filter-btn" data-filter="Pizza">Pizza</button>
+<button class="filter-btn" data-filter="Sauces">Sauces</button>
+<button class="filter-btn" data-filter="Seafood">Seafood</button>
+<button class="filter-btn" data-filter="Sides">Sides</button>
+<button class="filter-btn" data-filter="Soup">Soup</button>
+      </div>
+      <p class="recipe-count" id="recipeCount"></p>
     </section>
-
-    <article class="recipe-card" data-title="moist banana bread sour cream yogurt bananas loaf">
+    <article class="recipe-card" data-title="moist banana bread baking basic, reliable loaf with sour cream or plain yogurt for moisture. makes 1 loaf. 3 very ripe bananas, mashed 1/2 cup butter, melted 3/4 cup brown sugar 2 large eggs 1/3 cup sour cream or plain yogurt 1 tsp vanilla extract 1 1/2 cups all-purpose flour 1 tsp baking soda 1/2 tsp salt optional: 1/2 tsp cinnamon optional: 3/4 cup walnuts or chocolate chips" data-category="Baking">
+      <div class="card-topline"><span class="category-pill">Baking</span></div>
       <h2>Moist Banana Bread</h2>
       <p class="recipe-meta">Basic, reliable loaf with sour cream or plain yogurt for moisture. Makes 1 loaf.</p>
-
       <div class="scale-buttons" aria-label="Scale recipe">
         <button class="active" onclick="scaleRecipe(this, 1)">1x</button>
         <button onclick="scaleRecipe(this, 2)">2x</button>
         <button onclick="scaleRecipe(this, 3)">3x</button>
       </div>
-
       <h3>Ingredients</h3>
       <ul>
-        <li><span data-base="3">3</span> very ripe bananas, mashed</li>
-        <li><span data-base="0.5">1/2</span> cup butter, melted</li>
-        <li><span data-base="0.75">3/4</span> cup brown sugar</li>
-        <li><span data-base="2">2</span> large eggs</li>
-        <li><span data-base="0.33">1/3</span> cup sour cream or plain yogurt</li>
-        <li><span data-base="1">1</span> tsp vanilla extract</li>
-        <li><span data-base="1.5">1 1/2</span> cups all-purpose flour</li>
-        <li><span data-base="1">1</span> tsp baking soda</li>
-        <li><span data-base="0.5">1/2</span> tsp salt</li>
-        <li>Optional: <span data-base="0.5">1/2</span> tsp cinnamon</li>
-        <li>Optional: <span data-base="0.75">3/4</span> cup walnuts or chocolate chips</li>
+          <li><span data-base="3">3</span> very ripe bananas, mashed</li>
+          <li><span data-base="0.5">1/2</span> cup butter, melted</li>
+          <li><span data-base="0.75">3/4</span> cup brown sugar</li>
+          <li><span data-base="2">2</span> large eggs</li>
+          <li><span data-base="0.333333">1/3</span> cup sour cream or plain yogurt</li>
+          <li><span data-base="1">1</span> tsp vanilla extract</li>
+          <li><span data-base="1.5">1 1/2</span> cups all-purpose flour</li>
+          <li><span data-base="1">1</span> tsp baking soda</li>
+          <li><span data-base="0.5">1/2</span> tsp salt</li>
+          <li>Optional: <span data-base="0.5">1/2</span> tsp cinnamon</li>
+          <li>Optional: <span data-base="0.75">3/4</span> cup walnuts or chocolate chips</li>
       </ul>
-
       <h3>Method</h3>
       <ol>
-        <li>Preheat oven to 350°F / 175°C. Grease or line a standard loaf pan.</li>
-        <li>Mash bananas in a large bowl. Stir in melted butter.</li>
-        <li>Mix in brown sugar, eggs, sour cream or yogurt, and vanilla.</li>
-        <li>In a separate bowl, whisk flour, baking soda, salt, and cinnamon if using.</li>
-        <li>Fold dry ingredients into wet ingredients just until combined. Do not overmix.</li>
-        <li>Fold in walnuts or chocolate chips if using.</li>
-        <li>Pour into loaf pan and bake 55–65 minutes, until a toothpick comes out clean or with a few moist crumbs.</li>
-        <li>Cool 10–15 minutes in the pan, then transfer to a rack before slicing.</li>
+          <li>Preheat oven to 350°F / 175°C. Grease or line a standard loaf pan.</li>
+          <li>Mash bananas in a large bowl. Stir in melted butter.</li>
+          <li>Mix in brown sugar, eggs, sour cream or yogurt, and vanilla.</li>
+          <li>Whisk flour, baking soda, salt, and cinnamon if using.</li>
+          <li>Fold dry ingredients into wet ingredients just until combined. Do not overmix.</li>
+          <li>Fold in walnuts or chocolate chips if using.</li>
+          <li>Bake 55–65 minutes, until a toothpick comes out clean or with a few moist crumbs.</li>
+          <li>Cool 10–15 minutes in the pan, then transfer to a rack before slicing.</li>
       </ol>
-
-      <p class="note"><strong>kWen note:</strong> Sour cream gives a richer loaf; yogurt gives a slightly tangier, lighter one. Both work.</p>
+      <p class="note"><strong>kWen note:</strong> Sour cream gives a richer loaf; yogurt gives a slightly tangier, lighter one.</p>
     </article>
 
-    <article class="recipe-card" data-title="egg heavy ravioli dough pasta 00 flour yolks">
+    <article class="recipe-card" data-title="egg-heavy ravioli dough pasta extra-rich yolk-forward dough for ravioli. 250 g 00 flour 2 whole eggs 5 egg yolks 1 tbsp olive oil pinch of salt" data-category="Pasta">
+      <div class="card-topline"><span class="category-pill">Pasta</span></div>
       <h2>Egg-Heavy Ravioli Dough</h2>
-      <p class="recipe-meta">Extra-rich yolk-forward dough. Great for beef, mushroom, or hearty ravioli fillings.</p>
-
+      <p class="recipe-meta">Extra-rich yolk-forward dough for ravioli.</p>
       <div class="scale-buttons" aria-label="Scale recipe">
         <button class="active" onclick="scaleRecipe(this, 1)">1x</button>
         <button onclick="scaleRecipe(this, 2)">2x</button>
         <button onclick="scaleRecipe(this, 3)">3x</button>
       </div>
-
       <h3>Ingredients</h3>
       <ul>
-        <li><span data-base="250">250</span> g 00 flour</li>
-        <li><span data-base="2">2</span> whole eggs</li>
-        <li><span data-base="5">5</span> egg yolks</li>
-        <li><span data-base="1">1</span> tbsp olive oil</li>
-        <li>Pinch of salt</li>
+          <li><span data-base="250">250</span> g <span data-base="0">00</span> flour</li>
+          <li><span data-base="2">2</span> whole eggs</li>
+          <li><span data-base="5">5</span> egg yolks</li>
+          <li><span data-base="1">1</span> tbsp olive oil</li>
+          <li>Pinch of salt</li>
       </ul>
-
       <h3>Method</h3>
       <ol>
-        <li>Mound flour and make a deep well.</li>
-        <li>Add whole eggs, yolks, olive oil, and salt.</li>
-        <li>Beat eggs gently with a fork, gradually incorporating flour until a shaggy dough forms.</li>
-        <li>Knead 8–10 minutes until smooth and elastic. It may feel firm at first.</li>
-        <li>Wrap tightly and rest at least 1 hour at room temperature.</li>
-        <li>Roll thin, around Marcato/Atlas setting 6–7, for ravioli.</li>
+          <li>Mound flour and make a deep well.</li>
+          <li>Add whole eggs, yolks, olive oil, and salt.</li>
+          <li>Beat eggs gently with a fork, gradually incorporating flour until a shaggy dough forms.</li>
+          <li>Knead 8–10 minutes until smooth and elastic. It may feel firm at first.</li>
+          <li>Wrap tightly and rest at least 1 hour at room temperature.</li>
+          <li>Roll thin, around Marcato/Atlas setting 6–7, for ravioli.</li>
       </ol>
+      <p class="note"><strong>kWen note:</strong> If stiff, knead with lightly damp hands instead of adding water. If too soft, rest in the fridge briefly.</p>
+    </article>
 
-      <p class="note"><strong>Texture note:</strong> If dough feels stiff, knead with lightly damp hands instead of adding water directly. If too soft, rest in the fridge briefly.</p>
+    <article class="recipe-card" data-title="classic ricotta–spinach ravioli filling pasta yields about 20–24 ravioli. 250 g ricotta 80–100 g cooked spinach, well squeezed 50 g parmesan 1 egg yolk, about 18 g 3 g garlic, finely grated or minced pinch nutmeg salt and pepper, to taste" data-category="Pasta">
+      <div class="card-topline"><span class="category-pill">Pasta</span></div>
+      <h2>Classic Ricotta–Spinach Ravioli Filling</h2>
+      <p class="recipe-meta">Yields about 20–24 ravioli.</p>
+      <div class="scale-buttons" aria-label="Scale recipe">
+        <button class="active" onclick="scaleRecipe(this, 1)">1x</button>
+        <button onclick="scaleRecipe(this, 2)">2x</button>
+        <button onclick="scaleRecipe(this, 3)">3x</button>
+      </div>
+      <h3>Ingredients</h3>
+      <ul>
+          <li><span data-base="250">250</span> g ricotta</li>
+          <li>80–<span data-base="100">100</span> g cooked spinach, well squeezed</li>
+          <li><span data-base="50">50</span> g parmesan</li>
+          <li><span data-base="1">1</span> egg yolk, about <span data-base="18">18</span> g</li>
+          <li><span data-base="3">3</span> g garlic, finely grated or minced</li>
+          <li>Pinch nutmeg</li>
+          <li>Salt and pepper, to taste</li>
+      </ul>
+      <h3>Method</h3>
+      <ol>
+          <li>Squeeze spinach very dry, then chop finely.</li>
+          <li>Mix ricotta, spinach, parmesan, egg yolk, garlic, nutmeg, salt, and pepper.</li>
+          <li>Taste and adjust seasoning.</li>
+          <li>Pipe or spoon into ravioli sheets, then seal well.</li>
+      </ol>
+      <p class="note"><strong>kWen note:</strong> A food processor is optional, but pulse lightly only. You want smooth-ish, not gluey.</p>
+    </article>
+
+    <article class="recipe-card" data-title="beef &amp; pork ravioli filling pasta raw filling, freezer-safe, no pre-cooking. ground beef ground pork parmesan breadcrumbs or binder as needed egg garlic italian seasoning or herbs salt and pepper" data-category="Pasta">
+      <div class="card-topline"><span class="category-pill">Pasta</span></div>
+      <h2>Beef &amp; Pork Ravioli Filling</h2>
+      <p class="recipe-meta">Raw filling, freezer-safe, no pre-cooking.</p>
+      <div class="scale-buttons" aria-label="Scale recipe">
+        <button class="active" onclick="scaleRecipe(this, 1)">1x</button>
+        <button onclick="scaleRecipe(this, 2)">2x</button>
+        <button onclick="scaleRecipe(this, 3)">3x</button>
+      </div>
+      <h3>Ingredients</h3>
+      <ul>
+          <li>Ground beef</li>
+          <li>Ground pork</li>
+          <li>Parmesan</li>
+          <li>Breadcrumbs or binder as needed</li>
+          <li>Egg</li>
+          <li>Garlic</li>
+          <li>Italian seasoning or herbs</li>
+          <li>Salt and pepper</li>
+      </ul>
+      <h3>Method</h3>
+      <ol>
+          <li>Mix filling ingredients gently until evenly combined.</li>
+          <li>Keep chilled while rolling pasta.</li>
+          <li>Pipe or spoon small portions onto sheets.</li>
+          <li>Seal ravioli well and cook from fresh or freeze in a single layer.</li>
+      </ol>
+      <p class="note"><strong>kWen note:</strong> Saved as the official meat ravioli filling; keep chilled for easier piping.</p>
+    </article>
+
+    <article class="recipe-card" data-title="slow-rise thin crust pizza dough pizza kitchenaid mixer method, 4–5 hour rise, makes 2 pizzas. flour water yeast salt olive oil" data-category="Pizza">
+      <div class="card-topline"><span class="category-pill">Pizza</span></div>
+      <h2>Slow-Rise Thin Crust Pizza Dough</h2>
+      <p class="recipe-meta">KitchenAid mixer method, 4–5 hour rise, makes 2 pizzas.</p>
+      <div class="scale-buttons" aria-label="Scale recipe">
+        <button class="active" onclick="scaleRecipe(this, 1)">1x</button>
+        <button onclick="scaleRecipe(this, 2)">2x</button>
+        <button onclick="scaleRecipe(this, 3)">3x</button>
+      </div>
+      <h3>Ingredients</h3>
+      <ul>
+          <li>Flour</li>
+          <li>Water</li>
+          <li>Yeast</li>
+          <li>Salt</li>
+          <li>Olive oil</li>
+      </ul>
+      <h3>Method</h3>
+      <ol>
+          <li>Mix ingredients in a stand mixer until a smooth dough forms.</li>
+          <li>Knead until elastic.</li>
+          <li>Cover and rise 4–5 hours.</li>
+          <li>Divide into 2 dough balls.</li>
+          <li>Stretch thin and top as desired.</li>
+          <li>Bake hot until crisp and browned.</li>
+      </ol>
+      <p class="note"><strong>kWen note:</strong> Thin, crisp crust style. Works well when stretched for 12-inch pizzas.</p>
+    </article>
+
+    <article class="recipe-card" data-title="best buttermilk pancakes breakfast richer, more custardy buttermilk pancake style. flour sugar baking powder baking soda salt buttermilk eggs melted butter vanilla optional wild blueberries" data-category="Breakfast">
+      <div class="card-topline"><span class="category-pill">Breakfast</span></div>
+      <h2>Best Buttermilk Pancakes</h2>
+      <p class="recipe-meta">Richer, more custardy buttermilk pancake style.</p>
+      <div class="scale-buttons" aria-label="Scale recipe">
+        <button class="active" onclick="scaleRecipe(this, 1)">1x</button>
+        <button onclick="scaleRecipe(this, 2)">2x</button>
+        <button onclick="scaleRecipe(this, 3)">3x</button>
+      </div>
+      <h3>Ingredients</h3>
+      <ul>
+          <li>Flour</li>
+          <li>Sugar</li>
+          <li>Baking powder</li>
+          <li>Baking soda</li>
+          <li>Salt</li>
+          <li>Buttermilk</li>
+          <li>Eggs</li>
+          <li>Melted butter</li>
+          <li>Vanilla</li>
+          <li>Optional wild blueberries</li>
+      </ul>
+      <h3>Method</h3>
+      <ol>
+          <li>Whisk dry ingredients.</li>
+          <li>Whisk buttermilk, eggs, melted butter, and vanilla.</li>
+          <li>Combine gently; leave some small lumps.</li>
+          <li>Rest batter briefly.</li>
+          <li>Cook on a buttered griddle until golden on both sides.</li>
+          <li>Add blueberries directly to each pancake if using.</li>
+      </ol>
+      <p class="note"><strong>kWen note:</strong> Goal is richer/custardy rather than diner-style fluffy-dry.</p>
+    </article>
+
+    <article class="recipe-card" data-title="mémère’s crêpes breakfast simple sour-milk crêpes with crispy edges. 1 cup flour 1 cup sour milk, made with milk + 1 tbsp white vinegar 1 tsp baking powder 1 egg pinch salt canola oil for frying" data-category="Breakfast">
+      <div class="card-topline"><span class="category-pill">Breakfast</span></div>
+      <h2>Mémère’s Crêpes</h2>
+      <p class="recipe-meta">Simple sour-milk crêpes with crispy edges.</p>
+      <div class="scale-buttons" aria-label="Scale recipe">
+        <button class="active" onclick="scaleRecipe(this, 1)">1x</button>
+        <button onclick="scaleRecipe(this, 2)">2x</button>
+        <button onclick="scaleRecipe(this, 3)">3x</button>
+      </div>
+      <h3>Ingredients</h3>
+      <ul>
+          <li><span data-base="1">1</span> cup flour</li>
+          <li><span data-base="1">1</span> cup sour milk, made with milk + <span data-base="1">1</span> tbsp white vinegar</li>
+          <li><span data-base="1">1</span> tsp baking powder</li>
+          <li><span data-base="1">1</span> egg</li>
+          <li>Pinch salt</li>
+          <li>Canola oil for frying</li>
+      </ul>
+      <h3>Method</h3>
+      <ol>
+          <li>Mix flour, sour milk, baking powder, egg, and salt into a thin batter.</li>
+          <li>Heat a stainless pan with a little canola oil.</li>
+          <li>Pour in batter and tilt pan to spread.</li>
+          <li>Cook until edges crisp, then flip and cook the other side.</li>
+      </ol>
+      <p class="note"><strong>kWen note:</strong> The stainless pan and canola oil are part of the crispy-edge charm.</p>
+    </article>
+
+    <article class="recipe-card" data-title="classic tiramisu dessert classic layered coffee dessert. ladyfingers strong coffee or espresso mascarpone eggs or cream, depending on method sugar cocoa powder" data-category="Dessert">
+      <div class="card-topline"><span class="category-pill">Dessert</span></div>
+      <h2>Classic Tiramisu</h2>
+      <p class="recipe-meta">Classic layered coffee dessert.</p>
+      <div class="scale-buttons" aria-label="Scale recipe">
+        <button class="active" onclick="scaleRecipe(this, 1)">1x</button>
+        <button onclick="scaleRecipe(this, 2)">2x</button>
+        <button onclick="scaleRecipe(this, 3)">3x</button>
+      </div>
+      <h3>Ingredients</h3>
+      <ul>
+          <li>Ladyfingers</li>
+          <li>Strong coffee or espresso</li>
+          <li>Mascarpone</li>
+          <li>Eggs or cream, depending on method</li>
+          <li>Sugar</li>
+          <li>Cocoa powder</li>
+      </ul>
+      <h3>Method</h3>
+      <ol>
+          <li>Prepare coffee and let cool.</li>
+          <li>Make mascarpone cream.</li>
+          <li>Dip ladyfingers briefly in coffee.</li>
+          <li>Layer ladyfingers and cream.</li>
+          <li>Chill until set.</li>
+          <li>Dust with cocoa before serving.</li>
+      </ol>
+      <p class="note"><strong>kWen note:</strong> Best after a long chill so the layers settle together.</p>
+    </article>
+
+    <article class="recipe-card" data-title="traditional canadian pouding chômeur dessert classic maple/brown sugar saucy pudding. cake batter base brown sugar or maple syrup sauce cream or milk butter" data-category="Dessert">
+      <div class="card-topline"><span class="category-pill">Dessert</span></div>
+      <h2>Traditional Canadian Pouding Chômeur</h2>
+      <p class="recipe-meta">Classic maple/brown sugar saucy pudding.</p>
+      <div class="scale-buttons" aria-label="Scale recipe">
+        <button class="active" onclick="scaleRecipe(this, 1)">1x</button>
+        <button onclick="scaleRecipe(this, 2)">2x</button>
+        <button onclick="scaleRecipe(this, 3)">3x</button>
+      </div>
+      <h3>Ingredients</h3>
+      <ul>
+          <li>Cake batter base</li>
+          <li>Brown sugar or maple syrup sauce</li>
+          <li>Cream or milk</li>
+          <li>Butter</li>
+      </ul>
+      <h3>Method</h3>
+      <ol>
+          <li>Prepare cake batter and spread in baking dish.</li>
+          <li>Prepare hot syrup sauce.</li>
+          <li>Pour sauce over batter without stirring.</li>
+          <li>Bake until cake rises and sauce bubbles underneath.</li>
+      </ol>
+      <p class="note"><strong>kWen note:</strong> Serve warm. It is supposed to be saucy.</p>
+    </article>
+
+    <article class="recipe-card" data-title="sugar pie / tarte au sucre dessert canadian sugar pie with maple and cream. makes one 9-inch pie. 210 g brown sugar 40 g all-purpose flour 30 ml cornstarch 1 pinch salt 375 ml / 1 1/2 cups 35% whipping cream 125 ml / 1/2 cup maple syrup 2 pie crusts / pâte brisée milk for brushing" data-category="Dessert">
+      <div class="card-topline"><span class="category-pill">Dessert</span></div>
+      <h2>Sugar Pie / Tarte au Sucre</h2>
+      <p class="recipe-meta">Canadian sugar pie with maple and cream. Makes one 9-inch pie.</p>
+      <div class="scale-buttons" aria-label="Scale recipe">
+        <button class="active" onclick="scaleRecipe(this, 1)">1x</button>
+        <button onclick="scaleRecipe(this, 2)">2x</button>
+        <button onclick="scaleRecipe(this, 3)">3x</button>
+      </div>
+      <h3>Ingredients</h3>
+      <ul>
+          <li><span data-base="210">210</span> g brown sugar</li>
+          <li><span data-base="40">40</span> g all-purpose flour</li>
+          <li><span data-base="30">30</span> ml cornstarch</li>
+          <li><span data-base="1">1</span> pinch salt</li>
+          <li><span data-base="375">375</span> ml / <span data-base="1.5">1 1/2</span> cups <span data-base="35">35</span>% whipping cream</li>
+          <li><span data-base="125">125</span> ml / <span data-base="0.5">1/2</span> cup maple syrup</li>
+          <li><span data-base="2">2</span> pie crusts / pâte brisée</li>
+          <li>Milk for brushing</li>
+      </ul>
+      <h3>Method</h3>
+      <ol>
+          <li>In a saucepan off heat, whisk brown sugar, flour, cornstarch, and salt.</li>
+          <li>Add cream and maple syrup; mix well.</li>
+          <li>Bring to a boil while stirring, then remove from heat and cool slightly.</li>
+          <li>Line a 23 cm / 9 in pie plate with one crust and pour in filling.</li>
+          <li>Brush edges with milk.</li>
+          <li>Cut second crust into 2.5 cm / 1 in strips, brush with milk, and weave lattice over filling.</li>
+          <li>Trim and seal edges.</li>
+          <li>Bake at 400°F / 200°C on the low rack for 35–40 minutes until golden and bubbling.</li>
+      </ol>
+      <p class="note"><strong>kWen note:</strong> Serve warm or cold.</p>
+    </article>
+
+    <article class="recipe-card" data-title="old-fashioned graham pie dessert new brunswick style graham pie. 1 graham cracker crust 1/2 cup / 100 g brown sugar 1 tbsp / 8 g all-purpose flour 2 tbsp / 16 g cornstarch 3 large eggs 1 1/2 cups / 360 ml heavy cream 1 tsp vanilla extract" data-category="Dessert">
+      <div class="card-topline"><span class="category-pill">Dessert</span></div>
+      <h2>Old-Fashioned Graham Pie</h2>
+      <p class="recipe-meta">New Brunswick style graham pie.</p>
+      <div class="scale-buttons" aria-label="Scale recipe">
+        <button class="active" onclick="scaleRecipe(this, 1)">1x</button>
+        <button onclick="scaleRecipe(this, 2)">2x</button>
+        <button onclick="scaleRecipe(this, 3)">3x</button>
+      </div>
+      <h3>Ingredients</h3>
+      <ul>
+          <li><span data-base="1">1</span> graham cracker crust</li>
+          <li><span data-base="0.5">1/2</span> cup / <span data-base="100">100</span> g brown sugar</li>
+          <li><span data-base="1">1</span> tbsp / <span data-base="8">8</span> g all-purpose flour</li>
+          <li><span data-base="2">2</span> tbsp / <span data-base="16">16</span> g cornstarch</li>
+          <li><span data-base="3">3</span> large eggs</li>
+          <li><span data-base="1.5">1 1/2</span> cups / <span data-base="360">360</span> ml heavy cream</li>
+          <li><span data-base="1">1</span> tsp vanilla extract</li>
+      </ul>
+      <h3>Method</h3>
+      <ol>
+          <li>Preheat oven to 350°F / 175°C.</li>
+          <li>In a saucepan, whisk brown sugar, flour, and cornstarch.</li>
+          <li>Gradually add heavy cream, stirring constantly until thickened.</li>
+          <li>Remove from heat and stir in eggs and vanilla.</li>
+          <li>Pour into graham cracker crust.</li>
+          <li>Bake 30–35 minutes, or until set.</li>
+          <li>Cool before serving.</li>
+      </ol>
+      <p class="note"><strong>kWen note:</strong> Classic creamy brown sugar filling in a graham crust.</p>
+    </article>
+
+    <article class="recipe-card" data-title="mom’s texas brownies dessert family sheet-pan brownie/cake classic. cake: 2 cups flour 2 cups sugar 1/2 cup butter 1/2 cup shortening 1 cup coffee 1/4 cup cocoa 1/2 cup buttermilk 2 eggs 1 tsp baking soda 1 tsp vanilla frosting: 1/2 cup butter 2 tbsp cocoa 1/4 cup milk 3 1/2 cups powdered sugar 1 tbsp vanilla" data-category="Dessert">
+      <div class="card-topline"><span class="category-pill">Dessert</span></div>
+      <h2>Mom’s Texas Brownies</h2>
+      <p class="recipe-meta">Family sheet-pan brownie/cake classic.</p>
+      <div class="scale-buttons" aria-label="Scale recipe">
+        <button class="active" onclick="scaleRecipe(this, 1)">1x</button>
+        <button onclick="scaleRecipe(this, 2)">2x</button>
+        <button onclick="scaleRecipe(this, 3)">3x</button>
+      </div>
+      <h3>Ingredients</h3>
+      <ul>
+          <li>Cake: <span data-base="2">2</span> cups flour</li>
+          <li><span data-base="2">2</span> cups sugar</li>
+          <li><span data-base="0.5">1/2</span> cup butter</li>
+          <li><span data-base="0.5">1/2</span> cup shortening</li>
+          <li><span data-base="1">1</span> cup coffee</li>
+          <li><span data-base="0.25">1/4</span> cup cocoa</li>
+          <li><span data-base="0.5">1/2</span> cup buttermilk</li>
+          <li><span data-base="2">2</span> eggs</li>
+          <li><span data-base="1">1</span> tsp baking soda</li>
+          <li><span data-base="1">1</span> tsp vanilla</li>
+          <li>Frosting: <span data-base="0.5">1/2</span> cup butter</li>
+          <li><span data-base="2">2</span> tbsp cocoa</li>
+          <li><span data-base="0.25">1/4</span> cup milk</li>
+          <li><span data-base="3.5">3 1/2</span> cups powdered sugar</li>
+          <li><span data-base="1">1</span> tbsp vanilla</li>
+      </ul>
+      <h3>Method</h3>
+      <ol>
+          <li>Prepare a 17.5 x 11 inch sheet pan.</li>
+          <li>Make the cake batter with flour, sugar, butter, shortening, coffee, cocoa, buttermilk, eggs, baking soda, and vanilla.</li>
+          <li>Bake until set.</li>
+          <li>For frosting, heat butter, cocoa, and milk.</li>
+          <li>Beat in powdered sugar and vanilla.</li>
+          <li>Spread frosting over warm cake.</li>
+      </ol>
+      <p class="note"><strong>kWen note:</strong> This is the only cookbook recipe planned to include handwritten recipe imagery as a subtle background design element.</p>
+    </article>
+
+    <article class="recipe-card" data-title="coconut macarons with white chocolate coconut ganache macarons uses 100 g egg whites in shells; no coconut cream in filling. shells: 130 g almond flour 130 g icing sugar 100 g egg whites 100 g granulated sugar coconut extract filling: white chocolate cream or suitable ganache liquid coconut extract" data-category="Macarons">
+      <div class="card-topline"><span class="category-pill">Macarons</span></div>
+      <h2>Coconut Macarons with White Chocolate Coconut Ganache</h2>
+      <p class="recipe-meta">Uses 100 g egg whites in shells; no coconut cream in filling.</p>
+      <div class="scale-buttons" aria-label="Scale recipe">
+        <button class="active" onclick="scaleRecipe(this, 1)">1x</button>
+        <button onclick="scaleRecipe(this, 2)">2x</button>
+        <button onclick="scaleRecipe(this, 3)">3x</button>
+      </div>
+      <h3>Ingredients</h3>
+      <ul>
+          <li>Shells: <span data-base="130">130</span> g almond flour</li>
+          <li><span data-base="130">130</span> g icing sugar</li>
+          <li><span data-base="100">100</span> g egg whites</li>
+          <li><span data-base="100">100</span> g granulated sugar</li>
+          <li>Coconut extract</li>
+          <li>Filling: white chocolate</li>
+          <li>Cream or suitable ganache liquid</li>
+          <li>Coconut extract</li>
+      </ul>
+      <h3>Method</h3>
+      <ol>
+          <li>Prepare macaron shells using the standardized 1.3:1 base.</li>
+          <li>Macaronage to flowing lava consistency.</li>
+          <li>Pipe shells and rest until tacky.</li>
+          <li>Bake until feet form and shells are set.</li>
+          <li>Prepare white chocolate coconut ganache and cool until pipeable.</li>
+          <li>Fill and mature macarons.</li>
+      </ol>
+      <p class="note"><strong>kWen note:</strong> Part of kWen’s standardized macaron shell family.</p>
+    </article>
+
+    <article class="recipe-card" data-title="french macarons with chocolate chip ganache macarons standardized shell base with milk-based chocolate chip ganache. 130 g almond flour 130 g icing sugar 100 g egg whites 100 g granulated sugar chocolate chip ganache filling" data-category="Macarons">
+      <div class="card-topline"><span class="category-pill">Macarons</span></div>
+      <h2>French Macarons with Chocolate Chip Ganache</h2>
+      <p class="recipe-meta">Standardized shell base with milk-based chocolate chip ganache.</p>
+      <div class="scale-buttons" aria-label="Scale recipe">
+        <button class="active" onclick="scaleRecipe(this, 1)">1x</button>
+        <button onclick="scaleRecipe(this, 2)">2x</button>
+        <button onclick="scaleRecipe(this, 3)">3x</button>
+      </div>
+      <h3>Ingredients</h3>
+      <ul>
+          <li><span data-base="130">130</span> g almond flour</li>
+          <li><span data-base="130">130</span> g icing sugar</li>
+          <li><span data-base="100">100</span> g egg whites</li>
+          <li><span data-base="100">100</span> g granulated sugar</li>
+          <li>Chocolate chip ganache filling</li>
+      </ul>
+      <h3>Method</h3>
+      <ol>
+          <li>Sift almond flour and icing sugar.</li>
+          <li>Make French meringue with egg whites and granulated sugar.</li>
+          <li>Fold dry ingredients into meringue.</li>
+          <li>Pipe, rest, and bake shells.</li>
+          <li>Fill with chocolate chip ganache.</li>
+          <li>Mature in fridge before serving.</li>
+      </ol>
+      <p class="note"><strong>kWen note:</strong> Uses kWen’s standardized macaron shell ratio.</p>
+    </article>
+
+    <article class="recipe-card" data-title="og chocolate macarons with peanut butter filling macarons original pre-standardization chocolate macaron recipe. chocolate macaron shells peanut butter filling" data-category="Macarons">
+      <div class="card-topline"><span class="category-pill">Macarons</span></div>
+      <h2>OG Chocolate Macarons with Peanut Butter Filling</h2>
+      <p class="recipe-meta">Original pre-standardization chocolate macaron recipe.</p>
+      <div class="scale-buttons" aria-label="Scale recipe">
+        <button class="active" onclick="scaleRecipe(this, 1)">1x</button>
+        <button onclick="scaleRecipe(this, 2)">2x</button>
+        <button onclick="scaleRecipe(this, 3)">3x</button>
+      </div>
+      <h3>Ingredients</h3>
+      <ul>
+          <li>Chocolate macaron shells</li>
+          <li>Peanut butter filling</li>
+      </ul>
+      <h3>Method</h3>
+      <ol>
+          <li>Make chocolate macaron shells.</li>
+          <li>Prepare peanut butter filling.</li>
+          <li>Fill paired shells.</li>
+          <li>Mature before serving.</li>
+      </ol>
+      <p class="note"><strong>kWen note:</strong> Saved separately as the OG chocolate macaron recipe.</p>
+    </article>
+
+    <article class="recipe-card" data-title="garlic soy butter salmon seafood apple cider vinegar version. serves 2–3. 2–3 salmon fillets, 150–180 g / 5–6 oz each salt and pepper, to taste 1 tbsp / 14 g neutral oil sauce: 2 tbsp / 28 g butter 1 1/2 tbsp / 24 g soy sauce or tamari 3/4 tsp / 3.75 g apple cider vinegar 1 small garlic clove / about 3 g, finely minced or grated optional chili flakes or black pepper" data-category="Seafood">
+      <div class="card-topline"><span class="category-pill">Seafood</span></div>
+      <h2>Garlic Soy Butter Salmon</h2>
+      <p class="recipe-meta">Apple cider vinegar version. Serves 2–3.</p>
+      <div class="scale-buttons" aria-label="Scale recipe">
+        <button class="active" onclick="scaleRecipe(this, 1)">1x</button>
+        <button onclick="scaleRecipe(this, 2)">2x</button>
+        <button onclick="scaleRecipe(this, 3)">3x</button>
+      </div>
+      <h3>Ingredients</h3>
+      <ul>
+          <li>2–<span data-base="3">3</span> salmon fillets, 150–<span data-base="180">180</span> g / 5–<span data-base="6">6</span> oz each</li>
+          <li>Salt and pepper, to taste</li>
+          <li><span data-base="1">1</span> tbsp / <span data-base="14">14</span> g neutral oil</li>
+          <li>Sauce: <span data-base="2">2</span> tbsp / <span data-base="28">28</span> g butter</li>
+          <li><span data-base="1.5">1 1/2</span> tbsp / <span data-base="24">24</span> g soy sauce or tamari</li>
+          <li><span data-base="0.75">3/4</span> tsp / <span data-base="3.75">3.75</span> g apple cider vinegar</li>
+          <li><span data-base="1">1</span> small garlic clove / about <span data-base="3">3</span> g, finely minced or grated</li>
+          <li>Optional chili flakes or black pepper</li>
+      </ul>
+      <h3>Method</h3>
+      <ol>
+          <li>Season salmon lightly.</li>
+          <li>For pan-seared: heat oil over medium and sear skin-side down 7–8 minutes.</li>
+          <li>Flip, lower heat, and add butter. Stir in soy, vinegar, and garlic.</li>
+          <li>Baste 5–6 minutes until just cooked.</li>
+          <li>For oven-baked: heat oven to 400°F / 205°C. Place salmon skin-side down, season, spoon sauce over, and bake 15–17 minutes. Optional broil 1–2 minutes.</li>
+      </ol>
+      <p class="note"><strong>kWen note:</strong> Keep heat moderate; soy and butter can scorch. Target about 125–130°F / 52–54°C internal.</p>
+    </article>
+
+    <article class="recipe-card" data-title="maple butter salmon bites seafood sweet-savory salmon bites. salmon, cut into bite-size pieces butter maple syrup soy sauce or salt garlic pepper" data-category="Seafood">
+      <div class="card-topline"><span class="category-pill">Seafood</span></div>
+      <h2>Maple Butter Salmon Bites</h2>
+      <p class="recipe-meta">Sweet-savory salmon bites.</p>
+      <div class="scale-buttons" aria-label="Scale recipe">
+        <button class="active" onclick="scaleRecipe(this, 1)">1x</button>
+        <button onclick="scaleRecipe(this, 2)">2x</button>
+        <button onclick="scaleRecipe(this, 3)">3x</button>
+      </div>
+      <h3>Ingredients</h3>
+      <ul>
+          <li>Salmon, cut into bite-size pieces</li>
+          <li>Butter</li>
+          <li>Maple syrup</li>
+          <li>Soy sauce or salt</li>
+          <li>Garlic</li>
+          <li>Pepper</li>
+      </ul>
+      <h3>Method</h3>
+      <ol>
+          <li>Season salmon bites.</li>
+          <li>Sear in a pan until browned.</li>
+          <li>Add butter, maple, soy or salt, and garlic.</li>
+          <li>Toss until glossy and cooked through.</li>
+      </ol>
+      <p class="note"><strong>kWen note:</strong> Keep sauce moving so maple does not burn.</p>
+    </article>
+
+    <article class="recipe-card" data-title="poached haddock in tomato broth seafood low-fat mediterranean style; larger batch serves 4–6. 4 haddock fillets 1 can / 28 oz diced tomatoes 1 1/2 cups broth onion or aromatics garlic herbs salt and pepper" data-category="Seafood">
+      <div class="card-topline"><span class="category-pill">Seafood</span></div>
+      <h2>Poached Haddock in Tomato Broth</h2>
+      <p class="recipe-meta">Low-fat Mediterranean style; larger batch serves 4–6.</p>
+      <div class="scale-buttons" aria-label="Scale recipe">
+        <button class="active" onclick="scaleRecipe(this, 1)">1x</button>
+        <button onclick="scaleRecipe(this, 2)">2x</button>
+        <button onclick="scaleRecipe(this, 3)">3x</button>
+      </div>
+      <h3>Ingredients</h3>
+      <ul>
+          <li><span data-base="4">4</span> haddock fillets</li>
+          <li><span data-base="1">1</span> can / <span data-base="28">28</span> oz diced tomatoes</li>
+          <li><span data-base="1.5">1 1/2</span> cups broth</li>
+          <li>Onion or aromatics</li>
+          <li>Garlic</li>
+          <li>Herbs</li>
+          <li>Salt and pepper</li>
+      </ul>
+      <h3>Method</h3>
+      <ol>
+          <li>Build tomato broth with tomatoes, broth, aromatics, garlic, and herbs.</li>
+          <li>Simmer until flavorful.</li>
+          <li>Nestle haddock into broth.</li>
+          <li>Poach gently until fish flakes easily.</li>
+          <li>Serve with broth spooned over top.</li>
+      </ol>
+      <p class="note"><strong>kWen note:</strong> Tilapia can work as a substitute; cook gently and avoid over-poaching.</p>
+    </article>
+
+    <article class="recipe-card" data-title="fish in tomato sauce / marinara-style fish seafood flexible white fish in tomato sauce. white fish such as haddock or tilapia 28 oz canned tomatoes garlic olive oil italian herbs or basil salt and pepper optional broth as needed" data-category="Seafood">
+      <div class="card-topline"><span class="category-pill">Seafood</span></div>
+      <h2>Fish in Tomato Sauce / Marinara-Style Fish</h2>
+      <p class="recipe-meta">Flexible white fish in tomato sauce.</p>
+      <div class="scale-buttons" aria-label="Scale recipe">
+        <button class="active" onclick="scaleRecipe(this, 1)">1x</button>
+        <button onclick="scaleRecipe(this, 2)">2x</button>
+        <button onclick="scaleRecipe(this, 3)">3x</button>
+      </div>
+      <h3>Ingredients</h3>
+      <ul>
+          <li>White fish such as haddock or tilapia</li>
+          <li><span data-base="28">28</span> oz canned tomatoes</li>
+          <li>Garlic</li>
+          <li>Olive oil</li>
+          <li>Italian herbs or basil</li>
+          <li>Salt and pepper</li>
+          <li>Optional broth as needed</li>
+      </ul>
+      <h3>Method</h3>
+      <ol>
+          <li>Start sauce with olive oil and garlic.</li>
+          <li>Add tomatoes and herbs; simmer to reduce slightly.</li>
+          <li>Nestle fish in sauce.</li>
+          <li>Cover and cook gently until fish flakes.</li>
+      </ol>
+      <p class="note"><strong>kWen note:</strong> Use chicken broth if you need to loosen the sauce; beef broth would be too heavy here.</p>
+    </article>
+
+    <article class="recipe-card" data-title="chicken rice soup soup ken’s classic version with minute rice. 3 l / 12 cups chicken broth 2 chicken breasts or equivalent cooked/raw chicken 3 celery stalks, sliced 1 large carrot, shredded 3 green onions, chopped and divided 1 tbsp parsley 1 cup minute rice salt and pepper, to taste" data-category="Soup">
+      <div class="card-topline"><span class="category-pill">Soup</span></div>
+      <h2>Chicken Rice Soup</h2>
+      <p class="recipe-meta">Ken’s classic version with Minute Rice.</p>
+      <div class="scale-buttons" aria-label="Scale recipe">
+        <button class="active" onclick="scaleRecipe(this, 1)">1x</button>
+        <button onclick="scaleRecipe(this, 2)">2x</button>
+        <button onclick="scaleRecipe(this, 3)">3x</button>
+      </div>
+      <h3>Ingredients</h3>
+      <ul>
+          <li><span data-base="3">3</span> L / <span data-base="12">12</span> cups chicken broth</li>
+          <li><span data-base="2">2</span> chicken breasts or equivalent cooked/raw chicken</li>
+          <li><span data-base="3">3</span> celery stalks, sliced</li>
+          <li><span data-base="1">1</span> large carrot, shredded</li>
+          <li><span data-base="3">3</span> green onions, chopped and divided</li>
+          <li><span data-base="1">1</span> tbsp parsley</li>
+          <li><span data-base="1">1</span> cup Minute Rice</li>
+          <li>Salt and pepper, to taste</li>
+      </ul>
+      <h3>Method</h3>
+      <ol>
+          <li>Bring chicken broth to a gentle boil.</li>
+          <li>Add celery and boil about 5 minutes.</li>
+          <li>Add shredded carrot, parsley, and half the green onions. Season with salt and pepper.</li>
+          <li>Add chicken, cubed or small pieces. Simmer until cooked and tender, about 10–15 minutes raw or 5 minutes cooked.</li>
+          <li>Stir in Minute Rice and simmer 5–10 minutes until soft and slightly thickened.</li>
+          <li>Stir in remaining green onions just before serving.</li>
+      </ol>
+      <p class="note"><strong>kWen note:</strong> Works beautifully with leftover or rotisserie chicken. Add a pinch of bouillon for stronger broth if desired.</p>
+    </article>
+
+    <article class="recipe-card" data-title="italian wedding soup soup frozen meatballs and orzo version. olive oil onion carrot celery garlic 8 cups / 2 l chicken broth 500 g frozen fully cooked italian meatballs 150 g / 3/4 cup orzo 2 cups spinach oregano thyme parmesan optional lemon" data-category="Soup">
+      <div class="card-topline"><span class="category-pill">Soup</span></div>
+      <h2>Italian Wedding Soup</h2>
+      <p class="recipe-meta">Frozen meatballs and orzo version.</p>
+      <div class="scale-buttons" aria-label="Scale recipe">
+        <button class="active" onclick="scaleRecipe(this, 1)">1x</button>
+        <button onclick="scaleRecipe(this, 2)">2x</button>
+        <button onclick="scaleRecipe(this, 3)">3x</button>
+      </div>
+      <h3>Ingredients</h3>
+      <ul>
+          <li>Olive oil</li>
+          <li>Onion</li>
+          <li>Carrot</li>
+          <li>Celery</li>
+          <li>Garlic</li>
+          <li><span data-base="8">8</span> cups / <span data-base="2">2</span> L chicken broth</li>
+          <li><span data-base="500">500</span> g frozen fully cooked Italian meatballs</li>
+          <li><span data-base="150">150</span> g / <span data-base="0.75">3/4</span> cup orzo</li>
+          <li><span data-base="2">2</span> cups spinach</li>
+          <li>Oregano</li>
+          <li>Thyme</li>
+          <li>Parmesan</li>
+          <li>Optional lemon</li>
+      </ul>
+      <h3>Method</h3>
+      <ol>
+          <li>Sauté onion, carrot, celery, and garlic in olive oil.</li>
+          <li>Add chicken broth and bring to a simmer.</li>
+          <li>Add frozen meatballs and simmer until heated through.</li>
+          <li>Add orzo and cook 8–10 minutes.</li>
+          <li>Stir in spinach until wilted.</li>
+          <li>Finish with parmesan and optional lemon.</li>
+      </ol>
+      <p class="note"><strong>kWen note:</strong> Optional egg drizzle variation can be added at the end.</p>
+    </article>
+
+    <article class="recipe-card" data-title="hamburger stew soup nb classic with ground beef, potatoes, carrots, onion, tomato, and broth. ground beef potatoes carrots onion tomato or canned tomatoes broth salt and pepper optional herbs" data-category="Soup">
+      <div class="card-topline"><span class="category-pill">Soup</span></div>
+      <h2>Hamburger Stew</h2>
+      <p class="recipe-meta">NB classic with ground beef, potatoes, carrots, onion, tomato, and broth.</p>
+      <div class="scale-buttons" aria-label="Scale recipe">
+        <button class="active" onclick="scaleRecipe(this, 1)">1x</button>
+        <button onclick="scaleRecipe(this, 2)">2x</button>
+        <button onclick="scaleRecipe(this, 3)">3x</button>
+      </div>
+      <h3>Ingredients</h3>
+      <ul>
+          <li>Ground beef</li>
+          <li>Potatoes</li>
+          <li>Carrots</li>
+          <li>Onion</li>
+          <li>Tomato or canned tomatoes</li>
+          <li>Broth</li>
+          <li>Salt and pepper</li>
+          <li>Optional herbs</li>
+      </ul>
+      <h3>Method</h3>
+      <ol>
+          <li>Brown ground beef and drain excess fat if needed.</li>
+          <li>Add onion and cook until softened.</li>
+          <li>Add potatoes, carrots, tomato, and broth.</li>
+          <li>Simmer until vegetables are tender.</li>
+          <li>Season to taste and serve hot.</li>
+      </ol>
+      <p class="note"><strong>kWen note:</strong> This is the stew-style version kept in the cookbook.</p>
+    </article>
+
+    <article class="recipe-card" data-title="ground beef &amp; gravy pot pie main dishes savory beef, vegetables, brown gravy under flaky crust. ground beef mixed vegetables brown gravy pie crust salt and pepper" data-category="Main Dishes">
+      <div class="card-topline"><span class="category-pill">Main Dishes</span></div>
+      <h2>Ground Beef &amp; Gravy Pot Pie</h2>
+      <p class="recipe-meta">Savory beef, vegetables, brown gravy under flaky crust.</p>
+      <div class="scale-buttons" aria-label="Scale recipe">
+        <button class="active" onclick="scaleRecipe(this, 1)">1x</button>
+        <button onclick="scaleRecipe(this, 2)">2x</button>
+        <button onclick="scaleRecipe(this, 3)">3x</button>
+      </div>
+      <h3>Ingredients</h3>
+      <ul>
+          <li>Ground beef</li>
+          <li>Mixed vegetables</li>
+          <li>Brown gravy</li>
+          <li>Pie crust</li>
+          <li>Salt and pepper</li>
+      </ul>
+      <h3>Method</h3>
+      <ol>
+          <li>Brown ground beef.</li>
+          <li>Add vegetables and brown gravy.</li>
+          <li>Simmer until thick and savory.</li>
+          <li>Transfer to pie dish.</li>
+          <li>Top with pie crust and vent.</li>
+          <li>Bake until crust is golden and filling bubbles.</li>
+      </ol>
+      <p class="note"><strong>kWen note:</strong> Comfort food energy. Very freezer-friendly once assembled.</p>
+    </article>
+
+    <article class="recipe-card" data-title="tourtière main dishes acadian/brayon-style meat pie. ground pork and/or beef onion spices potato water or broth for binding pie dough egg wash" data-category="Main Dishes">
+      <div class="card-topline"><span class="category-pill">Main Dishes</span></div>
+      <h2>Tourtière</h2>
+      <p class="recipe-meta">Acadian/Brayon-style meat pie.</p>
+      <div class="scale-buttons" aria-label="Scale recipe">
+        <button class="active" onclick="scaleRecipe(this, 1)">1x</button>
+        <button onclick="scaleRecipe(this, 2)">2x</button>
+        <button onclick="scaleRecipe(this, 3)">3x</button>
+      </div>
+      <h3>Ingredients</h3>
+      <ul>
+          <li>Ground pork and/or beef</li>
+          <li>Onion</li>
+          <li>Spices</li>
+          <li>Potato water or broth for binding</li>
+          <li>Pie dough</li>
+          <li>Egg wash</li>
+      </ul>
+      <h3>Method</h3>
+      <ol>
+          <li>Cook meat with onion and seasonings.</li>
+          <li>Bind filling with potato water or broth as needed.</li>
+          <li>Cool filling slightly.</li>
+          <li>Fill pie shell, top with crust, crimp, and vent.</li>
+          <li>Brush with egg wash.</li>
+          <li>Bake until crust is deeply golden.</li>
+      </ol>
+      <p class="note"><strong>kWen note:</strong> Potato water is a favorite binding option for this style.</p>
+    </article>
+
+    <article class="recipe-card" data-title="dad’s chicken stew with dough boys main dishes whole chicken stew with herbes salées, rosemary, summer savory, potatoes, carrots, and dough boys. whole chicken potatoes, extra preferred a few carrots onion, boiled with chicken then removed about 1 tbsp herbes salées rosemary summer savory dough boys: flour, water, salt, olive oil" data-category="Main Dishes">
+      <div class="card-topline"><span class="category-pill">Main Dishes</span></div>
+      <h2>Dad’s Chicken Stew with Dough Boys</h2>
+      <p class="recipe-meta">Whole chicken stew with herbes salées, rosemary, summer savory, potatoes, carrots, and dough boys.</p>
+      <div class="scale-buttons" aria-label="Scale recipe">
+        <button class="active" onclick="scaleRecipe(this, 1)">1x</button>
+        <button onclick="scaleRecipe(this, 2)">2x</button>
+        <button onclick="scaleRecipe(this, 3)">3x</button>
+      </div>
+      <h3>Ingredients</h3>
+      <ul>
+          <li>Whole chicken</li>
+          <li>Potatoes, extra preferred</li>
+          <li>A few carrots</li>
+          <li>Onion, boiled with chicken then removed</li>
+          <li>About <span data-base="1">1</span> tbsp herbes salées</li>
+          <li>Rosemary</li>
+          <li>Summer savory</li>
+          <li>Dough boys: flour, water, salt, olive oil</li>
+      </ul>
+      <h3>Method</h3>
+      <ol>
+          <li>Boil whole chicken with onion until cooked and flavorful.</li>
+          <li>Remove onion and chicken. Pick chicken meat from bones.</li>
+          <li>Add potatoes, carrots, herbes salées, rosemary, and summer savory to broth.</li>
+          <li>Return chicken meat to pot.</li>
+          <li>Simmer until vegetables are tender.</li>
+          <li>Mix dough boys from flour, water, salt, and olive oil.</li>
+          <li>Drop dough into simmering stew and cook until done.</li>
+      </ol>
+      <p class="note"><strong>kWen note:</strong> Few carrots, extra potatoes — that is the house style.</p>
+    </article>
+
+    <article class="recipe-card" data-title="kwen’s korean noodles main dishes weeknight steak, longkou vermicelli, spinach, mushrooms, and green onions. steak strips longkou vermicelli spinach mushrooms green onions sauce: 1/3 cup brown sugar 1/3 cup low-sodium soy sauce 3 tbsp sesame oil 1 1/2 tbsp apple cider vinegar" data-category="Main Dishes">
+      <div class="card-topline"><span class="category-pill">Main Dishes</span></div>
+      <h2>kWen’s Korean Noodles</h2>
+      <p class="recipe-meta">Weeknight steak, Longkou vermicelli, spinach, mushrooms, and green onions.</p>
+      <div class="scale-buttons" aria-label="Scale recipe">
+        <button class="active" onclick="scaleRecipe(this, 1)">1x</button>
+        <button onclick="scaleRecipe(this, 2)">2x</button>
+        <button onclick="scaleRecipe(this, 3)">3x</button>
+      </div>
+      <h3>Ingredients</h3>
+      <ul>
+          <li>Steak strips</li>
+          <li>Longkou vermicelli</li>
+          <li>Spinach</li>
+          <li>Mushrooms</li>
+          <li>Green onions</li>
+          <li>Sauce: <span data-base="0.333333">1/3</span> cup brown sugar</li>
+          <li><span data-base="0.333333">1/3</span> cup low-sodium soy sauce</li>
+          <li><span data-base="3">3</span> tbsp sesame oil</li>
+          <li><span data-base="1.5">1 1/2</span> tbsp apple cider vinegar</li>
+      </ul>
+      <h3>Method</h3>
+      <ol>
+          <li>Mix sauce ingredients.</li>
+          <li>Marinate steak with part of the sauce.</li>
+          <li>Cook noodles according to package directions.</li>
+          <li>Stir-fry steak, mushrooms, spinach, and green onions.</li>
+          <li>Add noodles and reserved sauce to finish in the wok.</li>
+      </ol>
+      <p class="note"><strong>kWen note:</strong> Keep some marinade/sauce aside for finishing the noodles.</p>
+    </article>
+
+    <article class="recipe-card" data-title="ground pork vietnamese spring rolls main dishes gỏi cuốn with bamboo shoots sautéed in oyster sauce. rice paper wrappers ground pork bamboo shoots oyster sauce rice noodles fresh herbs lettuce or greens dipping sauce" data-category="Main Dishes">
+      <div class="card-topline"><span class="category-pill">Main Dishes</span></div>
+      <h2>Ground Pork Vietnamese Spring Rolls</h2>
+      <p class="recipe-meta">Gỏi cuốn with bamboo shoots sautéed in oyster sauce.</p>
+      <div class="scale-buttons" aria-label="Scale recipe">
+        <button class="active" onclick="scaleRecipe(this, 1)">1x</button>
+        <button onclick="scaleRecipe(this, 2)">2x</button>
+        <button onclick="scaleRecipe(this, 3)">3x</button>
+      </div>
+      <h3>Ingredients</h3>
+      <ul>
+          <li>Rice paper wrappers</li>
+          <li>Ground pork</li>
+          <li>Bamboo shoots</li>
+          <li>Oyster sauce</li>
+          <li>Rice noodles</li>
+          <li>Fresh herbs</li>
+          <li>Lettuce or greens</li>
+          <li>Dipping sauce</li>
+      </ul>
+      <h3>Method</h3>
+      <ol>
+          <li>Cook ground pork.</li>
+          <li>Sauté bamboo shoots in oyster sauce.</li>
+          <li>Prepare noodles, herbs, and greens.</li>
+          <li>Soften rice paper wrappers.</li>
+          <li>Fill with pork, bamboo shoots, noodles, and herbs.</li>
+          <li>Roll tightly and serve with dipping sauce.</li>
+      </ol>
+      <p class="note"><strong>kWen note:</strong> Fresh, savory, and great for prep-style eating.</p>
+    </article>
+
+    <article class="recipe-card" data-title="1-hour crispy skin oven-roasted chicken main dishes no overnight drying; timed to pair with roasted potatoes. whole chicken salt baking powder oil or butter if desired seasonings potatoes for separate roasting" data-category="Main Dishes">
+      <div class="card-topline"><span class="category-pill">Main Dishes</span></div>
+      <h2>1-Hour Crispy Skin Oven-Roasted Chicken</h2>
+      <p class="recipe-meta">No overnight drying; timed to pair with roasted potatoes.</p>
+      <div class="scale-buttons" aria-label="Scale recipe">
+        <button class="active" onclick="scaleRecipe(this, 1)">1x</button>
+        <button onclick="scaleRecipe(this, 2)">2x</button>
+        <button onclick="scaleRecipe(this, 3)">3x</button>
+      </div>
+      <h3>Ingredients</h3>
+      <ul>
+          <li>Whole chicken</li>
+          <li>Salt</li>
+          <li>Baking powder</li>
+          <li>Oil or butter if desired</li>
+          <li>Seasonings</li>
+          <li>Potatoes for separate roasting</li>
+      </ul>
+      <h3>Method</h3>
+      <ol>
+          <li>Preheat oven to 450°F.</li>
+          <li>Pat chicken very dry.</li>
+          <li>Season with salt, baking powder, and preferred seasonings.</li>
+          <li>Place on wire rack over cookie sheet; light trussing optional.</li>
+          <li>Roast high at 450°F, then reduce to 400°F until cooked through.</li>
+          <li>Rest before carving.</li>
+      </ol>
+      <p class="note"><strong>kWen note:</strong> Wire rack plus baking powder helps crisp skin without overnight drying.</p>
+    </article>
+
+    <article class="recipe-card" data-title="beef pho soup large batch with brisket, blade roast, bones, and oxtail. makes about 15–18 servings. beef bones oxtail brisket blade roast pho spices onion ginger fish sauce sugar salt rice noodles herbs and garnishes" data-category="Soup">
+      <div class="card-topline"><span class="category-pill">Soup</span></div>
+      <h2>Beef Pho</h2>
+      <p class="recipe-meta">Large batch with brisket, blade roast, bones, and oxtail. Makes about 15–18 servings.</p>
+      <div class="scale-buttons" aria-label="Scale recipe">
+        <button class="active" onclick="scaleRecipe(this, 1)">1x</button>
+        <button onclick="scaleRecipe(this, 2)">2x</button>
+        <button onclick="scaleRecipe(this, 3)">3x</button>
+      </div>
+      <h3>Ingredients</h3>
+      <ul>
+          <li>Beef bones</li>
+          <li>Oxtail</li>
+          <li>Brisket</li>
+          <li>Blade roast</li>
+          <li>Pho spices</li>
+          <li>Onion</li>
+          <li>Ginger</li>
+          <li>Fish sauce</li>
+          <li>Sugar</li>
+          <li>Salt</li>
+          <li>Rice noodles</li>
+          <li>Herbs and garnishes</li>
+      </ul>
+      <h3>Method</h3>
+      <ol>
+          <li>Char onion and ginger.</li>
+          <li>Parboil bones if desired, then rinse.</li>
+          <li>Simmer bones, oxtail, brisket, blade roast, spices, onion, and ginger for a rich broth.</li>
+          <li>Season with fish sauce, sugar, and salt.</li>
+          <li>Slice meats.</li>
+          <li>Serve over rice noodles with herbs and garnishes.</li>
+      </ol>
+      <p class="note"><strong>kWen note:</strong> Large-batch comfort project — not a quick weeknight soup.</p>
+    </article>
+
+    <article class="recipe-card" data-title="spanish rice with salsa &amp; tomato paste sides easy tomato-forward rice side. rice salsa tomato paste broth or water oil seasonings" data-category="Sides">
+      <div class="card-topline"><span class="category-pill">Sides</span></div>
+      <h2>Spanish Rice with Salsa &amp; Tomato Paste</h2>
+      <p class="recipe-meta">Easy tomato-forward rice side.</p>
+      <div class="scale-buttons" aria-label="Scale recipe">
+        <button class="active" onclick="scaleRecipe(this, 1)">1x</button>
+        <button onclick="scaleRecipe(this, 2)">2x</button>
+        <button onclick="scaleRecipe(this, 3)">3x</button>
+      </div>
+      <h3>Ingredients</h3>
+      <ul>
+          <li>Rice</li>
+          <li>Salsa</li>
+          <li>Tomato paste</li>
+          <li>Broth or water</li>
+          <li>Oil</li>
+          <li>Seasonings</li>
+      </ul>
+      <h3>Method</h3>
+      <ol>
+          <li>Toast rice lightly in oil.</li>
+          <li>Stir in tomato paste.</li>
+          <li>Add salsa and broth or water.</li>
+          <li>Cover and simmer until rice is tender.</li>
+          <li>Rest before fluffing.</li>
+      </ol>
+      <p class="note"><strong>kWen note:</strong> Good with tacos, grilled chicken, or BBQ plates.</p>
+    </article>
+
+    <article class="recipe-card" data-title="kwen’s bouillie main dishes yellow and green beans, cottage roll pork, baby potatoes, carrots, summer savory, served with brayon ployes. cottage roll pork yellow beans green beans baby potatoes carrots 2 tbsp summer savory ployes for serving" data-category="Main Dishes">
+      <div class="card-topline"><span class="category-pill">Main Dishes</span></div>
+      <h2>kWen’s Bouillie</h2>
+      <p class="recipe-meta">Yellow and green beans, cottage roll pork, baby potatoes, carrots, summer savory, served with Brayon ployes.</p>
+      <div class="scale-buttons" aria-label="Scale recipe">
+        <button class="active" onclick="scaleRecipe(this, 1)">1x</button>
+        <button onclick="scaleRecipe(this, 2)">2x</button>
+        <button onclick="scaleRecipe(this, 3)">3x</button>
+      </div>
+      <h3>Ingredients</h3>
+      <ul>
+          <li>Cottage roll pork</li>
+          <li>Yellow beans</li>
+          <li>Green beans</li>
+          <li>Baby potatoes</li>
+          <li>Carrots</li>
+          <li><span data-base="2">2</span> tbsp summer savory</li>
+          <li>Ployes for serving</li>
+      </ul>
+      <h3>Method</h3>
+      <ol>
+          <li>Simmer cottage roll pork until tender.</li>
+          <li>Add potatoes and carrots.</li>
+          <li>Add yellow and green beans.</li>
+          <li>Season with summer savory.</li>
+          <li>Cook until vegetables are tender and broth is flavorful.</li>
+          <li>Serve with Brayon ployes.</li>
+      </ol>
+      <p class="note"><strong>kWen note:</strong> A proper Acadian comfort dish.</p>
+    </article>
+
+    <article class="recipe-card" data-title="traditional pets de sœur dessert acadian sweet rolled buns. dough or pastry brown sugar butter cinnamon if desired" data-category="Dessert">
+      <div class="card-topline"><span class="category-pill">Dessert</span></div>
+      <h2>Traditional Pets de Sœur</h2>
+      <p class="recipe-meta">Acadian sweet rolled buns.</p>
+      <div class="scale-buttons" aria-label="Scale recipe">
+        <button class="active" onclick="scaleRecipe(this, 1)">1x</button>
+        <button onclick="scaleRecipe(this, 2)">2x</button>
+        <button onclick="scaleRecipe(this, 3)">3x</button>
+      </div>
+      <h3>Ingredients</h3>
+      <ul>
+          <li>Dough or pastry</li>
+          <li>Brown sugar</li>
+          <li>Butter</li>
+          <li>Cinnamon if desired</li>
+      </ul>
+      <h3>Method</h3>
+      <ol>
+          <li>Roll dough or pastry into a rectangle.</li>
+          <li>Spread with butter and brown sugar.</li>
+          <li>Add cinnamon if using.</li>
+          <li>Roll up and slice.</li>
+          <li>Bake until golden and sticky.</li>
+      </ol>
+      <p class="note"><strong>kWen note:</strong> Sweet, simple, nostalgic.</p>
+    </article>
+
+    <article class="recipe-card" data-title="crisco pie dough basics 4-crust version, no egg, no vinegar, kitchenaid mixer method. 2 1/2 cups / 315 g all-purpose flour 1 tsp / 6 g salt 1 cup / 200 g crisco shortening 1/4 cup / 60 ml cold water" data-category="Basics">
+      <div class="card-topline"><span class="category-pill">Basics</span></div>
+      <h2>Crisco Pie Dough</h2>
+      <p class="recipe-meta">4-crust version, no egg, no vinegar, KitchenAid mixer method.</p>
+      <div class="scale-buttons" aria-label="Scale recipe">
+        <button class="active" onclick="scaleRecipe(this, 1)">1x</button>
+        <button onclick="scaleRecipe(this, 2)">2x</button>
+        <button onclick="scaleRecipe(this, 3)">3x</button>
+      </div>
+      <h3>Ingredients</h3>
+      <ul>
+          <li><span data-base="2.5">2 1/2</span> cups / <span data-base="315">315</span> g all-purpose flour</li>
+          <li><span data-base="1">1</span> tsp / <span data-base="6">6</span> g salt</li>
+          <li><span data-base="1">1</span> cup / <span data-base="200">200</span> g Crisco shortening</li>
+          <li><span data-base="0.25">1/4</span> cup / <span data-base="60">60</span> ml cold water</li>
+      </ul>
+      <h3>Method</h3>
+      <ol>
+          <li>In KitchenAid bowl, combine flour and salt.</li>
+          <li>Using paddle attachment, cut in Crisco until mixture resembles coarse crumbs.</li>
+          <li>Gradually add cold water, mixing on low until dough begins to form.</li>
+          <li>Divide into 4 portions.</li>
+          <li>Roll each portion to fit pie dish.</li>
+      </ol>
+      <p class="note"><strong>kWen note:</strong> Use as directed for pie recipes.</p>
+    </article>
+
+    <article class="recipe-card" data-title="raos-style marinara sauces simple tomato sauce with canned tomatoes. canned tomatoes olive oil garlic onion if desired basil salt pepper" data-category="Sauces">
+      <div class="card-topline"><span class="category-pill">Sauces</span></div>
+      <h2>Raos-Style Marinara</h2>
+      <p class="recipe-meta">Simple tomato sauce with canned tomatoes.</p>
+      <div class="scale-buttons" aria-label="Scale recipe">
+        <button class="active" onclick="scaleRecipe(this, 1)">1x</button>
+        <button onclick="scaleRecipe(this, 2)">2x</button>
+        <button onclick="scaleRecipe(this, 3)">3x</button>
+      </div>
+      <h3>Ingredients</h3>
+      <ul>
+          <li>Canned tomatoes</li>
+          <li>Olive oil</li>
+          <li>Garlic</li>
+          <li>Onion if desired</li>
+          <li>Basil</li>
+          <li>Salt</li>
+          <li>Pepper</li>
+      </ul>
+      <h3>Method</h3>
+      <ol>
+          <li>Warm olive oil and gently cook garlic.</li>
+          <li>Add tomatoes and crush.</li>
+          <li>Simmer until thickened.</li>
+          <li>Season with salt, pepper, and basil.</li>
+      </ol>
+      <p class="note"><strong>kWen note:</strong> Keep it simple — good tomatoes do most of the work.</p>
+    </article>
+
+    <article class="recipe-card" data-title="scalloped potatoes sides creamy potato side dish. potatoes butter flour milk or cream cheese salt and pepper" data-category="Sides">
+      <div class="card-topline"><span class="category-pill">Sides</span></div>
+      <h2>Scalloped Potatoes</h2>
+      <p class="recipe-meta">Creamy potato side dish.</p>
+      <div class="scale-buttons" aria-label="Scale recipe">
+        <button class="active" onclick="scaleRecipe(this, 1)">1x</button>
+        <button onclick="scaleRecipe(this, 2)">2x</button>
+        <button onclick="scaleRecipe(this, 3)">3x</button>
+      </div>
+      <h3>Ingredients</h3>
+      <ul>
+          <li>Potatoes</li>
+          <li>Butter</li>
+          <li>Flour</li>
+          <li>Milk or cream</li>
+          <li>Cheese</li>
+          <li>Salt and pepper</li>
+      </ul>
+      <h3>Method</h3>
+      <ol>
+          <li>Slice potatoes thinly.</li>
+          <li>Make a creamy sauce with butter, flour, and milk or cream.</li>
+          <li>Layer potatoes with sauce and cheese.</li>
+          <li>Bake covered until tender, then uncover to brown.</li>
+      </ol>
+      <p class="note"><strong>kWen note:</strong> Cheese goes between layers and/or on top near the end depending on browning.</p>
+    </article>
+
+    <article class="recipe-card" data-title="ham dinner main dishes whole ham baked separately from scalloped potatoes. whole ham glaze or seasonings cloves optional" data-category="Main Dishes">
+      <div class="card-topline"><span class="category-pill">Main Dishes</span></div>
+      <h2>Ham Dinner</h2>
+      <p class="recipe-meta">Whole ham baked separately from scalloped potatoes.</p>
+      <div class="scale-buttons" aria-label="Scale recipe">
+        <button class="active" onclick="scaleRecipe(this, 1)">1x</button>
+        <button onclick="scaleRecipe(this, 2)">2x</button>
+        <button onclick="scaleRecipe(this, 3)">3x</button>
+      </div>
+      <h3>Ingredients</h3>
+      <ul>
+          <li>Whole ham</li>
+          <li>Glaze or seasonings</li>
+          <li>Cloves optional</li>
+      </ul>
+      <h3>Method</h3>
+      <ol>
+          <li>Bake ham according to weight and package style.</li>
+          <li>Glaze near the end if desired.</li>
+          <li>Remove cloves before slicing if whole cloves were used.</li>
+          <li>Rest, slice, and serve.</li>
+      </ol>
+      <p class="note"><strong>kWen note:</strong> Useful with one-oven holiday timing.</p>
     </article>
   </main>
-
-  <footer>
-    Built for kWen’s kitchen.
-  </footer>
-
+  <footer>Built for kWen’s kitchen.</footer>
   <script>
     function decimalToFraction(value) {
-      const sign = value < 0 ? "-" : "";
-      value = Math.abs(value);
-
-      const fractions = [
-        [0.125, "1/8"],
-        [0.25, "1/4"],
-        [0.333, "1/3"],
-        [0.375, "3/8"],
-        [0.5, "1/2"],
-        [0.625, "5/8"],
-        [0.667, "2/3"],
-        [0.75, "3/4"],
-        [0.875, "7/8"]
-      ];
-
-      const whole = Math.floor(value);
-      const decimal = +(value - whole).toFixed(3);
-
-      for (const [target, label] of fractions) {
-        if (Math.abs(decimal - target) < 0.025) {
-          return sign + (whole > 0 ? `${whole} ${label}` : label);
-        }
-      }
-
-      const rounded = Number.isInteger(value) ? value.toString() : value.toFixed(2).replace(/\.?0+$/, "");
-      return sign + rounded;
+      const sign = value < 0 ? "-" : ""; value = Math.abs(value);
+      const fractions = [[0.125,"1/8"],[0.25,"1/4"],[0.333,"1/3"],[0.375,"3/8"],[0.5,"1/2"],[0.625,"5/8"],[0.667,"2/3"],[0.75,"3/4"],[0.875,"7/8"]];
+      const whole = Math.floor(value); const decimal = +(value - whole).toFixed(3);
+      for (const [target,label] of fractions) { if (Math.abs(decimal - target) < 0.025) return sign + (whole > 0 ? `${whole} ${label}` : label); }
+      const rounded = Number.isInteger(value) ? value.toString() : value.toFixed(2).replace(/\.?0+$/, ""); return sign + rounded;
     }
-
     function scaleRecipe(button, multiplier) {
       const recipeCard = button.closest(".recipe-card");
-      const amounts = recipeCard.querySelectorAll("[data-base]");
-
-      amounts.forEach(amount => {
-        const base = parseFloat(amount.dataset.base);
-        const scaled = base * multiplier;
-        amount.textContent = decimalToFraction(scaled);
-      });
-
-      recipeCard.querySelectorAll(".scale-buttons button").forEach(btn => btn.classList.remove("active"));
-      button.classList.add("active");
-
-      recipeCard.classList.remove("scaled");
-      void recipeCard.offsetWidth;
-      recipeCard.classList.add("scaled");
+      recipeCard.querySelectorAll("[data-base]").forEach(amount => { amount.textContent = decimalToFraction(parseFloat(amount.dataset.base) * multiplier); });
+      recipeCard.querySelectorAll(".scale-buttons button").forEach(btn => btn.classList.remove("active")); button.classList.add("active");
+      recipeCard.classList.remove("scaled"); void recipeCard.offsetWidth; recipeCard.classList.add("scaled");
     }
-
-    document.getElementById("recipeSearch").addEventListener("input", function () {
-      const searchTerm = this.value.toLowerCase().trim();
+    const search = document.getElementById("recipeSearch");
+    const count = document.getElementById("recipeCount");
+    let activeFilter = "All";
+    function applyFilters() {
+      const term = search.value.toLowerCase().trim(); let visible = 0;
       document.querySelectorAll(".recipe-card").forEach(card => {
         const text = (card.innerText + " " + (card.dataset.title || "")).toLowerCase();
-        card.style.display = text.includes(searchTerm) ? "block" : "none";
+        const categoryOk = activeFilter === "All" || card.dataset.category === activeFilter;
+        const show = categoryOk && text.includes(term); card.style.display = show ? "block" : "none"; if (show) visible++;
       });
-    });
+      count.textContent = `${visible} recipe${visible === 1 ? "" : "s"} showing`;
+    }
+    search.addEventListener("input", applyFilters);
+    document.querySelectorAll(".filter-btn").forEach(btn => btn.addEventListener("click", () => {
+      activeFilter = btn.dataset.filter; document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active")); btn.classList.add("active"); applyFilters();
+    }));
+    document.querySelector('.filter-btn[data-filter="All"]').classList.add('active'); applyFilters();
   </script>
 </body>
 </html>
