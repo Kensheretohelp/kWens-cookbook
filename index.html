@@ -272,7 +272,7 @@ button, input { font:inherit; }
   border-bottom:1px solid rgba(5,55,70,.18);
   background:radial-gradient(circle at 25% 25%, rgba(255,255,255,.35), transparent 9rem), linear-gradient(135deg, rgba(220,161,15,.55), rgba(180,68,34,.35)), var(--paper);
 }
-.thumb svg { width:88px; height:88px; filter:drop-shadow(0 4px 6px rgba(0,0,0,.12)); }
+.thumb svg { width:100%; height:100%; filter:drop-shadow(0 4px 6px rgba(0,0,0,.12)); }
 .heart {
   position:absolute;
   top:8px;
@@ -378,7 +378,7 @@ button, input { font:inherit; }
   background:radial-gradient(circle at center, rgba(255,255,255,.25), transparent 8rem), linear-gradient(135deg, rgba(5,55,70,.24), rgba(220,161,15,.34)), var(--paper2);
   border-bottom:1px solid rgba(5,55,70,.16);
 }
-.detail-hero svg { width:138px; height:138px; }
+.detail-hero svg { width:100%; max-width:330px; height:190px; }
 .info-row {
   display:grid;
   grid-template-columns:repeat(3,1fr);
@@ -617,20 +617,44 @@ let activeSpecial = null;
 let selectedIndex = 0;
 let currentScale = 1;
 
-const iconPot = `<svg viewBox="0 0 120 100"><path d="M30 38h60v38c0 8-7 14-15 14H45c-8 0-15-6-15-14V38Z" fill="#9fc7bd" stroke="#053746" stroke-width="4"/><path d="M24 43h-12c-6 0-9 5-8 11 1 5 5 8 10 8h10" fill="none" stroke="#053746" stroke-width="4"/><path d="M96 43h12c6 0 9 5 8 11-1 5-5 8-10 8H96" fill="none" stroke="#053746" stroke-width="4"/><path d="M43 33c2-10 32-10 34 0" fill="none" stroke="#053746" stroke-width="4"/><path d="M24 36h72" stroke="#053746" stroke-width="4" stroke-linecap="round"/></svg>`;
-const iconPasta = `<svg viewBox="0 0 120 100"><path d="M20 70c18 20 70 20 88 0" fill="#f2d486" stroke="#053746" stroke-width="4"/><path d="M28 52c12-18 24 18 36 0s23 17 36 0" fill="none" stroke="#b44422" stroke-width="6" stroke-linecap="round"/><path d="M31 61c15-14 20 14 36 0s24 10 38-2" fill="none" stroke="#dca10f" stroke-width="6" stroke-linecap="round"/></svg>`;
-const iconPie = `<svg viewBox="0 0 120 100"><path d="M18 56c8-23 74-31 91 0v18c-10 23-77 25-91 0Z" fill="#dca10f" stroke="#053746" stroke-width="4"/><path d="M21 56c20 18 66 18 87 0" fill="none" stroke="#053746" stroke-width="3"/><path d="M38 45l20 22M58 39l22 31M80 40l18 22" stroke="#8f321c" stroke-width="4" stroke-linecap="round"/></svg>`;
-const iconSweet = `<svg viewBox="0 0 120 100"><path d="M31 75h58l8-39H23Z" fill="#f5e4c3" stroke="#053746" stroke-width="4"/><path d="M28 35c8-18 20 5 32-8 13-12 23 12 34 0 6 7 9 13 4 21H23c-3-5-1-10 5-13Z" fill="#c46a6a" stroke="#053746" stroke-width="3"/><circle cx="45" cy="41" r="3" fill="#dca10f"/><circle cx="70" cy="36" r="3" fill="#dca10f"/></svg>`;
-const iconFish = `<svg viewBox="0 0 120 100"><path d="M24 54c25-27 56-28 78 0-22 28-54 27-78 0Z" fill="#9fc7bd" stroke="#053746" stroke-width="4"/><path d="M24 54 8 35v38Z" fill="#dca10f" stroke="#053746" stroke-width="4"/><circle cx="86" cy="49" r="4" fill="#053746"/><path d="M58 32c-8 12-8 30 0 44" fill="none" stroke="#053746" stroke-width="3"/></svg>`;
 
-function iconFor(r) {
-  const t = (r.title + ' ' + r.category).toLowerCase();
-  if (t.includes('pasta') || t.includes('ravioli') || t.includes('stroganoff') || r.category.toLowerCase().includes('pasta')) return iconPasta;
-  if (t.includes('pie') || t.includes('tourti') || t.includes('cipâte')) return iconPie;
-  if (['dessert','baking','macarons'].includes(r.category.toLowerCase())) return iconSweet;
-  if (r.category.toLowerCase().includes('seafood') || t.includes('salmon') || t.includes('haddock')) return iconFish;
-  return iconPot;
+function foodScene(type) {
+  const bg = `<rect width="240" height="150" fill="#f7e3ba"/><circle cx="55" cy="28" r="42" fill="#fff7dd" opacity=".48"/><path d="M0 126 C50 116 96 132 146 122 C184 115 216 120 240 112 V150 H0Z" fill="#d8b98a" opacity=".38"/>`;
+  const bowl = `<ellipse cx="120" cy="105" rx="78" ry="25" fill="#d3c1a1" stroke="#053746" stroke-width="3"/><path d="M45 82 C58 122 183 122 195 82 Z" fill="#eee0c4" stroke="#053746" stroke-width="3"/><ellipse cx="120" cy="82" rx="76" ry="25" fill="#fff3d4" stroke="#053746" stroke-width="3"/>`;
+  const scenes = {
+    beef: `${bg}${bowl}<ellipse cx="120" cy="83" rx="62" ry="18" fill="#8b3f22"/><path d="M72 97 C104 112 148 110 174 95" fill="#fff0c4"/><path d="M82 94 C108 103 150 101 166 92" fill="none" stroke="#f1dca9" stroke-width="9" stroke-linecap="round"/><circle cx="88" cy="76" r="13" fill="#5e2d1a"/><circle cx="115" cy="83" r="15" fill="#6b321d"/><circle cx="145" cy="75" r="13" fill="#5d2a18"/><circle cx="139" cy="66" r="3" fill="#4f8b36"/><circle cx="153" cy="70" r="3" fill="#4f8b36"/><circle cx="100" cy="67" r="3" fill="#4f8b36"/>`,
+    chickenStew: `${bg}${bowl}<ellipse cx="120" cy="83" rx="62" ry="18" fill="#dcae61"/><circle cx="82" cy="78" r="12" fill="#efe2b2"/><circle cx="110" cy="72" r="12" fill="#efe2b2"/><circle cx="140" cy="83" r="11" fill="#efe2b2"/><circle cx="164" cy="75" r="9" fill="#efe2b2"/><circle cx="98" cy="90" r="8" fill="#d96c2d"/><circle cx="150" cy="91" r="8" fill="#d96c2d"/><circle cx="126" cy="91" r="8" fill="#d8b26a"/><path d="M76 66 C100 56 143 57 169 67" stroke="#4f8b36" stroke-width="3" fill="none" opacity=".7"/>`,
+    noodles: `${bg}${bowl}<ellipse cx="120" cy="84" rx="62" ry="19" fill="#c58a35"/><path d="M67 78 C88 49 104 103 125 72 S167 95 179 65" fill="none" stroke="#f0c05e" stroke-width="9" stroke-linecap="round"/><path d="M65 91 C92 60 110 108 133 80 S161 101 184 78" fill="none" stroke="#e7b14d" stroke-width="8" stroke-linecap="round"/><path d="M78 65 C102 88 133 50 162 75" fill="none" stroke="#f5d17c" stroke-width="7" stroke-linecap="round"/><circle cx="93" cy="68" r="9" fill="#6e351f"/><circle cx="151" cy="86" r="8" fill="#6e351f"/><circle cx="128" cy="63" r="3" fill="#4f8b36"/>`,
+    potPie: `${bg}<ellipse cx="120" cy="111" rx="74" ry="18" fill="#b9915d" opacity=".5"/><path d="M48 74 C60 37 179 35 193 74 V103 C178 132 63 132 48 103 Z" fill="#dca10f" stroke="#053746" stroke-width="3"/><ellipse cx="120" cy="74" rx="72" ry="27" fill="#f0bd49" stroke="#053746" stroke-width="3"/><path d="M68 65 L99 92 M96 53 L134 97 M132 51 L168 88" stroke="#8f321c" stroke-width="5" stroke-linecap="round"/><path d="M83 81 C95 93 143 95 160 82" fill="#6b321d" opacity=".65"/>`,
+    pieSlice: `${bg}<ellipse cx="120" cy="112" rx="76" ry="15" fill="#b9915d" opacity=".45"/><path d="M50 96 C72 52 155 42 194 74 C178 98 115 115 50 96Z" fill="#dca10f" stroke="#053746" stroke-width="3"/><path d="M70 91 C99 84 133 69 164 58" stroke="#8f321c" stroke-width="5" stroke-linecap="round"/><path d="M87 62 L119 101 M120 53 L150 88" stroke="#8f321c" stroke-width="4" stroke-linecap="round"/><circle cx="135" cy="82" r="10" fill="#6b321d"/><circle cx="151" cy="73" r="8" fill="#6b321d"/>`,
+    ravioli: `${bg}${bowl}<g fill="#eec36a" stroke="#053746" stroke-width="2"><rect x="72" y="61" width="34" height="27" rx="4"/><rect x="108" y="54" width="35" height="28" rx="4"/><rect x="145" y="64" width="34" height="27" rx="4"/><rect x="90" y="88" width="35" height="28" rx="4"/><rect x="129" y="89" width="34" height="27" rx="4"/></g><g fill="#4f8b36"><circle cx="88" cy="57" r="3"/><circle cx="136" cy="84" r="3"/><circle cx="158" cy="58" r="3"/></g>`,
+    salmon: `${bg}<ellipse cx="120" cy="112" rx="78" ry="18" fill="#b9915d" opacity=".45"/><path d="M55 88 C80 57 144 50 188 75 C165 112 89 120 55 88Z" fill="#d66f3d" stroke="#053746" stroke-width="3"/><path d="M74 84 C105 75 143 74 171 83" stroke="#f2b36d" stroke-width="5" stroke-linecap="round"/><circle cx="85" cy="103" r="9" fill="#d8b26a"/><circle cx="110" cy="105" r="9" fill="#d8b26a"/><circle cx="137" cy="103" r="9" fill="#d8b26a"/><path d="M153 54 C169 47 185 49 196 58" fill="none" stroke="#4f8b36" stroke-width="4"/>`,
+    fish: `${bg}${bowl}<path d="M70 80 C101 47 151 50 182 80 C151 111 101 111 70 80Z" fill="#9fc7bd" stroke="#053746" stroke-width="3"/><path d="M70 80 L47 62 V98 Z" fill="#dca10f" stroke="#053746" stroke-width="3"/><circle cx="160" cy="75" r="4" fill="#053746"/><ellipse cx="120" cy="96" rx="55" ry="12" fill="#b44422" opacity=".55"/>`,
+    loaf: `${bg}<ellipse cx="120" cy="112" rx="74" ry="16" fill="#b9915d" opacity=".45"/><path d="M55 72 C66 38 170 38 184 72 V101 C166 126 75 126 55 101 Z" fill="#b46a2a" stroke="#053746" stroke-width="3"/><path d="M61 71 C83 88 155 88 181 71" stroke="#f0bd49" stroke-width="6" fill="none"/><circle cx="97" cy="76" r="5" fill="#5e2d1a"/><circle cx="134" cy="72" r="5" fill="#5e2d1a"/>`,
+    dessert: `${bg}<ellipse cx="120" cy="113" rx="70" ry="15" fill="#b9915d" opacity=".42"/><rect x="62" y="63" width="116" height="48" rx="8" fill="#7b3f24" stroke="#053746" stroke-width="3"/><path d="M65 72 H176" stroke="#f3d3a2" stroke-width="5" opacity=".7"/><circle cx="91" cy="85" r="4" fill="#f3d3a2"/><circle cx="124" cy="92" r="4" fill="#f3d3a2"/><circle cx="152" cy="82" r="4" fill="#f3d3a2"/>`,
+    macarons: `${bg}${bowl}<g stroke="#053746" stroke-width="2"><ellipse cx="83" cy="82" rx="22" ry="12" fill="#f2d486"/><ellipse cx="83" cy="91" rx="22" ry="9" fill="#e5b64d"/><ellipse cx="121" cy="74" rx="22" ry="12" fill="#e7c2d2"/><ellipse cx="121" cy="83" rx="22" ry="9" fill="#c46a6a"/><ellipse cx="158" cy="84" rx="22" ry="12" fill="#9fc7bd"/><ellipse cx="158" cy="93" rx="22" ry="9" fill="#4f8fa8"/></g>`,
+    tiramisu: `${bg}<ellipse cx="120" cy="116" rx="74" ry="14" fill="#b9915d" opacity=".42"/><rect x="59" y="56" width="122" height="55" rx="8" fill="#f1d5a6" stroke="#053746" stroke-width="3"/><rect x="59" y="79" width="122" height="13" fill="#7b3f24" opacity=".75"/><path d="M67 64 H174 M67 100 H174" stroke="#fff3d4" stroke-width="6"/><circle cx="92" cy="69" r="3" fill="#5e2d1a"/><circle cx="130" cy="68" r="3" fill="#5e2d1a"/><circle cx="155" cy="70" r="3" fill="#5e2d1a"/>`
+  };
+  return scenes[type] || scenes.chickenStew;
 }
+function thumbFor(r) {
+  const t = (r.title + ' ' + r.category + ' ' + r.meta).toLowerCase();
+  let type = 'chickenStew';
+  if (t.includes('guinness') || (t.includes('beef') && t.includes('mash'))) type = 'beef';
+  else if (t.includes('stroganoff') || t.includes('no yolks')) type = 'noodles';
+  else if (t.includes('ravioli')) type = 'ravioli';
+  else if (t.includes('pot pie')) type = 'potPie';
+  else if (t.includes('tourti') || t.includes('cipâte') || t.includes('sugar pie')) type = 'pieSlice';
+  else if (t.includes('salmon')) type = 'salmon';
+  else if (t.includes('haddock') || t.includes('fish') || t.includes('seafood')) type = 'fish';
+  else if (t.includes('banana bread')) type = 'loaf';
+  else if (t.includes('macaron')) type = 'macarons';
+  else if (t.includes('tiramisu')) type = 'tiramisu';
+  else if (t.includes('brownie') || t.includes('dessert')) type = 'dessert';
+  return `<svg viewBox="0 0 240 150" aria-hidden="true">${foodScene(type)}</svg>`;
+}
+function iconFor(r) { return thumbFor(r); }
+
 function escapeHtml(str) {
   return String(str ?? '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
 }
