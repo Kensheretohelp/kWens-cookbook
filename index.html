@@ -1,679 +1,823 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>kWen’s Cookbook</title>
-  <style>
-    :root {
-      --bg:#f6e7cf; --card:#fff8e7; --ink:#3f2b22; --muted:#7b6256;
-      --rose:#c46a6a; --mustard:#d9a441; --teal:#3f7c78; --sky:#88aeb7;
-      --brown:#6b4432; --border:#dfbf93; --shadow:rgba(63,43,34,.16);
-    }
-    *{box-sizing:border-box} html{scroll-behavior:smooth}
-    body{margin:0;font-family:Georgia,"Times New Roman",serif;background:radial-gradient(circle at 14% 8%,rgba(196,106,106,.28),transparent 20rem),radial-gradient(circle at 82% 10%,rgba(63,124,120,.24),transparent 22rem),linear-gradient(180deg,#f1d7b7,var(--bg));color:var(--ink);line-height:1.55}
-    header{position:relative;text-align:center;padding:34px 18px 28px;color:var(--ink);border-bottom:7px solid var(--mustard);background:linear-gradient(90deg,rgba(196,106,106,.34),rgba(217,164,65,.34),rgba(63,124,120,.28)),#f7dfbd}
-    header:before,header:after{content:"";position:absolute;top:0;bottom:0;width:18px;background:repeating-linear-gradient(45deg,var(--rose) 0 10px,var(--mustard) 10px 20px,var(--teal) 20px 30px);opacity:.75}
-    header:before{left:0} header:after{right:0}
-    header h1{margin:0;font-size:clamp(2.25rem,8vw,4.4rem);letter-spacing:-.055em}
-    header p{margin:8px auto 0;max-width:760px;color:var(--brown);font-style:italic}
-    main{width:min(1080px,100%);margin:0 auto;padding:18px}
-    .toolbar{position:sticky;top:0;z-index:10;padding:14px 0;background:linear-gradient(to bottom,var(--bg) 75%,rgba(246,231,207,0))}
-    .search-box{width:100%;padding:14px 16px;border-radius:999px;border:2px solid var(--border);background:#fff8e7;color:var(--ink);font:1rem system-ui,-apple-system,Segoe UI,sans-serif;box-shadow:0 5px 16px var(--shadow)}
-    .filters{display:flex;gap:8px;overflow-x:auto;padding:10px 2px 2px}
-    .filter-btn{flex:0 0 auto;border:1px solid var(--brown);background:#f9d88f;color:var(--ink);border-radius:999px;padding:7px 12px;font-weight:700;cursor:pointer}
-    .filter-btn.active{background:var(--rose);color:#fff8e7}
-    .recipe-count{color:var(--brown);font-size:.9rem;margin:6px 4px 0;font-family:system-ui,-apple-system,Segoe UI,sans-serif}
-    .recipe-card{background:var(--card);border:2px solid var(--border);border-radius:26px;padding:21px;margin:20px 0;box-shadow:0 9px 24px var(--shadow);overflow:hidden}
-    .card-topline{display:flex;justify-content:flex-end;margin-bottom:6px}
-    .category-pill{background:var(--sky);color:#fff8e7;border:1px solid var(--teal);border-radius:999px;padding:3px 10px;font:700 .78rem system-ui,-apple-system,Segoe UI,sans-serif;letter-spacing:.03em;text-transform:uppercase}
-    .recipe-card h2{margin:0 0 6px;color:var(--rose);font-size:1.75rem;letter-spacing:-.035em}
-    .recipe-meta{margin:0 0 14px;color:var(--muted);font-style:italic}
-    .scale-buttons{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 16px}
-    .scale-buttons button{padding:8px 15px;border-radius:999px;border:1px solid var(--teal);background:#f9d88f;color:var(--ink);font-weight:900;cursor:pointer;transition:transform .15s ease,background .15s ease,color .15s ease}
-    .scale-buttons button:hover{transform:translateY(-1px) rotate(-.5deg)}
-    .scale-buttons button.active{background:var(--teal);color:#fff8e7}
-    h3{margin-top:18px;margin-bottom:8px;color:var(--teal);font-size:1.15rem}
-    ul,ol{padding-left:1.35rem} li{margin:5px 0}
-    .note{background:rgba(217,164,65,.22);border-left:5px solid var(--mustard);padding:10px 12px;border-radius:14px;color:var(--ink);margin-top:14px}
-    .hidden{display:none}
-    footer{text-align:center;padding:28px 18px 36px;color:var(--brown)}
-    @media print{.toolbar,.scale-buttons,footer{display:none} body{background:#fff} .recipe-card{break-inside:avoid;box-shadow:none}}
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>kWen’s Cookbook</title>
+<style>
+:root {
+  --teal:#9fc7bd;
+  --teal-dark:#0b4a57;
+  --teal-ink:#053746;
+  --cream:#f5e4c3;
+  --paper:#fff3d4;
+  --paper2:#f8e8c7;
+  --rust:#b44422;
+  --rust-dark:#8f321c;
+  --mustard:#dca10f;
+  --ink:#053746;
+  --muted:#6d6658;
+  --line:rgba(5,55,70,.22);
+  --shadow:0 18px 38px rgba(24,32,26,.18);
+}
+* { box-sizing:border-box; }
+body {
+  margin:0;
+  min-height:100vh;
+  color:var(--ink);
+  font-family: Georgia, "Times New Roman", serif;
+  background:
+    radial-gradient(circle at 20% 0%, rgba(220,161,15,.20), transparent 24rem),
+    radial-gradient(circle at 80% 0%, rgba(159,199,189,.34), transparent 24rem),
+    linear-gradient(180deg, #f2d9aa 0%, var(--cream) 38%, #ead0a4 100%);
+}
+body::before {
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  opacity:.22;
+  background-image:
+    linear-gradient(rgba(5,55,70,.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(5,55,70,.035) 1px, transparent 1px);
+  background-size:34px 34px;
+}
+button, input { font:inherit; }
+.app {
+  min-height:100vh;
+  display:grid;
+  grid-template-columns:292px minmax(0,1fr);
+}
+.sidebar {
+  position:sticky;
+  top:0;
+  height:100vh;
+  overflow:auto;
+  padding:24px 22px;
+  background:linear-gradient(180deg, rgba(255,255,255,.12), transparent 36%), var(--teal);
+  border-right:2px solid rgba(5,55,70,.24);
+  box-shadow:8px 0 30px rgba(5,55,70,.08);
+}
+.brand {
+  text-align:center;
+  padding-bottom:18px;
+  border-bottom:1px solid rgba(5,55,70,.28);
+  margin-bottom:16px;
+}
+.logo-title {
+  margin:0;
+  color:var(--teal-dark);
+  font-size:3rem;
+  line-height:.9;
+  letter-spacing:-.07em;
+  font-weight:900;
+}
+.logo-sub {
+  margin:10px 0 0;
+  color:var(--rust);
+  font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;
+  font-size:.86rem;
+  font-weight:800;
+  letter-spacing:.42em;
+  text-transform:uppercase;
+}
+.brand small {
+  display:block;
+  margin-top:12px;
+  color:var(--teal-ink);
+  font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;
+  font-weight:800;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+}
+.hat-svg { width:172px; max-width:100%; margin:0 auto 10px; display:block; }
+.nav-section {
+  border-bottom:1px solid rgba(5,55,70,.25);
+  padding:8px 0 12px;
+  margin-bottom:8px;
+}
+.nav-label {
+  margin:10px 0 8px;
+  color:var(--rust);
+  font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;
+  font-size:.74rem;
+  font-weight:900;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+}
+.nav-item,.cat-head,.recipe-link {
+  width:100%;
+  border:0;
+  background:transparent;
+  color:var(--teal-ink);
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:10px 8px;
+  border-radius:10px;
+  cursor:pointer;
+  text-align:left;
+  font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;
+  font-weight:850;
+  letter-spacing:.07em;
+  text-transform:uppercase;
+  font-size:.86rem;
+}
+.nav-item:hover,.cat-head:hover,.recipe-link:hover { background:rgba(255,255,255,.22); }
+.cat-head.active {
+  background:var(--mustard);
+  color:var(--teal-ink);
+  box-shadow:inset 0 -2px rgba(120,79,0,.18);
+}
+.cat-head .chev { margin-left:auto; transition:transform .2s ease; }
+.cat.open .chev { transform:rotate(90deg); }
+.recipe-list { display:none; padding:2px 0 5px 28px; }
+.cat.open .recipe-list { display:block; }
+.recipe-link {
+  text-transform:none;
+  letter-spacing:0;
+  font-family:Georgia,"Times New Roman",serif;
+  font-weight:700;
+  font-size:.92rem;
+  padding:7px 8px;
+  color:rgba(5,55,70,.88);
+}
+.recipe-link.active { color:var(--rust-dark); background:rgba(255,243,212,.48); }
+.main {
+  min-width:0;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 410px;
+  min-height:100vh;
+}
+.content {
+  padding:0 26px 34px;
+  border-right:2px solid rgba(5,55,70,.14);
+  position:relative;
+}
+.topbar {
+  position:sticky;
+  top:0;
+  z-index:20;
+  display:grid;
+  grid-template-columns:auto 1fr minmax(220px,380px);
+  align-items:center;
+  gap:18px;
+  padding:24px 0 16px;
+  background:linear-gradient(to bottom, rgba(245,228,195,.98) 75%, rgba(245,228,195,0));
+}
+.menu-toggle {
+  width:46px;
+  height:46px;
+  border:0;
+  background:transparent;
+  color:var(--rust);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+}
+.tagline {
+  justify-self:center;
+  color:var(--teal-ink);
+  font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;
+  font-size:.86rem;
+  font-weight:900;
+  letter-spacing:.32em;
+  text-transform:uppercase;
+}
+.search-wrap { position:relative; }
+.searchbox {
+  width:100%;
+  border:2px solid rgba(5,55,70,.65);
+  border-radius:999px;
+  padding:13px 46px 13px 18px;
+  background:rgba(255,243,212,.78);
+  color:var(--ink);
+  outline:none;
+  font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;
+}
+.search-icon {
+  position:absolute;
+  right:16px;
+  top:50%;
+  transform:translateY(-50%);
+  color:var(--rust);
+  font-size:1.4rem;
+}
+.hero {
+  position:relative;
+  padding:26px 6px 10px;
+  min-height:120px;
+}
+.hero h1 {
+  margin:0;
+  color:var(--rust);
+  font-family:Impact, Haettenschweiler, "Arial Narrow Bold", ui-sans-serif, sans-serif;
+  font-size:clamp(2.3rem,5vw,4.1rem);
+  line-height:.95;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  font-weight:900;
+}
+.hero p {
+  max-width:500px;
+  margin:10px 0 0;
+  font-size:1.16rem;
+  color:var(--teal-ink);
+  font-weight:700;
+}
+.hero::after {
+  content:"";
+  display:block;
+  width:min(360px,70%);
+  border-bottom:2px dashed rgba(180,68,34,.55);
+  margin-top:10px;
+}
+.hero-pot {
+  position:absolute;
+  right:18px;
+  top:20px;
+  opacity:.92;
+}
+.card-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(210px, 1fr));
+  gap:16px;
+  padding:12px 0 158px;
+}
+.recipe-card {
+  border:1.8px solid rgba(5,55,70,.24);
+  border-radius:14px;
+  background:rgba(255,243,212,.78);
+  overflow:hidden;
+  box-shadow:0 10px 18px rgba(5,55,70,.10);
+  cursor:pointer;
+  transition:transform .16s ease, box-shadow .16s ease, border-color .16s ease;
+}
+.recipe-card:hover {
+  transform:translateY(-3px);
+  box-shadow:0 16px 26px rgba(5,55,70,.16);
+}
+.recipe-card.active {
+  border-color:var(--rust);
+  box-shadow:0 0 0 3px rgba(180,68,34,.16), 0 16px 26px rgba(5,55,70,.15);
+}
+.thumb {
+  height:126px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  border-bottom:1px solid rgba(5,55,70,.18);
+  background:radial-gradient(circle at 25% 25%, rgba(255,255,255,.35), transparent 9rem), linear-gradient(135deg, rgba(220,161,15,.55), rgba(180,68,34,.35)), var(--paper);
+}
+.thumb svg { width:88px; height:88px; filter:drop-shadow(0 4px 6px rgba(0,0,0,.12)); }
+.heart {
+  position:absolute;
+  top:8px;
+  right:8px;
+  width:34px;
+  height:34px;
+  display:grid;
+  place-items:center;
+  border:1px solid rgba(180,68,34,.34);
+  border-radius:9px;
+  background:rgba(255,243,212,.85);
+  color:var(--rust);
+  font-size:1.2rem;
+}
+.heart.faved { background:var(--rust); color:var(--paper); }
+.card-body { padding:12px 14px 13px; }
+.card-body h2 {
+  min-height:52px;
+  margin:0 0 10px;
+  font-size:1.18rem;
+  line-height:1.12;
+  color:var(--teal-ink);
+  text-align:center;
+}
+.card-foot {
+  border-top:1px solid rgba(5,55,70,.18);
+  padding-top:9px;
+  display:flex;
+  gap:8px;
+  align-items:center;
+  color:var(--teal-dark);
+  font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;
+  font-weight:900;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  font-size:.72rem;
+}
+.wagon-wrap {
+  position:fixed;
+  left:318px;
+  bottom:18px;
+  z-index:1;
+  pointer-events:none;
+  display:flex;
+  align-items:flex-end;
+  gap:24px;
+  opacity:.95;
+}
+.quote {
+  font-family:"Brush Script MT","Segoe Script",cursive;
+  color:var(--teal-dark);
+  font-size:1.9rem;
+  line-height:1;
+  text-shadow:0 1px rgba(255,255,255,.5);
+}
+.quote small {
+  display:block;
+  margin-top:8px;
+  color:var(--rust);
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:1rem;
+}
+.detail {
+  position:sticky;
+  top:0;
+  height:100vh;
+  overflow:auto;
+  padding:30px 22px;
+  background:rgba(255,243,212,.42);
+}
+.detail-card {
+  background:rgba(255,243,212,.86);
+  border:1.8px solid rgba(5,55,70,.22);
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+}
+.detail-head {
+  background:linear-gradient(180deg, var(--rust), var(--rust-dark));
+  color:var(--paper);
+  padding:20px 22px;
+  display:flex;
+  gap:12px;
+  justify-content:space-between;
+}
+.detail-title {
+  margin:0;
+  font-size:1.7rem;
+  line-height:1.05;
+}
+.close-detail,.fav-detail {
+  border:0;
+  background:transparent;
+  color:var(--paper);
+  font-size:1.55rem;
+  cursor:pointer;
+}
+.detail-hero {
+  min-height:190px;
+  display:grid;
+  place-items:center;
+  background:radial-gradient(circle at center, rgba(255,255,255,.25), transparent 8rem), linear-gradient(135deg, rgba(5,55,70,.24), rgba(220,161,15,.34)), var(--paper2);
+  border-bottom:1px solid rgba(5,55,70,.16);
+}
+.detail-hero svg { width:138px; height:138px; }
+.info-row {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  border-bottom:1px solid rgba(5,55,70,.18);
+}
+.info {
+  padding:14px 10px;
+  text-align:center;
+  border-right:1px solid rgba(5,55,70,.18);
+  font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;
+  font-weight:900;
+  text-transform:uppercase;
+  font-size:.74rem;
+  letter-spacing:.08em;
+}
+.info:last-child { border-right:0; }
+.tags {
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  padding:14px 18px 0;
+}
+.tag {
+  border:1px solid rgba(5,55,70,.22);
+  background:rgba(159,199,189,.25);
+  border-radius:999px;
+  padding:5px 9px;
+  font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;
+  font-size:.75rem;
+  font-weight:800;
+}
+.scale-buttons {
+  display:flex;
+  gap:12px;
+  justify-content:center;
+  padding:18px 18px 6px;
+}
+.scale-buttons button {
+  border:0;
+  min-width:82px;
+  padding:12px 18px;
+  border-radius:8px;
+  background:rgba(5,55,70,.14);
+  color:var(--teal-ink);
+  font-weight:900;
+  cursor:pointer;
+}
+.scale-buttons button.active { background:var(--mustard); }
+.recipe-section {
+  padding:10px 22px 22px;
+}
+.recipe-section h3 {
+  margin:16px 0 9px;
+  color:var(--rust);
+  font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  font-size:.88rem;
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.recipe-section h3::after {
+  content:"";
+  height:1px;
+  flex:1;
+  border-bottom:1px dashed rgba(180,68,34,.55);
+}
+.recipe-section li { margin:7px 0; line-height:1.35; }
+.note {
+  margin-top:16px;
+  border-left:5px solid var(--mustard);
+  border-radius:12px;
+  background:rgba(220,161,15,.16);
+  padding:12px 14px;
+  color:var(--teal-ink);
+}
+.empty {
+  margin:20px 0;
+  padding:24px;
+  border:2px dashed rgba(5,55,70,.25);
+  border-radius:18px;
+  background:rgba(255,243,212,.55);
+  color:var(--muted);
+}
+.mobile-backdrop { display:none; }
+@media (max-width:1100px) {
+  .main { grid-template-columns:1fr; }
+  .detail {
+    position:fixed;
+    inset:0;
+    z-index:60;
+    transform:translateX(105%);
+    transition:.24s ease;
+    padding:18px;
+    background:rgba(245,228,195,.98);
+  }
+  body.detail-open .detail { transform:translateX(0); }
+  .close-detail { display:inline-block; }
+}
+@media (min-width:1101px) {
+  .close-detail { display:none; }
+}
+@media (max-width:820px) {
+  .app { grid-template-columns:1fr; }
+  .sidebar {
+    position:fixed;
+    z-index:80;
+    inset:0 auto 0 0;
+    width:295px;
+    transform:translateX(-105%);
+    transition:.24s ease;
+  }
+  body.menu-open .sidebar { transform:translateX(0); }
+  .mobile-backdrop {
+    display:block;
+    position:fixed;
+    inset:0;
+    background:rgba(5,55,70,.35);
+    z-index:70;
+    opacity:0;
+    pointer-events:none;
+    transition:.2s ease;
+  }
+  body.menu-open .mobile-backdrop { opacity:1; pointer-events:auto; }
+  .content { padding:0 15px 34px; border-right:0; }
+  .topbar { grid-template-columns:auto 1fr; gap:8px; padding:14px 0 10px; }
+  .menu-toggle { display:flex; }
+  .tagline { font-size:.66rem; letter-spacing:.18em; justify-self:start; }
+  .search-wrap { grid-column:1 / -1; }
+  .hero-pot { display:none; }
+  .wagon-wrap {
+    position:relative;
+    left:auto;
+    bottom:auto;
+    padding:0 0 20px;
+    flex-direction:column;
+    align-items:center;
+    gap:4px;
+  }
+  .quote { font-size:1.45rem; text-align:center; }
+  .card-grid { grid-template-columns:repeat(auto-fill, minmax(155px,1fr)); padding-bottom:20px; }
+  .thumb { height:104px; }
+  .card-body h2 { font-size:1rem; min-height:48px; }
+}
+@media print {
+  .sidebar,.topbar,.wagon-wrap,.scale-buttons,.heart,.fav-detail,.close-detail { display:none !important; }
+  .app,.main { display:block; }
+  .content { border:0; }
+  .detail { position:static; height:auto; overflow:visible; }
+  .recipe-card { break-inside:avoid; box-shadow:none; }
+}
+</style>
 </head>
 <body>
-<header>
-  <h1>kWen’s Cookbook</h1>
-  <p>Cozy classics, weeknight wins, pasta projects, freezer-friendly comfort food, and a little symmetrical oddball charm.</p>
-</header>
-<main>
-  <section class="toolbar">
-    <input class="search-box" id="recipeSearch" type="search" placeholder="Search recipes or ingredients…" aria-label="Search recipes">
-    <div class="filters" aria-label="Recipe categories"><button class="filter-btn" data-filter="All">All</button>
-<button class="filter-btn" data-filter="Baking">Baking</button>
-<button class="filter-btn" data-filter="Dessert">Dessert</button>
-<button class="filter-btn" data-filter="Main Dishes">Main Dishes</button>
-<button class="filter-btn" data-filter="Pasta">Pasta</button>
-<button class="filter-btn" data-filter="Seafood">Seafood</button>
-<button class="filter-btn" data-filter="Soup">Soup</button></div>
-    <p class="recipe-count" id="recipeCount"></p>
-  </section>
-  
-    <article class="recipe-card" data-title="moist banana bread baking basic, reliable loaf with sour cream or plain yogurt for moisture. makes 1 loaf. 3 very ripe bananas, mashed 1/2 cup butter, melted 3/4 cup brown sugar 2 large eggs 1/3 cup sour cream or plain yogurt 1 tsp vanilla extract 1 1/2 cups all-purpose flour 1 tsp baking soda 1/2 tsp salt optional: 1/2 tsp cinnamon optional: 3/4 cup walnuts or chocolate chips preheat oven to 350°f / 175°c. grease or line a standard loaf pan. mash bananas in a large bowl, then stir in melted butter. mix in brown sugar, eggs, sour cream or yogurt, and vanilla. whisk flour, baking soda, salt, and cinnamon if using. fold dry ingredients into wet ingredients just until combined. do not overmix. fold in walnuts or chocolate chips if using. bake 55–65 minutes, until a toothpick comes out clean or with a few moist crumbs. cool 10–15 minutes in the pan, then transfer to a rack before slicing. sour cream gives a richer loaf; yogurt gives a slightly tangier, lighter one." data-category="Baking">
-      <div class="card-topline"><span class="category-pill">Baking</span></div>
-      <h2>Moist Banana Bread</h2>
-      <p class="recipe-meta">Basic, reliable loaf with sour cream or plain yogurt for moisture. Makes 1 loaf.</p>
-      <div class="scale-buttons" aria-label="Scale recipe">
-        <button class="active" onclick="scaleRecipe(this, 1)">1x</button>
-        <button onclick="scaleRecipe(this, 2)">2x</button>
-        <button onclick="scaleRecipe(this, 3)">3x</button>
+<div class="mobile-backdrop" onclick="document.body.classList.remove('menu-open')"></div>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <svg class="hat-svg" viewBox="0 0 220 132" role="img" aria-label="Illustrated grey ball cap">
+        <defs><linearGradient id="hatGrad" x1="0" x2="1"><stop offset="0" stop-color="#d7d4c8"/><stop offset="1" stop-color="#eee7d7"/></linearGradient></defs>
+        <path d="M40 88 C50 30,165 20,183 88 Z" fill="url(#hatGrad)" stroke="#053746" stroke-width="2"/>
+        <path d="M44 88 C86 101,147 99,184 88" fill="none" stroke="#053746" stroke-width="2"/>
+        <path d="M31 94 C82 101,154 99,208 89 C214 91,210 102,198 106 C142 121,74 117,22 105 C12 102,13 94,31 94Z" fill="#c9c2b2" stroke="#053746" stroke-width="2"/>
+        <path d="M109 28 C104 44,103 68,106 91" fill="none" stroke="#8c887e" stroke-width="1.5"/>
+        <path d="M75 36 C68 52,65 71,65 91" fill="none" stroke="#9a958a" stroke-width="1"/>
+        <path d="M146 36 C153 52,156 71,156 91" fill="none" stroke="#9a958a" stroke-width="1"/>
+        <circle cx="77" cy="48" r="3" fill="#9a958a"/><circle cx="143" cy="48" r="3" fill="#9a958a"/>
+        <text x="110" y="77" text-anchor="middle" font-family="Impact, Arial Black, sans-serif" font-size="25" fill="#141414" transform="rotate(-2 110 77)">DESCENDENTS</text>
+      </svg>
+      <h1 class="logo-title">kWen’s</h1>
+      <div class="logo-sub">Cookbook</div>
+      <small>Good food.<br>Made with love.</small>
+    </div>
+    <div class="nav-section">
+      <button class="nav-item" onclick="setSpecial('home')">⌂ Home</button>
+      <button class="nav-item" onclick="setSpecial('favorites')">♥ Favorites</button>
+    </div>
+    <div class="nav-label">Recipes</div>
+    <div id="categoryMenu"></div>
+    <div class="nav-section">
+      <button class="nav-item" onclick="setSpecial('notes')">▤ Kitchen Notes</button>
+      <button class="nav-item" onclick="setTagFilter('Freezer Friendly')">✳ Freezer Friendly</button>
+    </div>
+  </aside>
+  <main class="main">
+    <section class="content">
+      <div class="topbar">
+        <button class="menu-toggle" onclick="document.body.classList.add('menu-open')" aria-label="Open menu">☰</button>
+        <div class="tagline">Simple ingredients. Honest recipes. Made to share.</div>
+        <div class="search-wrap"><input id="search" class="searchbox" type="search" placeholder="Search recipes..." autocomplete="off"><span class="search-icon">⌕</span></div>
       </div>
-      <h3>Ingredients</h3>
-      <ul><li><span class="qty" data-base="3.0">3</span> very ripe bananas, mashed</li>
-<li>1/2 cup butter, melted</li>
-<li>3/4 cup brown sugar</li>
-<li><span class="qty" data-base="2.0">2</span> large eggs</li>
-<li>1/3 cup sour cream or plain yogurt</li>
-<li><span class="qty" data-base="1.0">1</span> tsp vanilla extract</li>
-<li>1 1/2 cups all-purpose flour</li>
-<li><span class="qty" data-base="1.0">1</span> tsp baking soda</li>
-<li>1/2 tsp salt</li>
-<li>Optional: 1/2 tsp cinnamon</li>
-<li>Optional: 3/4 cup walnuts or chocolate chips</li></ul>
-      <h3>Method</h3>
-      <ol><li>Preheat oven to 350°F / 175°C. Grease or line a standard loaf pan.</li>
-<li>Mash bananas in a large bowl, then stir in melted butter.</li>
-<li>Mix in brown sugar, eggs, sour cream or yogurt, and vanilla.</li>
-<li>Whisk flour, baking soda, salt, and cinnamon if using.</li>
-<li>Fold dry ingredients into wet ingredients just until combined. Do not overmix.</li>
-<li>Fold in walnuts or chocolate chips if using.</li>
-<li>Bake 55–65 minutes, until a toothpick comes out clean or with a few moist crumbs.</li>
-<li>Cool 10–15 minutes in the pan, then transfer to a rack before slicing.</li></ol>
-      <p class="note"><strong>kWen note:</strong> Sour cream gives a richer loaf; yogurt gives a slightly tangier, lighter one.</p>
-    </article>
-
-    <article class="recipe-card" data-title="egg-heavy ravioli dough pasta extra-rich yolk-forward dough for ravioli. updated locked-in 250 g flour version. 250 g 00 flour 2 whole eggs 5 egg yolks 1 tbsp olive oil pinch of salt mound flour and make a deep well. add whole eggs, yolks, olive oil, and salt. beat eggs gently with a fork, gradually incorporating flour until a shaggy dough forms. knead 8–10 minutes until smooth and elastic. it may feel firm at first. wrap tightly and rest at least 1 hour at room temperature. roll thin, around marcato/atlas setting 6–7, for ravioli. if stiff, knead with lightly damp hands instead of adding water. if too soft, rest in the fridge briefly." data-category="Pasta">
-      <div class="card-topline"><span class="category-pill">Pasta</span></div>
-      <h2>Egg-Heavy Ravioli Dough</h2>
-      <p class="recipe-meta">Extra-rich yolk-forward dough for ravioli. Updated locked-in 250 g flour version.</p>
-      <div class="scale-buttons" aria-label="Scale recipe">
-        <button class="active" onclick="scaleRecipe(this, 1)">1x</button>
-        <button onclick="scaleRecipe(this, 2)">2x</button>
-        <button onclick="scaleRecipe(this, 3)">3x</button>
+      <section class="hero">
+        <svg class="hero-pot" width="90" height="74" viewBox="0 0 120 100" aria-hidden="true">
+          <path d="M30 38h60v38c0 8-7 14-15 14H45c-8 0-15-6-15-14V38Z" fill="#9fc7bd" stroke="#053746" stroke-width="4"/>
+          <path d="M24 43h-12c-6 0-9 5-8 11 1 5 5 8 10 8h10" fill="none" stroke="#053746" stroke-width="4"/>
+          <path d="M96 43h12c6 0 9 5 8 11-1 5-5 8-10 8H96" fill="none" stroke="#053746" stroke-width="4"/>
+          <path d="M43 33c2-10 32-10 34 0" fill="none" stroke="#053746" stroke-width="4"/>
+          <path d="M24 36h72" stroke="#053746" stroke-width="4" stroke-linecap="round"/>
+        </svg>
+        <h1 id="pageTitle">Main Dishes</h1>
+        <p id="pageSubtitle">Hearty, comforting, and made to bring everyone to the table.</p>
+      </section>
+      <section id="grid" class="card-grid"></section>
+      <div class="wagon-wrap" aria-hidden="true">
+        <svg width="410" height="152" viewBox="0 0 540 200">
+          <path d="M28 162 C84 170,404 170,500 154" fill="none" stroke="#0b4a57" stroke-width="2" opacity=".45"/>
+          <path d="M80 112 L130 70 L370 65 L458 107 L496 139 L78 144 Z" fill="#ead2a4" stroke="#053746" stroke-width="3"/>
+          <path d="M128 73 L160 45 L315 45 L368 65 Z" fill="#f0e0bd" stroke="#053746" stroke-width="3"/>
+          <path d="M166 52 H224 V89 H140 Z" fill="#b8d2cd" stroke="#053746" stroke-width="2"/>
+          <path d="M232 52 H303 L344 89 H232 Z" fill="#b8d2cd" stroke="#053746" stroke-width="2"/>
+          <path d="M355 88 L429 112 L457 138 H360 Z" fill="#d7caa8" stroke="#053746" stroke-width="2"/>
+          <path d="M87 112 H470 L496 139 H72 Z" fill="#b98639" stroke="#053746" stroke-width="3"/>
+          <path d="M95 118 H455" stroke="#6b431e" stroke-width="8"/>
+          <path d="M99 135 H486" stroke="#6b431e" stroke-width="5"/>
+          <circle cx="154" cy="147" r="28" fill="#192f34" stroke="#053746" stroke-width="4"/>
+          <circle cx="154" cy="147" r="13" fill="#ead2a4" stroke="#053746" stroke-width="3"/>
+          <circle cx="408" cy="147" r="28" fill="#192f34" stroke="#053746" stroke-width="4"/>
+          <circle cx="408" cy="147" r="13" fill="#ead2a4" stroke="#053746" stroke-width="3"/>
+          <path d="M120 42 H319" stroke="#053746" stroke-width="4"/>
+          <path d="M53 138 H82 M492 137 H515" stroke="#dca10f" stroke-width="5" stroke-linecap="round"/>
+        </svg>
+        <div class="quote">George Johnson<small>“don’t worry be happy”</small></div>
       </div>
-      <h3>Ingredients</h3>
-      <ul><li><span class="qty" data-base="250.0">250</span> g <span class="qty" data-base="0.0">00</span> flour</li>
-<li><span class="qty" data-base="2.0">2</span> whole eggs</li>
-<li><span class="qty" data-base="5.0">5</span> egg yolks</li>
-<li><span class="qty" data-base="1.0">1</span> tbsp olive oil</li>
-<li>Pinch of salt</li></ul>
-      <h3>Method</h3>
-      <ol><li>Mound flour and make a deep well.</li>
-<li>Add whole eggs, yolks, olive oil, and salt.</li>
-<li>Beat eggs gently with a fork, gradually incorporating flour until a shaggy dough forms.</li>
-<li>Knead 8–10 minutes until smooth and elastic. It may feel firm at first.</li>
-<li>Wrap tightly and rest at least 1 hour at room temperature.</li>
-<li>Roll thin, around Marcato/Atlas setting 6–7, for ravioli.</li></ol>
-      <p class="note"><strong>kWen note:</strong> If stiff, knead with lightly damp hands instead of adding water. If too soft, rest in the fridge briefly.</p>
-    </article>
-
-    <article class="recipe-card" data-title="beef &amp; pork ravioli filling pasta half-batch raw filling matched to one 250 g ravioli dough batch. freezer-safe. 125 g ground beef 125 g ground pork 25 g parmesan, finely grated 1/2 egg, beaten 1–2 cloves garlic, about 5 g, minced 1/2 tsp salt 1/4 tsp black pepper optional: pinch nutmeg or italian seasoning optional breadcrumbs only if mixture feels loose mix filling ingredients gently until evenly combined. keep chilled while rolling pasta. pipe or spoon small portions onto sheets. seal ravioli well and cook from fresh or freeze in a single layer. official meat ravioli filling. designed to match one batch of the 250 g flour ravioli dough and yield about 20–24 ravioli." data-category="Pasta">
-      <div class="card-topline"><span class="category-pill">Pasta</span></div>
-      <h2>Beef &amp; Pork Ravioli Filling</h2>
-      <p class="recipe-meta">Half-batch raw filling matched to one 250 g ravioli dough batch. Freezer-safe.</p>
-      <div class="scale-buttons" aria-label="Scale recipe">
-        <button class="active" onclick="scaleRecipe(this, 1)">1x</button>
-        <button onclick="scaleRecipe(this, 2)">2x</button>
-        <button onclick="scaleRecipe(this, 3)">3x</button>
+    </section>
+    <aside class="detail" id="detail">
+      <div class="detail-card">
+        <div class="detail-head">
+          <h2 class="detail-title" id="detailTitle"></h2>
+          <div>
+            <button class="fav-detail" id="favDetail" aria-label="Favorite">♡</button>
+            <button class="close-detail" onclick="document.body.classList.remove('detail-open')" aria-label="Close">×</button>
+          </div>
+        </div>
+        <div class="detail-hero" id="detailIcon"></div>
+        <div class="info-row">
+          <div class="info">Serves<br><span id="detailServes">—</span></div>
+          <div class="info">Type<br><span id="detailCategory">—</span></div>
+          <div class="info">Prep<br><span>Kitchen</span></div>
+        </div>
+        <div class="tags" id="detailTags"></div>
+        <div class="scale-buttons">
+          <button class="active" onclick="setScale(1, this)">1x</button>
+          <button onclick="setScale(2, this)">2x</button>
+          <button onclick="setScale(3, this)">3x</button>
+        </div>
+        <div class="recipe-section">
+          <h3>Ingredients</h3>
+          <ul id="detailIngredients"></ul>
+          <h3>Method</h3>
+          <ol id="detailMethod"></ol>
+          <div class="note" id="detailNote"></div>
+        </div>
       </div>
-      <h3>Ingredients</h3>
-      <ul><li><span class="qty" data-base="125.0">125</span> g ground beef</li>
-<li><span class="qty" data-base="125.0">125</span> g ground pork</li>
-<li><span class="qty" data-base="25.0">25</span> g parmesan, finely grated</li>
-<li>1/2 egg, beaten</li>
-<li><span class="qty" data-base="1.0">1</span>–<span class="qty" data-base="2.0">2</span> cloves garlic, about <span class="qty" data-base="5.0">5</span> g, minced</li>
-<li>1/2 tsp salt</li>
-<li>1/4 tsp black pepper</li>
-<li>Optional: pinch nutmeg or Italian seasoning</li>
-<li>Optional breadcrumbs only if mixture feels loose</li></ul>
-      <h3>Method</h3>
-      <ol><li>Mix filling ingredients gently until evenly combined.</li>
-<li>Keep chilled while rolling pasta.</li>
-<li>Pipe or spoon small portions onto sheets.</li>
-<li>Seal ravioli well and cook from fresh or freeze in a single layer.</li></ol>
-      <p class="note"><strong>kWen note:</strong> Official meat ravioli filling. Designed to match one batch of the 250 g flour ravioli dough and yield about 20–24 ravioli.</p>
-    </article>
-
-    <article class="recipe-card" data-title="classic ricotta–spinach ravioli filling pasta classic filling. yields about 20–24 ravioli. 250 g ricotta 80–100 g cooked spinach, well squeezed 50 g parmesan 1 egg yolk, about 18 g 3 g garlic, finely grated or minced pinch nutmeg salt and pepper, to taste squeeze spinach very dry, then chop finely. mix ricotta, spinach, parmesan, egg yolk, garlic, nutmeg, salt, and pepper. taste and adjust seasoning. pipe or spoon into ravioli sheets, then seal well. a food processor is optional, but pulse lightly only. you want smooth-ish, not gluey." data-category="Pasta">
-      <div class="card-topline"><span class="category-pill">Pasta</span></div>
-      <h2>Classic Ricotta–Spinach Ravioli Filling</h2>
-      <p class="recipe-meta">Classic filling. Yields about 20–24 ravioli.</p>
-      <div class="scale-buttons" aria-label="Scale recipe">
-        <button class="active" onclick="scaleRecipe(this, 1)">1x</button>
-        <button onclick="scaleRecipe(this, 2)">2x</button>
-        <button onclick="scaleRecipe(this, 3)">3x</button>
-      </div>
-      <h3>Ingredients</h3>
-      <ul><li><span class="qty" data-base="250.0">250</span> g ricotta</li>
-<li><span class="qty" data-base="80.0">80</span>–<span class="qty" data-base="100.0">100</span> g cooked spinach, well squeezed</li>
-<li><span class="qty" data-base="50.0">50</span> g parmesan</li>
-<li><span class="qty" data-base="1.0">1</span> egg yolk, about <span class="qty" data-base="18.0">18</span> g</li>
-<li><span class="qty" data-base="3.0">3</span> g garlic, finely grated or minced</li>
-<li>Pinch nutmeg</li>
-<li>Salt and pepper, to taste</li></ul>
-      <h3>Method</h3>
-      <ol><li>Squeeze spinach very dry, then chop finely.</li>
-<li>Mix ricotta, spinach, parmesan, egg yolk, garlic, nutmeg, salt, and pepper.</li>
-<li>Taste and adjust seasoning.</li>
-<li>Pipe or spoon into ravioli sheets, then seal well.</li></ol>
-      <p class="note"><strong>kWen note:</strong> A food processor is optional, but pulse lightly only. You want smooth-ish, not gluey.</p>
-    </article>
-
-    <article class="recipe-card" data-title="beef stroganoff with striploin &amp; no yolks noodles main dishes updated locked-in version with striploin, mushrooms, sour cream, and no yolks noodles. 450–600 g striploin steak, sliced into strips salt and pepper, to taste 2 tbsp butter, divided 1 tbsp oil 225 g mushrooms, sliced 1 small onion, sliced or diced 2 cloves garlic, minced 2 cups beef broth 1 tbsp dijon mustard 1 tbsp worcestershire sauce 1–2 tbsp flour, as needed for thickening 1/2 cup sour cream 1 bag no yolks noodles season steak strips with salt and pepper. sear steak quickly in oil and a little butter until browned but not fully cooked through. remove and reserve. add remaining butter, mushrooms, and onion. cook until softened and mushrooms release moisture. add garlic and cook 30–60 seconds. sprinkle in flour and stir to coat the vegetables. add beef broth, dijon, and worcestershire. simmer until the sauce coats a spoon and closes slowly when dragged through. reduce heat or remove from heat briefly, then stir in sour cream so it does not split. return steak and juices to the sauce just to finish warming through. cook no yolks noodles according to package directions and serve with stroganoff over top. the sauce should be noticeably thicker before sour cream goes in. if it still looks watery, reduce 2–4 minutes more." data-category="Main Dishes">
-      <div class="card-topline"><span class="category-pill">Main Dishes</span></div>
-      <h2>Beef Stroganoff with Striploin &amp; No Yolks Noodles</h2>
-      <p class="recipe-meta">Updated locked-in version with striploin, mushrooms, sour cream, and No Yolks noodles.</p>
-      <div class="scale-buttons" aria-label="Scale recipe">
-        <button class="active" onclick="scaleRecipe(this, 1)">1x</button>
-        <button onclick="scaleRecipe(this, 2)">2x</button>
-        <button onclick="scaleRecipe(this, 3)">3x</button>
-      </div>
-      <h3>Ingredients</h3>
-      <ul><li><span class="qty" data-base="450.0">450</span>–<span class="qty" data-base="600.0">600</span> g striploin steak, sliced into strips</li>
-<li>Salt and pepper, to taste</li>
-<li><span class="qty" data-base="2.0">2</span> tbsp butter, divided</li>
-<li><span class="qty" data-base="1.0">1</span> tbsp oil</li>
-<li><span class="qty" data-base="225.0">225</span> g mushrooms, sliced</li>
-<li><span class="qty" data-base="1.0">1</span> small onion, sliced or diced</li>
-<li><span class="qty" data-base="2.0">2</span> cloves garlic, minced</li>
-<li><span class="qty" data-base="2.0">2</span> cups beef broth</li>
-<li><span class="qty" data-base="1.0">1</span> tbsp Dijon mustard</li>
-<li><span class="qty" data-base="1.0">1</span> tbsp Worcestershire sauce</li>
-<li><span class="qty" data-base="1.0">1</span>–<span class="qty" data-base="2.0">2</span> tbsp flour, as needed for thickening</li>
-<li>1/2 cup sour cream</li>
-<li><span class="qty" data-base="1.0">1</span> bag No Yolks noodles</li></ul>
-      <h3>Method</h3>
-      <ol><li>Season steak strips with salt and pepper.</li>
-<li>Sear steak quickly in oil and a little butter until browned but not fully cooked through. Remove and reserve.</li>
-<li>Add remaining butter, mushrooms, and onion. Cook until softened and mushrooms release moisture.</li>
-<li>Add garlic and cook 30–60 seconds.</li>
-<li>Sprinkle in flour and stir to coat the vegetables.</li>
-<li>Add beef broth, Dijon, and Worcestershire. Simmer until the sauce coats a spoon and closes slowly when dragged through.</li>
-<li>Reduce heat or remove from heat briefly, then stir in sour cream so it does not split.</li>
-<li>Return steak and juices to the sauce just to finish warming through.</li>
-<li>Cook No Yolks noodles according to package directions and serve with stroganoff over top.</li></ol>
-      <p class="note"><strong>kWen note:</strong> The sauce should be noticeably thicker before sour cream goes in. If it still looks watery, reduce 2–4 minutes more.</p>
-    </article>
-
-    <article class="recipe-card" data-title="kwen’s classic chicken stew soup whole chicken stew with potatoes, optional carrots, herbes salées, rosemary, summer savory, and rolled dough boys. 1 whole chicken, about 4–5 lb / 1.8–2.3 kg 10–12 cups water 1 large onion, peeled and halved 5–6 medium potatoes, peeled and cubed 2–3 carrots, sliced, optional 1 tbsp herbes salées 1 tsp dried rosemary 1 tbsp summer savory salt and black pepper, to taste dough boys: 2 cups / 250 g flour 1 tsp salt 2 tbsp olive oil about 3/4 cup / 180 ml water, enough for a soft dough place whole chicken in a large stockpot and cover with water. add onion, rosemary, summer savory, and herbes salées. bring to a gentle boil, then reduce heat and simmer 1 1/2–2 hours, skimming foam as needed, until chicken is tender. remove chicken and cool slightly. discard onion. pull chicken from bones and return meat to the pot. discard skin and bones. add carrots and simmer 5–10 minutes. while carrots simmer, mix flour and salt for the dough. add olive oil and enough water to form a smooth dough. knead briefly, roll out on a lightly floured surface, and cut into small squares or rectangles. add cubed potatoes to the stew. shortly after adding potatoes, drop in the dough pieces. simmer until potatoes are fork tender and dough is cooked through, about 10–15 minutes. taste and adjust salt and pepper before serving. no celery and no baking powder. the dough and cubed potatoes should finish cooking at roughly the same time." data-category="Soup">
-      <div class="card-topline"><span class="category-pill">Soup</span></div>
-      <h2>kWen’s Classic Chicken Stew</h2>
-      <p class="recipe-meta">Whole chicken stew with potatoes, optional carrots, herbes salées, rosemary, summer savory, and rolled dough boys.</p>
-      <div class="scale-buttons" aria-label="Scale recipe">
-        <button class="active" onclick="scaleRecipe(this, 1)">1x</button>
-        <button onclick="scaleRecipe(this, 2)">2x</button>
-        <button onclick="scaleRecipe(this, 3)">3x</button>
-      </div>
-      <h3>Ingredients</h3>
-      <ul><li><span class="qty" data-base="1.0">1</span> whole chicken, about <span class="qty" data-base="4.0">4</span>–<span class="qty" data-base="5.0">5</span> lb / <span class="qty" data-base="1.8">1.8</span>–<span class="qty" data-base="2.3">2.3</span> kg</li>
-<li><span class="qty" data-base="10.0">10</span>–<span class="qty" data-base="12.0">12</span> cups water</li>
-<li><span class="qty" data-base="1.0">1</span> large onion, peeled and halved</li>
-<li><span class="qty" data-base="5.0">5</span>–<span class="qty" data-base="6.0">6</span> medium potatoes, peeled and cubed</li>
-<li><span class="qty" data-base="2.0">2</span>–<span class="qty" data-base="3.0">3</span> carrots, sliced, optional</li>
-<li><span class="qty" data-base="1.0">1</span> tbsp herbes salées</li>
-<li><span class="qty" data-base="1.0">1</span> tsp dried rosemary</li>
-<li><span class="qty" data-base="1.0">1</span> tbsp summer savory</li>
-<li>Salt and black pepper, to taste</li>
-<li>Dough boys: <span class="qty" data-base="2.0">2</span> cups / <span class="qty" data-base="250.0">250</span> g flour</li>
-<li><span class="qty" data-base="1.0">1</span> tsp salt</li>
-<li><span class="qty" data-base="2.0">2</span> tbsp olive oil</li>
-<li>About 3/4 cup / <span class="qty" data-base="180.0">180</span> ml water, enough for a soft dough</li></ul>
-      <h3>Method</h3>
-      <ol><li>Place whole chicken in a large stockpot and cover with water. Add onion, rosemary, summer savory, and herbes salées.</li>
-<li>Bring to a gentle boil, then reduce heat and simmer 1 1/2–2 hours, skimming foam as needed, until chicken is tender.</li>
-<li>Remove chicken and cool slightly. Discard onion.</li>
-<li>Pull chicken from bones and return meat to the pot. Discard skin and bones.</li>
-<li>Add carrots and simmer 5–10 minutes.</li>
-<li>While carrots simmer, mix flour and salt for the dough. Add olive oil and enough water to form a smooth dough.</li>
-<li>Knead briefly, roll out on a lightly floured surface, and cut into small squares or rectangles.</li>
-<li>Add cubed potatoes to the stew.</li>
-<li>Shortly after adding potatoes, drop in the dough pieces.</li>
-<li>Simmer until potatoes are fork tender and dough is cooked through, about 10–15 minutes.</li>
-<li>Taste and adjust salt and pepper before serving.</li></ol>
-      <p class="note"><strong>kWen note:</strong> No celery and no baking powder. The dough and cubed potatoes should finish cooking at roughly the same time.</p>
-    </article>
-
-    <article class="recipe-card" data-title="kwen’s cipâte main dishes long-cooked french canadian layered meat pie with meatballs, cubed meats, potatoes, onions, broth, and rolled oil dough. 1 lb / 450 g small meatballs or ground beef, formed about 1 inch or smaller 1 lb / 450 g cubed beef 1 lb / 450 g cubed chicken 1 lb / 450 g cubed veal or lamb 5–6 medium potatoes, peeled and diced small 2 large onions, sliced salt and black pepper, liberally 1 tbsp summer savory 1 tbsp parsley dough: 5 cups / 625 g flour 2 tsp salt 1/2 cup / 120 ml oil about 1 1/2 cups / 360 ml water, enough for a soft dough 6–10 cups chicken broth, plus more as needed through cooking mix flour and salt for the dough. add oil and enough water to form a smooth workable dough. knead briefly and divide into portions. season meats generously with salt, pepper, summer savory, and parsley. roll dough portions into thin sheets for layering. in a large deep roasting pan or heavy dutch oven, layer meat, potatoes, sliced onions, and a sheet of dough. repeat the layers until the dish is full. pour chicken broth over the layers until very well moistened but not overflowing. cover tightly and cook hot for the first hour, around 400°f / 205°c. turn oven off overnight and leave the cipâte inside. the next morning, turn oven very low, around 225–250°f / 110–120°c, and cook another 10–12 hours at a gentle simmer. add chicken broth repeatedly through the day so it stays moist and never dries out. the long cook is the heart of the recipe. dough softens into tender layers and potatoes absorb the meat juices and broth." data-category="Main Dishes">
-      <div class="card-topline"><span class="category-pill">Main Dishes</span></div>
-      <h2>kWen’s Cipâte</h2>
-      <p class="recipe-meta">Long-cooked French Canadian layered meat pie with meatballs, cubed meats, potatoes, onions, broth, and rolled oil dough.</p>
-      <div class="scale-buttons" aria-label="Scale recipe">
-        <button class="active" onclick="scaleRecipe(this, 1)">1x</button>
-        <button onclick="scaleRecipe(this, 2)">2x</button>
-        <button onclick="scaleRecipe(this, 3)">3x</button>
-      </div>
-      <h3>Ingredients</h3>
-      <ul><li><span class="qty" data-base="1.0">1</span> lb / <span class="qty" data-base="450.0">450</span> g small meatballs or ground beef, formed about <span class="qty" data-base="1.0">1</span> inch or smaller</li>
-<li><span class="qty" data-base="1.0">1</span> lb / <span class="qty" data-base="450.0">450</span> g cubed beef</li>
-<li><span class="qty" data-base="1.0">1</span> lb / <span class="qty" data-base="450.0">450</span> g cubed chicken</li>
-<li><span class="qty" data-base="1.0">1</span> lb / <span class="qty" data-base="450.0">450</span> g cubed veal or lamb</li>
-<li><span class="qty" data-base="5.0">5</span>–<span class="qty" data-base="6.0">6</span> medium potatoes, peeled and diced small</li>
-<li><span class="qty" data-base="2.0">2</span> large onions, sliced</li>
-<li>Salt and black pepper, liberally</li>
-<li><span class="qty" data-base="1.0">1</span> tbsp summer savory</li>
-<li><span class="qty" data-base="1.0">1</span> tbsp parsley</li>
-<li>Dough: <span class="qty" data-base="5.0">5</span> cups / <span class="qty" data-base="625.0">625</span> g flour</li>
-<li><span class="qty" data-base="2.0">2</span> tsp salt</li>
-<li>1/2 cup / <span class="qty" data-base="120.0">120</span> ml oil</li>
-<li>About 1 1/2 cups / <span class="qty" data-base="360.0">360</span> ml water, enough for a soft dough</li>
-<li><span class="qty" data-base="6.0">6</span>–<span class="qty" data-base="10.0">10</span> cups chicken broth, plus more as needed through cooking</li></ul>
-      <h3>Method</h3>
-      <ol><li>Mix flour and salt for the dough. Add oil and enough water to form a smooth workable dough. Knead briefly and divide into portions.</li>
-<li>Season meats generously with salt, pepper, summer savory, and parsley.</li>
-<li>Roll dough portions into thin sheets for layering.</li>
-<li>In a large deep roasting pan or heavy Dutch oven, layer meat, potatoes, sliced onions, and a sheet of dough.</li>
-<li>Repeat the layers until the dish is full.</li>
-<li>Pour chicken broth over the layers until very well moistened but not overflowing.</li>
-<li>Cover tightly and cook hot for the first hour, around 400°F / 205°C.</li>
-<li>Turn oven off overnight and leave the cipâte inside.</li>
-<li>The next morning, turn oven very low, around 225–250°F / 110–120°C, and cook another 10–12 hours at a gentle simmer.</li>
-<li>Add chicken broth repeatedly through the day so it stays moist and never dries out.</li></ol>
-      <p class="note"><strong>kWen note:</strong> The long cook is the heart of the recipe. Dough softens into tender layers and potatoes absorb the meat juices and broth.</p>
-    </article>
-
-    <article class="recipe-card" data-title="braised beef pot pie main dishes chuck or blade roast braised until tender in rich gravy, finished under flaky pie crust or puff pastry. 2 1/2 lb / 1.1 kg chuck roast, blade roast, or stewing beef, cut into chunks salt and black pepper 2 tbsp flour 2 tbsp oil 1 large onion, diced 3 carrots, sliced 225 g mushrooms, sliced 4 cloves garlic, minced 2 tbsp tomato paste 2 cups beef broth 1 cup red wine or extra broth 1 tbsp worcestershire sauce 1 tsp thyme 1 tsp rosemary 1 bay leaf pie dough or puff pastry for topping pat beef dry, season generously, and toss lightly with flour. brown beef deeply in batches in a dutch oven with oil. remove and set aside. cook onion, carrots, and mushrooms in the same pot until softened and mushrooms release moisture. add garlic and tomato paste and cook 1–2 minutes. deglaze with red wine or broth, scraping up browned bits. return beef to the pot. add beef broth, worcestershire, thyme, rosemary, and bay leaf. cover and braise at 325°f / 163°c for about 3 hours, until fork tender. remove lid for the last 20–30 minutes if needed to thicken. remove bay leaf. cool filling slightly, transfer to a pie dish, and top with pie crust or puff pastry. bake at 400°f / 205°c for 40–50 minutes, until golden and bubbling. freezer-friendly. best frozen as filling, then topped with fresh pastry before baking." data-category="Main Dishes">
-      <div class="card-topline"><span class="category-pill">Main Dishes</span></div>
-      <h2>Braised Beef Pot Pie</h2>
-      <p class="recipe-meta">Chuck or blade roast braised until tender in rich gravy, finished under flaky pie crust or puff pastry.</p>
-      <div class="scale-buttons" aria-label="Scale recipe">
-        <button class="active" onclick="scaleRecipe(this, 1)">1x</button>
-        <button onclick="scaleRecipe(this, 2)">2x</button>
-        <button onclick="scaleRecipe(this, 3)">3x</button>
-      </div>
-      <h3>Ingredients</h3>
-      <ul><li>2 1/2 lb / <span class="qty" data-base="1.1">1.1</span> kg chuck roast, blade roast, or stewing beef, cut into chunks</li>
-<li>Salt and black pepper</li>
-<li><span class="qty" data-base="2.0">2</span> tbsp flour</li>
-<li><span class="qty" data-base="2.0">2</span> tbsp oil</li>
-<li><span class="qty" data-base="1.0">1</span> large onion, diced</li>
-<li><span class="qty" data-base="3.0">3</span> carrots, sliced</li>
-<li><span class="qty" data-base="225.0">225</span> g mushrooms, sliced</li>
-<li><span class="qty" data-base="4.0">4</span> cloves garlic, minced</li>
-<li><span class="qty" data-base="2.0">2</span> tbsp tomato paste</li>
-<li><span class="qty" data-base="2.0">2</span> cups beef broth</li>
-<li><span class="qty" data-base="1.0">1</span> cup red wine or extra broth</li>
-<li><span class="qty" data-base="1.0">1</span> tbsp Worcestershire sauce</li>
-<li><span class="qty" data-base="1.0">1</span> tsp thyme</li>
-<li><span class="qty" data-base="1.0">1</span> tsp rosemary</li>
-<li><span class="qty" data-base="1.0">1</span> bay leaf</li>
-<li>Pie dough or puff pastry for topping</li></ul>
-      <h3>Method</h3>
-      <ol><li>Pat beef dry, season generously, and toss lightly with flour.</li>
-<li>Brown beef deeply in batches in a Dutch oven with oil. Remove and set aside.</li>
-<li>Cook onion, carrots, and mushrooms in the same pot until softened and mushrooms release moisture.</li>
-<li>Add garlic and tomato paste and cook 1–2 minutes.</li>
-<li>Deglaze with red wine or broth, scraping up browned bits.</li>
-<li>Return beef to the pot. Add beef broth, Worcestershire, thyme, rosemary, and bay leaf.</li>
-<li>Cover and braise at 325°F / 163°C for about 3 hours, until fork tender.</li>
-<li>Remove lid for the last 20–30 minutes if needed to thicken. Remove bay leaf.</li>
-<li>Cool filling slightly, transfer to a pie dish, and top with pie crust or puff pastry.</li>
-<li>Bake at 400°F / 205°C for 40–50 minutes, until golden and bubbling.</li></ol>
-      <p class="note"><strong>kWen note:</strong> Freezer-friendly. Best frozen as filling, then topped with fresh pastry before baking.</p>
-    </article>
-
-    <article class="recipe-card" data-title="kwen’s guinness beef stew with irish cheddar mash main dishes dark, rich guinness beef stew ladled over creamy cheddar mashed potatoes. stew: 3 lb / 1.4 kg chuck roast, blade roast, or stewing beef, cut into chunks salt and black pepper 3 tbsp flour 2 tbsp oil 2 large onions, diced 3 carrots, sliced 225 g mushrooms, sliced 4 cloves garlic, minced 2 tbsp tomato paste 1 tbsp worcestershire sauce 1 tsp thyme 1 bay leaf 1 can guinness stout, 440–500 ml 3 cups / 720 ml beef broth mash: 3 lb / 1.4 kg yukon gold potatoes 4 tbsp / 56 g butter 1/2–3/4 cup / 120–180 ml milk or cream 2 cups / 200 g sharp irish cheddar, shredded 3 green onions, sliced salt and pepper pat beef dry, season generously, and toss lightly with flour. brown beef deeply in batches in a dutch oven. remove and reserve. cook onions 5–7 minutes, then add carrots and mushrooms. cook until mushrooms release moisture. add garlic, tomato paste, worcestershire, and thyme. cook 1–2 minutes. pour in guinness and scrape up browned bits. simmer about 5 minutes to mellow bitterness. return beef to the pot. add beef broth and bay leaf. cover and braise at 325°f / 163°c for 3–3 1/2 hours, until beef is very tender. remove lid during the final 20–30 minutes if needed to thicken. remove bay leaf and adjust seasoning. for mash, boil potatoes in salted water until fork tender. drain well. mash with butter and milk or cream, then stir in cheddar and green onions. season to taste. serve stew ladled generously over cheddar mash. no cabbage in this version. guinness should add roasted depth without tasting harsh." data-category="Main Dishes">
-      <div class="card-topline"><span class="category-pill">Main Dishes</span></div>
-      <h2>kWen’s Guinness Beef Stew with Irish Cheddar Mash</h2>
-      <p class="recipe-meta">Dark, rich Guinness beef stew ladled over creamy cheddar mashed potatoes.</p>
-      <div class="scale-buttons" aria-label="Scale recipe">
-        <button class="active" onclick="scaleRecipe(this, 1)">1x</button>
-        <button onclick="scaleRecipe(this, 2)">2x</button>
-        <button onclick="scaleRecipe(this, 3)">3x</button>
-      </div>
-      <h3>Ingredients</h3>
-      <ul><li>Stew: <span class="qty" data-base="3.0">3</span> lb / <span class="qty" data-base="1.4">1.4</span> kg chuck roast, blade roast, or stewing beef, cut into chunks</li>
-<li>Salt and black pepper</li>
-<li><span class="qty" data-base="3.0">3</span> tbsp flour</li>
-<li><span class="qty" data-base="2.0">2</span> tbsp oil</li>
-<li><span class="qty" data-base="2.0">2</span> large onions, diced</li>
-<li><span class="qty" data-base="3.0">3</span> carrots, sliced</li>
-<li><span class="qty" data-base="225.0">225</span> g mushrooms, sliced</li>
-<li><span class="qty" data-base="4.0">4</span> cloves garlic, minced</li>
-<li><span class="qty" data-base="2.0">2</span> tbsp tomato paste</li>
-<li><span class="qty" data-base="1.0">1</span> tbsp Worcestershire sauce</li>
-<li><span class="qty" data-base="1.0">1</span> tsp thyme</li>
-<li><span class="qty" data-base="1.0">1</span> bay leaf</li>
-<li><span class="qty" data-base="1.0">1</span> can Guinness stout, <span class="qty" data-base="440.0">440</span>–<span class="qty" data-base="500.0">500</span> ml</li>
-<li><span class="qty" data-base="3.0">3</span> cups / <span class="qty" data-base="720.0">720</span> ml beef broth</li>
-<li>Mash: <span class="qty" data-base="3.0">3</span> lb / <span class="qty" data-base="1.4">1.4</span> kg Yukon Gold potatoes</li>
-<li><span class="qty" data-base="4.0">4</span> tbsp / <span class="qty" data-base="56.0">56</span> g butter</li>
-<li>1/2–3/4 cup / <span class="qty" data-base="120.0">120</span>–<span class="qty" data-base="180.0">180</span> ml milk or cream</li>
-<li><span class="qty" data-base="2.0">2</span> cups / <span class="qty" data-base="200.0">200</span> g sharp Irish cheddar, shredded</li>
-<li><span class="qty" data-base="3.0">3</span> green onions, sliced</li>
-<li>Salt and pepper</li></ul>
-      <h3>Method</h3>
-      <ol><li>Pat beef dry, season generously, and toss lightly with flour.</li>
-<li>Brown beef deeply in batches in a Dutch oven. Remove and reserve.</li>
-<li>Cook onions 5–7 minutes, then add carrots and mushrooms. Cook until mushrooms release moisture.</li>
-<li>Add garlic, tomato paste, Worcestershire, and thyme. Cook 1–2 minutes.</li>
-<li>Pour in Guinness and scrape up browned bits. Simmer about 5 minutes to mellow bitterness.</li>
-<li>Return beef to the pot. Add beef broth and bay leaf.</li>
-<li>Cover and braise at 325°F / 163°C for 3–3 1/2 hours, until beef is very tender.</li>
-<li>Remove lid during the final 20–30 minutes if needed to thicken. Remove bay leaf and adjust seasoning.</li>
-<li>For mash, boil potatoes in salted water until fork tender. Drain well.</li>
-<li>Mash with butter and milk or cream, then stir in cheddar and green onions. Season to taste.</li>
-<li>Serve stew ladled generously over cheddar mash.</li></ol>
-      <p class="note"><strong>kWen note:</strong> No cabbage in this version. Guinness should add roasted depth without tasting harsh.</p>
-    </article>
-
-    <article class="recipe-card" data-title="italian wedding soup soup frozen meatballs and orzo version. olive oil 1 onion 1 carrot 1 celery stalk garlic 8 cups / 2 l chicken broth 500 g frozen fully cooked italian meatballs 150 g / 3/4 cup orzo 2 cups spinach oregano thyme parmesan optional lemon sauté onion, carrot, celery, and garlic in olive oil. add chicken broth and bring to a simmer. add frozen meatballs and simmer until heated through. add orzo and cook 8–10 minutes. stir in spinach until wilted. finish with parmesan and optional lemon. optional egg drizzle variation can be added at the end." data-category="Soup">
-      <div class="card-topline"><span class="category-pill">Soup</span></div>
-      <h2>Italian Wedding Soup</h2>
-      <p class="recipe-meta">Frozen meatballs and orzo version.</p>
-      <div class="scale-buttons" aria-label="Scale recipe">
-        <button class="active" onclick="scaleRecipe(this, 1)">1x</button>
-        <button onclick="scaleRecipe(this, 2)">2x</button>
-        <button onclick="scaleRecipe(this, 3)">3x</button>
-      </div>
-      <h3>Ingredients</h3>
-      <ul><li>Olive oil</li>
-<li><span class="qty" data-base="1.0">1</span> onion</li>
-<li><span class="qty" data-base="1.0">1</span> carrot</li>
-<li><span class="qty" data-base="1.0">1</span> celery stalk</li>
-<li>Garlic</li>
-<li><span class="qty" data-base="8.0">8</span> cups / <span class="qty" data-base="2.0">2</span> L chicken broth</li>
-<li><span class="qty" data-base="500.0">500</span> g frozen fully cooked Italian meatballs</li>
-<li><span class="qty" data-base="150.0">150</span> g / 3/4 cup orzo</li>
-<li><span class="qty" data-base="2.0">2</span> cups spinach</li>
-<li>Oregano</li>
-<li>Thyme</li>
-<li>Parmesan</li>
-<li>Optional lemon</li></ul>
-      <h3>Method</h3>
-      <ol><li>Sauté onion, carrot, celery, and garlic in olive oil.</li>
-<li>Add chicken broth and bring to a simmer.</li>
-<li>Add frozen meatballs and simmer until heated through.</li>
-<li>Add orzo and cook 8–10 minutes.</li>
-<li>Stir in spinach until wilted.</li>
-<li>Finish with parmesan and optional lemon.</li></ol>
-      <p class="note"><strong>kWen note:</strong> Optional egg drizzle variation can be added at the end.</p>
-    </article>
-
-    <article class="recipe-card" data-title="hamburger stew soup nb classic with ground beef, potatoes, carrots, onion, tomato, and broth. 1 lb / 450 g ground beef 4 medium potatoes, diced 2 carrots, sliced 1 onion, diced 1 can / 28 oz diced tomatoes or 2 cups chopped tomato 4 cups beef or chicken broth 1 tsp salt, plus more to taste 1/2 tsp pepper optional: 1 tsp savory, parsley, or italian herbs brown ground beef and drain excess fat if needed. add onion and cook until softened. add potatoes, carrots, tomato, and broth. simmer until vegetables are tender. season to taste and serve hot. this is the stew-style version kept in the cookbook." data-category="Soup">
-      <div class="card-topline"><span class="category-pill">Soup</span></div>
-      <h2>Hamburger Stew</h2>
-      <p class="recipe-meta">NB classic with ground beef, potatoes, carrots, onion, tomato, and broth.</p>
-      <div class="scale-buttons" aria-label="Scale recipe">
-        <button class="active" onclick="scaleRecipe(this, 1)">1x</button>
-        <button onclick="scaleRecipe(this, 2)">2x</button>
-        <button onclick="scaleRecipe(this, 3)">3x</button>
-      </div>
-      <h3>Ingredients</h3>
-      <ul><li><span class="qty" data-base="1.0">1</span> lb / <span class="qty" data-base="450.0">450</span> g ground beef</li>
-<li><span class="qty" data-base="4.0">4</span> medium potatoes, diced</li>
-<li><span class="qty" data-base="2.0">2</span> carrots, sliced</li>
-<li><span class="qty" data-base="1.0">1</span> onion, diced</li>
-<li><span class="qty" data-base="1.0">1</span> can / <span class="qty" data-base="28.0">28</span> oz diced tomatoes or <span class="qty" data-base="2.0">2</span> cups chopped tomato</li>
-<li><span class="qty" data-base="4.0">4</span> cups beef or chicken broth</li>
-<li><span class="qty" data-base="1.0">1</span> tsp salt, plus more to taste</li>
-<li>1/2 tsp pepper</li>
-<li>Optional: <span class="qty" data-base="1.0">1</span> tsp savory, parsley, or Italian herbs</li></ul>
-      <h3>Method</h3>
-      <ol><li>Brown ground beef and drain excess fat if needed.</li>
-<li>Add onion and cook until softened.</li>
-<li>Add potatoes, carrots, tomato, and broth.</li>
-<li>Simmer until vegetables are tender.</li>
-<li>Season to taste and serve hot.</li></ol>
-      <p class="note"><strong>kWen note:</strong> This is the stew-style version kept in the cookbook.</p>
-    </article>
-
-    <article class="recipe-card" data-title="ground beef &amp; gravy pot pie main dishes savory beef, vegetables, brown gravy under flaky crust. 1 lb / 450 g ground beef 2 cups mixed vegetables 2 cups brown gravy 1 pie crust, top crust salt and pepper, to taste brown ground beef. add vegetables and brown gravy. simmer until thick and savory. transfer to pie dish. top with pie crust and vent. bake until crust is golden and filling bubbles. comfort food energy. very freezer-friendly once assembled." data-category="Main Dishes">
-      <div class="card-topline"><span class="category-pill">Main Dishes</span></div>
-      <h2>Ground Beef &amp; Gravy Pot Pie</h2>
-      <p class="recipe-meta">Savory beef, vegetables, brown gravy under flaky crust.</p>
-      <div class="scale-buttons" aria-label="Scale recipe">
-        <button class="active" onclick="scaleRecipe(this, 1)">1x</button>
-        <button onclick="scaleRecipe(this, 2)">2x</button>
-        <button onclick="scaleRecipe(this, 3)">3x</button>
-      </div>
-      <h3>Ingredients</h3>
-      <ul><li><span class="qty" data-base="1.0">1</span> lb / <span class="qty" data-base="450.0">450</span> g ground beef</li>
-<li><span class="qty" data-base="2.0">2</span> cups mixed vegetables</li>
-<li><span class="qty" data-base="2.0">2</span> cups brown gravy</li>
-<li><span class="qty" data-base="1.0">1</span> pie crust, top crust</li>
-<li>Salt and pepper, to taste</li></ul>
-      <h3>Method</h3>
-      <ol><li>Brown ground beef.</li>
-<li>Add vegetables and brown gravy.</li>
-<li>Simmer until thick and savory.</li>
-<li>Transfer to pie dish.</li>
-<li>Top with pie crust and vent.</li>
-<li>Bake until crust is golden and filling bubbles.</li></ol>
-      <p class="note"><strong>kWen note:</strong> Comfort food energy. Very freezer-friendly once assembled.</p>
-    </article>
-
-    <article class="recipe-card" data-title="tourtière main dishes acadian/brayon-style meat pie. ground pork and/or beef onion potato water or broth for binding summer savory salt and pepper pie crust egg wash cook meat with onion and seasoning until tender and savory. use potato water or broth to bind the filling. cool filling slightly. fill pie crust, top with second crust, vent, and brush with egg wash. bake until crust is golden and filling is hot. family-style savory meat pie; potato water can be used instead of broth." data-category="Main Dishes">
-      <div class="card-topline"><span class="category-pill">Main Dishes</span></div>
-      <h2>Tourtière</h2>
-      <p class="recipe-meta">Acadian/Brayon-style meat pie.</p>
-      <div class="scale-buttons" aria-label="Scale recipe">
-        <button class="active" onclick="scaleRecipe(this, 1)">1x</button>
-        <button onclick="scaleRecipe(this, 2)">2x</button>
-        <button onclick="scaleRecipe(this, 3)">3x</button>
-      </div>
-      <h3>Ingredients</h3>
-      <ul><li>Ground pork and/or beef</li>
-<li>Onion</li>
-<li>Potato water or broth for binding</li>
-<li>Summer savory</li>
-<li>Salt and pepper</li>
-<li>Pie crust</li>
-<li>Egg wash</li></ul>
-      <h3>Method</h3>
-      <ol><li>Cook meat with onion and seasoning until tender and savory.</li>
-<li>Use potato water or broth to bind the filling.</li>
-<li>Cool filling slightly.</li>
-<li>Fill pie crust, top with second crust, vent, and brush with egg wash.</li>
-<li>Bake until crust is golden and filling is hot.</li></ol>
-      <p class="note"><strong>kWen note:</strong> Family-style savory meat pie; potato water can be used instead of broth.</p>
-    </article>
-
-    <article class="recipe-card" data-title="garlic soy butter salmon seafood apple cider vinegar version with updated cook times. 2–3 salmon fillets, 150–180 g each salt and pepper 1 tbsp neutral oil 2 tbsp / 28 g butter 1 1/2 tbsp / 24 g soy sauce or tamari 3/4 tsp / 3.75 g apple cider vinegar 1 small garlic clove, about 3 g optional chili flakes or black pepper season salmon lightly. for pan-seared: heat oil over medium and sear skin-side down 7–8 minutes. flip, lower heat, add butter, soy, vinegar, and garlic. baste 5–6 minutes until just cooked. for oven-baked: bake skin-side down at 400°f / 205°c for 15–17 minutes, spooning sauce over before baking. optional broil 1–2 minutes. keep heat moderate because soy and butter can scorch. if sharp, add 1/2 tsp honey or maple." data-category="Seafood">
-      <div class="card-topline"><span class="category-pill">Seafood</span></div>
-      <h2>Garlic Soy Butter Salmon</h2>
-      <p class="recipe-meta">Apple cider vinegar version with updated cook times.</p>
-      <div class="scale-buttons" aria-label="Scale recipe">
-        <button class="active" onclick="scaleRecipe(this, 1)">1x</button>
-        <button onclick="scaleRecipe(this, 2)">2x</button>
-        <button onclick="scaleRecipe(this, 3)">3x</button>
-      </div>
-      <h3>Ingredients</h3>
-      <ul><li><span class="qty" data-base="2.0">2</span>–<span class="qty" data-base="3.0">3</span> salmon fillets, <span class="qty" data-base="150.0">150</span>–<span class="qty" data-base="180.0">180</span> g each</li>
-<li>Salt and pepper</li>
-<li><span class="qty" data-base="1.0">1</span> tbsp neutral oil</li>
-<li><span class="qty" data-base="2.0">2</span> tbsp / <span class="qty" data-base="28.0">28</span> g butter</li>
-<li>1 1/2 tbsp / <span class="qty" data-base="24.0">24</span> g soy sauce or tamari</li>
-<li>3/4 tsp / <span class="qty" data-base="3.75">3.75</span> g apple cider vinegar</li>
-<li><span class="qty" data-base="1.0">1</span> small garlic clove, about <span class="qty" data-base="3.0">3</span> g</li>
-<li>Optional chili flakes or black pepper</li></ul>
-      <h3>Method</h3>
-      <ol><li>Season salmon lightly.</li>
-<li>For pan-seared: heat oil over medium and sear skin-side down 7–8 minutes.</li>
-<li>Flip, lower heat, add butter, soy, vinegar, and garlic.</li>
-<li>Baste 5–6 minutes until just cooked.</li>
-<li>For oven-baked: bake skin-side down at 400°F / 205°C for 15–17 minutes, spooning sauce over before baking. Optional broil 1–2 minutes.</li></ol>
-      <p class="note"><strong>kWen note:</strong> Keep heat moderate because soy and butter can scorch. If sharp, add 1/2 tsp honey or maple.</p>
-    </article>
-
-    <article class="recipe-card" data-title="poached haddock in tomato broth seafood low-fat mediterranean-style fish in tomato broth. 4 haddock fillets 1 can / 28 oz diced tomatoes 1 1/2 cups broth garlic onion olive oil italian herbs or parsley salt and pepper sauté onion and garlic lightly in olive oil. add tomatoes, broth, herbs, salt, and pepper. simmer to develop flavor. nestle haddock into broth and gently poach until fish flakes easily. works with tilapia too; adjust cook time based on thickness." data-category="Seafood">
-      <div class="card-topline"><span class="category-pill">Seafood</span></div>
-      <h2>Poached Haddock in Tomato Broth</h2>
-      <p class="recipe-meta">Low-fat Mediterranean-style fish in tomato broth.</p>
-      <div class="scale-buttons" aria-label="Scale recipe">
-        <button class="active" onclick="scaleRecipe(this, 1)">1x</button>
-        <button onclick="scaleRecipe(this, 2)">2x</button>
-        <button onclick="scaleRecipe(this, 3)">3x</button>
-      </div>
-      <h3>Ingredients</h3>
-      <ul><li><span class="qty" data-base="4.0">4</span> haddock fillets</li>
-<li><span class="qty" data-base="1.0">1</span> can / <span class="qty" data-base="28.0">28</span> oz diced tomatoes</li>
-<li>1 1/2 cups broth</li>
-<li>Garlic</li>
-<li>Onion</li>
-<li>Olive oil</li>
-<li>Italian herbs or parsley</li>
-<li>Salt and pepper</li></ul>
-      <h3>Method</h3>
-      <ol><li>Sauté onion and garlic lightly in olive oil.</li>
-<li>Add tomatoes, broth, herbs, salt, and pepper.</li>
-<li>Simmer to develop flavor.</li>
-<li>Nestle haddock into broth and gently poach until fish flakes easily.</li></ol>
-      <p class="note"><strong>kWen note:</strong> Works with tilapia too; adjust cook time based on thickness.</p>
-    </article>
-
-    <article class="recipe-card" data-title="sugar pie / tarte au sucre dessert canadian sugar pie with maple and cream. makes one 9-inch pie. 210 g brown sugar 40 g all-purpose flour 30 ml cornstarch 1 pinch salt 375 ml / 1 1/2 cups 35% whipping cream 125 ml / 1/2 cup maple syrup 2 pie crusts / pâte brisée milk for brushing in a saucepan off heat, whisk brown sugar, flour, cornstarch, and salt. add cream and maple syrup; mix well. bring to a boil while stirring, then remove from heat and cool slightly. line a 23 cm / 9 in pie plate with one crust and pour in filling. brush edges with milk. cut second crust into 2.5 cm / 1 in strips, brush with milk, and weave lattice over filling. trim and seal edges. bake at 400°f / 200°c on the low rack for 35–40 minutes until golden and bubbling. serve warm or cold." data-category="Dessert">
-      <div class="card-topline"><span class="category-pill">Dessert</span></div>
-      <h2>Sugar Pie / Tarte au Sucre</h2>
-      <p class="recipe-meta">Canadian sugar pie with maple and cream. Makes one 9-inch pie.</p>
-      <div class="scale-buttons" aria-label="Scale recipe">
-        <button class="active" onclick="scaleRecipe(this, 1)">1x</button>
-        <button onclick="scaleRecipe(this, 2)">2x</button>
-        <button onclick="scaleRecipe(this, 3)">3x</button>
-      </div>
-      <h3>Ingredients</h3>
-      <ul><li><span class="qty" data-base="210.0">210</span> g brown sugar</li>
-<li><span class="qty" data-base="40.0">40</span> g all-purpose flour</li>
-<li><span class="qty" data-base="30.0">30</span> ml cornstarch</li>
-<li><span class="qty" data-base="1.0">1</span> pinch salt</li>
-<li><span class="qty" data-base="375.0">375</span> ml / 1 1/2 cups <span class="qty" data-base="35.0">35</span>% whipping cream</li>
-<li><span class="qty" data-base="125.0">125</span> ml / 1/2 cup maple syrup</li>
-<li><span class="qty" data-base="2.0">2</span> pie crusts / pâte brisée</li>
-<li>Milk for brushing</li></ul>
-      <h3>Method</h3>
-      <ol><li>In a saucepan off heat, whisk brown sugar, flour, cornstarch, and salt.</li>
-<li>Add cream and maple syrup; mix well.</li>
-<li>Bring to a boil while stirring, then remove from heat and cool slightly.</li>
-<li>Line a 23 cm / 9 in pie plate with one crust and pour in filling.</li>
-<li>Brush edges with milk.</li>
-<li>Cut second crust into 2.5 cm / 1 in strips, brush with milk, and weave lattice over filling.</li>
-<li>Trim and seal edges.</li>
-<li>Bake at 400°F / 200°C on the low rack for 35–40 minutes until golden and bubbling.</li></ol>
-      <p class="note"><strong>kWen note:</strong> Serve warm or cold.</p>
-    </article>
-
-    <article class="recipe-card" data-title="mom’s texas brownies dessert family sheet-pan brownie/cake classic. cake: 2 cups flour 2 cups sugar 1/2 cup butter 1/2 cup shortening 1 cup coffee 1/4 cup cocoa 1/2 cup buttermilk 2 eggs 1 tsp baking soda 1 tsp vanilla frosting: 1/2 cup butter 2 tbsp cocoa 1/4 cup milk 3 1/2 cups powdered sugar 1 tbsp vanilla prepare a 17.5 x 11 inch sheet pan. make cake batter with flour, sugar, butter, shortening, coffee, cocoa, buttermilk, eggs, baking soda, and vanilla. bake until set. for frosting, heat butter, cocoa, and milk. beat in powdered sugar and vanilla. spread frosting over warm cake. this is the only cookbook recipe planned to include handwritten recipe imagery as a subtle background design element." data-category="Dessert">
-      <div class="card-topline"><span class="category-pill">Dessert</span></div>
-      <h2>Mom’s Texas Brownies</h2>
-      <p class="recipe-meta">Family sheet-pan brownie/cake classic.</p>
-      <div class="scale-buttons" aria-label="Scale recipe">
-        <button class="active" onclick="scaleRecipe(this, 1)">1x</button>
-        <button onclick="scaleRecipe(this, 2)">2x</button>
-        <button onclick="scaleRecipe(this, 3)">3x</button>
-      </div>
-      <h3>Ingredients</h3>
-      <ul><li>Cake: <span class="qty" data-base="2.0">2</span> cups flour</li>
-<li><span class="qty" data-base="2.0">2</span> cups sugar</li>
-<li>1/2 cup butter</li>
-<li>1/2 cup shortening</li>
-<li><span class="qty" data-base="1.0">1</span> cup coffee</li>
-<li>1/4 cup cocoa</li>
-<li>1/2 cup buttermilk</li>
-<li><span class="qty" data-base="2.0">2</span> eggs</li>
-<li><span class="qty" data-base="1.0">1</span> tsp baking soda</li>
-<li><span class="qty" data-base="1.0">1</span> tsp vanilla</li>
-<li>Frosting: 1/2 cup butter</li>
-<li><span class="qty" data-base="2.0">2</span> tbsp cocoa</li>
-<li>1/4 cup milk</li>
-<li>3 1/2 cups powdered sugar</li>
-<li><span class="qty" data-base="1.0">1</span> tbsp vanilla</li></ul>
-      <h3>Method</h3>
-      <ol><li>Prepare a 17.5 x 11 inch sheet pan.</li>
-<li>Make cake batter with flour, sugar, butter, shortening, coffee, cocoa, buttermilk, eggs, baking soda, and vanilla.</li>
-<li>Bake until set.</li>
-<li>For frosting, heat butter, cocoa, and milk.</li>
-<li>Beat in powdered sugar and vanilla.</li>
-<li>Spread frosting over warm cake.</li></ol>
-      <p class="note"><strong>kWen note:</strong> This is the only cookbook recipe planned to include handwritten recipe imagery as a subtle background design element.</p>
-    </article>
-
-    <article class="recipe-card" data-title="classic tiramisu dessert classic layered coffee dessert. 24 ladyfingers 1 1/2 cups strong coffee or espresso, cooled 475 g mascarpone 4 large egg yolks or 1 1/2 cups whipped cream method 1/2 cup sugar 2 tbsp cocoa powder for dusting prepare coffee and let cool. make mascarpone cream. dip ladyfingers briefly in coffee. layer ladyfingers and cream. chill until set. dust with cocoa before serving. best after a long chill so the layers settle together." data-category="Dessert">
-      <div class="card-topline"><span class="category-pill">Dessert</span></div>
-      <h2>Classic Tiramisu</h2>
-      <p class="recipe-meta">Classic layered coffee dessert.</p>
-      <div class="scale-buttons" aria-label="Scale recipe">
-        <button class="active" onclick="scaleRecipe(this, 1)">1x</button>
-        <button onclick="scaleRecipe(this, 2)">2x</button>
-        <button onclick="scaleRecipe(this, 3)">3x</button>
-      </div>
-      <h3>Ingredients</h3>
-      <ul><li><span class="qty" data-base="24.0">24</span> ladyfingers</li>
-<li>1 1/2 cups strong coffee or espresso, cooled</li>
-<li><span class="qty" data-base="475.0">475</span> g mascarpone</li>
-<li><span class="qty" data-base="4.0">4</span> large egg yolks or 1 1/2 cups whipped cream method</li>
-<li>1/2 cup sugar</li>
-<li><span class="qty" data-base="2.0">2</span> tbsp cocoa powder for dusting</li></ul>
-      <h3>Method</h3>
-      <ol><li>Prepare coffee and let cool.</li>
-<li>Make mascarpone cream.</li>
-<li>Dip ladyfingers briefly in coffee.</li>
-<li>Layer ladyfingers and cream.</li>
-<li>Chill until set.</li>
-<li>Dust with cocoa before serving.</li></ol>
-      <p class="note"><strong>kWen note:</strong> Best after a long chill so the layers settle together.</p>
-    </article>
-
-</main>
-<footer>Tip: upload this file to your GitHub Pages repo as <strong>index.html</strong> to update the cookbook link.</footer>
+    </aside>
+  </main>
+</div>
 <script>
-const cards = Array.from(document.querySelectorAll('.recipe-card'));
-const search = document.getElementById('recipeSearch');
-const filterButtons = Array.from(document.querySelectorAll('.filter-btn'));
-const count = document.getElementById('recipeCount');
-let activeFilter = 'All';
+const RECIPES = [{"title": "Moist Banana Bread", "category": "Baking", "meta": "Basic, reliable loaf with sour cream or plain yogurt for moisture. Makes 1 loaf.", "ingredients": ["3 very ripe bananas, mashed", "1/2 cup butter, melted", "3/4 cup brown sugar", "2 large eggs", "1/3 cup sour cream or plain yogurt", "1 tsp vanilla extract", "1 1/2 cups all-purpose flour", "1 tsp baking soda", "1/2 tsp salt", "Optional: 1/2 tsp cinnamon", "Optional: 3/4 cup walnuts or chocolate chips"], "method": ["Preheat oven to 350°F / 175°C. Grease or line a standard loaf pan.", "Mash bananas in a large bowl, then stir in melted butter.", "Mix in brown sugar, eggs, sour cream or yogurt, and vanilla.", "Whisk flour, baking soda, salt, and cinnamon if using.", "Fold dry ingredients into wet ingredients just until combined. Do not overmix.", "Fold in walnuts or chocolate chips if using.", "Bake 55–65 minutes, until a toothpick comes out clean or with a few moist crumbs.", "Cool 10–15 minutes in the pan, then transfer to a rack before slicing."], "note": "Sour cream gives a richer loaf; yogurt gives a slightly tangier, lighter one.", "tags": ["Sweet"]}, {"title": "Egg-Heavy Ravioli Dough", "category": "Pasta", "meta": "Extra-rich yolk-forward dough for ravioli. Updated locked-in 250 g flour version.", "ingredients": ["250 g 00 flour", "2 whole eggs", "5 egg yolks", "1 tbsp olive oil", "Pinch of salt"], "method": ["Mound flour and make a deep well.", "Add whole eggs, yolks, olive oil, and salt.", "Beat eggs gently with a fork, gradually incorporating flour until a shaggy dough forms.", "Knead 8–10 minutes until smooth and elastic. It may feel firm at first.", "Wrap tightly and rest at least 1 hour at room temperature.", "Roll thin, around Marcato/Atlas setting 6–7, for ravioli."], "note": "If stiff, knead with lightly damp hands instead of adding water. If too soft, rest in the fridge briefly.", "tags": ["Freezer Friendly", "Pasta Project"]}, {"title": "Beef & Pork Ravioli Filling", "category": "Pasta", "meta": "Half-batch raw filling matched to one 250 g ravioli dough batch. Freezer-safe.", "ingredients": ["125 g ground beef", "125 g ground pork", "25 g parmesan, finely grated", "1/2 egg, beaten", "1 – 2 cloves garlic, about 5 g, minced", "1/2 tsp salt", "1/4 tsp black pepper", "Optional: pinch nutmeg or Italian seasoning", "Optional breadcrumbs only if mixture feels loose"], "method": ["Mix filling ingredients gently until evenly combined.", "Keep chilled while rolling pasta.", "Pipe or spoon small portions onto sheets.", "Seal ravioli well and cook from fresh or freeze in a single layer."], "note": "Official meat ravioli filling. Designed to match one batch of the 250 g flour ravioli dough and yield about 20–24 ravioli.", "tags": ["Freezer Friendly", "Pasta Project"]}, {"title": "Classic Ricotta–Spinach Ravioli Filling", "category": "Pasta", "meta": "Classic filling. Yields about 20–24 ravioli.", "ingredients": ["250 g ricotta", "80 – 100 g cooked spinach, well squeezed", "50 g parmesan", "1 egg yolk, about 18 g", "3 g garlic, finely grated or minced", "Pinch nutmeg", "Salt and pepper, to taste"], "method": ["Squeeze spinach very dry, then chop finely.", "Mix ricotta, spinach, parmesan, egg yolk, garlic, nutmeg, salt, and pepper.", "Taste and adjust seasoning.", "Pipe or spoon into ravioli sheets, then seal well."], "note": "A food processor is optional, but pulse lightly only. You want smooth-ish, not gluey.", "tags": ["Freezer Friendly", "Pasta Project", "Family Favorite"]}, {"title": "Beef Stroganoff with Striploin & No Yolks Noodles", "category": "Main Dishes", "meta": "Updated locked-in version with striploin, mushrooms, sour cream, and No Yolks noodles.", "ingredients": ["450 – 600 g striploin steak, sliced into strips", "Salt and pepper, to taste", "2 tbsp butter, divided", "1 tbsp oil", "225 g mushrooms, sliced", "1 small onion, sliced or diced", "2 cloves garlic, minced", "2 cups beef broth", "1 tbsp Dijon mustard", "1 tbsp Worcestershire sauce", "1 – 2 tbsp flour, as needed for thickening", "1/2 cup sour cream", "1 bag No Yolks noodles"], "method": ["Season steak strips with salt and pepper.", "Sear steak quickly in oil and a little butter until browned but not fully cooked through. Remove and reserve.", "Add remaining butter, mushrooms, and onion. Cook until softened and mushrooms release moisture.", "Add garlic and cook 30–60 seconds.", "Sprinkle in flour and stir to coat the vegetables.", "Add beef broth, Dijon, and Worcestershire. Simmer until the sauce coats a spoon and closes slowly when dragged through.", "Reduce heat or remove from heat briefly, then stir in sour cream so it does not split.", "Return steak and juices to the sauce just to finish warming through.", "Cook No Yolks noodles according to package directions and serve with stroganoff over top."], "note": "The sauce should be noticeably thicker before sour cream goes in. If it still looks watery, reduce 2–4 minutes more.", "tags": []}, {"title": "kWen’s Classic Chicken Stew", "category": "Soup", "meta": "Whole chicken stew with potatoes, optional carrots, herbes salées, rosemary, summer savory, and rolled dough boys.", "ingredients": ["1 whole chicken, about 4 – 5 lb / 1.8 – 2.3 kg", "10 – 12 cups water", "1 large onion, peeled and halved", "5 – 6 medium potatoes, peeled and cubed", "2 – 3 carrots, sliced, optional", "1 tbsp herbes salées", "1 tsp dried rosemary", "1 tbsp summer savory", "Salt and black pepper, to taste", "Dough boys: 2 cups / 250 g flour", "1 tsp salt", "2 tbsp olive oil", "About 3/4 cup / 180 ml water, enough for a soft dough"], "method": ["Place whole chicken in a large stockpot and cover with water. Add onion, rosemary, summer savory, and herbes salées.", "Bring to a gentle boil, then reduce heat and simmer 1 1/2–2 hours, skimming foam as needed, until chicken is tender.", "Remove chicken and cool slightly. Discard onion.", "Pull chicken from bones and return meat to the pot. Discard skin and bones.", "Add carrots and simmer 5–10 minutes.", "While carrots simmer, mix flour and salt for the dough. Add olive oil and enough water to form a smooth dough.", "Knead briefly, roll out on a lightly floured surface, and cut into small squares or rectangles.", "Add cubed potatoes to the stew.", "Shortly after adding potatoes, drop in the dough pieces.", "Simmer until potatoes are fork tender and dough is cooked through, about 10–15 minutes.", "Taste and adjust salt and pepper before serving."], "note": "No celery and no baking powder. The dough and cubed potatoes should finish cooking at roughly the same time.", "tags": ["Freezer Friendly", "Soup & Stew", "Family Favorite"]}, {"title": "kWen’s Cipâte", "category": "Main Dishes", "meta": "Long-cooked French Canadian layered meat pie with meatballs, cubed meats, potatoes, onions, broth, and rolled oil dough.", "ingredients": ["1 lb / 450 g small meatballs or ground beef, formed about 1 inch or smaller", "1 lb / 450 g cubed beef", "1 lb / 450 g cubed chicken", "1 lb / 450 g cubed veal or lamb", "5 – 6 medium potatoes, peeled and diced small", "2 large onions, sliced", "Salt and black pepper, liberally", "1 tbsp summer savory", "1 tbsp parsley", "Dough: 5 cups / 625 g flour", "2 tsp salt", "1/2 cup / 120 ml oil", "About 1 1/2 cups / 360 ml water, enough for a soft dough", "6 – 10 cups chicken broth, plus more as needed through cooking"], "method": ["Mix flour and salt for the dough. Add oil and enough water to form a smooth workable dough. Knead briefly and divide into portions.", "Season meats generously with salt, pepper, summer savory, and parsley.", "Roll dough portions into thin sheets for layering.", "In a large deep roasting pan or heavy Dutch oven, layer meat, potatoes, sliced onions, and a sheet of dough.", "Repeat the layers until the dish is full.", "Pour chicken broth over the layers until very well moistened but not overflowing.", "Cover tightly and cook hot for the first hour, around 400°F / 205°C.", "Turn oven off overnight and leave the cipâte inside.", "The next morning, turn oven very low, around 225–250°F / 110–120°C, and cook another 10–12 hours at a gentle simmer.", "Add chicken broth repeatedly through the day so it stays moist and never dries out."], "note": "The long cook is the heart of the recipe. Dough softens into tender layers and potatoes absorb the meat juices and broth.", "tags": ["Freezer Friendly", "Family Favorite"]}, {"title": "Braised Beef Pot Pie", "category": "Main Dishes", "meta": "Chuck or blade roast braised until tender in rich gravy, finished under flaky pie crust or puff pastry.", "ingredients": ["2 1/2 lb / 1.1 kg chuck roast, blade roast, or stewing beef, cut into chunks", "Salt and black pepper", "2 tbsp flour", "2 tbsp oil", "1 large onion, diced", "3 carrots, sliced", "225 g mushrooms, sliced", "4 cloves garlic, minced", "2 tbsp tomato paste", "2 cups beef broth", "1 cup red wine or extra broth", "1 tbsp Worcestershire sauce", "1 tsp thyme", "1 tsp rosemary", "1 bay leaf", "Pie dough or puff pastry for topping"], "method": ["Pat beef dry, season generously, and toss lightly with flour.", "Brown beef deeply in batches in a Dutch oven with oil. Remove and set aside.", "Cook onion, carrots, and mushrooms in the same pot until softened and mushrooms release moisture.", "Add garlic and tomato paste and cook 1–2 minutes.", "Deglaze with red wine or broth, scraping up browned bits.", "Return beef to the pot. Add beef broth, Worcestershire, thyme, rosemary, and bay leaf.", "Cover and braise at 325°F / 163°C for about 3 hours, until fork tender.", "Remove lid for the last 20–30 minutes if needed to thicken. Remove bay leaf.", "Cool filling slightly, transfer to a pie dish, and top with pie crust or puff pastry.", "Bake at 400°F / 205°C for 40–50 minutes, until golden and bubbling."], "note": "Freezer-friendly. Best frozen as filling, then topped with fresh pastry before baking.", "tags": ["Freezer Friendly"]}, {"title": "kWen’s Guinness Beef Stew with Irish Cheddar Mash", "category": "Main Dishes", "meta": "Dark, rich Guinness beef stew ladled over creamy cheddar mashed potatoes.", "ingredients": ["Stew: 3 lb / 1.4 kg chuck roast, blade roast, or stewing beef, cut into chunks", "Salt and black pepper", "3 tbsp flour", "2 tbsp oil", "2 large onions, diced", "3 carrots, sliced", "225 g mushrooms, sliced", "4 cloves garlic, minced", "2 tbsp tomato paste", "1 tbsp Worcestershire sauce", "1 tsp thyme", "1 bay leaf", "1 can Guinness stout, 440 – 500 ml", "3 cups / 720 ml beef broth", "Mash: 3 lb / 1.4 kg Yukon Gold potatoes", "4 tbsp / 56 g butter", "1/2–3/4 cup / 120 – 180 ml milk or cream", "2 cups / 200 g sharp Irish cheddar, shredded", "3 green onions, sliced", "Salt and pepper"], "method": ["Pat beef dry, season generously, and toss lightly with flour.", "Brown beef deeply in batches in a Dutch oven. Remove and reserve.", "Cook onions 5–7 minutes, then add carrots and mushrooms. Cook until mushrooms release moisture.", "Add garlic, tomato paste, Worcestershire, and thyme. Cook 1–2 minutes.", "Pour in Guinness and scrape up browned bits. Simmer about 5 minutes to mellow bitterness.", "Return beef to the pot. Add beef broth and bay leaf.", "Cover and braise at 325°F / 163°C for 3–3 1/2 hours, until beef is very tender.", "Remove lid during the final 20–30 minutes if needed to thicken. Remove bay leaf and adjust seasoning.", "For mash, boil potatoes in salted water until fork tender. Drain well.", "Mash with butter and milk or cream, then stir in cheddar and green onions. Season to taste.", "Serve stew ladled generously over cheddar mash."], "note": "No cabbage in this version. Guinness should add roasted depth without tasting harsh.", "tags": ["Freezer Friendly", "Family Favorite"]}, {"title": "Italian Wedding Soup", "category": "Soup", "meta": "Frozen meatballs and orzo version.", "ingredients": ["Olive oil", "1 onion", "1 carrot", "1 celery stalk", "Garlic", "8 cups / 2 L chicken broth", "500 g frozen fully cooked Italian meatballs", "150 g / 3/4 cup orzo", "2 cups spinach", "Oregano", "Thyme", "Parmesan", "Optional lemon"], "method": ["Sauté onion, carrot, celery, and garlic in olive oil.", "Add chicken broth and bring to a simmer.", "Add frozen meatballs and simmer until heated through.", "Add orzo and cook 8–10 minutes.", "Stir in spinach until wilted.", "Finish with parmesan and optional lemon."], "note": "Optional egg drizzle variation can be added at the end.", "tags": ["Soup & Stew"]}, {"title": "Hamburger Stew", "category": "Soup", "meta": "NB classic with ground beef, potatoes, carrots, onion, tomato, and broth.", "ingredients": ["1 lb / 450 g ground beef", "4 medium potatoes, diced", "2 carrots, sliced", "1 onion, diced", "1 can / 28 oz diced tomatoes or 2 cups chopped tomato", "4 cups beef or chicken broth", "1 tsp salt, plus more to taste", "1/2 tsp pepper", "Optional: 1 tsp savory, parsley, or Italian herbs"], "method": ["Brown ground beef and drain excess fat if needed.", "Add onion and cook until softened.", "Add potatoes, carrots, tomato, and broth.", "Simmer until vegetables are tender.", "Season to taste and serve hot."], "note": "This is the stew-style version kept in the cookbook.", "tags": ["Freezer Friendly", "Soup & Stew", "Family Favorite"]}, {"title": "Ground Beef & Gravy Pot Pie", "category": "Main Dishes", "meta": "Savory beef, vegetables, brown gravy under flaky crust.", "ingredients": ["1 lb / 450 g ground beef", "2 cups mixed vegetables", "2 cups brown gravy", "1 pie crust, top crust", "Salt and pepper, to taste"], "method": ["Brown ground beef.", "Add vegetables and brown gravy.", "Simmer until thick and savory.", "Transfer to pie dish.", "Top with pie crust and vent.", "Bake until crust is golden and filling bubbles."], "note": "Comfort food energy. Very freezer-friendly once assembled.", "tags": ["Freezer Friendly"]}, {"title": "Tourtière", "category": "Main Dishes", "meta": "Acadian/Brayon-style meat pie.", "ingredients": ["Ground pork and/or beef", "Onion", "Potato water or broth for binding", "Summer savory", "Salt and pepper", "Pie crust", "Egg wash"], "method": ["Cook meat with onion and seasoning until tender and savory.", "Use potato water or broth to bind the filling.", "Cool filling slightly.", "Fill pie crust, top with second crust, vent, and brush with egg wash.", "Bake until crust is golden and filling is hot."], "note": "Family-style savory meat pie; potato water can be used instead of broth.", "tags": ["Family Favorite"]}, {"title": "Garlic Soy Butter Salmon", "category": "Seafood", "meta": "Apple cider vinegar version with updated cook times.", "ingredients": ["2 – 3 salmon fillets, 150 – 180 g each", "Salt and pepper", "1 tbsp neutral oil", "2 tbsp / 28 g butter", "1 1/2 tbsp / 24 g soy sauce or tamari", "3/4 tsp / 3.75 g apple cider vinegar", "1 small garlic clove, about 3 g", "Optional chili flakes or black pepper"], "method": ["Season salmon lightly.", "For pan-seared: heat oil over medium and sear skin-side down 7–8 minutes.", "Flip, lower heat, add butter, soy, vinegar, and garlic.", "Baste 5–6 minutes until just cooked.", "For oven-baked: bake skin-side down at 400°F / 205°C for 15–17 minutes, spooning sauce over before baking. Optional broil 1–2 minutes."], "note": "Keep heat moderate because soy and butter can scorch. If sharp, add 1/2 tsp honey or maple.", "tags": ["Seafood"]}, {"title": "Poached Haddock in Tomato Broth", "category": "Seafood", "meta": "Low-fat Mediterranean-style fish in tomato broth.", "ingredients": ["4 haddock fillets", "1 can / 28 oz diced tomatoes", "1 1/2 cups broth", "Garlic", "Onion", "Olive oil", "Italian herbs or parsley", "Salt and pepper"], "method": ["Sauté onion and garlic lightly in olive oil.", "Add tomatoes, broth, herbs, salt, and pepper.", "Simmer to develop flavor.", "Nestle haddock into broth and gently poach until fish flakes easily."], "note": "Works with tilapia too; adjust cook time based on thickness.", "tags": ["Seafood"]}, {"title": "Sugar Pie / Tarte au Sucre", "category": "Dessert", "meta": "Canadian sugar pie with maple and cream. Makes one 9-inch pie.", "ingredients": ["210 g brown sugar", "40 g all-purpose flour", "30 ml cornstarch", "1 pinch salt", "375 ml / 1 1/2 cups 35 % whipping cream", "125 ml / 1/2 cup maple syrup", "2 pie crusts / pâte brisée", "Milk for brushing"], "method": ["In a saucepan off heat, whisk brown sugar, flour, cornstarch, and salt.", "Add cream and maple syrup; mix well.", "Bring to a boil while stirring, then remove from heat and cool slightly.", "Line a 23 cm / 9 in pie plate with one crust and pour in filling.", "Brush edges with milk.", "Cut second crust into 2.5 cm / 1 in strips, brush with milk, and weave lattice over filling.", "Trim and seal edges.", "Bake at 400°F / 200°C on the low rack for 35–40 minutes until golden and bubbling."], "note": "Serve warm or cold.", "tags": ["Sweet"]}, {"title": "Mom’s Texas Brownies", "category": "Dessert", "meta": "Family sheet-pan brownie/cake classic.", "ingredients": ["Cake: 2 cups flour", "2 cups sugar", "1/2 cup butter", "1/2 cup shortening", "1 cup coffee", "1/4 cup cocoa", "1/2 cup buttermilk", "2 eggs", "1 tsp baking soda", "1 tsp vanilla", "Frosting: 1/2 cup butter", "2 tbsp cocoa", "1/4 cup milk", "3 1/2 cups powdered sugar", "1 tbsp vanilla"], "method": ["Prepare a 17.5 x 11 inch sheet pan.", "Make cake batter with flour, sugar, butter, shortening, coffee, cocoa, buttermilk, eggs, baking soda, and vanilla.", "Bake until set.", "For frosting, heat butter, cocoa, and milk.", "Beat in powdered sugar and vanilla.", "Spread frosting over warm cake."], "note": "This is the only cookbook recipe planned to include handwritten recipe imagery as a subtle background design element.", "tags": ["Family Favorite", "Sweet"]}, {"title": "Classic Tiramisu", "category": "Dessert", "meta": "Classic layered coffee dessert.", "ingredients": ["24 ladyfingers", "1 1/2 cups strong coffee or espresso, cooled", "475 g mascarpone", "4 large egg yolks or 1 1/2 cups whipped cream method", "1/2 cup sugar", "2 tbsp cocoa powder for dusting"], "method": ["Prepare coffee and let cool.", "Make mascarpone cream.", "Dip ladyfingers briefly in coffee.", "Layer ladyfingers and cream.", "Chill until set.", "Dust with cocoa before serving."], "note": "Best after a long chill so the layers settle together.", "tags": ["Family Favorite", "Sweet"]}];
+let activeCategory = 'Main Dishes';
+let activeTag = null;
+let activeSpecial = null;
+let selectedIndex = 0;
+let currentScale = 1;
 
-function niceNumber(n) {
-  const rounded = Math.round(n * 100) / 100;
-  const common = {
-    0.25:'1/4', 0.33:'1/3', 0.5:'1/2', 0.67:'2/3', 0.75:'3/4',
-    1.25:'1 1/4', 1.33:'1 1/3', 1.5:'1 1/2', 1.75:'1 3/4',
-    2.5:'2 1/2', 3.5:'3 1/2'
+const iconPot = `<svg viewBox="0 0 120 100"><path d="M30 38h60v38c0 8-7 14-15 14H45c-8 0-15-6-15-14V38Z" fill="#9fc7bd" stroke="#053746" stroke-width="4"/><path d="M24 43h-12c-6 0-9 5-8 11 1 5 5 8 10 8h10" fill="none" stroke="#053746" stroke-width="4"/><path d="M96 43h12c6 0 9 5 8 11-1 5-5 8-10 8H96" fill="none" stroke="#053746" stroke-width="4"/><path d="M43 33c2-10 32-10 34 0" fill="none" stroke="#053746" stroke-width="4"/><path d="M24 36h72" stroke="#053746" stroke-width="4" stroke-linecap="round"/></svg>`;
+const iconPasta = `<svg viewBox="0 0 120 100"><path d="M20 70c18 20 70 20 88 0" fill="#f2d486" stroke="#053746" stroke-width="4"/><path d="M28 52c12-18 24 18 36 0s23 17 36 0" fill="none" stroke="#b44422" stroke-width="6" stroke-linecap="round"/><path d="M31 61c15-14 20 14 36 0s24 10 38-2" fill="none" stroke="#dca10f" stroke-width="6" stroke-linecap="round"/></svg>`;
+const iconPie = `<svg viewBox="0 0 120 100"><path d="M18 56c8-23 74-31 91 0v18c-10 23-77 25-91 0Z" fill="#dca10f" stroke="#053746" stroke-width="4"/><path d="M21 56c20 18 66 18 87 0" fill="none" stroke="#053746" stroke-width="3"/><path d="M38 45l20 22M58 39l22 31M80 40l18 22" stroke="#8f321c" stroke-width="4" stroke-linecap="round"/></svg>`;
+const iconSweet = `<svg viewBox="0 0 120 100"><path d="M31 75h58l8-39H23Z" fill="#f5e4c3" stroke="#053746" stroke-width="4"/><path d="M28 35c8-18 20 5 32-8 13-12 23 12 34 0 6 7 9 13 4 21H23c-3-5-1-10 5-13Z" fill="#c46a6a" stroke="#053746" stroke-width="3"/><circle cx="45" cy="41" r="3" fill="#dca10f"/><circle cx="70" cy="36" r="3" fill="#dca10f"/></svg>`;
+const iconFish = `<svg viewBox="0 0 120 100"><path d="M24 54c25-27 56-28 78 0-22 28-54 27-78 0Z" fill="#9fc7bd" stroke="#053746" stroke-width="4"/><path d="M24 54 8 35v38Z" fill="#dca10f" stroke="#053746" stroke-width="4"/><circle cx="86" cy="49" r="4" fill="#053746"/><path d="M58 32c-8 12-8 30 0 44" fill="none" stroke="#053746" stroke-width="3"/></svg>`;
+
+function iconFor(r) {
+  const t = (r.title + ' ' + r.category).toLowerCase();
+  if (t.includes('pasta') || t.includes('ravioli') || t.includes('stroganoff') || r.category.toLowerCase().includes('pasta')) return iconPasta;
+  if (t.includes('pie') || t.includes('tourti') || t.includes('cipâte')) return iconPie;
+  if (['dessert','baking','macarons'].includes(r.category.toLowerCase())) return iconSweet;
+  if (r.category.toLowerCase().includes('seafood') || t.includes('salmon') || t.includes('haddock')) return iconFish;
+  return iconPot;
+}
+function escapeHtml(str) {
+  return String(str ?? '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+}
+function escapeAttr(str) { return escapeHtml(str).replace(/'/g, '&#039;'); }
+function getFavorites() {
+  try { return JSON.parse(localStorage.getItem('kwenCookbookFavorites') || '[]'); } catch { return []; }
+}
+function saveFavorites(favs) { localStorage.setItem('kwenCookbookFavorites', JSON.stringify(favs)); }
+function isFav(title) { return getFavorites().includes(title); }
+function toggleFav(title) {
+  let favs = getFavorites();
+  favs = favs.includes(title) ? favs.filter(x => x !== title) : [...favs, title];
+  saveFavorites(favs);
+  render();
+  renderDetail(selectedIndex);
+}
+function cats() { return [...new Set(RECIPES.map(r => r.category))].sort(); }
+function catIcon(cat) {
+  const c = cat.toLowerCase();
+  if (c.includes('pasta')) return '〰';
+  if (c.includes('soup')) return '▰';
+  if (c.includes('dessert') || c.includes('baking') || c.includes('macaron')) return '●';
+  if (c.includes('seafood')) return '◌';
+  return '▣';
+}
+function buildMenu() {
+  const menu = document.getElementById('categoryMenu');
+  menu.innerHTML = cats().map(cat => {
+    const items = RECIPES.map((r,i)=>({...r,i}))
+      .filter(r => r.category === cat)
+      .sort((a,b)=>a.title.localeCompare(b.title))
+      .map(r => `<button class="recipe-link ${r.i===selectedIndex?'active':''}" onclick="selectRecipe(${r.i})">${escapeHtml(r.title)}</button>`)
+      .join('');
+    return `<div class="cat ${cat===activeCategory?'open':''}">
+      <button class="cat-head ${cat===activeCategory&&!activeSpecial&&!activeTag?'active':''}" onclick="setCategory('${escapeAttr(cat)}')">
+        <span>${catIcon(cat)}</span><span>${escapeHtml(cat)}</span><span class="chev">›</span>
+      </button>
+      <div class="recipe-list">${items}</div>
+    </div>`;
+  }).join('');
+}
+function setCategory(cat) {
+  activeCategory = cat; activeSpecial = null; activeTag = null;
+  document.body.classList.remove('menu-open');
+  render();
+}
+function setSpecial(special) {
+  activeSpecial = special; activeTag = null;
+  if (special === 'home') activeCategory = 'Main Dishes';
+  document.body.classList.remove('menu-open');
+  render();
+}
+function setTagFilter(tag) {
+  activeTag = tag; activeSpecial = null;
+  document.body.classList.remove('menu-open');
+  render();
+}
+function filteredRecipes() {
+  const q = document.getElementById('search').value.trim().toLowerCase();
+  let arr = RECIPES.map((r,i)=>({...r,i}));
+  if (activeSpecial === 'favorites') arr = arr.filter(r => isFav(r.title));
+  else if (activeTag) arr = arr.filter(r => (r.tags||[]).includes(activeTag));
+  else arr = arr.filter(r => r.category === activeCategory);
+  if (q) arr = arr.filter(r => [r.title,r.category,r.meta,r.note,...r.ingredients,...r.method,...(r.tags||[])].join(' ').toLowerCase().includes(q));
+  return arr.sort((a,b)=>a.title.localeCompare(b.title));
+}
+function subtitleFor(cat) {
+  const m = {
+    'Main Dishes':'Hearty, comforting, and made to bring everyone to the table.',
+    'Pasta':'Dough, noodles, sauces, and weekend projects worth the flour cloud.',
+    'Soup':'Warm bowls, family pots, and cold-day classics.',
+    'Seafood':'Simple fish recipes, buttery salmon, and coastal comfort.',
+    'Dessert':'Sweet classics for coffee, company, and just one more piece.',
+    'Baking':'Cozy bakes, loaves, and oven therapy.',
+    'Macarons':'Tiny fancy chaos, standardized shells, and big payoff.'
   };
-  return common[rounded] || String(rounded).replace(/\.0$/, '');
+  return m[cat] || 'Family recipes, weeknight wins, and cozy kitchen favourites.';
 }
-
-function scaleRecipe(btn, factor) {
-  const card = btn.closest('.recipe-card');
-  card.querySelectorAll('.scale-buttons button').forEach(b => b.classList.remove('active'));
+function render() {
+  buildMenu();
+  const arr = filteredRecipes();
+  const title = activeSpecial === 'favorites' ? 'Favorites' : activeTag || activeCategory;
+  document.getElementById('pageTitle').textContent = title;
+  document.getElementById('pageSubtitle').textContent =
+    activeSpecial === 'favorites' ? 'Your saved kitchen hits, ready when you are.' :
+    activeTag ? 'Prep-ahead recipes built for future-you.' :
+    subtitleFor(title);
+  const grid = document.getElementById('grid');
+  if (!arr.length) {
+    grid.innerHTML = `<div class="empty">No recipes found. The cookbook gremlins came up empty.</div>`;
+    return;
+  }
+  if (!arr.some(r => r.i === selectedIndex)) selectedIndex = arr[0].i;
+  grid.innerHTML = arr.map(r => `
+    <article class="recipe-card ${r.i===selectedIndex?'active':''}" onclick="selectRecipe(${r.i})">
+      <div class="thumb">${iconFor(r)}<button class="heart ${isFav(r.title)?'faved':''}" onclick="event.stopPropagation(); toggleFav('${escapeAttr(r.title)}')">${isFav(r.title)?'♥':'♡'}</button></div>
+      <div class="card-body">
+        <h2>${escapeHtml(r.title)}</h2>
+        <div class="card-foot"><span>${catIcon(r.category)}</span><span>${escapeHtml(r.category)}</span></div>
+      </div>
+    </article>
+  `).join('');
+  renderDetail(selectedIndex);
+}
+function selectRecipe(i) {
+  selectedIndex = i; currentScale = 1;
+  document.body.classList.remove('menu-open');
+  document.body.classList.add('detail-open');
+  renderDetail(i);
+  render();
+}
+function extractYield(meta) {
+  const m = String(meta).match(/serves?\s*:?\s*([\d–\-]+)|yields?\s*:?\s*([^.;]+)/i);
+  return m ? (m[1] || m[2]) : '—';
+}
+function renderDetail(i) {
+  const r = RECIPES[i] || RECIPES[0];
+  document.getElementById('detailTitle').textContent = r.title;
+  document.getElementById('detailIcon').innerHTML = iconFor(r);
+  document.getElementById('detailServes').textContent = extractYield(r.meta);
+  document.getElementById('detailCategory').textContent = r.category;
+  document.getElementById('favDetail').textContent = isFav(r.title) ? '♥' : '♡';
+  document.getElementById('favDetail').onclick = () => toggleFav(r.title);
+  document.getElementById('detailTags').innerHTML = (r.tags||[]).map(t => `<span class="tag">${escapeHtml(t)}</span>`).join('');
+  document.querySelectorAll('.scale-buttons button').forEach(b => b.classList.toggle('active', b.textContent.trim().startsWith(currentScale + 'x')));
+  document.getElementById('detailIngredients').innerHTML = r.ingredients.map(x => `<li>${scaleText(x, currentScale)}</li>`).join('');
+  document.getElementById('detailMethod').innerHTML = r.method.map(x => `<li>${escapeHtml(x)}</li>`).join('');
+  const note = r.note || r.meta || '';
+  document.getElementById('detailNote').innerHTML = `<strong>kWen note:</strong> ${escapeHtml(note)}`;
+}
+function setScale(scale, btn) {
+  currentScale = scale;
+  btn.closest('.scale-buttons').querySelectorAll('button').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  card.querySelectorAll('.qty').forEach(q => {
-    const base = parseFloat(q.dataset.base);
-    if (!isNaN(base)) q.textContent = niceNumber(base * factor);
-  });
+  renderDetail(selectedIndex);
 }
-
-function applyFilters() {
-  const q = search.value.trim().toLowerCase();
-  let shown = 0;
-  cards.forEach(card => {
-    const matchesCat = activeFilter === 'All' || card.dataset.category === activeFilter;
-    const matchesText = !q || card.dataset.title.includes(q);
-    const show = matchesCat && matchesText;
-    card.classList.toggle('hidden', !show);
-    if (show) shown++;
-  });
-  count.textContent = shown + ' recipe' + (shown === 1 ? '' : 's') + ' shown';
+const fractionVals = {'1/4':.25,'1/3':1/3,'1/2':.5,'2/3':2/3,'3/4':.75};
+function nice(n) {
+  const whole = Math.floor(n);
+  const frac = n - whole;
+  const fracs = [[.25,'1/4'],[1/3,'1/3'],[.5,'1/2'],[2/3,'2/3'],[.75,'3/4']];
+  for (const [v,s] of fracs) {
+    if (Math.abs(frac - v) < .04) return whole ? whole + ' ' + s : s;
+  }
+  const rounded = Math.round(n*100)/100;
+  return String(rounded).replace(/\.0$/,'');
 }
-
-filterButtons.forEach(btn => {
-  btn.addEventListener('click', () => {
-    activeFilter = btn.dataset.filter;
-    filterButtons.forEach(b => b.classList.toggle('active', b === btn));
-    applyFilters();
+function scaleText(text, factor) {
+  if (factor === 1) return escapeHtml(text);
+  if (/[°]/.test(text)) return escapeHtml(text);
+  let s = escapeHtml(text);
+  s = s.replace(/(\d+)\s+(1\/4|1\/3|1\/2|2\/3|3\/4)/g, (_,w,f)=> nice((parseFloat(w)+fractionVals[f])*factor));
+  s = s.replace(/(?<![\w/])(1\/4|1\/3|1\/2|2\/3|3\/4)(?![\w/])/g, (_,f)=> nice(fractionVals[f]*factor));
+  s = s.replace(/(?<![\w/])(\d+(?:\.\d+)?)(?![\w/])/g, (m,n)=> {
+    const num = parseFloat(n);
+    if (num > 2100) return m;
+    return nice(num*factor);
   });
-});
-filterButtons[0]?.classList.add('active');
-search.addEventListener('input', applyFilters);
-applyFilters();
+  return s;
+}
+document.getElementById('search').addEventListener('input', render);
+render();
 </script>
 </body>
 </html>
