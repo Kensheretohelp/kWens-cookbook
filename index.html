@@ -644,6 +644,33 @@ body{
 }
 </style>
 
+
+<style id="kwen-sidebar-icon-fix">
+/* Force consistent sidebar category markers */
+.cat-head span:first-child,
+.recipe-link span:first-child{
+  font-family: Georgia, "Times New Roman", serif !important;
+  font-size: 1.1rem !important;
+  line-height: 1 !important;
+  color: var(--teal-dark) !important;
+}
+.cat-head span:first-child::before{
+  content: "•";
+}
+.cat-head span:first-child{
+  color: transparent !important;
+  width: 18px;
+  min-width: 18px;
+  overflow: hidden;
+}
+.nav-item{
+  gap:10px !important;
+}
+.nav-item::first-letter{
+  color:inherit !important;
+}
+</style>
+
 </head>
 <body>
 <!-- Layout polish pass: unified sidebar bullets + Zissou-inspired palette + refined detail panel. -->
@@ -657,14 +684,14 @@ body{
       <small>Good food.<br>Made to share.</small>
     </div>
     <div class="nav-section">
-      <button class="nav-item" onclick="setSpecial('home')">⌂ Home</button>
-      <button class="nav-item" onclick="setSpecial('favorites')">♥ Favorites</button>
+      <button class="nav-item" onclick="setSpecial('home')">• Home</button>
+      <button class="nav-item" onclick="setSpecial('favorites')">• Favorites</button>
     </div>
     <div class="nav-label">Recipes</div>
     <div id="categoryMenu"></div>
     <div class="nav-section">
-      <button class="nav-item" onclick="setSpecial('notes')">▤ Kitchen Notes</button>
-      <button class="nav-item" onclick="setTagFilter('Freezer Friendly')">✳ Freezer Friendly</button>
+      <button class="nav-item" onclick="setSpecial('notes')">• Kitchen Notes</button>
+      <button class="nav-item" onclick="setTagFilter('Freezer Friendly')">• Freezer Friendly</button>
     </div>
   </aside>
   <main class="main">
