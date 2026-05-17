@@ -921,11 +921,34 @@ body{
 .note { overflow: visible !important; white-space: normal !important; }
 </style>
 
-<style id="kwen-sidebar-mobile-polish">
+
+<style id="kwen-category-click-split-polish">
+.cat-head {
+  position: relative !important;
+}
+.cat-head .chev {
+  margin-left: auto !important;
+  min-width: 44px !important;
+  min-height: 36px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 8px !important;
+}
+.cat-head .chev:hover {
+  background: rgba(255,255,255,.22) !important;
+}
 @media (max-width:820px){
-  .sidebar{overscroll-behavior:contain!important;-webkit-overflow-scrolling:touch!important;}
-  body.menu-open{overflow:hidden!important;}
-  .cat-head{touch-action:manipulation!important;}
+  .sidebar{
+    overscroll-behavior: contain !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+  body.menu-open{
+    overflow: hidden !important;
+  }
+  .cat-head{
+    touch-action: manipulation !important;
+  }
 }
 </style>
 
@@ -1231,35 +1254,86 @@ function scaleText(text, factor) {
 document.getElementById('search').addEventListener('input', render);
 render();
 </script>
-<script id="kwen-sidebar-mobile-fix">
-(function(){
-  function mobile(){return window.matchMedia&&window.matchMedia("(max-width:820px)").matches;}
-  function wire(){
-    document.querySelectorAll(".cat-head").forEach(function(btn){
-      if(btn.dataset.kwenSidebarFixed==="1")return;
-      btn.dataset.kwenSidebarFixed="1";
-      btn.addEventListener("click",function(e){
-        e.stopPropagation();
-        if(mobile())document.body.classList.add("menu-open");
-      },true);
-    });
-    document.querySelectorAll(".recipe-link").forEach(function(btn){
-      if(btn.dataset.kwenRecipeFixed==="1")return;
-      btn.dataset.kwenRecipeFixed="1";
-      btn.addEventListener("click",function(){
-        if(mobile())setTimeout(function(){document.body.classList.remove("menu-open");},120);
-      },false);
-    });
-    var sidebar=document.querySelector(".sidebar");
-    if(sidebar&&sidebar.dataset.kwenSidebarStop!=="1"){
-      sidebar.dataset.kwenSidebarStop="1";
-      sidebar.addEventListener("click",function(e){e.stopPropagation();});
+
+<script id="kwen-category-click-split-fix">
+(function () {
+  function mobileMode() {
+    return window.matchMedia && window.matchMedia("(max-width:820px)").matches;
+  }
+
+  function toggleCategoryList(button) {
+    var cat = button.closest(".cat");
+    if (!cat) return;
+    cat.classList.toggle("open");
+    if (mobileMode()) {
+      document.body.classList.add("menu-open");
     }
   }
-  document.addEventListener("DOMContentLoaded",function(){
-    wire();
-    var sidebar=document.querySelector(".sidebar");
-    if(sidebar){new MutationObserver(wire).observe(sidebar,{childList:true,subtree:true});}
+
+  function isArrowClick(event, button) {
+    var target = event.target;
+    if (target && target.classList && target.classList.contains("chev")) return true;
+
+    var rect = button.getBoundingClientRect();
+    var clickX = event.clientX;
+    // Treat the far-right 48px of the category button as the arrow zone.
+    return clickX >= rect.right - 52;
+  }
+
+  function wireCategoryButtons() {
+    document.querySelectorAll(".cat-head").forEach(function (button) {
+      if (button.dataset.kwenSplitFixed === "1") return;
+      button.dataset.kwenSplitFixed = "1";
+
+      button.addEventListener("click", function (event) {
+        if (isArrowClick(event, button)) {
+          event.preventDefault();
+          event.stopImmediatePropagation();
+          toggleCategoryList(button);
+          return false;
+        }
+
+        // Category name click: allow the app's original filter/page behavior.
+        // On mobile, close the drawer after category page/filter loads.
+        if (mobileMode()) {
+          setTimeout(function () {
+            document.body.classList.remove("menu-open");
+          }, 120);
+        }
+      }, true);
+    });
+
+    document.querySelectorAll(".recipe-link").forEach(function (button) {
+      if (button.dataset.kwenRecipeCloseFixed === "1") return;
+      button.dataset.kwenRecipeCloseFixed = "1";
+      button.addEventListener("click", function () {
+        if (mobileMode()) {
+          setTimeout(function () {
+            document.body.classList.remove("menu-open");
+          }, 120);
+        }
+      }, false);
+    });
+
+    var sidebar = document.querySelector(".sidebar");
+    if (sidebar && sidebar.dataset.kwenStopFixed !== "1") {
+      sidebar.dataset.kwenStopFixed = "1";
+      sidebar.addEventListener("click", function (event) {
+        event.stopPropagation();
+      });
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    wireCategoryButtons();
+
+    var sidebar = document.querySelector(".sidebar");
+    if (sidebar) {
+      new MutationObserver(wireCategoryButtons).observe(sidebar, {
+        childList: true,
+        subtree: true
+      });
+    }
   });
 })();
 </script>
