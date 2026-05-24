@@ -973,9 +973,22 @@ body.home-active .detail {
 }
 </style>
 
+
+<style id="kwen-home-hard-mode-fix">
+.home-welcome { display: none !important; }
+.home-welcome.active { display: block !important; }
+body:not(.home-active) #homeWelcome { display: none !important; }
+body.home-active #grid { display: none !important; }
+body.home-active .detail { display: none !important; }
+@media (min-width:1101px){
+  body.home-active .main { grid-template-columns: minmax(0,1fr) !important; }
+  body.home-active .content { border-right: 0 !important; }
+}
+</style>
+
 </head>
 <body>
-<!-- kWen’s Cookbook QA6: recipes moved to recipes.js; embedded artwork moved to images folder; scaling fixed; banana bread canon updated. -->
+<!-- kWen’s Cookbook QA10: Home screen hard-separated from category recipe grids. -->
 <!-- kWen’s Cookbook final master build: Zissou-inspired palette, locked wagon artwork, cleaned category layout. -->
 <!-- Layout polish pass: unified sidebar bullets + Zissou-inspired palette + refined detail panel. -->
 <div class="mobile-backdrop" onclick="document.body.classList.remove('menu-open')"></div>
@@ -1192,8 +1205,8 @@ function subtitleFor(cat) {
 }
 function render() {
   buildMenu();
-  const arr = filteredRecipes();
   updateHomeWelcome();
+
   const title = activeSpecial === 'home' ? 'Welcome to kWen’s Cookbook' : activeSpecial === 'favorites' ? 'Favorites' : activeTag || activeCategory;
   document.getElementById('pageTitle').textContent = title;
   document.getElementById('pageSubtitle').textContent =
@@ -1201,12 +1214,27 @@ function render() {
     activeSpecial === 'favorites' ? 'Your saved kitchen hits, ready when you are.' :
     activeTag ? 'Prep-ahead recipes built for future-you.' :
     subtitleFor(title);
+
   const grid = document.getElementById('grid');
+
+  // Home is its own landing page. Do not render recipe cards under it.
+  if (activeSpecial === 'home') {
+    grid.innerHTML = '';
+    grid.style.display = 'none';
+    document.body.classList.remove('detail-open');
+    return;
+  }
+
+  grid.style.display = '';
+
+  const arr = filteredRecipes();
   if (!arr.length) {
     grid.innerHTML = `<div class="empty">No recipes found. The cookbook gremlins came up empty.</div>`;
     return;
   }
+
   if (!arr.some(r => r.i === selectedIndex)) selectedIndex = arr[0].i;
+
   grid.innerHTML = arr.map(r => `
     <article class="recipe-card ${r.i===selectedIndex?'active':''}" onclick="selectRecipe(${r.i})">
       <div class="thumb">${iconFor(r)}<button class="heart ${isFav(r.title)?'faved':''}" onclick="event.stopPropagation(); toggleFav('${escapeAttr(r.title)}')">${isFav(r.title)?'♥':'♡'}</button></div>
@@ -1216,6 +1244,7 @@ function render() {
       </div>
     </article>
   `).join('');
+
   renderDetail(selectedIndex);
 }
 function selectRecipe(i) {
