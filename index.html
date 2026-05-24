@@ -986,7 +986,6 @@ body.home-active .detail { display: none !important; }
 }
 </style>
 
-
 <style id="kwen-kitchen-radio">
 .kitchen-radio {
   margin: 22px 0 0;
@@ -995,6 +994,7 @@ body.home-active .detail { display: none !important; }
   border-radius: 18px;
   background: rgba(248,235,208,.74);
   box-shadow: 0 10px 18px rgba(5,55,70,.08);
+  max-width: 820px;
 }
 .kitchen-radio h3 {
   margin: 0 0 6px;
@@ -1012,13 +1012,13 @@ body.home-active .detail { display: none !important; }
 .kitchen-radio iframe {
   display: block;
   border: 0;
-  max-width: 760px;
+  width: 100%;
 }
 </style>
 
 </head>
 <body>
-<!-- kWen’s Cookbook QA12: Kitchen Radio Spotify playlist added to Home. -->
+<!-- kWen’s Cookbook QA13: Kitchen Radio added; recipes file fixed. -->
 <!-- kWen’s Cookbook final master build: Zissou-inspired palette, locked wagon artwork, cleaned category layout. -->
 <!-- Layout polish pass: unified sidebar bullets + Zissou-inspired palette + refined detail panel. -->
 <div class="mobile-backdrop" onclick="document.body.classList.remove('menu-open')"></div>
@@ -1075,19 +1075,19 @@ body.home-active .detail { display: none !important; }
     </p>
   </div>
 
-  <div class="kitchen-radio">
-    <h3>Kitchen Radio</h3>
-    <p>Cookbook soundtrack curated by kWen.</p>
-    <iframe style="border-radius:12px"
-      src="https://open.spotify.com/embed/playlist/3TYkwXngeqI9NkjLNNFOxC?utm_source=generator"
-      width="100%"
-      height="352"
-      frameborder="0"
-      allowfullscreen=""
-      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-      loading="lazy">
-    </iframe>
-  </div>
+<section id="kitchenRadio" class="kitchen-radio">
+  <h3>Kitchen Radio</h3>
+  <p>Cookbook soundtrack curated by kWen.</p>
+  <iframe style="border-radius:12px"
+    src="https://open.spotify.com/embed/playlist/3TYkwXngeqI9NkjLNNFOxC?utm_source=generator"
+    width="100%"
+    height="352"
+    frameborder="0"
+    allowfullscreen=""
+    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+    loading="lazy">
+  </iframe>
+</section>
 
 </section>
 
