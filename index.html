@@ -952,6 +952,27 @@ body{
 }
 </style>
 
+
+<style id="kwen-homepage-visibility-fix">
+.home-welcome {
+  display: none !important;
+}
+.home-welcome.active {
+  display: block !important;
+}
+body.home-active .detail {
+  display: none !important;
+}
+@media (min-width:1101px){
+  body.home-active .main {
+    grid-template-columns: minmax(0,1fr) !important;
+  }
+  body.home-active .content {
+    border-right: 0 !important;
+  }
+}
+</style>
+
 </head>
 <body>
 <!-- kWen’s Cookbook QA6: recipes moved to recipes.js; embedded artwork moved to images folder; scaling fixed; banana bread canon updated. -->
@@ -1058,7 +1079,7 @@ body{
 <script>
 let activeCategory = 'Main Dishes';
 let activeTag = null;
-let activeSpecial = null;
+let activeSpecial = 'home';
 let selectedIndex = 0;
 let currentScale = 1;
 
@@ -1143,6 +1164,7 @@ function updateHomeWelcome() {
   const grid = document.getElementById('grid');
   if (!home || !grid) return;
   const isHome = activeSpecial === 'home';
+  document.body.classList.toggle('home-active', isHome);
   home.classList.toggle('active', isHome);
   grid.style.display = isHome ? 'none' : '';
 }
@@ -1172,10 +1194,10 @@ function render() {
   buildMenu();
   const arr = filteredRecipes();
   updateHomeWelcome();
-  const title = activeSpecial === 'home' ? 'Home' : activeSpecial === 'favorites' ? 'Favorites' : activeTag || activeCategory;
+  const title = activeSpecial === 'home' ? 'Welcome to kWen’s Cookbook' : activeSpecial === 'favorites' ? 'Favorites' : activeTag || activeCategory;
   document.getElementById('pageTitle').textContent = title;
   document.getElementById('pageSubtitle').textContent =
-    activeSpecial === 'home' ? 'A family cookbook built to keep the good stuff from getting lost.' :
+    activeSpecial === 'home' ? 'Family recipes. Coastal comfort. Made to share.' :
     activeSpecial === 'favorites' ? 'Your saved kitchen hits, ready when you are.' :
     activeTag ? 'Prep-ahead recipes built for future-you.' :
     subtitleFor(title);
