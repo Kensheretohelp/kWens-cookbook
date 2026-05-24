@@ -1,0 +1,1405 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>kWen’s Cookbook — Canon Edition</title>
+<style>
+:root {
+  --teal:#8FB8B0;
+  --teal-dark:#0F4C5C;
+  --teal-ink:#0B3D4A;
+  --cream:#F2E1B6;
+  --paper:#FFF7E8;
+  --paper-2:#F8E7C4;
+  --rust:#B14D34;
+  --rust-dark:#8E3827;
+  --mustard:#D8A23A;
+  --mustard-soft:#E8C978;
+  --wood:#B78A5C;
+  --ink:#0B3D4A;
+  --muted:#766B5A;
+  --line:rgba(15,76,92,.24);
+  --shadow:0 18px 38px rgba(20,40,34,.16);
+  --radius:18px;
+}
+* { box-sizing:border-box; }
+body {
+  margin:0;
+  min-height:100vh;
+  color:var(--ink);
+  font-family: Georgia, "Times New Roman", serif;
+  background:
+    radial-gradient(circle at 20% 0%, rgba(220,161,15,.20), transparent 24rem),
+    radial-gradient(circle at 80% 0%, rgba(159,199,189,.34), transparent 24rem),
+    linear-gradient(180deg, #f2d9aa 0%, var(--cream) 38%, #ead0a4 100%);
+}
+body::before {
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  opacity:.22;
+  background-image:
+    linear-gradient(rgba(5,55,70,.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(5,55,70,.035) 1px, transparent 1px);
+  background-size:34px 34px;
+}
+button, input { font:inherit; }
+.app {
+  min-height:100vh;
+  display:grid;
+  grid-template-columns:292px minmax(0,1fr);
+}
+.sidebar {
+  position:sticky;
+  top:0;
+  height:100vh;
+  overflow:auto;
+  padding:24px 22px;
+  background:linear-gradient(180deg, rgba(255,255,255,.12), transparent 36%), var(--teal);
+  border-right:2px solid rgba(5,55,70,.24);
+  box-shadow:8px 0 30px rgba(5,55,70,.08);
+}
+.brand {
+  text-align:center;
+  padding-bottom:18px;
+  border-bottom:1px solid rgba(5,55,70,.28);
+  margin-bottom:16px;
+}
+.logo-title {
+  margin:0;
+  color:var(--teal-dark);
+  font-size:3rem;
+  line-height:.9;
+  letter-spacing:-.07em;
+  font-weight:900;
+}
+.logo-sub {
+  margin:10px 0 0;
+  color:var(--rust);
+  font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;
+  font-size:.86rem;
+  font-weight:800;
+  letter-spacing:.42em;
+  text-transform:uppercase;
+}
+.brand small {
+  display:block;
+  margin-top:12px;
+  color:var(--teal-ink);
+  font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;
+  font-weight:800;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+}
+.hat-svg { width:172px; max-width:100%; margin:0 auto 10px; display:block; }
+.hat-img{width:190px;max-width:100%;display:block;margin:0 auto 12px;filter:drop-shadow(0 8px 8px rgba(5,55,70,.18));mix-blend-mode:multiply;}
+.nav-section {
+  border-bottom:1px solid rgba(5,55,70,.25);
+  padding:8px 0 12px;
+  margin-bottom:8px;
+}
+.nav-label {
+  margin:10px 0 8px;
+  color:var(--rust);
+  font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;
+  font-size:.74rem;
+  font-weight:900;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+}
+.nav-item,.cat-head,.recipe-link {
+  width:100%;
+  border:0;
+  background:transparent;
+  color:var(--teal-ink);
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:10px 8px;
+  border-radius:10px;
+  cursor:pointer;
+  text-align:left;
+  font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;
+  font-weight:850;
+  letter-spacing:.07em;
+  text-transform:uppercase;
+  font-size:.86rem;
+}
+.nav-item:hover,.cat-head:hover,.recipe-link:hover { background:rgba(255,255,255,.22); }
+.cat-head.active {
+  background:var(--mustard);
+  color:var(--teal-ink);
+  box-shadow:inset 0 -2px rgba(120,79,0,.18);
+}
+.cat-head .chev { margin-left:auto; transition:transform .2s ease; }
+.cat.open .chev { transform:rotate(90deg); }
+.recipe-list { display:none; padding:2px 0 5px 28px; }
+.cat.open .recipe-list { display:block; }
+.recipe-link {
+  text-transform:none;
+  letter-spacing:0;
+  font-family:Georgia,"Times New Roman",serif;
+  font-weight:700;
+  font-size:.92rem;
+  padding:7px 8px;
+  color:rgba(5,55,70,.88);
+}
+.recipe-link.active { color:var(--rust-dark); background:rgba(255,243,212,.48); }
+.main {
+  min-width:0;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 410px;
+  min-height:100vh;
+}
+.content {
+  padding:0 26px 34px;
+  border-right:2px solid rgba(5,55,70,.14);
+  position:relative;
+}
+.topbar {
+  position:sticky;
+  top:0;
+  z-index:20;
+  display:grid;
+  grid-template-columns:auto 1fr minmax(220px,380px);
+  align-items:center;
+  gap:18px;
+  padding:24px 0 16px;
+  background:linear-gradient(to bottom, rgba(245,228,195,.98) 75%, rgba(245,228,195,0));
+}
+.menu-toggle {
+  width:46px;
+  height:46px;
+  border:0;
+  background:transparent;
+  color:var(--rust);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+}
+.tagline {
+  justify-self:center;
+  color:var(--teal-ink);
+  font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;
+  font-size:.86rem;
+  font-weight:900;
+  letter-spacing:.32em;
+  text-transform:uppercase;
+}
+.search-wrap { position:relative; }
+.searchbox {
+  width:100%;
+  border:2px solid rgba(5,55,70,.65);
+  border-radius:999px;
+  padding:13px 46px 13px 18px;
+  background:rgba(255,243,212,.78);
+  color:var(--ink);
+  outline:none;
+  font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;
+}
+.search-icon {
+  position:absolute;
+  right:16px;
+  top:50%;
+  transform:translateY(-50%);
+  color:var(--rust);
+  font-size:1.4rem;
+}
+.hero {
+  position:relative;
+  padding:26px 6px 10px;
+  min-height:120px;
+}
+.hero h1 {
+  margin:0;
+  color:var(--rust);
+  font-family:Impact, Haettenschweiler, "Arial Narrow Bold", ui-sans-serif, sans-serif;
+  font-size:clamp(2.3rem,5vw,4.1rem);
+  line-height:.95;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  font-weight:900;
+}
+.hero p {
+  max-width:500px;
+  margin:10px 0 0;
+  font-size:1.16rem;
+  color:var(--teal-ink);
+  font-weight:700;
+}
+.hero::after {
+  content:"";
+  display:block;
+  width:min(360px,70%);
+  border-bottom:2px dashed rgba(180,68,34,.55);
+  margin-top:10px;
+}
+.hero-pot {
+  position:absolute;
+  right:18px;
+  top:20px;
+  opacity:.92;
+}
+.card-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(210px, 1fr));
+  gap:16px;
+  padding:12px 0 158px;
+}
+.recipe-card {
+  border:1.8px solid rgba(5,55,70,.24);
+  border-radius:14px;
+  background:rgba(255,243,212,.78);
+  overflow:hidden;
+  box-shadow:0 10px 18px rgba(5,55,70,.10);
+  cursor:pointer;
+  transition:transform .16s ease, box-shadow .16s ease, border-color .16s ease;
+}
+.recipe-card:hover {
+  transform:translateY(-3px);
+  box-shadow:0 16px 26px rgba(5,55,70,.16);
+}
+.recipe-card.active {
+  border-color:var(--rust);
+  box-shadow:0 0 0 3px rgba(180,68,34,.16), 0 16px 26px rgba(5,55,70,.15);
+}
+.thumb {
+  height:126px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  border-bottom:1px solid rgba(5,55,70,.18);
+  background:radial-gradient(circle at 25% 25%, rgba(255,255,255,.35), transparent 9rem), linear-gradient(135deg, rgba(220,161,15,.55), rgba(180,68,34,.35)), var(--paper);
+}
+.thumb svg { width:88px; height:88px; filter:drop-shadow(0 4px 6px rgba(0,0,0,.12)); }
+.heart {
+  position:absolute;
+  top:8px;
+  right:8px;
+  width:34px;
+  height:34px;
+  display:grid;
+  place-items:center;
+  border:1px solid rgba(180,68,34,.34);
+  border-radius:9px;
+  background:rgba(255,243,212,.85);
+  color:var(--rust);
+  font-size:1.2rem;
+}
+.heart.faved { background:var(--rust); color:var(--paper); }
+.card-body { padding:12px 14px 13px; }
+.card-body h2 {
+  min-height:52px;
+  margin:0 0 10px;
+  font-size:1.18rem;
+  line-height:1.12;
+  color:var(--teal-ink);
+  text-align:center;
+}
+.card-foot {
+  border-top:1px solid rgba(5,55,70,.18);
+  padding-top:9px;
+  display:flex;
+  gap:8px;
+  align-items:center;
+  color:var(--teal-dark);
+  font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;
+  font-weight:900;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  font-size:.72rem;
+}
+.wagon-img{width:500px;max-width:min(52vw,500px);height:auto;display:block;mix-blend-mode:multiply;filter:drop-shadow(0 7px 8px rgba(5,55,70,.14));}
+.wagon-wrap {
+  position:fixed;
+  left:318px;
+  bottom:18px;
+  z-index:1;
+  pointer-events:none;
+  display:flex;
+  align-items:flex-end;
+  gap:24px;
+  opacity:.95;
+}
+.quote {
+  font-family:"Brush Script MT","Segoe Script",cursive;
+  color:var(--teal-dark);
+  font-size:1.9rem;
+  line-height:1;
+  text-shadow:0 1px rgba(255,255,255,.5);
+}
+.quote small {
+  display:block;
+  margin-top:8px;
+  color:var(--rust);
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:1rem;
+}
+.detail {
+  position:sticky;
+  top:0;
+  height:100vh;
+  overflow:auto;
+  padding:30px 22px;
+  background:rgba(255,243,212,.42);
+}
+.detail-card {
+  background:rgba(255,243,212,.86);
+  border:1.8px solid rgba(5,55,70,.22);
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+}
+.detail-head {
+  background:linear-gradient(180deg, var(--rust), var(--rust-dark));
+  color:var(--paper);
+  padding:20px 22px;
+  display:flex;
+  gap:12px;
+  justify-content:space-between;
+}
+.detail-title {
+  margin:0;
+  font-size:1.7rem;
+  line-height:1.05;
+}
+.close-detail,.fav-detail {
+  border:0;
+  background:transparent;
+  color:var(--paper);
+  font-size:1.55rem;
+  cursor:pointer;
+}
+.detail-hero {
+  min-height:190px;
+  display:grid;
+  place-items:center;
+  background:radial-gradient(circle at center, rgba(255,255,255,.25), transparent 8rem), linear-gradient(135deg, rgba(5,55,70,.24), rgba(220,161,15,.34)), var(--paper2);
+  border-bottom:1px solid rgba(5,55,70,.16);
+}
+.detail-hero svg { width:138px; height:138px; }
+.info-row {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  border-bottom:1px solid rgba(5,55,70,.18);
+}
+.info {
+  padding:14px 10px;
+  text-align:center;
+  border-right:1px solid rgba(5,55,70,.18);
+  font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;
+  font-weight:900;
+  text-transform:uppercase;
+  font-size:.74rem;
+  letter-spacing:.08em;
+}
+.info:last-child { border-right:0; }
+.tags {
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  padding:14px 18px 0;
+}
+.tag {
+  border:1px solid rgba(5,55,70,.22);
+  background:rgba(159,199,189,.25);
+  border-radius:999px;
+  padding:5px 9px;
+  font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;
+  font-size:.75rem;
+  font-weight:800;
+}
+.scale-buttons {
+  display:flex;
+  gap:12px;
+  justify-content:center;
+  padding:18px 18px 6px;
+}
+.scale-buttons button {
+  border:0;
+  min-width:82px;
+  padding:12px 18px;
+  border-radius:8px;
+  background:rgba(5,55,70,.14);
+  color:var(--teal-ink);
+  font-weight:900;
+  cursor:pointer;
+}
+.scale-buttons button.active { background:var(--mustard); }
+.recipe-section {
+  padding:10px 22px 22px;
+}
+.recipe-section h3 {
+  margin:16px 0 9px;
+  color:var(--rust);
+  font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  font-size:.88rem;
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.recipe-section h3::after {
+  content:"";
+  height:1px;
+  flex:1;
+  border-bottom:1px dashed rgba(180,68,34,.55);
+}
+.recipe-section li { margin:7px 0; line-height:1.35; }
+.note {
+  margin-top:16px;
+  border-left:5px solid var(--mustard);
+  border-radius:12px;
+  background:rgba(220,161,15,.16);
+  padding:12px 14px;
+  color:var(--teal-ink);
+}
+.empty {
+  margin:20px 0;
+  padding:24px;
+  border:2px dashed rgba(5,55,70,.25);
+  border-radius:18px;
+  background:rgba(255,243,212,.55);
+  color:var(--muted);
+}
+.mobile-backdrop { display:none; }
+@media (max-width:1100px) {
+  .main { grid-template-columns:1fr; }
+  .detail {
+    position:fixed;
+    inset:0;
+    z-index:60;
+    transform:translateX(105%);
+    transition:.24s ease;
+    padding:18px;
+    background:rgba(245,228,195,.98);
+  }
+  body.detail-open .detail { transform:translateX(0); }
+  .close-detail { display:inline-block; }
+}
+@media (min-width:1101px) {
+  .close-detail { display:none; }
+}
+@media (max-width:820px) {
+  .app { grid-template-columns:1fr; }
+  .sidebar {
+    position:fixed;
+    z-index:80;
+    inset:0 auto 0 0;
+    width:295px;
+    transform:translateX(-105%);
+    transition:.24s ease;
+  }
+  body.menu-open .sidebar { transform:translateX(0); }
+  .mobile-backdrop {
+    display:block;
+    position:fixed;
+    inset:0;
+    background:rgba(5,55,70,.35);
+    z-index:70;
+    opacity:0;
+    pointer-events:none;
+    transition:.2s ease;
+  }
+  body.menu-open .mobile-backdrop { opacity:1; pointer-events:auto; }
+  .content { padding:0 15px 34px; border-right:0; }
+  .topbar { grid-template-columns:auto 1fr; gap:8px; padding:14px 0 10px; }
+  .menu-toggle { display:flex; }
+  .tagline { font-size:.66rem; letter-spacing:.18em; justify-self:start; }
+  .search-wrap { grid-column:1 / -1; }
+  .hero-pot { display:none; }
+  .wagon-wrap {
+    position:relative;
+    left:auto;
+    bottom:auto;
+    padding:0 0 20px;
+    flex-direction:column;
+    align-items:center;
+    gap:4px;
+  }
+  .quote { font-size:1.45rem; text-align:center; }
+  .card-grid { grid-template-columns:repeat(auto-fill, minmax(155px,1fr)); padding-bottom:20px; }
+  .thumb { height:104px; }
+  .card-body h2 { font-size:1rem; min-height:48px; }
+}
+@media print {
+  .sidebar,.topbar,.wagon-wrap,.scale-buttons,.heart,.fav-detail,.close-detail { display:none !important; }
+  .app,.main { display:block; }
+  .content { border:0; }
+  .detail { position:static; height:auto; overflow:visible; }
+  .recipe-card { break-inside:avoid; box-shadow:none; }
+}
+</style>
+
+<style id="kwen-polish-overrides">
+body{
+  background:
+    radial-gradient(circle at 14% 0%, rgba(216,162,58,.20), transparent 24rem),
+    radial-gradient(circle at 88% 3%, rgba(143,184,176,.36), transparent 26rem),
+    linear-gradient(180deg,#EED6A5 0%, var(--cream) 38%, #E8CC9D 100%) !important;
+}
+.sidebar{
+  background:
+    linear-gradient(180deg, rgba(255,247,232,.18), transparent 42%),
+    var(--teal) !important;
+}
+.logo-title{
+  color:var(--teal-dark) !important;
+  letter-spacing:-.075em !important;
+}
+.logo-sub,
+.nav-label,
+.recipe-section h3{
+  color:var(--rust) !important;
+}
+.nav-item,.cat-head,.recipe-link{
+  border-radius:12px !important;
+}
+.cat-head{
+  letter-spacing:.11em !important;
+}
+.cat-head.active{
+  background:var(--mustard) !important;
+  color:var(--teal-ink) !important;
+}
+.cat-head span:first-child,
+.nav-item:first-letter{
+  color:var(--rust);
+}
+.recipe-link{
+  padding-left:12px !important;
+}
+.hero h1{
+  color:var(--rust) !important;
+  letter-spacing:.09em !important;
+}
+.hero p{
+  color:var(--teal-ink) !important;
+}
+.recipe-card{
+  border-radius:16px !important;
+  background:rgba(255,247,232,.82) !important;
+}
+.thumb{
+  height:150px !important;
+  background:
+    linear-gradient(135deg,rgba(255,247,232,.88),rgba(216,162,58,.22)),
+    var(--paper) !important;
+}
+.card-body h2{
+  font-size:1.2rem !important;
+}
+.card-foot{
+  color:var(--teal-dark) !important;
+}
+.detail{
+  background:rgba(255,247,232,.40) !important;
+}
+.detail-card{
+  border-radius:18px !important;
+  background:rgba(255,247,232,.90) !important;
+}
+.detail-head{
+  background:linear-gradient(180deg,var(--rust),var(--rust-dark)) !important;
+}
+.detail-title{
+  font-size:1.9rem !important;
+}
+.detail-hero{
+  min-height:245px !important;
+}
+.info{
+  background:rgba(143,184,176,.10);
+}
+.scale-buttons button{
+  border-radius:999px !important;
+}
+.scale-buttons button.active{
+  background:var(--mustard) !important;
+}
+.tag{
+  background:rgba(143,184,176,.24) !important;
+  color:var(--teal-dark) !important;
+}
+.note{
+  background:rgba(216,162,58,.18) !important;
+  border-left-color:var(--mustard) !important;
+}
+.quote{
+  color:var(--teal-dark) !important;
+}
+.quote small{
+  color:var(--rust) !important;
+}
+@media (min-width:1101px){
+  .detail-card{
+    max-width:390px;
+    margin:0 auto;
+  }
+}
+</style>
+
+
+<style id="kwen-sidebar-icon-fix">
+/* Force consistent sidebar category markers */
+.cat-head span:first-child,
+.recipe-link span:first-child{
+  font-family: Georgia, "Times New Roman", serif !important;
+  font-size: 1.1rem !important;
+  line-height: 1 !important;
+  color: var(--teal-dark) !important;
+}
+.cat-head span:first-child::before{
+  content: "•";
+}
+.cat-head span:first-child{
+  color: transparent !important;
+  width: 18px;
+  min-width: 18px;
+  overflow: hidden;
+}
+.nav-item{
+  gap:10px !important;
+}
+.nav-item::first-letter{
+  color:inherit !important;
+}
+</style>
+
+
+
+<style id="kwen-final-master-polish">
+:root {
+  --teal:#A7C1B8;
+  --teal-dark:#174B57;
+  --teal-ink:#123F49;
+  --cream:#E7C995;
+  --paper:#F6E7C9;
+  --paper-2:#F1DFC0;
+  --rust:#A64B36;
+  --rust-dark:#833727;
+  --mustard:#C99532;
+  --mustard-soft:#DFC07A;
+  --wood:#B88958;
+  --ink:#123F49;
+  --muted:#7A6957;
+  --line:rgba(23,75,87,.22);
+  --shadow:0 18px 38px rgba(40,32,18,.14);
+  --radius:18px;
+}
+body{
+  background:
+    radial-gradient(circle at 14% 0%, rgba(201,149,50,.16), transparent 26rem),
+    radial-gradient(circle at 88% 3%, rgba(167,193,184,.24), transparent 28rem),
+    linear-gradient(180deg,#E9D2A5 0%, #E5C793 38%, #DFC089 100%) !important;
+}
+.sidebar{
+  background:
+    linear-gradient(180deg, rgba(255,244,221,.14), transparent 42%),
+    #A9C4BB !important;
+}
+.logo-title{color:var(--teal-dark) !important;}
+.logo-sub,.nav-label,.recipe-section h3{color:var(--rust) !important;}
+.cat-head.active{
+  background:var(--mustard) !important;
+  color:var(--teal-ink) !important;
+}
+.hero h1{
+  color:var(--rust) !important;
+  letter-spacing:.09em !important;
+}
+.recipe-card{
+  border-radius:16px !important;
+  background:rgba(248,235,208,.86) !important;
+}
+.detail-card{
+  background:rgba(248,235,208,.94) !important;
+}
+.detail-head{
+  background:linear-gradient(180deg,var(--rust),var(--rust-dark)) !important;
+}
+.note{
+  background:rgba(201,149,50,.16) !important;
+  border-left-color:var(--mustard) !important;
+}
+.final-wagon-art{
+  filter:drop-shadow(0 8px 12px rgba(40,32,18,.10));
+}
+</style>
+
+
+
+
+
+
+<style id="kwen-transparent-art-fix">
+.wagon-wrap{
+  position:relative !important;
+  max-width:920px !important;
+  margin:26px auto 16px !important;
+  padding:0 12px !important;
+  display:flex !important;
+  justify-content:center !important;
+  align-items:center !important;
+  overflow:visible !important;
+  background:transparent !important;
+}
+.final-wagon-art{
+  width:min(840px, 96vw) !important;
+  max-width:100% !important;
+  height:auto !important;
+  display:block !important;
+  margin:0 auto !important;
+  opacity:.96 !important;
+  mix-blend-mode:multiply !important;
+  filter:saturate(.96) contrast(.96) drop-shadow(0 8px 12px rgba(40,32,18,.08)) !important;
+}
+@media (max-width:820px){
+  .final-wagon-art{width:min(720px, 98vw) !important;}
+}
+</style>
+
+
+<style id="kwen-recipe-photo-system">
+.thumb{
+  height:158px !important;
+  overflow:hidden !important;
+  background:linear-gradient(135deg, rgba(255,247,232,.92), rgba(201,149,50,.20)) !important;
+}
+.thumb img,
+.detail-hero img{
+  width:100% !important;
+  height:100% !important;
+  object-fit:cover !important;
+  display:block !important;
+}
+.photo-placeholder{
+  width:100%;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  padding:18px;
+  text-align:center;
+  background:
+    radial-gradient(circle at 50% 30%, rgba(255,247,232,.95), rgba(232,204,154,.34)),
+    linear-gradient(135deg, rgba(255,247,232,.86), rgba(201,149,50,.18));
+  color:var(--teal-ink);
+  font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;
+  font-weight:900;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  font-size:.74rem;
+}
+.photo-placeholder span{
+  color:var(--rust);
+  font-size:.64rem;
+  letter-spacing:.14em;
+}
+.detail-hero{
+  height:260px !important;
+  min-height:260px !important;
+  padding:0 !important;
+  overflow:hidden !important;
+}
+.detail-hero .photo-placeholder{
+  font-size:1rem;
+}
+</style>
+
+
+<style id="kwen-photo-card-layout-fix">
+.thumb{
+  height:190px !important;
+  width:100% !important;
+  display:block !important;
+  position:relative !important;
+  overflow:hidden !important;
+  padding:0 !important;
+  border-bottom:1px solid rgba(15,76,92,.18) !important;
+  background:linear-gradient(135deg, rgba(255,247,232,.92), rgba(201,149,50,.20)) !important;
+  font-size:0 !important;
+  line-height:0 !important;
+}
+.thumb img{
+  width:100% !important;
+  height:100% !important;
+  object-fit:cover !important;
+  object-position:center center !important;
+  display:block !important;
+  font-size:0 !important;
+}
+.thumb svg{
+  display:none !important;
+}
+.photo-placeholder{
+  width:100% !important;
+  height:100% !important;
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:6px !important;
+  padding:18px !important;
+  text-align:center !important;
+  background:
+    radial-gradient(circle at 50% 30%, rgba(255,247,232,.95), rgba(232,204,154,.34)),
+    linear-gradient(135deg, rgba(255,247,232,.86), rgba(201,149,50,.18)) !important;
+  color:var(--teal-ink) !important;
+  font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif !important;
+  font-weight:900 !important;
+  letter-spacing:.08em !important;
+  text-transform:uppercase !important;
+  font-size:.74rem !important;
+  line-height:1.2 !important;
+}
+.photo-placeholder span{
+  color:var(--rust) !important;
+  font-size:.64rem !important;
+  letter-spacing:.14em !important;
+}
+.heart{
+  z-index:3 !important;
+  font-size:1.2rem !important;
+  line-height:1 !important;
+}
+.card-body h2{
+  min-height:auto !important;
+}
+</style>
+
+
+<style id="kwen-detail-bottom-cutoff-fix">
+.detail{
+  padding-bottom:calc(150px + env(safe-area-inset-bottom)) !important;
+}
+.detail-card{
+  margin-bottom:calc(120px + env(safe-area-inset-bottom)) !important;
+}
+.recipe-section{
+  padding-bottom:calc(90px + env(safe-area-inset-bottom)) !important;
+}
+.note{
+  overflow:visible !important;
+}
+@media (max-width:1100px){
+  .detail{
+    padding-bottom:calc(180px + env(safe-area-inset-bottom)) !important;
+  }
+}
+</style>
+
+
+<style id="kwen-safe-detail-bottom-fix">
+.detail {
+  padding-bottom: calc(190px + env(safe-area-inset-bottom)) !important;
+}
+.detail-card {
+  margin-bottom: calc(150px + env(safe-area-inset-bottom)) !important;
+}
+.recipe-section {
+  padding-bottom: calc(110px + env(safe-area-inset-bottom)) !important;
+}
+.note {
+  overflow: visible !important;
+  white-space: normal !important;
+}
+</style>
+
+
+<style id="kwen-canon-final-fixes">
+.detail { padding-bottom: calc(210px + env(safe-area-inset-bottom)) !important; }
+.detail-card { margin-bottom: calc(160px + env(safe-area-inset-bottom)) !important; }
+.recipe-section { padding-bottom: calc(120px + env(safe-area-inset-bottom)) !important; }
+.note { overflow: visible !important; white-space: normal !important; }
+</style>
+
+
+<style id="kwen-category-click-split-polish">
+.cat-head {
+  position: relative !important;
+}
+.cat-head .chev {
+  margin-left: auto !important;
+  min-width: 44px !important;
+  min-height: 36px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 8px !important;
+}
+.cat-head .chev:hover {
+  background: rgba(255,255,255,.22) !important;
+}
+@media (max-width:820px){
+  .sidebar{
+    overscroll-behavior: contain !important;
+    -webkit-overflow-scrolling: touch !important;
+  }
+  body.menu-open{
+    overflow: hidden !important;
+  }
+  .cat-head{
+    touch-action: manipulation !important;
+  }
+}
+</style>
+
+</head>
+<body>
+<!-- kWen’s Cookbook QA5: embedded artwork moved to images folder; scaling fixed; banana bread canon updated. -->
+<!-- kWen’s Cookbook final master build: Zissou-inspired palette, locked wagon artwork, cleaned category layout. -->
+<!-- Layout polish pass: unified sidebar bullets + Zissou-inspired palette + refined detail panel. -->
+<div class="mobile-backdrop" onclick="document.body.classList.remove('menu-open')"></div>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <img class="hat-img" src="images/kwens-chef-hat.PNG" alt="Illustrated grey Descendents-style ball cap">
+      <h1 class="logo-title">kWen’s</h1>
+      <div class="logo-sub">Cookbook</div>
+      <small>Good food.<br>Made to share.</small>
+    </div>
+    <div class="nav-section">
+      <button class="nav-item" onclick="setSpecial('home')">• Home</button>
+      <button class="nav-item" onclick="setSpecial('favorites')">• Favorites</button>
+    </div>
+    <div class="nav-label">Recipes</div>
+    <div id="categoryMenu"></div>
+    <div class="nav-section">
+      <button class="nav-item" onclick="setSpecial('notes')">• Kitchen Notes</button>
+      <button class="nav-item" onclick="setTagFilter('Freezer Friendly')">• Freezer Friendly</button>
+    </div>
+  </aside>
+  <main class="main">
+    <section class="content">
+      <div class="topbar">
+        <button class="menu-toggle" onclick="document.body.classList.add('menu-open')" aria-label="Open menu">☰</button>
+        <div class="tagline">Family recipes. Coastal comfort. Made to share.</div>
+        <div class="search-wrap"><input id="search" class="searchbox" type="search" placeholder="Search recipes..." autocomplete="off"><span class="search-icon">⌕</span></div>
+      </div>
+      <section class="hero">
+        <svg class="hero-pot" width="90" height="74" viewBox="0 0 120 100" aria-hidden="true">
+          <path d="M30 38h60v38c0 8-7 14-15 14H45c-8 0-15-6-15-14V38Z" fill="#9fc7bd" stroke="#053746" stroke-width="4"/>
+          <path d="M24 43h-12c-6 0-9 5-8 11 1 5 5 8 10 8h10" fill="none" stroke="#053746" stroke-width="4"/>
+          <path d="M96 43h12c6 0 9 5 8 11-1 5-5 8-10 8H96" fill="none" stroke="#053746" stroke-width="4"/>
+          <path d="M43 33c2-10 32-10 34 0" fill="none" stroke="#053746" stroke-width="4"/>
+          <path d="M24 36h72" stroke="#053746" stroke-width="4" stroke-linecap="round"/>
+        </svg>
+        <h1 id="pageTitle">Main Dishes</h1>
+        <p id="pageSubtitle">Hearty, comforting, and made to bring everyone to the table.</p>
+      </section>
+      
+<section id="homeWelcome" class="home-welcome">
+  <h2>Welcome to kWen’s Cookbook</h2>
+  <p>
+    This cookbook was created to keep family recipes, comfort food favourites, and kitchen experiments intact
+    for the people who matter most. It is a place for the dishes worth remembering — the ones made for family,
+    shared with friends, and passed around the table.
+  </p>
+  <div class="intro-card">
+    <p>
+      Built by kWen, this collection blends New Brunswick comfort food, handmade pasta projects,
+      cozy stews, classic desserts, seafood, macarons, and the recipes that deserve to live somewhere
+      better than scattered notes and half-remembered measurements.
+    </p>
+  </div>
+  <div class="home-actions">
+    <button onclick="setCategory('Main Dishes')">Start with Main Dishes</button>
+    <button onclick="setCategory('Desserts')">Browse Desserts</button>
+    <button onclick="setSpecial('favorites')">View Favorites</button>
+  </div>
+</section>
+
+      <section id="grid" class="card-grid"></section>
+      <div class="wagon-wrap" aria-hidden="true">
+        <img class="final-wagon-art" src="images/kwens-wagon.PNG" alt="Vintage beige station wagon by the coast with George Johnson quote">
+      </div>
+    </section>
+    <aside class="detail" id="detail">
+      <div class="detail-card">
+        <div class="detail-head">
+          <h2 class="detail-title" id="detailTitle"></h2>
+          <div>
+            <button class="fav-detail" id="favDetail" aria-label="Favorite">♡</button>
+            <button class="close-detail" onclick="document.body.classList.remove('detail-open')" aria-label="Close">×</button>
+          </div>
+        </div>
+        <div class="detail-hero" id="detailIcon"></div>
+        <div class="info-row">
+          <div class="info">Serves<br><span id="detailServes">—</span></div>
+          <div class="info">Type<br><span id="detailCategory">—</span></div>
+          <div class="info">Prep<br><span>Kitchen</span></div>
+        </div>
+        <div class="tags" id="detailTags"></div>
+        <div class="scale-buttons">
+          <button class="active" onclick="setScale(1, this)">1x</button>
+          <button onclick="setScale(2, this)">2x</button>
+          <button onclick="setScale(3, this)">3x</button>
+        </div>
+        <div class="recipe-section">
+          <h3>Ingredients</h3>
+          <ul id="detailIngredients"></ul>
+          <h3>Method</h3>
+          <ol id="detailMethod"></ol>
+          <div class="note" id="detailNote"></div>
+        </div>
+      </div>
+    </aside>
+  </main>
+</div>
+<script>
+const RECIPES = [{"title":"Beef Pho with Brisket, Blade Roast, Bones & Oxtail","category":"Soups & Stews","meta":"Large-batch weekend beef pho with bones, oxtail, brisket, blade roast, charred aromatics, and toasted spices.","ingredients":["4–5 lb beef soup bones","2–3 lb oxtail","2–3 lb beef brisket","2–3 lb blade roast","2 large onions, halved","1 large piece ginger, halved lengthwise","4 star anise","1 cinnamon stick","1 tbsp coriander seeds","1 tsp fennel seeds","4–5 cloves","4–5 cardamom pods, optional but recommended","Fish sauce, to taste, roughly 1/4–1/2 cup total","1–2 tbsp rock sugar or brown sugar","Salt, to taste","Rice noodles, thin sliced brisket or beef, green onions, cilantro, bean sprouts, lime wedges, Thai basil, hoisin, and sriracha, for serving"],"method":["Place beef bones and oxtail in a large stockpot, cover with cold water, and bring to a hard boil for 10–15 minutes.","Drain completely, rinse bones and oxtail thoroughly, and clean the pot.","Char onions and ginger over a flame, under the broiler, or in a dry cast iron pan until dark browned spots appear.","Toast star anise, cinnamon, coriander, fennel, cloves, and cardamom in a dry pan for 1–2 minutes, just until fragrant.","Return cleaned bones and oxtail to the pot. Add brisket, blade roast, charred onion, charred ginger, and toasted spices.","Cover with cold water and bring to a very gentle simmer.","Skim foam and impurities regularly during the first hour.","Simmer low and slow for 6–8 hours minimum, longer if possible. Keep the simmer gentle so the broth does not become cloudy.","Remove brisket once tender enough to slice. Blade roast can stay longer to deepen the broth.","Strain the broth carefully.","Season gradually with fish sauce, salt, and rock sugar or brown sugar until rich, beefy, aromatic, lightly sweet, and balanced.","Cook rice noodles separately, slice brisket thinly, place noodles and beef in bowls, and ladle hot broth over top.","Serve with green onions, cilantro, sprouts, lime, Thai basil, hoisin, and sriracha."],"note":"Oxtail adds body and richness. Blade roast deepens the beef flavor. The broth freezes extremely well and is even better the next day after the fat settles and the flavors deepen.","tags":["Soups & Stews","Canon Complete","Freezer Friendly"],"image":"images/beef-pho-with-brisket-blade-roast-bones-and-oxtail.JPG"},{"title":"Chicken Rice Soup","category":"Soups & Stews","meta":"Ken’s classic version with Minute Rice.","ingredients":["3 L / 12 cups chicken broth","2 chicken breasts or equivalent cooked chicken","3 celery stalks, sliced","1 large carrot, shredded","3 green onions, chopped and divided","1 tbsp (about 4 g) parsley","185 g (1 cup) Minute Rice","Salt and pepper, to taste"],"method":["Bring chicken broth to a gentle boil.","Add celery and boil about 5 minutes.","Add shredded carrot, parsley, and half the green onions.","Season with salt and pepper.","Add chicken and simmer until cooked or warmed through.","Stir in Minute Rice and simmer 5–10 minutes.","Stir in remaining green onions before serving."],"note":"Works beautifully with leftover or rotisserie chicken.","tags":["Soup","Family Favorite"],"image":"images/chicken-rice-soup.JPG"},{"title":"kWen’s Chicken Penne","category":"Pasta & Dough","meta":"Simple creamy-style chicken, spinach, and parmesan penne.","ingredients":["2 chicken breasts, cubed","2 tbsp (30 ml) olive oil","200 g penne pasta (about 2 cups dry)","150–200 g fresh spinach","2 tbsp (30 ml) chicken broth","10–15 g (2–3 tbsp) grated parmesan cheese","Pinch of nutmeg","1 tsp parsley","Salt and pepper, to taste"],"method":["Bring a large pot of salted water to a boil and cook penne until al dente.","Meanwhile heat olive oil in a large pan over medium heat.","Add cubed chicken breasts and cook until fully cooked and lightly browned.","Remove chicken from the pan and set aside.","Add spinach and chicken broth to the same pan.","Steam until the spinach is fully wilted.","Return chicken to the pan and stir in parmesan cheese, nutmeg, parsley, salt, and pepper.","Drain pasta and toss into the pan with the chicken and spinach mixture.","Mix well and serve hot."],"note":"A simple weeknight pasta that comes together quickly and works great with leftover chicken as well.","tags":["Pasta & Dough"],"image":"images/kwens-chicken-penne.JPG"},{"title":"Italian Wedding Soup","category":"Soups & Stews","meta":"Frozen meatballs and orzo version.","ingredients":["1 tbsp (15 ml) olive oil","1 medium onion, diced","1 carrot, diced","1 celery stalk, diced","2 cloves garlic, minced","2 L (8 cups) chicken broth","500 g (1.1 lb) frozen fully cooked Italian meatballs","150 g (3/4 cup) orzo","60 g (2 cups loosely packed) spinach","1/2 tsp dried oregano","1/2 tsp dried thyme","25 g (1/4 cup) parmesan, plus more to serve","Optional lemon, to taste"],"method":["Sauté onion, carrot, celery, and garlic in olive oil.","Add chicken broth and bring to a simmer.","Add frozen meatballs and simmer until heated through.","Add orzo and cook 8–10 minutes.","Stir in spinach until wilted.","Finish with parmesan and optional lemon."],"note":"Optional egg drizzle variation can be added at the end.","tags":["Soup"],"image":"images/italian-wedding-soup.JPG"},{"title":"kWen’s Classic Chicken Stew","category":"Soups & Stews","meta":"Whole-chicken Maritime/French-Canadian stew with herbes salées and rolled dough boys.","ingredients":["1 whole chicken, about 4–5 lb","Water, enough to cover the chicken","1 large onion, halved","1–2 tbsp herbes salées","2 carrots, sliced, optional","5–6 medium potatoes, peeled and chopped","1 tsp dried rosemary","1 tsp summer savory","Salt and pepper, to taste","250 g (2 cups) all-purpose flour, for dough boys","1 tsp salt, for dough boys","About 180 ml (3/4 cup) cold water, for dough boys","1 tbsp (15 ml) neutral oil, for dough boys"],"method":["Place whole chicken in a large stockpot.","Add halved onion and herbes salées, then cover with cold water.","Bring to a gentle boil, reduce to a simmer, and skim foam during the first 20–30 minutes.","Simmer 1 1/2–2 hours, until chicken is fully tender.","Remove chicken from the broth. Remove and discard the large onion pieces.","Let chicken cool slightly, then remove meat from bones. Shred or chop and set aside. Discard skin and bones.","Add rosemary, summer savory, salt, and pepper to the broth.","Add sliced carrots and simmer about 5 minutes.","Add potatoes and simmer another 5 minutes before adding the dough.","For dough boys, combine flour and salt. Add cold water and oil, mixing until a soft dough forms.","Knead briefly, roll fairly thin on a floured surface, and cut into rustic strips or squares.","Add sliced dough directly to the simmering broth.","Simmer uncovered 10–15 minutes, stirring gently occasionally, until dough is cooked through and potatoes are tender.","Add reserved chicken meat back during the last few minutes, just to warm through."],"note":"The onion is used to flavor the broth and removed after cooking. These dough boys are rolled and rustic, not fluffy biscuit dumplings. Herbes salées is one of the defining flavors.","tags":["Soups & Stews","Family Favorite","Canon Complete"],"image":"images/kwens-classic-chicken-stew.JPG"},{"title":"kWen’s Hamburger Soup","category":"Soups & Stews","meta":"Official shell-pasta hamburger soup with tomato juice, beef broth, potatoes, and diced vegetables.","ingredients":["1 lb / 450 g lean ground beef","1 medium onion, diced","1 celery stalk, diced","1 medium carrot, diced","2 medium potatoes, peeled and diced small","2 cloves garlic, minced","1 tbsp (15 ml) olive oil or butter","1 can / 28 oz / 796 ml diced tomatoes","1 bottle or can tomato juice, about 540 ml / 19 oz","6 cups / 1.5 L beef broth","1 tsp Italian seasoning","Salt and pepper, to taste","100–150 g (1 to 1 1/2 cups) small shell pasta"],"method":["Heat olive oil or butter in a large soup pot over medium heat.","Add ground beef and cook until browned, breaking it up into small pieces. Drain excess grease if needed.","Add onion, celery, and carrot. Cook 5–6 minutes, until softened.","Stir in garlic and cook 30 seconds.","Add diced tomatoes, tomato juice, beef broth, Italian seasoning, salt, and pepper.","Add diced potatoes and bring to a boil.","Reduce heat and simmer uncovered for about 10 minutes, until potatoes are starting to soften.","Add shell pasta and simmer another 10–12 minutes, stirring occasionally, until pasta is cooked and potatoes are tender.","Taste and adjust seasoning before serving.","If the soup thickens as it sits, add a splash of broth or tomato juice when reheating."],"note":"Classic Maritime-style hamburger soup — brothy, tomato-rich, and comforting. The shell pasta helps naturally thicken the soup as it sits, so add a splash of broth when reheating leftovers.","tags":["Soups & Stews","Family Favorite","Canon Complete","Freezer Friendly"],"image":"images/kwens-hamburger-soup.JPG"},{"title":"kWen’s Irish Beef Stew with Irish Cheddar Mash","category":"Soups & Stews","meta":"Guinness-braised beef stew served over creamy Yukon Gold Irish cheddar mash.","ingredients":["2 1/2–3 lb chuck roast or stewing beef, cut into chunks","Salt and pepper, to taste","16 g (2 tbsp) all-purpose flour, optional","2 tbsp (30 ml) oil","1 medium onion, diced","3–4 cloves garlic, minced","1 container cremini mushrooms, sliced","3 carrots, sliced","2 tbsp (30 ml) tomato paste","1 can Guinness","1 L (4 cups) beef broth","1 tbsp (15 ml) Worcestershire sauce","1 tsp thyme","1 bay leaf","2–3 lb Yukon Gold potatoes, for mash","Butter, milk or cream, sharp Irish cheddar, green onions, salt, and pepper, for mash"],"method":["Season beef generously with salt and pepper. Lightly dust with flour if desired.","Heat oil in a Dutch oven over medium-high heat.","Brown beef deeply in batches, then remove and set aside.","Add onion and mushrooms and cook until softened and slightly browned.","Add carrots and garlic.","Stir in tomato paste and cook 1–2 minutes.","Pour in Guinness and scrape up browned bits from the bottom.","Add beef broth, Worcestershire, thyme, and bay leaf.","Return beef to the pot.","Bring to a gentle simmer, cover partially, and simmer low for 2 1/2–3 hours, until beef is fork tender.","For mash, boil Yukon Gold potatoes until tender, drain well, and mash with butter, milk or cream, sharp Irish cheddar, green onions, salt, and pepper.","Remove bay leaf from stew, taste, and adjust seasoning.","Serve beef stew over Irish cheddar mash."],"note":"Guinness adds richness and roasted depth rather than a strong beer flavor. The stew should be rich and thick, but still spoonable. Even better the next day.","tags":["Soups & Stews","Canon Complete"],"image":"images/kwens-irish-beef-stew-with-irish-cheddar-mash.JPG"},{"title":"1-Hour Crispy Skin Oven-Roasted Chicken","category":"Main Dishes","meta":"No overnight drying; uses rack, high heat, and baking powder for crisp skin.","ingredients":["Whole chicken","Salt","Pepper","Baking powder","Oil or butter","Optional herbs"],"method":["Place chicken on a wire rack over a cookie sheet.","Season with salt, pepper, and baking powder.","Optional light trussing.","Roast at 450°F, then reduce to 400°F.","Cook until chicken is done and skin is crisp."],"note":"Timed to pair with separate oven-roasted potatoes.","tags":["Main Dishes"],"image":"images/1-hour-crispy-skin-oven-roasted-chicken.JPG"},{"title":"Beef Stroganoff with Striploin & No Yolks Noodles","category":"Main Dishes","meta":"Updated locked-in version with striploin, mushrooms, sour cream, and No Yolks noodles.","ingredients":["450–600 g striploin steak, sliced into strips","Salt and pepper, to taste","2 tbsp butter, divided","1 tbsp oil","225 g mushrooms, sliced","1 small onion, sliced or diced","2 cloves garlic, minced","2 cups beef broth","1 tbsp Dijon mustard","1 tbsp (15 ml) Worcestershire sauce","1–2 tbsp flour, as needed for thickening","1/2 cup sour cream","1 bag No Yolks noodles"],"method":["Season steak strips with salt and pepper.","Sear steak quickly in oil and a little butter until browned but not fully cooked through.","Remove and reserve.","Add remaining butter, mushrooms, and onion.","Cook until softened and mushrooms release moisture.","Add garlic and cook 30–60 seconds.","Sprinkle in flour and stir to coat.","Add beef broth, Dijon, and Worcestershire.","Simmer until the sauce coats a spoon and closes slowly when dragged through.","Reduce heat or remove from heat briefly, then stir in sour cream so it does not split.","Return steak and juices to the sauce just to warm through.","Serve over cooked No Yolks noodles."],"note":"The sauce should be noticeably thicker before sour cream goes in.","tags":["Main Dishes"],"image":"images/beef-stroganoff-with-striploin-and-no-yolks-noodles.JPG"},{"title":"Braised Beef Pot Pie","category":"Main Dishes","meta":"Chuck or blade roast braised until tender in rich gravy, finished under flaky pie crust or puff pastry.","ingredients":["2 1/2 lb / 1.1 kg chuck roast, blade roast, or stewing beef","Salt and black pepper","2 tbsp flour","2 tbsp (30 ml) oil","1 large onion, diced","3 carrots, sliced","225 g mushrooms, sliced","4 cloves garlic, minced","2 tbsp (30 ml) tomato paste","2 cups beef broth","1 cup red wine or extra broth","1 tbsp (15 ml) Worcestershire sauce","1 tsp thyme","1 tsp rosemary","1 bay leaf","Pie dough or puff pastry for topping"],"method":["Pat beef dry, season generously, and toss lightly with flour.","Brown beef deeply in batches in a Dutch oven with oil.","Remove and set aside.","Cook onion, carrots, and mushrooms until softened.","Add garlic and tomato paste and cook 1–2 minutes.","Deglaze with red wine or broth.","Return beef to the pot.","Add beef broth, Worcestershire, thyme, rosemary, and bay leaf.","Cover and braise at 325°F / 163°C for about 3 hours.","Remove lid for the last 20–30 minutes if needed to thicken.","Cool filling slightly, transfer to pie dish, and top with pie crust or puff pastry.","Bake at 400°F / 205°C for 40–50 minutes until golden and bubbling."],"note":"Freezer-friendly. Best frozen as filling, then topped with fresh pastry before baking.","tags":["Main Dishes","Freezer Friendly"],"image":"images/braised-beef-pot-pie.JPG"},{"title":"Ground Pork Vietnamese Spring Rolls","category":"Main Dishes","meta":"Gỏi cuốn with ground pork and bamboo shoots sautéed in oyster sauce.","ingredients":["Rice paper wrappers","Ground pork","Bamboo shoots","Oyster sauce","Rice vermicelli","Lettuce","Fresh herbs","Cucumber","Dipping sauce"],"method":["Cook rice vermicelli and cool.","Sauté ground pork and bamboo shoots with oyster sauce.","Prepare vegetables and herbs.","Soften rice paper sheets.","Roll with pork mixture, noodles, vegetables, and herbs.","Serve with dipping sauce."],"note":"Fresh, savory, and flexible.","tags":["Main Dishes","Freezer Friendly"],"image":"images/ground-pork-vietnamese-spring-rolls.JPG"},{"title":"KWen’s Bouillie","category":"Main Dishes","meta":"Bouillie with yellow and green beans, cottage roll pork, baby potatoes, carrots, summer savory, and ployes.","ingredients":["Cottage roll pork","Yellow beans","Green beans","Baby potatoes","Carrots","2 tbsp summer savory","Brayon ployes, to serve"],"method":["Simmer cottage roll pork until tender.","Add vegetables and summer savory.","Cook until vegetables are tender.","Serve with Brayon ployes."],"note":"Family-style Acadian comfort food.","tags":["Family Favorite","Acadian"],"image":"images/kwens-bouillie.JPG"},{"title":"kWen’s Cipâte","category":"Main Dishes","meta":"Long-cooked French-Canadian layered meat pie with cubed meats, lamb meatballs, potatoes, onions, dough layers, and broth.","ingredients":["1 lb ground beef or small beef meatballs","1 lb beef, cubed small","1 lb chicken, cubed small","1 lb veal, cubed small","1 lb ground lamb, formed into small meatballs","Optional small ground pork meatballs, if desired or needed","5–6 potatoes, peeled and diced small","2 large onions, sliced thin","Salt and pepper, to taste","1–2 tsp summer savory","1 tbsp (about 4 g) parsley","Warm chicken broth, for moistening during cooking","4 cups all-purpose flour, for dough","1 tsp salt, for dough","About 1 1/2 cups cold water, for dough","1/4 cup neutral oil, for dough"],"method":["For dough, combine flour and salt in a large bowl.","Add water and oil, mix until a dough forms, then knead briefly until smooth.","Divide into portions, cover, and rest while preparing filling.","Cube beef, chicken, and veal small.","Form ground lamb into small meatballs. Prepare optional pork meatballs if using.","Dice potatoes small and slice onions thinly.","Season meat mixture with salt, pepper, summer savory, and parsley.","Roll out a sheet of dough and line the bottom of a large roasting pan or Dutch oven.","Add layers of meat, potatoes, and onions.","Add another rolled dough sheet, then continue layering filling and dough until ingredients are used.","Finish with a top dough layer and cut steam holes in the top.","Pour warm chicken broth through the openings in the top crust. Filling should be moist but not flooded.","Start at 400°F / 205°C for 30–45 minutes.","Reduce heat to 250–275°F / 120–135°C and cook low and slow for 12–24 hours.","Periodically add warm chicken broth through top openings as needed.","Traditionally, let the cipâte rest overnight in a slowly cooling oven before continuing the cook the next day."],"note":"This is not meant to be a crisp pie. The dough layers soften into the broth and filling. Summer savory and the long cooking time are essential.","tags":["Main Dishes","Family Favorite","Canon Complete"],"image":"images/kwens-cipate.JPG"},{"title":"kWen’s Korean Noodles","category":"Main Dishes","meta":"Sweet-savory Korean-inspired glass noodles with steak, spinach, mushrooms, and green onions.","ingredients":["1–1 1/2 lb steak, thinly sliced, striploin works especially well","1/4 cup soy sauce","2 tbsp brown sugar or honey","1 tbsp sesame oil","3 cloves garlic, minced","Black pepper, to taste","1/3 package Longkou vermicelli noodles / glass noodles","3–4 mushrooms, sliced, cremini preferred","3–4 green onions, sliced","Large handful spinach","Peanut oil, preferred, or another neutral oil"],"method":["Thinly slice the steak.","Combine soy sauce, brown sugar or honey, sesame oil, garlic, and black pepper.","Add steak and marinate at least 30 minutes, preferably several hours.","Soak or cook Longkou noodles according to package directions, drain well, and set aside.","Heat a wok or large skillet over medium-high heat with peanut oil if available.","Cook mushrooms until browned and softened.","Add spinach and cook just until wilted.","Add green onions and cook briefly.","Push vegetables aside or remove temporarily.","Add marinated beef and cook quickly over fairly high heat until browned but still tender.","Add noodles back into the wok and toss everything together.","Add reserved marinade gradually, spoonful by spoonful, while tossing, just enough to coat the noodles without making them wet or soupy.","Continue tossing until noodles absorb sauce evenly."],"note":"The key is adding the sauce gradually while tossing so the noodles absorb flavor without becoming overly wet. Longkou noodles soak up sauce quickly, so restraint matters.","tags":["Main Dishes","Noodles","Canon Complete"],"image":"images/kwens-korean-noodles.JPG"},{"title":"kWen’s Steak Burgers","category":"Main Dishes","meta":"Thin striploin steak, mushrooms, bell pepper, provolone, toasted brioche, and spicy kWen’s sauce.","ingredients":["2 striploin steaks, thinly sliced","1/4 cup Worcestershire sauce","1/4 cup low-sodium soy sauce","4–5 cremini mushrooms, sliced","1/2 bell pepper, diced","Provolone cheese slices","Toasted brioche buns","Neutral oil or butter, for cooking"],"method":["Thinly slice striploin steaks.","Marinate steak at least 12 hours in Worcestershire sauce and low-sodium soy sauce.","Remove steak from fridge 30 minutes before cooking.","Slice mushrooms and dice bell pepper.","Cook diced bell pepper in a skillet for a few minutes.","Add mushrooms and cook until slightly softened.","Add marinated steak and cook until browned and cooked through.","Transfer steak, peppers, and mushrooms to a cookie sheet.","Top with provolone and broil until melted and bubbly.","Let rest 2–3 minutes.","Serve on toasted brioche buns with spicy kWen’s sauce."],"note":"Spicy kWen’s sauce: 3 parts mayo, 1 part ketchup, and sriracha to taste.","tags":["Main Dishes","Family Favorite","Canon Complete"],"image":"images/kwens-steak-burgers.JPG"},{"title":"Tourtière","category":"Main Dishes","meta":"French-Canadian meat pie with pork, beef, loosely mashed potatoes, and potato-water binding.","ingredients":["1 lb ground pork","1 lb ground beef","1 medium onion, finely diced","2 cloves garlic, minced","2 medium potatoes, peeled and diced","Enough water to boil the potatoes","1 tsp salt","1/2 tsp black pepper","1/2 tsp summer savory","1/4 tsp cinnamon","Pinch cloves, optional","Double pie crust","1 egg, beaten, for egg wash"],"method":["Place diced potatoes in a small pot, cover with water, and boil until tender.","Reserve the potato water.","Loosely mash potatoes, keeping a rustic texture rather than making them perfectly smooth.","Cook onion in a large skillet or pot until softened.","Add pork and beef. Cook until browned, breaking meat up finely.","Add garlic, salt, pepper, summer savory, cinnamon, and cloves if using.","Add loosely mashed potatoes to the meat mixture.","Gradually add small amounts of reserved potato water while stirring.","Continue cooking until filling is moist, cohesive, lightly thickened, and not wet.","Roll out bottom crust and place into a pie plate.","Add meat filling evenly.","Top with second crust, crimp edges, cut vents, and brush with egg wash.","Bake at 400°F / 205°C for 35–45 minutes, until deeply golden brown.","Let rest 10–15 minutes before slicing."],"note":"The loosely mashed potatoes and reserved starch water naturally bind the filling. The filling should be cohesive and sliceable, not loose or crumbly.","tags":["Main Dishes","Family Favorite","Canon Complete","Freezer Friendly"],"image":"images/tourtiere.JPG"},{"title":"Garlic Soy Butter Salmon","category":"Seafood","meta":"Apple cider vinegar version with updated cook times.","ingredients":["2–3 salmon fillets, 150–180 g each","Salt and pepper, to taste","1 tbsp / 14 g neutral oil","2 tbsp / 28 g butter","1 1/2 tbsp / 24 g soy sauce or tamari","3/4 tsp / 3.75 g apple cider vinegar","1 small garlic clove, about 3 g","Optional chili flakes or black pepper"],"method":["Season salmon lightly.","For pan-seared: heat oil over medium and sear skin-side down 7–8 minutes.","Flip, lower heat, add butter, soy, vinegar, and garlic.","Baste 5–6 minutes until just cooked.","For oven-baked: bake skin-side down at 400°F / 205°C for 15–17 minutes, spooning sauce over before baking.","Optional broil 1–2 minutes."],"note":"Keep heat moderate because soy and butter can scorch.","tags":["Seafood"],"image":"images/garlic-soy-butter-salmon.JPG"},{"title":"Maple Dijon Salmon","category":"Seafood","meta":"Simple salmon with a buttery maple-Dijon glaze.","ingredients":["2–4 salmon fillets","Salt and pepper, to taste","1 tbsp (15 ml) olive oil or butter","2 tbsp maple syrup","1 1/2 tbsp Dijon mustard","1 clove garlic, minced","1 tbsp melted butter","Small splash apple cider vinegar or lemon juice"],"method":["Pat salmon dry and season lightly with salt and pepper.","Combine maple syrup, Dijon mustard, garlic, melted butter, and a small splash of apple cider vinegar or lemon juice.","For oven method, preheat oven to 400°F / 205°C.","Place salmon on a lined baking sheet and spoon maple Dijon sauce over salmon.","Bake about 15–17 minutes, depending on thickness.","Broil briefly near the end if desired for extra caramelization.","For pan method, heat oil or butter in a skillet over medium heat.","Cook salmon mostly skin-side down first, flip carefully, then add sauce and spoon over while finishing cooking."],"note":"Maple and Dijon should stay balanced: sweet, tangy, buttery, and savory. Excellent with roasted potatoes, rice, or green vegetables.","tags":["Seafood","Canon Complete"],"image":"images/maple-dijon-salmon.JPG"},{"title":"Poached Haddock in Tomato Broth","category":"Seafood","meta":"Low-fat Mediterranean-style haddock gently poached in a brothy tomato base.","ingredients":["4 haddock fillets, about 150–180 g / 5–6 oz each","1 tbsp olive oil","1 medium onion, diced","3–4 cloves garlic, minced","1 can / 28 oz / 796 ml diced tomatoes","1 1/2 cups chicken broth","1 tsp Italian seasoning","1/2 tsp oregano","1/4 tsp chili flakes, optional","Salt and pepper, to taste","Fresh parsley, chopped, optional"],"method":["Heat olive oil in a large deep skillet or Dutch oven over medium heat.","Add diced onion and cook 5–6 minutes, until softened.","Add garlic and cook about 30 seconds, just until fragrant.","Stir in diced tomatoes, chicken broth, Italian seasoning, oregano, chili flakes if using, salt, and pepper.","Bring to a gentle simmer and cook uncovered for 10–15 minutes so the broth develops flavor.","Nestle haddock fillets directly into the tomato broth.","Cover loosely and poach gently for 8–12 minutes, depending on thickness, until the fish flakes easily with a fork.","Spoon the tomato broth over the fish before serving.","Finish with chopped parsley if desired."],"note":"Designed as a lighter Mediterranean-style fish dish with a brothy tomato base rather than a thick sauce. Works well with haddock, cod, tilapia, or other mild white fish.","tags":["Seafood","Canon Complete"],"image":"images/poached-haddock-in-tomato-broth.JPG"},{"title":"Beef & Pork Ravioli Filling","category":"Pasta & Dough","meta":"Half-batch raw filling matched to one 250 g ravioli dough batch. Freezer-safe.","ingredients":["125 g ground beef","125 g ground pork","25 g parmesan","1/2 egg, beaten","1–2 cloves garlic / about 5 g","1/2 tsp salt","1/4 tsp black pepper","Optional nutmeg or Italian seasoning"],"method":["Mix filling ingredients gently until evenly combined.","Keep chilled while rolling pasta.","Pipe or spoon small portions onto sheets.","Seal ravioli well and cook from fresh or freeze in a single layer."],"note":"Official meat ravioli filling. Designed to match one batch of the 250 g flour ravioli dough.","tags":["Pasta","Ravioli","Freezer Friendly"],"image":"images/beef-and-pork-ravioli-filling.JPG"},{"title":"Classic Ricotta–Spinach Ravioli Filling","category":"Pasta & Dough","meta":"Classic filling. Yields about 20–24 ravioli.","ingredients":["250 g ricotta","80–100 g cooked spinach, well squeezed","50 g parmesan","1 egg yolk / about 18 g","3 g garlic, finely grated or minced","Pinch nutmeg","Salt and pepper, to taste"],"method":["Squeeze spinach very dry, then chop finely.","Mix ricotta, spinach, parmesan, egg yolk, garlic, nutmeg, salt, and pepper.","Taste and adjust seasoning.","Pipe or spoon into ravioli sheets and seal well."],"note":"A food processor is optional, but pulse lightly only. You want smooth-ish, not gluey.","tags":["Pasta","Ravioli","Freezer Friendly"],"image":"images/classic-ricotta-spinach-ravioli-filling.JPG"},{"title":"Egg-Heavy Ravioli Dough","category":"Pasta & Dough","meta":"Extra-rich yolk-forward dough for ravioli. Updated locked-in 250 g flour version.","ingredients":["250 g 00 flour","2 whole eggs","5 egg yolks","1 tbsp olive oil","Pinch of salt"],"method":["Mound flour and make a deep well.","Add whole eggs, yolks, olive oil, and salt.","Beat eggs gently with a fork, gradually incorporating flour until a shaggy dough forms.","Knead 8–10 minutes until smooth and elastic.","Wrap tightly and rest at least 1 hour at room temperature.","Roll thin, around Marcato/Atlas setting 6–7, for ravioli."],"note":"If stiff, knead with lightly damp hands instead of adding water. If too soft, rest in the fridge briefly.","tags":["Pasta","Ravioli","Freezer Friendly"],"image":"images/egg-heavy-ravioli-dough.JPG"},{"title":"Slow-Rise Thin Crust Pizza Dough","category":"Pasta & Dough","meta":"KitchenAid mixer thin-crust pizza dough with a 4–5 hour room-temperature rise.","ingredients":["500 g flour, 00 flour preferred but all-purpose works","325 g water at about 100–105°F / 38–41°C","7 g instant yeast, 1 packet or about 2 1/4 tsp","10 g salt","1 tbsp olive oil"],"method":["Add water at about 100–105°F / 38–41°C to the KitchenAid bowl.","Stir in yeast and let sit about 5 minutes if desired.","Add flour, salt, and olive oil.","Using dough hook, knead on low speed for 8–10 minutes.","Dough should become smooth, elastic, and slightly tacky but not sticky.","Form into a ball and place in a lightly oiled bowl.","Cover and let rise at room temperature for 4–5 hours, until roughly doubled.","Divide into 2 equal dough balls.","Let rest 20–30 minutes before stretching.","Stretch or roll thin and place on a pizza steel, pizza stone, or baking tray.","Add sauce, cheese, and toppings.","Bake at hottest oven temperature possible, ideally 500–550°F, until crust is browned, cheese is bubbling, and underside is crisp."],"note":"00 flour gives the best thin-crust texture. The longer room-temperature rise improves flavor and texture. Pizza steel gives the best browning.","tags":["Pasta & Dough","Pizza","Canon Complete"],"image":"images/slow-rise-thin-crust-pizza-dough.JPG"},{"title":"Crisco Pie Dough","category":"Basics","meta":"4-crust KitchenAid mixer version, no egg, no vinegar.","ingredients":["2 1/2 cups / 315 g all-purpose flour","1 tsp / 6 g salt","1 cup / 200 g Crisco shortening","1/4 cup / 60 ml cold water"],"method":["Combine flour and salt in KitchenAid bowl.","Use paddle attachment to cut in Crisco until coarse crumbs form.","Gradually add cold water on low speed until dough begins to form.","Divide into 4 portions.","Roll out as needed."],"note":"No egg and no vinegar.","tags":["Basics"],"image":"images/crisco-pie-dough.JPG"},{"title":"kWen’s Marinara Sauce","category":"Basics","meta":"Rich tomato-forward marinara with onion, garlic, tomato paste, herbs, and slow simmered San Marzano tomatoes.","ingredients":["2 tbsp (30 ml) olive oil","1 medium onion, finely diced","4–5 cloves garlic, minced","2 cans whole San Marzano tomatoes, 28 oz / 796 ml each","1 small can tomato paste","1 tsp salt, adjust later","Black pepper, to taste","1 tsp dried oregano","1 tsp dried basil, or fresh basil near the end","1/2 tsp chili flakes, optional","1 tsp sugar, optional"],"method":["Heat olive oil in a large heavy pot over medium heat.","Add onion and cook slowly for 8–10 minutes, until softened and slightly sweet.","Add garlic and cook about 30 seconds.","Add tomato paste and cook 1–2 minutes while stirring.","Add canned tomatoes and crush by hand or with a spoon.","Add salt, pepper, oregano, basil, and chili flakes if using.","Bring to a gentle simmer.","Simmer uncovered 45 minutes to 1 1/2 hours, stirring occasionally.","Taste and adjust salt, pepper, and sugar if needed.","Blend lightly if desired, or leave rustic.","Add fresh basil near the end if using."],"note":"Excellent for spaghetti, lasagna, meatballs, ravioli, and pizza applications. Freezes extremely well and is even better the next day.","tags":["Basics","Sauce","Canon Complete"],"image":"images/kwens-marinara-sauce.JPG"},{"title":"Spanish Rice with Salsa & Tomato Paste","category":"Basics","meta":"Easy seasoned rice side with salsa and tomato paste.","ingredients":["1 tbsp olive oil","1 small onion, finely diced","2 cloves garlic, minced","1 cup long grain white rice","2 tbsp (30 ml) tomato paste","1 cup salsa","2 cups chicken broth or water","1 tsp salt","1/2 tsp black pepper","1/2 tsp cumin (optional)","1/2 tsp chili powder or paprika (optional)"],"method":["Heat olive oil in a saucepan over medium heat.","Cook onion until softened, about 4–5 minutes.","Add garlic and cook 30 seconds.","Add rice and toast lightly for 1–2 minutes.","Stir in tomato paste until evenly coated.","Add salsa, broth, salt, pepper, and optional spices.","Bring to a simmer.","Cover and cook on low 15–18 minutes until rice is tender.","Rest covered 5 minutes before fluffing with a fork."],"note":"Good side for tacos, burritos, grilled meat, or bowls.","tags":["Side"],"image":"images/spanish-rice-with-salsa-and-tomato-paste.JPG"},{"title":"Abigail’s Blueberry Pancake Macarons","category":"Baking & Breakfast","meta":"Family-style blueberry pancake-inspired macarons with maple-blueberry cream cheese filling.","ingredients":["130 g almond flour","130 g icing sugar","100 g egg whites","100 g granulated sugar","Small amount blueberry extract, optional","Tiny touch maple extract, optional","Cream cheese, softened, for filling","Butter, softened, for filling","Icing sugar, for filling","Blueberry jam, for filling","Small amount maple syrup or maple extract, for filling"],"method":["Sift almond flour and icing sugar together, removing larger almond bits if needed.","Beat egg whites until foamy.","Gradually add granulated sugar and whip until stiff glossy peaks form.","Fold dry ingredients into meringue carefully.","Continue folding until batter flows slowly like lava.","Pipe onto parchment-lined trays.","Tap trays firmly, then let rest 30–60 minutes until a skin forms.","Bake at about 300°F / 150°C for 14–17 minutes, until feet form and shells release cleanly.","For filling, beat cream cheese and butter together.","Add icing sugar, blueberry jam, and maple flavoring. Mix until smooth.","Pair similar shell sizes, pipe filling onto shells, and sandwich together.","Refrigerate before serving. Best after maturing overnight."],"note":"Inspired by blueberry pancakes with maple flavor. Cozier and more playful than formal pâtisserie macarons.","tags":["Desserts","Macarons","Family Favorite","Canon Complete"],"image":"images/abigails-blueberry-pancake-macarons.JPG"},{"title":"Banana Bread","category":"Baking & Breakfast","meta":"Moist canon banana bread with ripe bananas, brown sugar, yogurt, and required cinnamon.","ingredients":["3 very ripe bananas, mashed, about 350–375 g (1 1/2 cups)","113 g (1/2 cup) butter, melted","80 g (about 1/3 cup) plain yogurt, or sour cream for a richer loaf","150 g (3/4 cup packed) brown sugar","2 large eggs","2 tsp (10 ml) vanilla extract","190 g (1 1/2 cups) all-purpose flour","1 tsp (5 g) baking soda","1/2 tsp (3 g) salt","1 tsp cinnamon"],"method":["Preheat oven to 350°F / 175°C and grease or line one standard loaf pan.","Mash bananas in a large bowl until mostly smooth.","Whisk in melted butter, plain yogurt, brown sugar, eggs, and vanilla until combined.","In a separate bowl, whisk together flour, baking soda, salt, and cinnamon if using.","Fold dry ingredients into wet ingredients until just combined. Do not overmix.","Pour batter into the prepared loaf pan.","Bake 55–70 minutes, until a toothpick inserted in the centre comes out mostly clean.","Cool in the pan 10–15 minutes, then transfer to a rack to cool fully."],"note":"Canon tested version: cinnamon is required, not optional. For a double batch use 160 g yogurt or sour cream and 2 tsp cinnamon total. No white sugar.","tags":["Desserts","Canon Complete"],"image":"images/banana-bread.JPG"},{"title":"Best Buttermilk Pancakes","category":"Baking & Breakfast","meta":"Richer, custardy buttermilk pancakes.","ingredients":["250 g (2 cups) all-purpose flour","25 g (2 tbsp) sugar","2 tsp baking powder","1/2 tsp baking soda","1/2 tsp salt","480 ml (2 cups) buttermilk","2 large eggs","57 g (1/4 cup) melted butter","1 tsp vanilla extract","Optional wild blueberries"],"method":["Whisk dry ingredients together.","Whisk buttermilk, eggs, melted butter, and vanilla.","Fold wet into dry until just combined.","Rest batter briefly.","Cook on a buttered griddle until golden on both sides."],"note":"Goal is richer and more custardy than diner-style pancakes.","tags":["Breakfast","Family Favorite"],"image":"images/best-buttermilk-pancakes.JPG"},{"title":"Classic Tiramisu","category":"Baking & Breakfast","meta":"Classic layered coffee dessert.","ingredients":["24 ladyfingers","360 ml (1 1/2 cups) strong coffee or espresso, cooled","475 g mascarpone","4 large egg yolks, or whipped cream method","100 g (1/2 cup) sugar","2 tbsp cocoa powder, for dusting"],"method":["Prepare coffee and let cool.","Make the mascarpone cream.","Dip ladyfingers briefly in coffee.","Layer ladyfingers and cream.","Chill until set.","Dust with cocoa before serving."],"note":"Best after a long chill so the layers settle together.","tags":["Sweet","Make Ahead"],"image":"images/classic-tiramisu.JPG"},{"title":"Mémère’s Crepes","category":"Baking & Breakfast","meta":"Old family-style sour milk crepes with a runny batter and crisp edges from a lightly oiled pan.","ingredients":["125 g (1 cup) all-purpose flour","1 egg","1 cup sour milk, either buttermilk or 1 cup milk mixed with 1 tsp vinegar","1 tsp baking powder","Extra milk, added gradually until the batter is pretty runny","Canola oil, for the pan"],"method":["Whisk together flour and baking powder.","Add egg and sour milk.","Whisk until mostly smooth.","Add extra milk a little at a time until batter is thin, loose, and runny enough to spread easily in the pan.","Heat a stainless steel skillet over medium heat.","Add a small amount of canola oil.","Pour in a thin layer of batter and swirl the pan to spread it.","Cook until edges crisp slightly and top looks mostly set.","Flip and cook briefly on the second side.","Repeat with remaining batter, adding a little more oil as needed."],"note":"No butter in the batter. Batter should be much runnier than pancake batter. Sour milk gives classic flavor and texture; canola oil in a stainless pan helps create crisp edges.","tags":["Breakfast","Family Favorite","Canon Complete"],"image":"images/memeres-crepes.JPG"},{"title":"Old-Fashioned Graham Pie","category":"Baking & Breakfast","meta":"New Brunswick style graham pie.","ingredients":["1 graham cracker crust","100 g (1/2 cup packed) brown sugar","8 g (1 tbsp) all-purpose flour","16 g (2 tbsp) cornstarch","3 large eggs","360 ml (1 1/2 cups) heavy cream","1 tsp vanilla extract"],"method":["Preheat oven to 350°F / 175°C.","Whisk brown sugar, flour, and cornstarch in a saucepan.","Gradually add heavy cream, stirring until thickened.","Remove from heat and stir in eggs and vanilla.","Pour into graham crust.","Bake 30–35 minutes, or until filling is set.","Cool before serving."],"note":"New Brunswick style.","tags":["Sweet","Family Favorite"],"image":"images/old-fashioned-graham-pie.JPG"},{"title":"Sticky Toffee Pudding","category":"Baking & Breakfast","meta":"Warm date pudding with molasses depth and a milk-based toffee sauce.","ingredients":["160 g (1 cup) chopped dates","1 tsp baking soda","240 ml (1 cup) boiling water","57 g (1/4 cup) butter, softened","150 g (3/4 cup packed) brown sugar","2 eggs","1 tsp vanilla extract","1 tbsp (20 g) molasses","190 g (1 1/2 cups) all-purpose flour","1 tsp baking powder","Pinch salt","113 g (1/2 cup) butter, for sauce","1 cup brown sugar, for sauce","240 ml (1 cup) milk, for sauce","1 tsp vanilla, for sauce","Pinch salt, for sauce"],"method":["Place chopped dates in a bowl, add baking soda, and pour boiling water over them.","Let sit 10–15 minutes until softened.","Cream together butter and brown sugar.","Add eggs one at a time, then stir in vanilla and molasses.","Combine flour, baking powder, and salt in another bowl.","Add dry ingredients to butter mixture.","Fold in softened date mixture.","Grease a baking dish or muffin tins.","Bake at 350°F / 175°C until set and springy, about 30–40 minutes for a larger dish or shorter for muffin tins.","For sauce, combine butter, brown sugar, milk, vanilla, and salt in a saucepan.","Bring to a gentle simmer and cook several minutes until smooth and slightly thickened.","Spoon warm toffee sauce over pudding and let some soak in before serving.","Serve warm with extra sauce."],"note":"The milk-based sauce keeps it slightly lighter than heavy cream versions. Molasses deepens the caramel flavor without overpowering it. Works well in muffin tins.","tags":["Desserts","Canon Complete"],"image":"images/sticky-toffee-pudding.JPG"},{"title":"Traditional Canadian Pouding Chômeur","category":"Baking & Breakfast","meta":"Classic self-saucing brown sugar pudding with fluffy cake and syrup underneath.","ingredients":["190 g (1 1/2 cups) all-purpose flour","2 tsp baking powder","Pinch salt","57 g (1/4 cup) butter, softened","150 g (3/4 cup packed) brown sugar","1 egg","1 tsp vanilla extract","3/4 cup milk","300 g (1 1/2 cups packed) brown sugar, for syrup","480 ml (2 cups) hot water, for syrup","28 g (2 tbsp) butter, for syrup","Small amount maple syrup, optional"],"method":["Preheat oven to 350°F / 175°C.","Grease a baking dish.","Whisk together flour, baking powder, and salt.","Cream butter and brown sugar in another bowl.","Add egg and vanilla.","Alternate adding dry ingredients and milk, mixing until just combined.","For syrup, combine brown sugar, hot water, and butter in a saucepan.","Heat until dissolved and smooth, adding a little maple syrup if desired.","Spread batter into baking dish.","Carefully pour hot syrup over batter without stirring.","Bake 35–45 minutes, until cake is golden and bubbling.","Serve warm."],"note":"The cake rises through the syrup while baking. The bottom should remain saucy. Excellent with vanilla ice cream, whipped cream, or extra maple syrup.","tags":["Desserts","Canon Complete"],"image":"images/traditional-canadian-pouding-chomeur.JPG"},{"title":"Traditional Pets de Sœur","category":"Baking & Breakfast","meta":"Acadian sweet rolled buns.","ingredients":["1 batch pie dough or leftover pastry dough, about 450–500 g","150–200 g (3/4–1 cup packed) brown sugar","57 g (1/4 cup) butter, softened","Optional cinnamon, about 1/2 tsp"],"method":["Roll dough flat.","Spread with butter and brown sugar.","Roll up and slice.","Bake until golden and caramelized."],"note":"Traditional Acadian sweet.","tags":["Sweet","Acadian"],"image":"images/traditional-pets-de-s-ur.JPG"},{"title":"Coconut Macarons with White Chocolate Coconut Ganache","category":"Macarons","meta":"Macarons using the standardized 1.3:1 shell base with coconut extract.","ingredients":["Shells: 130 g almond flour","130 g icing sugar","100 g egg whites","100 g granulated sugar","1/2 tsp coconut extract","Filling: 200 g white chocolate","75 g cream or suitable ganache liquid","1/2 tsp coconut extract"],"method":["Prepare macaron shells using the standardized 1.3:1 base.","Macaronage to flowing lava consistency.","Pipe shells and rest until tacky.","Bake until feet form and shells are set.","Prepare white chocolate coconut ganache.","Fill and mature macarons before serving."],"note":"No coconut cream in the filling.","tags":["Macarons","Sweet"],"image":"images/coconut-macarons-with-white-chocolate-coconut-ganache.JPG"},{"title":"French Macarons with Chocolate Chip Ganache","category":"Macarons","meta":"Standardized French macaron shell with milk-based chocolate chip ganache.","ingredients":["Shells: 130 g almond flour","130 g icing sugar","100 g egg whites","100 g granulated sugar","Filling: 170 g (1 cup) chocolate chips","60–90 ml (1/4–1/3 cup) milk or cream for ganache, added as needed"],"method":["Prepare shells using the standardized 1.3:1 base.","Pipe and rest shells until tacky.","Bake until set with feet.","Prepare chocolate chip ganache.","Fill shells and mature before serving."],"note":"All macaron shell recipes use the standardized 130/130/100/100 base going forward.","tags":["Macarons","Sweet"],"image":"images/french-macarons-with-chocolate-chip-ganache.JPG"},{"title":"OG Chocolate Macarons with Peanut Butter Filling","category":"Macarons","meta":"Original chocolate macaron recipe saved separately before standardization.","ingredients":["Chocolate macaron shells","Peanut butter filling"],"method":["Prepare chocolate macaron shells using the original saved version.","Prepare peanut butter filling.","Pipe, bake, fill, and mature."],"note":"Saved as the OG chocolate macaron recipe.","tags":["Macarons","Sweet"],"image":"images/og-chocolate-macarons-with-peanut-butter-filling.JPG"},{"title":"kWen’s Guinness Pork Sausage Rolls","category":"Baking & Breakfast","meta":"Freezer-friendly Guinness pork sausage rolls with caramelized onion, Dijon, herbs, and flaky puff pastry.","ingredients":["1 lb (450 g) ground pork","1 medium onion, finely diced","2 cloves garlic, minced","1 tbsp butter","2 tbsp Guinness beer","1 tsp Worcestershire sauce","1 tsp Dijon mustard","1/2 tsp thyme","1 tsp parsley","1 tsp salt","3/4 tsp black pepper","1/3 cup (35 g) breadcrumbs","1 egg","Optional: 1/2 cup (50 g) sharp cheddar, shredded","2 sheets puff pastry, thawed","Egg wash: 1 egg beaten with 1 tbsp water"],"method":["Melt butter in a skillet over medium heat.","Cook onion 8–10 minutes until softened and lightly caramelized.","Add garlic and cook 30 seconds.","Add Guinness and reduce almost completely.","Cool slightly.","Mix pork, onion mixture, Worcestershire, Dijon, thyme, parsley, salt, pepper, breadcrumbs, egg, and cheddar if using.","Roll puff pastry lightly and cut each sheet in half lengthwise.","Form logs of filling and wrap in pastry.","Seal with egg wash and chill 15 minutes.","Slice into pieces and brush tops with egg wash.","Bake at 400°F (205°C) for 25–30 minutes until deeply golden."],"tags":["Freezer Friendly","Baking & Breakfast","Canon Complete"],"image":"images/kwens-guinness-pork-sausage-rolls.jpg","note":"The Guinness should add richness and depth, not a strong beer flavor. Freeze unbaked or baked."},{"title":"kWen’s Tourtière Sausage Rolls","category":"Baking & Breakfast","meta":"Tourtière-inspired sausage rolls with pork, beef, mashed potato, summer savory, warm spices, and puff pastry.","ingredients":["2/3 lb (300 g) ground pork","1/3 lb (150 g) ground beef","1 small onion, finely diced","2 cloves garlic, minced","1 tbsp butter","1/3 cup (75–90 g) cooled mashed potato","1/3 cup (35 g) plain breadcrumbs","1 egg","1 1/4 tsp summer savory","1 tsp parsley","1 tsp salt","1/2 tsp black pepper","1/4 tsp cinnamon","Healthy pinch ground clove","Pinch nutmeg","1 tsp Worcestershire sauce","1 tsp Dijon mustard","2 sheets puff pastry, thawed","Egg wash: 1 egg beaten with 1 tbsp water"],"method":["Melt butter in a skillet over medium heat.","Cook onion 5–7 minutes until soft and lightly golden.","Add garlic and cook 30 seconds.","Cool slightly.","Mix pork, beef, onion mixture, mashed potato, breadcrumbs, egg, Worcestershire, Dijon, and seasonings.","Roll puff pastry lightly and cut each sheet in half lengthwise.","Form logs of filling and wrap tightly.","Seal with egg wash and chill 15–20 minutes.","Slice into portions and brush tops with egg wash.","Bake at 400°F (205°C) for 25–30 minutes until deeply golden."],"tags":["Freezer Friendly","Baking & Breakfast","French Canadian","Canon Complete"],"image":"images/kwens-tourtiere-sausage-rolls.jpg","note":"The mashed potato gives a true tourtière-style texture. No maple syrup."},{"title":"Corn Dog Recipe","category":"Basics","meta":"Classic fairground-style corn dogs with hot dogs, fine yellow cornmeal batter, and a crisp golden fry.","ingredients":["8 hot dogs","8 wooden sticks","Extra flour for dusting","1 cup (120 g) all-purpose flour","3/4 cup (120 g) fine yellow cornmeal","2 tbsp (25 g) sugar","1 tbsp baking powder","1 tsp salt","1/4 tsp black pepper","1 egg","1 cup (240 ml) buttermilk","2 tbsp (28 g) melted butter","Neutral oil for frying"],"method":["Heat oil to 350°F (175°C).","Pat hot dogs dry and insert sticks.","Lightly dust hot dogs with flour.","Whisk dry ingredients together.","Whisk wet ingredients together.","Combine until just mixed.","Pour batter into a tall glass.","Dip hot dogs fully into batter.","Fry 3–4 minutes until deep golden brown."],"tags":["Basics","Freezer Friendly","Fair Food","Canon Complete"],"image":"images/corn-dog-recipe.jpg","note":"Fine cornmeal gives the most authentic fair-style texture."}];
+let activeCategory = 'Main Dishes';
+let activeTag = null;
+let activeSpecial = null;
+let selectedIndex = 0;
+let currentScale = 1;
+
+const iconPot = `<svg viewBox="0 0 120 100"><path d="M30 38h60v38c0 8-7 14-15 14H45c-8 0-15-6-15-14V38Z" fill="#9fc7bd" stroke="#053746" stroke-width="4"/><path d="M24 43h-12c-6 0-9 5-8 11 1 5 5 8 10 8h10" fill="none" stroke="#053746" stroke-width="4"/><path d="M96 43h12c6 0 9 5 8 11-1 5-5 8-10 8H96" fill="none" stroke="#053746" stroke-width="4"/><path d="M43 33c2-10 32-10 34 0" fill="none" stroke="#053746" stroke-width="4"/><path d="M24 36h72" stroke="#053746" stroke-width="4" stroke-linecap="round"/></svg>`;
+const iconPasta = `<svg viewBox="0 0 120 100"><path d="M20 70c18 20 70 20 88 0" fill="#f2d486" stroke="#053746" stroke-width="4"/><path d="M28 52c12-18 24 18 36 0s23 17 36 0" fill="none" stroke="#b44422" stroke-width="6" stroke-linecap="round"/><path d="M31 61c15-14 20 14 36 0s24 10 38-2" fill="none" stroke="#dca10f" stroke-width="6" stroke-linecap="round"/></svg>`;
+const iconPie = `<svg viewBox="0 0 120 100"><path d="M18 56c8-23 74-31 91 0v18c-10 23-77 25-91 0Z" fill="#dca10f" stroke="#053746" stroke-width="4"/><path d="M21 56c20 18 66 18 87 0" fill="none" stroke="#053746" stroke-width="3"/><path d="M38 45l20 22M58 39l22 31M80 40l18 22" stroke="#8f321c" stroke-width="4" stroke-linecap="round"/></svg>`;
+const iconSweet = `<svg viewBox="0 0 120 100"><path d="M31 75h58l8-39H23Z" fill="#f5e4c3" stroke="#053746" stroke-width="4"/><path d="M28 35c8-18 20 5 32-8 13-12 23 12 34 0 6 7 9 13 4 21H23c-3-5-1-10 5-13Z" fill="#c46a6a" stroke="#053746" stroke-width="3"/><circle cx="45" cy="41" r="3" fill="#dca10f"/><circle cx="70" cy="36" r="3" fill="#dca10f"/></svg>`;
+const iconFish = `<svg viewBox="0 0 120 100"><path d="M24 54c25-27 56-28 78 0-22 28-54 27-78 0Z" fill="#9fc7bd" stroke="#053746" stroke-width="4"/><path d="M24 54 8 35v38Z" fill="#dca10f" stroke="#053746" stroke-width="4"/><circle cx="86" cy="49" r="4" fill="#053746"/><path d="M58 32c-8 12-8 30 0 44" fill="none" stroke="#053746" stroke-width="3"/></svg>`;
+
+
+function recipePhotoMarkup(r) {
+  const title = escapeHtml(r.title || 'Recipe');
+  const src = escapeHtml(r.image || '');
+  if (!src) {
+    return `<div class="photo-placeholder"><span>Photo coming soon</span></div>`;
+  }
+  return `<img src="${src}" alt="${title} photo" loading="lazy" onerror="this.outerHTML='<div class=&quot;photo-placeholder&quot;><span>Photo coming soon</span></div>'">`;
+}
+function iconFor(r) {
+  return recipePhotoMarkup(r);
+}
+
+function escapeHtml(str) {
+  return String(str ?? '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+}
+function escapeAttr(str) { return escapeHtml(str).replace(/'/g, '&#039;'); }
+function getFavorites() {
+  try { return JSON.parse(localStorage.getItem('kwenCookbookFavorites') || '[]'); } catch { return []; }
+}
+function saveFavorites(favs) { localStorage.setItem('kwenCookbookFavorites', JSON.stringify(favs)); }
+function isFav(title) { return getFavorites().includes(title); }
+function toggleFav(title) {
+  let favs = getFavorites();
+  favs = favs.includes(title) ? favs.filter(x => x !== title) : [...favs, title];
+  saveFavorites(favs);
+  render();
+  renderDetail(selectedIndex);
+}
+function cats() {
+  const preferred = ['Main Dishes','Soups & Stews','Pasta & Dough','Seafood','Baking & Breakfast','Desserts','Macarons','Sides','Basics'];
+  const found = [...new Set(RECIPES.map(r => r.category))];
+  return preferred.filter(c => found.includes(c)).concat(found.filter(c => !preferred.includes(c)).sort());
+}
+function catIcon(cat) {
+  return '•';
+}
+function buildMenu() {
+  const menu = document.getElementById('categoryMenu');
+  menu.innerHTML = cats().map(cat => {
+    const items = RECIPES.map((r,i)=>({...r,i}))
+      .filter(r => r.category === cat)
+      .sort((a,b)=>a.title.localeCompare(b.title))
+      .map(r => `<button class="recipe-link ${r.i===selectedIndex?'active':''}" onclick="selectRecipe(${r.i})">${escapeHtml(r.title)}</button>`)
+      .join('');
+    return `<div class="cat ${cat===activeCategory?'open':''}">
+      <button class="cat-head ${cat===activeCategory&&!activeSpecial&&!activeTag?'active':''}" onclick="setCategory('${escapeAttr(cat)}')">
+        <span>${catIcon(cat)}</span><span>${escapeHtml(cat)}</span><span class="chev">›</span>
+      </button>
+      <div class="recipe-list">${items}</div>
+    </div>`;
+  }).join('');
+}
+function setCategory(cat) {
+  activeCategory = cat; activeSpecial = null; activeTag = null;
+  document.body.classList.remove('menu-open');
+  render();
+}
+function setSpecial(special) {
+  activeSpecial = special; activeTag = null;
+  if (special === 'home') activeCategory = 'Main Dishes';
+  document.body.classList.remove('menu-open');
+  render();
+}
+function setTagFilter(tag) {
+  activeTag = tag; activeSpecial = null;
+  document.body.classList.remove('menu-open');
+  render();
+}
+
+function updateHomeWelcome() {
+  const home = document.getElementById('homeWelcome');
+  const grid = document.getElementById('grid');
+  if (!home || !grid) return;
+  const isHome = activeSpecial === 'home';
+  home.classList.toggle('active', isHome);
+  grid.style.display = isHome ? 'none' : '';
+}
+
+function filteredRecipes() {
+  const q = document.getElementById('search').value.trim().toLowerCase();
+  let arr = RECIPES.map((r,i)=>({...r,i}));
+  if (activeSpecial === 'favorites') arr = arr.filter(r => isFav(r.title));
+  else if (activeTag) arr = arr.filter(r => (r.tags||[]).includes(activeTag));
+  else arr = arr.filter(r => r.category === activeCategory);
+  if (q) arr = arr.filter(r => [r.title,r.category,r.meta,r.note,...r.ingredients,...r.method,...(r.tags||[])].join(' ').toLowerCase().includes(q));
+  return arr.sort((a,b)=>a.title.localeCompare(b.title));
+}
+function subtitleFor(cat) {
+  const m = {
+    'Main Dishes':'Hearty, comforting, and made to bring everyone to the table.',
+    'Pasta & Dough':'Dough, noodles, sauces, and weekend projects worth the flour cloud.',
+    'Soups & Stews':'Warm bowls, family pots, and cold-day classics.',
+    'Seafood':'Simple fish recipes, buttery salmon, and coastal comfort.',
+    'Desserts':'Sweet classics for coffee, company, and just one more piece.',
+    'Baking & Breakfast':'Cozy bakes, pancakes, loaves, and oven therapy.',
+    'Macarons':'Tiny fancy chaos, standardized shells, and big payoff.'
+  };
+  return m[cat] || 'Family recipes, weeknight wins, and cozy kitchen favourites.';
+}
+function render() {
+  buildMenu();
+  const arr = filteredRecipes();
+  updateHomeWelcome();
+  const title = activeSpecial === 'home' ? 'Home' : activeSpecial === 'favorites' ? 'Favorites' : activeTag || activeCategory;
+  document.getElementById('pageTitle').textContent = title;
+  document.getElementById('pageSubtitle').textContent =
+    activeSpecial === 'home' ? 'A family cookbook built to keep the good stuff from getting lost.' :
+    activeSpecial === 'favorites' ? 'Your saved kitchen hits, ready when you are.' :
+    activeTag ? 'Prep-ahead recipes built for future-you.' :
+    subtitleFor(title);
+  const grid = document.getElementById('grid');
+  if (!arr.length) {
+    grid.innerHTML = `<div class="empty">No recipes found. The cookbook gremlins came up empty.</div>`;
+    return;
+  }
+  if (!arr.some(r => r.i === selectedIndex)) selectedIndex = arr[0].i;
+  grid.innerHTML = arr.map(r => `
+    <article class="recipe-card ${r.i===selectedIndex?'active':''}" onclick="selectRecipe(${r.i})">
+      <div class="thumb">${iconFor(r)}<button class="heart ${isFav(r.title)?'faved':''}" onclick="event.stopPropagation(); toggleFav('${escapeAttr(r.title)}')">${isFav(r.title)?'♥':'♡'}</button></div>
+      <div class="card-body">
+        <h2>${escapeHtml(r.title)}</h2>
+        <div class="card-foot"><span>${catIcon(r.category)}</span><span>${escapeHtml(r.category)}</span></div>
+      </div>
+    </article>
+  `).join('');
+  renderDetail(selectedIndex);
+}
+function selectRecipe(i) {
+  selectedIndex = i; currentScale = 1;
+  document.body.classList.remove('menu-open');
+  document.body.classList.add('detail-open');
+  renderDetail(i);
+  render();
+}
+function extractYield(meta) {
+  const m = String(meta).match(/serves?\s*:?\s*([\d–\-]+)|yields?\s*:?\s*([^.;]+)/i);
+  return m ? (m[1] || m[2]) : '—';
+}
+function renderDetail(i) {
+  const r = RECIPES[i] || RECIPES[0];
+  document.getElementById('detailTitle').textContent = r.title;
+  document.getElementById('detailIcon').innerHTML = iconFor(r);
+  document.getElementById('detailServes').textContent = extractYield(r.meta);
+  document.getElementById('detailCategory').textContent = r.category;
+  document.getElementById('favDetail').textContent = isFav(r.title) ? '♥' : '♡';
+  document.getElementById('favDetail').onclick = () => toggleFav(r.title);
+  document.getElementById('detailTags').innerHTML = (r.tags||[]).map(t => `<span class="tag">${escapeHtml(t)}</span>`).join('');
+  document.querySelectorAll('.scale-buttons button').forEach(b => b.classList.toggle('active', b.textContent.trim().startsWith(currentScale + 'x')));
+  document.getElementById('detailIngredients').innerHTML = r.ingredients.map(x => `<li>${scaleText(x, currentScale)}</li>`).join('');
+  document.getElementById('detailMethod').innerHTML = r.method.map(x => `<li>${escapeHtml(x)}</li>`).join('');
+  const note = r.note || r.meta || '';
+  document.getElementById('detailNote').innerHTML = `<strong>kWen note:</strong> ${escapeHtml(note)}`;
+}
+function setScale(scale, btn) {
+  currentScale = scale;
+  btn.closest('.scale-buttons').querySelectorAll('button').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderDetail(selectedIndex);
+}
+const fractionVals = {'1/4':.25,'1/3':1/3,'1/2':.5,'2/3':2/3,'3/4':.75};
+function nice(n) {
+  const whole = Math.floor(n);
+  const frac = n - whole;
+  const fracs = [[.25,'1/4'],[1/3,'1/3'],[.5,'1/2'],[2/3,'2/3'],[.75,'3/4']];
+  for (const [v,s] of fracs) {
+    if (Math.abs(frac - v) < .04) return whole ? whole + ' ' + s : s;
+  }
+  const rounded = Math.round(n*100)/100;
+  return String(rounded).replace(/\.0$/,'');
+}
+function scaleText(text, factor) {
+  if (factor === 1) return text;
+
+  const vulgarMap = {
+    '¼': 0.25, '½': 0.5, '¾': 0.75,
+    '⅓': 1/3, '⅔': 2/3,
+    '⅛': 0.125, '⅜': 0.375, '⅝': 0.625, '⅞': 0.875
+  };
+
+  function decimalToMixed(n) {
+    const rounded = Math.round(n * 100) / 100;
+    const whole = Math.floor(rounded);
+    const frac = rounded - whole;
+    const common = [
+      [0.125, '1/8'], [0.25, '1/4'], [0.333, '1/3'], [0.375, '3/8'],
+      [0.5, '1/2'], [0.625, '5/8'], [0.667, '2/3'], [0.75, '3/4'], [0.875, '7/8']
+    ];
+    let fracText = '';
+    for (const [val, label] of common) {
+      if (Math.abs(frac - val) < 0.035) {
+        fracText = label;
+        break;
+      }
+    }
+    if (!fracText) return String(rounded).replace(/\.0$/, '');
+    if (whole === 0) return fracText;
+    return whole + ' ' + fracText;
+  }
+
+  const protectedValues = [];
+  function protect(value) {
+    const key = `@@KWEN_SCALE_${protectedValues.length}@@`;
+    protectedValues.push(value);
+    return key;
+  }
+
+  // Scale mixed numbers first: 1 1/2 cups. Protect so regular number pass won't scale them again.
+  text = text.replace(/\b(\d+)\s+(\d+)\/(\d+)\b/g, function(match, whole, num, den) {
+    return protect(decimalToMixed((parseFloat(whole) + parseFloat(num) / parseFloat(den)) * factor));
+  });
+
+  // Scale simple fractions: 1/2 cup. Protect so regular number pass won't scale them again.
+  text = text.replace(/\b(\d+)\/(\d+)\b/g, function(match, num, den) {
+    return protect(decimalToMixed((parseFloat(num) / parseFloat(den)) * factor));
+  });
+
+  // Scale vulgar fractions: ½ cup. Protect so regular number pass won't scale them again.
+  text = text.replace(/[¼½¾⅓⅔⅛⅜⅝⅞]/g, function(match) {
+    return protect(decimalToMixed(vulgarMap[match] * factor));
+  });
+
+  // Scale regular standalone numbers, but avoid temperatures, dimensions, percentages, years, and protected tokens.
+  text = text.replace(/\b(\d+(?:\.\d+)?)\b/g, function(match, num, offset, full) {
+    const before = full.slice(Math.max(0, offset - 14), offset);
+    const after = full.slice(offset + match.length, offset + match.length + 14);
+
+    // Do not scale protected placeholder indexes.
+    if (before.includes('@@KWEN_SCALE_') || after.includes('@@')) return match;
+
+    // Do not scale temperatures, pan sizes/dimensions, percentages, or very large numbers.
+    if (/°/.test(after)) return match;
+    if (/%/.test(after)) return match;
+    if (/x\s*$/i.test(before) || /^\s*x/i.test(after)) return match;
+    if (parseFloat(num) >= 1000) return match;
+
+    return decimalToMixed(parseFloat(num) * factor);
+  });
+
+  // Restore protected converted fractions.
+  protectedValues.forEach((value, i) => {
+    text = text.replaceAll(`@@KWEN_SCALE_${i}@@`, value);
+  });
+
+  return text;
+}
+document.getElementById('search').addEventListener('input', render);
+render();
+</script>
+
+<script id="kwen-category-click-split-fix">
+(function () {
+  function mobileMode() {
+    return window.matchMedia && window.matchMedia("(max-width:820px)").matches;
+  }
+
+  function toggleCategoryList(button) {
+    var cat = button.closest(".cat");
+    if (!cat) return;
+    cat.classList.toggle("open");
+    if (mobileMode()) {
+      document.body.classList.add("menu-open");
+    }
+  }
+
+  function isArrowClick(event, button) {
+    var target = event.target;
+    if (target && target.classList && target.classList.contains("chev")) return true;
+
+    var rect = button.getBoundingClientRect();
+    var clickX = event.clientX;
+    // Treat the far-right 48px of the category button as the arrow zone.
+    return clickX >= rect.right - 52;
+  }
+
+  function wireCategoryButtons() {
+    document.querySelectorAll(".cat-head").forEach(function (button) {
+      if (button.dataset.kwenSplitFixed === "1") return;
+      button.dataset.kwenSplitFixed = "1";
+
+      button.addEventListener("click", function (event) {
+        if (isArrowClick(event, button)) {
+          event.preventDefault();
+          event.stopImmediatePropagation();
+          toggleCategoryList(button);
+          return false;
+        }
+
+        // Category name click: allow the app's original filter/page behavior.
+        // On mobile, close the drawer after category page/filter loads.
+        if (mobileMode()) {
+          setTimeout(function () {
+            document.body.classList.remove("menu-open");
+          }, 120);
+        }
+      }, true);
+    });
+
+    document.querySelectorAll(".recipe-link").forEach(function (button) {
+      if (button.dataset.kwenRecipeCloseFixed === "1") return;
+      button.dataset.kwenRecipeCloseFixed = "1";
+      button.addEventListener("click", function () {
+        if (mobileMode()) {
+          setTimeout(function () {
+            document.body.classList.remove("menu-open");
+          }, 120);
+        }
+      }, false);
+    });
+
+    var sidebar = document.querySelector(".sidebar");
+    if (sidebar && sidebar.dataset.kwenStopFixed !== "1") {
+      sidebar.dataset.kwenStopFixed = "1";
+      sidebar.addEventListener("click", function (event) {
+        event.stopPropagation();
+      });
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    wireCategoryButtons();
+
+    var sidebar = document.querySelector(".sidebar");
+    if (sidebar) {
+      new MutationObserver(wireCategoryButtons).observe(sidebar, {
+        childList: true,
+        subtree: true
+      });
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
