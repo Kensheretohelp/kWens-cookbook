@@ -954,7 +954,7 @@ body{
 
 </head>
 <body>
-<!-- kWen’s Cookbook measurement-normalized QA rebuild 2026-05-24. Scaling fractions fixed globally. Banana bread corrected. -->
+<!-- kWen’s Cookbook measurement-normalized QA rebuild 2026-05-24. Scaling fractions protected from double-scaling globally. -->
 <!-- kWen’s Cookbook final master build: Zissou-inspired palette, locked wagon artwork, cleaned category layout. -->
 <!-- Layout polish pass: unified sidebar bullets + Zissou-inspired palette + refined detail panel. -->
 <div class="mobile-backdrop" onclick="document.body.classList.remove('menu-open')"></div>
@@ -1268,32 +1268,48 @@ function scaleText(text, factor) {
     return whole + ' ' + fracText;
   }
 
-  // Scale mixed numbers first: 1 1/2 cups
+  const protectedValues = [];
+  function protect(value) {
+    const key = `@@KWEN_SCALE_${protectedValues.length}@@`;
+    protectedValues.push(value);
+    return key;
+  }
+
+  // Scale mixed numbers first: 1 1/2 cups. Protect so regular number pass won't scale them again.
   text = text.replace(/\b(\d+)\s+(\d+)\/(\d+)\b/g, function(match, whole, num, den) {
-    return decimalToMixed((parseFloat(whole) + parseFloat(num) / parseFloat(den)) * factor);
+    return protect(decimalToMixed((parseFloat(whole) + parseFloat(num) / parseFloat(den)) * factor));
   });
 
-  // Scale simple fractions: 1/2 cup
+  // Scale simple fractions: 1/2 cup. Protect so regular number pass won't scale them again.
   text = text.replace(/\b(\d+)\/(\d+)\b/g, function(match, num, den) {
-    return decimalToMixed((parseFloat(num) / parseFloat(den)) * factor);
+    return protect(decimalToMixed((parseFloat(num) / parseFloat(den)) * factor));
   });
 
-  // Scale vulgar fractions: ½ cup
+  // Scale vulgar fractions: ½ cup. Protect so regular number pass won't scale them again.
   text = text.replace(/[¼½¾⅓⅔⅛⅜⅝⅞]/g, function(match) {
-    return decimalToMixed(vulgarMap[match] * factor);
+    return protect(decimalToMixed(vulgarMap[match] * factor));
   });
 
-  // Scale regular standalone numbers, but avoid temperatures and dimensions.
+  // Scale regular standalone numbers, but avoid temperatures, dimensions, percentages, years, and protected tokens.
   text = text.replace(/\b(\d+(?:\.\d+)?)\b/g, function(match, num, offset, full) {
-    const before = full.slice(Math.max(0, offset - 8), offset);
-    const after = full.slice(offset + match.length, offset + match.length + 8);
+    const before = full.slice(Math.max(0, offset - 14), offset);
+    const after = full.slice(offset + match.length, offset + match.length + 14);
 
-    // Do not scale temperatures, pan sizes/dimensions, percentages, or years.
-    if (/°|x\s*$/i.test(after) || /x\s*$/i.test(before) || /%/.test(after)) return match;
+    // Do not scale protected placeholder indexes.
+    if (before.includes('@@KWEN_SCALE_') || after.includes('@@')) return match;
+
+    // Do not scale temperatures, pan sizes/dimensions, percentages, or very large numbers.
     if (/°/.test(after)) return match;
+    if (/%/.test(after)) return match;
+    if (/x\s*$/i.test(before) || /^\s*x/i.test(after)) return match;
     if (parseFloat(num) >= 1000) return match;
 
     return decimalToMixed(parseFloat(num) * factor);
+  });
+
+  // Restore protected converted fractions.
+  protectedValues.forEach((value, i) => {
+    text = text.replaceAll(`@@KWEN_SCALE_${i}@@`, value);
   });
 
   return text;
