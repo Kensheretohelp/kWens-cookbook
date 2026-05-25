@@ -1308,7 +1308,7 @@ body.theme-retro .scale-buttons button.active {
   </div>
 </div>
 
-<!-- kWen’s Cookbook QA16: Retro prototype with mobile floating theme toggle. -->
+<!-- kWen’s Cookbook QA17: Boot sequence only runs when switching into KITCHEN_OS; slower cinematic timing. -->
 <!-- kWen’s Cookbook final master build: Zissou-inspired palette, locked wagon artwork, cleaned category layout. -->
 <!-- Layout polish pass: unified sidebar bullets + Zissou-inspired palette + refined detail panel. -->
 <div class="mobile-backdrop" onclick="document.body.classList.remove('menu-open')"></div>
@@ -1419,7 +1419,7 @@ body.theme-retro .scale-buttons button.active {
     </aside>
   </main>
 </div>
-<script src="recipes.js?v=15"></script>
+<script src="recipes.js?v=17"></script>
 <script>
 let activeCategory = 'Main Dishes';
 let activeTag = null;
@@ -1783,7 +1783,6 @@ render();
 })();
 </script>
 
-
 <script id="kwen-retro-theme-script">
 (function(){
   const bootLines = [
@@ -1797,6 +1796,8 @@ render();
     "SYSTEM READY."
   ];
 
+  let bootTimer = null;
+
   function applyTheme(theme) {
     document.body.classList.toggle("theme-retro", theme === "retro");
     localStorage.setItem("kwenCookbookTheme", theme);
@@ -1804,43 +1805,52 @@ render();
     if (btn) btn.textContent = theme === "retro" ? "CANON MODE" : "KITCHEN_OS";
   }
 
-  function runBootOnce() {
-    const theme = localStorage.getItem("kwenCookbookTheme") || "canon";
-    applyTheme(theme);
-
-    const alreadyBooted = sessionStorage.getItem("kwenKitchenBooted") === "yes";
+  function runBootSequence() {
     const boot = document.getElementById("bootScreen");
     const pre = document.getElementById("bootLines");
-    if (!boot || !pre || alreadyBooted) return;
+    if (!boot || !pre) return;
+
+    if (bootTimer) clearInterval(bootTimer);
 
     boot.classList.add("active");
-    sessionStorage.setItem("kwenKitchenBooted", "yes");
+    pre.textContent = "";
 
     let i = 0;
-    pre.textContent = "";
-    const timer = setInterval(() => {
-      pre.textContent += bootLines[i] + "\\n";
+    bootTimer = setInterval(() => {
+      pre.textContent += bootLines[i] + "\n";
       i++;
+
       if (i >= bootLines.length) {
-        clearInterval(timer);
-        setTimeout(() => boot.classList.remove("active"), 700);
+        clearInterval(bootTimer);
+        bootTimer = null;
+        setTimeout(() => boot.classList.remove("active"), 1200);
       }
-    }, 180);
+    }, 420);
 
     const skip = document.getElementById("bootSkip");
     if (skip) skip.onclick = () => {
-      clearInterval(timer);
+      if (bootTimer) clearInterval(bootTimer);
+      bootTimer = null;
       boot.classList.remove("active");
     };
   }
 
   window.addEventListener("DOMContentLoaded", () => {
-    runBootOnce();
+    const savedTheme = localStorage.getItem("kwenCookbookTheme") || "canon";
+    applyTheme(savedTheme);
+
     const btn = document.getElementById("themeToggle");
     if (btn) {
       btn.onclick = () => {
         const isRetro = document.body.classList.contains("theme-retro");
-        applyTheme(isRetro ? "canon" : "retro");
+
+        if (isRetro) {
+          applyTheme("canon");
+          return;
+        }
+
+        runBootSequence();
+        setTimeout(() => applyTheme("retro"), 450);
       };
     }
   });
