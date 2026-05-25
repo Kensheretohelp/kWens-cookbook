@@ -1272,6 +1272,30 @@ body.theme-retro .scale-buttons button.active {
 }
 </style>
 
+
+<style id="kwen-theme-toggle-mobile-fix">
+@media (max-width:820px){
+  #themeToggle.theme-toggle{
+    position: fixed !important;
+    right: 14px !important;
+    bottom: calc(16px + env(safe-area-inset-bottom)) !important;
+    z-index: 95 !important;
+    display: block !important;
+    padding: 11px 14px !important;
+    border-radius: 999px !important;
+    box-shadow: 0 8px 22px rgba(0,0,0,.24) !important;
+    font-size: .74rem !important;
+    max-width: 150px !important;
+  }
+  body.theme-retro #themeToggle.theme-toggle{
+    box-shadow: 0 0 18px rgba(157,255,154,.24), 0 8px 22px rgba(0,0,0,.36) !important;
+  }
+  .topbar{
+    padding-bottom: 12px !important;
+  }
+}
+</style>
+
 </head>
 <body>
 
@@ -1284,7 +1308,7 @@ body.theme-retro .scale-buttons button.active {
   </div>
 </div>
 
-<!-- kWen’s Cookbook QA15: Retro KITCHEN_OS prototype, boot screen, VHS cards, theme toggle, recipes.js?v=15. -->
+<!-- kWen’s Cookbook QA16: Retro prototype with mobile floating theme toggle. -->
 <!-- kWen’s Cookbook final master build: Zissou-inspired palette, locked wagon artwork, cleaned category layout. -->
 <!-- Layout polish pass: unified sidebar bullets + Zissou-inspired palette + refined detail panel. -->
 <div class="mobile-backdrop" onclick="document.body.classList.remove('menu-open')"></div>
