@@ -534,6 +534,167 @@ button, input { font:inherit; }
   .detail { position:static; height:auto; overflow:visible; }
   .recipe-card { break-inside:avoid; box-shadow:none; }
 }
+
+
+/* kWen Kitchen Temps: per-recipe badge + floating quick guide */
+.temp-badge {
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  border:1.6px solid rgba(180,68,34,.42);
+  background:rgba(255,247,232,.84);
+  color:var(--rust-dark);
+  border-radius:999px;
+  padding:5px 9px;
+  font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;
+  font-weight:900;
+  font-size:.72rem;
+  line-height:1;
+  letter-spacing:.05em;
+  white-space:nowrap;
+}
+.temp-badge::before { content:"🌡"; font-size:.94rem; line-height:1; }
+.card-foot .temp-badge {
+  margin-left:auto;
+  font-size:.68rem;
+  padding:4px 8px;
+  letter-spacing:.02em;
+}
+.detail-temp-wrap {
+  padding:14px 18px 0;
+  display:flex;
+  justify-content:center;
+}
+.detail-temp-wrap:empty { display:none; }
+.detail-temp-wrap .temp-badge {
+  border-color:rgba(5,55,70,.25);
+  background:rgba(220,161,15,.16);
+  color:var(--teal-ink);
+  font-size:.84rem;
+  padding:9px 13px;
+}
+.temp-fab {
+  position:fixed;
+  right:24px;
+  bottom:calc(24px + env(safe-area-inset-bottom));
+  z-index:95;
+  width:58px;
+  height:58px;
+  border-radius:50%;
+  border:3px solid rgba(255,247,232,.9);
+  background:linear-gradient(180deg, var(--teal-dark), #0a3e44);
+  color:var(--paper);
+  box-shadow:0 14px 32px rgba(5,55,70,.28);
+  cursor:pointer;
+  display:grid;
+  place-items:center;
+  font-size:1.65rem;
+}
+.temp-fab:hover { transform:translateY(-2px); }
+.temp-panel-backdrop {
+  position:fixed;
+  inset:0;
+  z-index:90;
+  background:rgba(5,30,35,.38);
+  display:none;
+}
+.temp-panel-backdrop.open { display:block; }
+.temp-panel {
+  position:fixed;
+  right:24px;
+  bottom:calc(96px + env(safe-area-inset-bottom));
+  z-index:96;
+  width:min(560px, calc(100vw - 32px));
+  max-height:min(72vh, 720px);
+  overflow:auto;
+  border:2px solid rgba(5,55,70,.22);
+  border-radius:22px;
+  background:linear-gradient(180deg, rgba(255,247,232,.98), rgba(248,231,196,.98));
+  box-shadow:0 24px 54px rgba(5,55,70,.32);
+  padding:18px;
+  display:none;
+}
+.temp-panel.open { display:block; }
+.temp-panel-head {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:12px;
+  border-bottom:1px dashed rgba(180,68,34,.45);
+  padding-bottom:10px;
+}
+.temp-panel h2 {
+  margin:0;
+  color:var(--teal-dark);
+  font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;
+  font-size:1.05rem;
+  font-weight:1000;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+.temp-close {
+  border:0;
+  background:rgba(180,68,34,.12);
+  color:var(--rust-dark);
+  border-radius:50%;
+  width:36px;
+  height:36px;
+  cursor:pointer;
+  font-size:1.35rem;
+}
+.temp-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+.temp-group {
+  border:1px solid rgba(5,55,70,.16);
+  border-radius:16px;
+  background:rgba(255,255,255,.32);
+  padding:12px;
+}
+.temp-group h3 {
+  margin:0 0 8px;
+  color:var(--rust);
+  font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;
+  font-size:.82rem;
+  font-weight:1000;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+}
+.temp-row {
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  padding:6px 0;
+  border-bottom:1px solid rgba(5,55,70,.10);
+  font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;
+  font-size:.84rem;
+}
+.temp-row:last-child { border-bottom:0; }
+.temp-row strong { color:var(--teal-ink); }
+.temp-tip {
+  margin-top:12px;
+  border-left:5px solid var(--mustard);
+  background:rgba(220,161,15,.16);
+  border-radius:12px;
+  padding:10px 12px;
+  font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;
+  font-weight:800;
+  color:var(--teal-ink);
+}
+body.theme-retro .temp-badge,
+body.theme-retro .temp-panel,
+body.theme-retro .temp-fab { filter:saturate(.96) contrast(1.02); }
+@media (max-width:820px) {
+  .temp-fab { right:18px; bottom:calc(18px + env(safe-area-inset-bottom)); width:56px; height:56px; }
+  .temp-panel { left:12px; right:12px; bottom:calc(86px + env(safe-area-inset-bottom)); width:auto; max-height:72vh; padding:15px; }
+  .temp-grid { grid-template-columns:1fr; }
+  .card-foot { flex-wrap:wrap; }
+  .card-foot .temp-badge { margin-left:0; }
+}
+
 </style>
 
 <style id="kwen-polish-overrides">
@@ -1403,6 +1564,7 @@ body.theme-retro .scale-buttons button.active {
           <div class="info">Prep<br><span>Kitchen</span></div>
         </div>
         <div class="tags" id="detailTags"></div>
+        <div class="detail-temp-wrap" id="detailTemp"></div>
         <div class="scale-buttons">
           <button class="active" onclick="setScale(1, this)">1x</button>
           <button onclick="setScale(2, this)">2x</button>
@@ -1419,7 +1581,48 @@ body.theme-retro .scale-buttons button.active {
     </aside>
   </main>
 </div>
-<script src="recipes.js?v=17"></script>
+
+<button class="temp-fab" id="tempGuideBtn" aria-label="Open Kitchen Temps">🌡</button>
+<div class="temp-panel-backdrop" id="tempBackdrop" aria-hidden="true"></div>
+<section class="temp-panel" id="tempPanel" aria-label="Kitchen Temps quick reference" aria-hidden="true">
+  <div class="temp-panel-head">
+    <h2>Kitchen Temps</h2>
+    <button class="temp-close" id="tempClose" aria-label="Close Kitchen Temps">×</button>
+  </div>
+  <div class="temp-grid">
+    <div class="temp-group"><h3>🥩 Meat</h3>
+      <div class="temp-row"><span>Chicken / Turkey</span><strong>165°F / 74°C</strong></div>
+      <div class="temp-row"><span>Pork chops / roast</span><strong>145°F / 63°C + rest</strong></div>
+      <div class="temp-row"><span>Ground beef / pork</span><strong>160°F / 71°C</strong></div>
+      <div class="temp-row"><span>Steak rare</span><strong>125°F / 52°C</strong></div>
+      <div class="temp-row"><span>Steak med-rare</span><strong>135°F / 57°C</strong></div>
+      <div class="temp-row"><span>Steak medium</span><strong>145°F / 63°C</strong></div>
+    </div>
+    <div class="temp-group"><h3>🐟 Seafood</h3>
+      <div class="temp-row"><span>Salmon, moist</span><strong>125–130°F / 52–54°C</strong></div>
+      <div class="temp-row"><span>Fish, fully cooked</span><strong>145°F / 63°C</strong></div>
+      <div class="temp-row"><span>Shrimp</span><strong>145°F / 63°C</strong></div>
+      <div class="temp-row"><span>Scallops</span><strong>125–130°F / 52–54°C</strong></div>
+    </div>
+    <div class="temp-group"><h3>🍞 Baking</h3>
+      <div class="temp-row"><span>Bread / rolls</span><strong>190–205°F</strong></div>
+      <div class="temp-row"><span>Enriched bread</span><strong>185–195°F</strong></div>
+      <div class="temp-row"><span>Cake</span><strong>200–210°F</strong></div>
+      <div class="temp-row"><span>Cheesecake center</span><strong>150°F</strong></div>
+    </div>
+    <div class="temp-group"><h3>🍬 Candy / Sugar</h3>
+      <div class="temp-row"><span>Soft ball</span><strong>235–240°F</strong></div>
+      <div class="temp-row"><span>Firm ball</span><strong>245–250°F</strong></div>
+      <div class="temp-row"><span>Hard ball</span><strong>250–266°F</strong></div>
+      <div class="temp-row"><span>Soft crack</span><strong>270–290°F</strong></div>
+      <div class="temp-row"><span>Hard crack</span><strong>300–310°F</strong></div>
+      <div class="temp-row"><span>Caramel</span><strong>340°F</strong></div>
+    </div>
+  </div>
+  <div class="temp-tip">💡 Don’t panic temps: meat keeps climbing while it rests, so pull delicate stuff a little early when the recipe says to rest it.</div>
+</section>
+
+<script src="recipes.js?v=18"></script>
 <script>
 let activeCategory = 'Main Dishes';
 let activeTag = null;
@@ -1534,6 +1737,43 @@ function subtitleFor(cat) {
   };
   return m[cat] || 'Family recipes, weeknight wins, and cozy kitchen favourites.';
 }
+
+function tempForRecipe(r) {
+  const hay = [r.title, r.category, r.meta, r.note, ...(r.ingredients||[]), ...(r.tags||[])].join(' ').toLowerCase();
+  if (/salmon/.test(hay)) return '125–130°F';
+  if (/scallop/.test(hay)) return '125–130°F';
+  if (/shrimp|cod|haddock|fish|seafood/.test(hay)) return '145°F';
+  if (/chicken|turkey/.test(hay)) return '165°F';
+  if (/burger|ground beef|meatball|meatballs|ground pork|sausage roll|tourtière sausage/.test(hay)) return '160°F';
+  if (/pork chop|pork roast|pork tenderloin|striploin|steak|beef stroganoff|steak burger/.test(hay)) return '145°F';
+  if (/bread|rolls|dough|pizza|loaf|banana bread/.test(hay)) return '190–205°F';
+  if (/cake|brownie|pudding|cheesecake/.test(hay)) return '200–210°F';
+  if (/caramel|toffee|sugar pie|pouding/.test(hay)) return '235–240°F';
+  return '';
+}
+function tempBadgeMarkup(r) {
+  const t = tempForRecipe(r);
+  return t ? `<span class="temp-badge" title="Suggested internal temperature">${escapeHtml(t)}</span>` : '';
+}
+function wireTempPanel() {
+  const btn = document.getElementById('tempGuideBtn');
+  const panel = document.getElementById('tempPanel');
+  const backdrop = document.getElementById('tempBackdrop');
+  const close = document.getElementById('tempClose');
+  if (!btn || !panel || !backdrop || btn.dataset.kwenTempWired === '1') return;
+  btn.dataset.kwenTempWired = '1';
+  const setOpen = (open) => {
+    panel.classList.toggle('open', open);
+    backdrop.classList.toggle('open', open);
+    panel.setAttribute('aria-hidden', open ? 'false' : 'true');
+    backdrop.setAttribute('aria-hidden', open ? 'false' : 'true');
+  };
+  btn.addEventListener('click', () => setOpen(!panel.classList.contains('open')));
+  close && close.addEventListener('click', () => setOpen(false));
+  backdrop.addEventListener('click', () => setOpen(false));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setOpen(false); });
+}
+
 function render() {
   buildMenu();
   updateHomeWelcome();
@@ -1571,7 +1811,7 @@ function render() {
       <div class="thumb">${iconFor(r)}<button class="heart ${isFav(r.title)?'faved':''}" onclick="event.stopPropagation(); toggleFav('${escapeAttr(r.title)}')">${isFav(r.title)?'♥':'♡'}</button></div>
       <div class="card-body">
         <h2>${escapeHtml(r.title)}</h2>
-        <div class="card-foot"><span>${catIcon(r.category)}</span><span>${escapeHtml(r.category)}</span></div>
+        <div class="card-foot"><span>${catIcon(r.category)}</span><span>${escapeHtml(r.category)}</span>${tempBadgeMarkup(r)}</div>
       </div>
     </article>
   `).join('');
@@ -1598,6 +1838,7 @@ function renderDetail(i) {
   document.getElementById('favDetail').textContent = isFav(r.title) ? '♥' : '♡';
   document.getElementById('favDetail').onclick = () => toggleFav(r.title);
   document.getElementById('detailTags').innerHTML = (r.tags||[]).map(t => `<span class="tag">${escapeHtml(t)}</span>`).join('');
+  document.getElementById('detailTemp').innerHTML = tempBadgeMarkup(r);
   document.querySelectorAll('.scale-buttons button').forEach(b => b.classList.toggle('active', b.textContent.trim().startsWith(currentScale + 'x')));
   document.getElementById('detailIngredients').innerHTML = r.ingredients.map(x => `<li>${scaleText(x, currentScale)}</li>`).join('');
   document.getElementById('detailMethod').innerHTML = r.method.map(x => `<li>${escapeHtml(x)}</li>`).join('');
@@ -1697,6 +1938,7 @@ function scaleText(text, factor) {
   return text;
 }
 document.getElementById('search').addEventListener('input', render);
+wireTempPanel();
 render();
 </script>
 
