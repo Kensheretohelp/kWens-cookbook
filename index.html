@@ -1766,6 +1766,62 @@ body.theme-retro .temp-fab{
 
 
 
+
+<style id="kwen-qa22-bmo-lane2-css">
+/* QA22 Lane 2: BMO helper identity + Lane 3 seed for BMO-Tec/Pip-Boy. */
+.bmo-helper-card{
+  margin:16px 0 2px;
+  display:grid;
+  grid-template-columns:62px minmax(0,1fr);
+  gap:13px;
+  align-items:center;
+  padding:14px 15px;
+  border:2px solid rgba(5,55,70,.18);
+  border-radius:18px;
+  background:linear-gradient(180deg, rgba(255,247,232,.82), rgba(248,231,196,.76));
+  box-shadow:0 10px 24px rgba(20,40,34,.10);
+}
+.bmo-helper-card strong{
+  display:block;
+  color:var(--rust-dark);
+  font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;
+  font-weight:950;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  font-size:.82rem;
+}
+.bmo-helper-card p{margin:5px 0 0 !important;font-size:.98rem !important;line-height:1.35 !important;color:var(--teal-ink) !important;}
+.bmo-face{
+  width:58px;height:46px;border-radius:13px;
+  background:linear-gradient(180deg,#a9dfcf,#6db6a7);
+  border:3px solid rgba(5,55,70,.72);
+  box-shadow:inset 0 -5px rgba(5,55,70,.10),0 6px 12px rgba(20,40,34,.12);
+  position:relative;
+}
+.bmo-face span{position:absolute;top:13px;width:8px;height:8px;border-radius:99px;background:#07323a;}
+.bmo-face span:first-child{left:15px}.bmo-face span:nth-child(2){right:15px}
+.bmo-face em{position:absolute;left:21px;bottom:10px;width:16px;height:8px;border-bottom:3px solid #07323a;border-radius:0 0 99px 99px;}
+body.theme-retro .bmo-helper-card{
+  background:rgba(0,0,0,.62);border-color:rgba(157,255,154,.30);box-shadow:inset 0 0 22px rgba(157,255,154,.045),0 0 24px rgba(157,255,154,.08);
+  font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
+}
+body.theme-retro .bmo-helper-card strong{color:#9dff9a;font-family:inherit;text-shadow:0 0 8px rgba(157,255,154,.2);}
+body.theme-retro .bmo-helper-card strong::before{content:"> ";}
+body.theme-retro .bmo-helper-card p{color:#d7ffd0 !important;}
+body.theme-retro .bmo-face{background:linear-gradient(180deg,#163719,#071007);border-color:rgba(157,255,154,.55);box-shadow:0 0 16px rgba(157,255,154,.16), inset 0 0 14px rgba(157,255,154,.08);}
+body.theme-retro .bmo-face span{background:#9dff9a;box-shadow:0 0 8px rgba(157,255,154,.75);}
+body.theme-retro .bmo-face em{border-bottom-color:#9dff9a;filter:drop-shadow(0 0 4px rgba(157,255,154,.6));}
+.bmo-toast{
+  position:fixed;left:50%;bottom:calc(88px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(12px);
+  max-width:min(92vw,420px);padding:12px 15px;border-radius:16px;z-index:10000;
+  background:#0b2b19;color:#9dff9a;border:1px solid rgba(157,255,154,.44);
+  box-shadow:0 16px 36px rgba(0,0,0,.28),0 0 22px rgba(157,255,154,.12);
+  font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-weight:850;letter-spacing:.02em;
+  opacity:0;pointer-events:none;transition:opacity .2s ease, transform .2s ease;
+}
+.bmo-toast.open{opacity:1;transform:translateX(-50%) translateY(0);}
+</style>
+
 <style id="kwen-qa21-cook-mode">
 /* QA21: Cook Mode, step-by-step view, timers, and mobile wake lock. */
 .cook-btn{
@@ -1867,10 +1923,10 @@ body.theme-retro .cook-nav button{background:#123014;color:#9dff9a;border:1px so
 
 <div id="bootScreen" class="boot-screen" aria-hidden="true">
   <div class="boot-terminal">
-    <div class="boot-brand">kWen FOOD SYSTEMS INC.</div>
-    <div class="boot-os">KITCHEN_OS // v1.89</div>
+    <div class="boot-brand">BMO FOOD SYSTEMS INC.</div>
+    <div class="boot-os">BMO_OS // KITCHEN_OS v2.0</div>
     <pre id="bootLines"></pre>
-    <button id="bootSkip" class="boot-skip" type="button">PRESS START TO COOK</button>
+    <button id="bootSkip" class="boot-skip" type="button">PRESS START, BMO</button>
   </div>
 </div>
 
@@ -1905,7 +1961,7 @@ body.theme-retro .cook-nav button{background:#123014;color:#9dff9a;border:1px so
           <span class="theme-launcher-label">Choose your theme</span>
           <button class="theme-chip active" type="button" data-theme="classic" aria-pressed="true"><span class="theme-icon">🍲</span><span>Classic</span></button>
           <button class="theme-chip" type="button" data-theme="retro" aria-pressed="false"><span class="theme-icon">📺</span><span>Retro CRT</span></button>
-          <button class="theme-chip locked" type="button" data-theme="pipboy" aria-pressed="false" aria-label="Pip-Boy theme locked for later"><span class="theme-icon">☢</span><span>Pip-Boy</span><small>Locked</small></button>
+          <button class="theme-chip locked" type="button" data-theme="pipboy" aria-pressed="false" aria-label="BMO-Tec Pip-Boy theme locked for later"><span class="theme-icon">☢</span><span>BMO-Tec</span><small>Locked</small></button>
         </div>
         <div class="search-wrap"><input id="search" class="searchbox" type="search" placeholder="Search recipes..." autocomplete="off"><span class="search-icon">⌕</span></div>
       </div>
@@ -1923,6 +1979,13 @@ body.theme-retro .cook-nav button{background:#123014;color:#9dff9a;border:1px so
       
 <section id="homeWelcome" class="home-welcome">
   <h2>Welcome to kWen’s Cookbook</h2>
+  <div class="bmo-helper-card" aria-label="BMO kitchen helper">
+    <div class="bmo-face" aria-hidden="true"><span></span><span></span><em></em></div>
+    <div>
+      <strong>BMO is online.</strong>
+      <p>Your retro kitchen helper is ready for recipes, temps, timers, and mild cookbook chaos.</p>
+    </div>
+  </div>
   <p>
     This cookbook was created to keep family recipes, comfort food favourites, and kitchen experiments intact
     for the people who matter most. It is a place for the dishes worth remembering — the ones made for family,
@@ -1937,7 +2000,7 @@ body.theme-retro .cook-nav button{background:#123014;color:#9dff9a;border:1px so
   </div>
 
   <div class="retro-launchpad" aria-label="Retro cookbook quick launch">
-    <div class="retro-launch-title">KITCHEN_OS QUICK LAUNCH</div>
+    <div class="retro-launch-title">BMO_OS QUICK LAUNCH</div>
     <div class="retro-launch-grid">
       <button type="button" onclick="setCategory('Soups & Stews')">SOUPS.EXE</button>
       <button type="button" onclick="setCategory('Pasta & Dough')">PASTA.EXE</button>
@@ -1974,7 +2037,7 @@ body.theme-retro .cook-nav button{background:#123014;color:#9dff9a;border:1px so
         <div class="detail-head">
           <h2 class="detail-title" id="detailTitle"></h2>
           <div>
-            <button class="cook-btn" id="cookModeBtn" type="button">Cook Mode</button>
+            <button class="cook-btn" id="cookModeBtn" type="button">BMO Cook Mode</button>
             <button class="fav-detail" id="favDetail" aria-label="Favorite">♡</button>
             <button class="close-detail" onclick="document.body.classList.remove('detail-open')" aria-label="Close">×</button>
           </div>
@@ -2051,7 +2114,7 @@ body.theme-retro .cook-nav button{background:#123014;color:#9dff9a;border:1px so
     <div class="cook-top">
       <div>
         <h2 class="cook-title" id="cookTitle">Cook Mode</h2>
-        <p class="cook-sub" id="cookSub">Step-by-step kitchen view</p>
+        <p class="cook-sub" id="cookSub">BMO step-by-step kitchen view</p>
         <div class="cook-status">
           <span class="cook-pill" id="cookTempPill">🌡 Temp: —</span>
           <span class="cook-pill" id="cookWakePill">📱 Screen awake: checking…</span>
@@ -2634,6 +2697,7 @@ render();
 <script id="kwen-retro-theme-script">
 (function(){
   const bootLines = [
+    "HELLO KWEN. BMO IS WAKING UP...",
     "INITIALIZING CRT DISPLAY...",
     "LOADING VHS RECIPE ARCHIVE...",
     "SYNCING KITCHEN RADIO...",
@@ -2641,7 +2705,7 @@ render();
     "MOUNTING MACARON MODULE...",
     "CALIBRATING BUTTER CONVERSION TABLE...",
     "WARNING: LOW PARMESAN DETECTED.",
-    "SYSTEM READY."
+    "BMO_OS READY. LET'S COOK."
   ];
 
   const THEMES = {
@@ -2663,9 +2727,24 @@ render();
       chip.classList.toggle("active", isActive);
       chip.setAttribute("aria-pressed", isActive ? "true" : "false");
       if (chip.dataset.theme === "pipboy") {
-        chip.title = "Pip-Boy theme is reserved for the next build.";
+        chip.title = "BMO-Tec Pip-Boy theme is locked for Lane 3.";
       }
     });
+  }
+
+  let bmoToastTimer = null;
+  function showBmoToast(message){
+    let toast = document.getElementById("bmoToast");
+    if (!toast) {
+      toast = document.createElement("div");
+      toast.id = "bmoToast";
+      toast.className = "bmo-toast";
+      document.body.appendChild(toast);
+    }
+    toast.textContent = message;
+    toast.classList.add("open");
+    if (bmoToastTimer) clearTimeout(bmoToastTimer);
+    bmoToastTimer = setTimeout(() => toast.classList.remove("open"), 2600);
   }
 
   function applyTheme(theme) {
@@ -2710,6 +2789,7 @@ render();
     nextTheme = normalizeTheme(nextTheme);
     if (THEMES[nextTheme].locked) {
       updateThemeButtons(localStorage.getItem("kwenCookbookTheme") || "classic");
+      showBmoToast("BMO-TEC ACCESS DENIED // Pip-Boy theme is queued for Lane 3.");
       return;
     }
     const current = normalizeTheme(localStorage.getItem("kwenCookbookTheme") || "classic");
