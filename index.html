@@ -1653,6 +1653,215 @@ body.theme-retro .temp-close { color:#9dff9a !important; }
 }
 </style>
 
+
+
+<style id="kwen-qa20-theme-engine">
+/* QA20: real theme launcher + persistent theme classes. */
+.theme-launcher{
+  min-width:0;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  overflow-x:auto;
+  padding:8px 4px;
+  scrollbar-width:none;
+}
+.theme-launcher::-webkit-scrollbar{display:none;}
+.theme-launcher-label{
+  flex:0 0 auto;
+  color:var(--rust-dark);
+  font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;
+  font-size:.68rem;
+  font-weight:950;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  opacity:.92;
+}
+.theme-chip{
+  flex:0 0 auto;
+  min-height:42px;
+  border:1.8px solid rgba(5,55,70,.22);
+  border-radius:14px;
+  padding:8px 11px;
+  background:rgba(255,247,232,.72);
+  color:var(--teal-ink);
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  cursor:pointer;
+  box-shadow:0 6px 14px rgba(20,40,34,.08);
+  font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;
+  font-weight:900;
+  white-space:nowrap;
+}
+.theme-chip .theme-icon{font-size:1.05rem;line-height:1;}
+.theme-chip small{
+  margin-left:2px;
+  color:var(--muted);
+  font-size:.62rem;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.theme-chip.active{
+  border-color:rgba(177,77,52,.72);
+  color:var(--rust-dark);
+  background:linear-gradient(180deg, rgba(255,247,232,.98), rgba(248,231,196,.92));
+  box-shadow:0 0 0 3px rgba(177,77,52,.09), 0 7px 17px rgba(20,40,34,.10);
+}
+.theme-chip.locked{
+  border-style:dashed;
+  opacity:.84;
+}
+.theme-chip.locked:active{transform:translateY(1px);}
+body.theme-classic .theme-launcher{background:transparent;}
+body.theme-retro .theme-launcher{
+  border:1px solid rgba(157,255,154,.20);
+  border-radius:14px;
+  background:rgba(0,0,0,.28);
+  padding:8px;
+  box-shadow:inset 0 0 18px rgba(157,255,154,.04);
+}
+body.theme-retro .theme-launcher-label{
+  color:#9dff9a;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
+}
+body.theme-retro .theme-launcher-label::before{content:"> ";}
+body.theme-retro .theme-chip{
+  border-color:rgba(157,255,154,.30);
+  background:linear-gradient(180deg, rgba(157,255,154,.08), rgba(0,0,0,.34));
+  color:#9dff9a;
+  box-shadow:0 0 14px rgba(157,255,154,.045);
+  border-radius:8px;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+}
+body.theme-retro .theme-chip.active{
+  border-color:rgba(157,255,154,.70);
+  background:rgba(157,255,154,.14);
+  color:#d7ffd0;
+  box-shadow:0 0 18px rgba(157,255,154,.20), inset 0 0 18px rgba(157,255,154,.06);
+}
+body.theme-retro .theme-chip.locked{
+  border-color:rgba(157,255,154,.28);
+  color:rgba(157,255,154,.70);
+}
+body.theme-retro .theme-chip.locked small{color:#ffb35f;}
+body.theme-retro .theme-chip.locked .theme-icon{filter:drop-shadow(0 0 5px rgba(157,255,154,.36));}
+body.theme-retro .temp-fab{
+  right:18px !important;
+  bottom:calc(18px + env(safe-area-inset-bottom)) !important;
+}
+@media (max-width:820px){
+  .topbar{grid-template-columns:auto minmax(0,1fr) !important; gap:9px !important;}
+  .theme-launcher{grid-column:2; justify-self:stretch; padding:5px 0;}
+  .theme-launcher-label{display:none;}
+  .theme-chip{min-height:38px; padding:7px 9px; font-size:.74rem; border-radius:12px;}
+  .theme-chip small{display:none;}
+  .search-wrap{grid-column:1 / -1;}
+  body.theme-retro .topbar{padding-bottom:12px !important;}
+  body.theme-retro .temp-fab{bottom:calc(18px + env(safe-area-inset-bottom)) !important;}
+}
+</style>
+
+
+
+<style id="kwen-qa21-cook-mode">
+/* QA21: Cook Mode, step-by-step view, timers, and mobile wake lock. */
+.cook-btn{
+  border:1.8px solid rgba(177,77,52,.34);
+  border-radius:999px;
+  background:linear-gradient(180deg, rgba(255,247,232,.96), rgba(248,231,196,.88));
+  color:var(--rust-dark);
+  font-weight:950;
+  padding:9px 12px;
+  cursor:pointer;
+  box-shadow:0 8px 18px rgba(20,40,34,.10);
+  margin-right:7px;
+}
+.cook-mode{
+  position:fixed;
+  inset:0;
+  z-index:10000;
+  display:none;
+  background:linear-gradient(180deg, #fff7e8, #f6dfb2);
+  color:var(--ink);
+  padding:calc(14px + env(safe-area-inset-top)) 14px calc(18px + env(safe-area-inset-bottom));
+  overflow:auto;
+}
+.cook-mode.open{display:block;}
+.cook-shell{max-width:760px;margin:0 auto;min-height:100%;display:flex;flex-direction:column;gap:14px;}
+.cook-top{
+  position:sticky;
+  top:0;
+  z-index:2;
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:10px;
+  align-items:start;
+  padding:12px;
+  border:2px solid rgba(5,55,70,.18);
+  border-radius:18px;
+  background:rgba(255,247,232,.96);
+  box-shadow:0 10px 26px rgba(20,40,34,.12);
+}
+.cook-title{margin:0;color:var(--teal-ink);font-size:clamp(1.35rem,5.5vw,2.25rem);line-height:1.05;}
+.cook-sub{margin:8px 0 0;color:var(--muted);font-weight:800;}
+.cook-close{
+  width:44px;height:44px;border-radius:50%;border:1.6px solid rgba(5,55,70,.22);
+  background:#fff;color:var(--teal-ink);font-size:1.6rem;line-height:1;cursor:pointer;
+}
+.cook-status{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;align-items:center;}
+.cook-pill{
+  display:inline-flex;align-items:center;gap:6px;border:1.4px solid rgba(5,55,70,.16);
+  border-radius:999px;background:rgba(255,255,255,.62);padding:7px 10px;font-weight:900;font-size:.84rem;
+}
+.cook-pill.warn{border-color:rgba(177,77,52,.30);color:var(--rust-dark);}
+.cook-step-card{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  min-height:42vh;
+  padding:clamp(18px,6vw,34px);
+  border:2.5px solid rgba(5,55,70,.20);
+  border-radius:24px;
+  background:rgba(255,255,255,.62);
+  box-shadow:0 14px 34px rgba(20,40,34,.12);
+}
+.cook-step-label{font-weight:950;letter-spacing:.14em;text-transform:uppercase;color:var(--rust-dark);font-size:.78rem;margin-bottom:12px;}
+.cook-step-text{font-size:clamp(1.45rem,7vw,2.55rem);line-height:1.18;font-weight:850;color:var(--teal-ink);}
+.cook-step-timers{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px;}
+.cook-timer-btn{
+  border:1.8px solid rgba(177,77,52,.38);border-radius:999px;background:rgba(255,247,232,.96);
+  color:var(--rust-dark);padding:10px 13px;font-weight:950;cursor:pointer;
+}
+.cook-active-timers{display:grid;gap:8px;margin-top:14px;}
+.cook-timer-row{display:flex;justify-content:space-between;gap:10px;align-items:center;border:1px solid rgba(5,55,70,.15);border-radius:14px;background:rgba(255,255,255,.66);padding:9px 10px;font-weight:900;}
+.cook-timer-row button{border:0;background:transparent;color:var(--rust-dark);font-weight:950;cursor:pointer;font-size:1rem;}
+.cook-nav{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.cook-nav button{
+  min-height:54px;border:0;border-radius:16px;background:var(--teal-ink);color:#fff;font-weight:950;font-size:1rem;cursor:pointer;
+  box-shadow:0 10px 22px rgba(20,40,34,.14);
+}
+.cook-nav button:disabled{opacity:.42;cursor:not-allowed;}
+.cook-progress{height:10px;background:rgba(5,55,70,.13);border-radius:999px;overflow:hidden;}
+.cook-progress span{display:block;height:100%;width:0;background:var(--rust);border-radius:999px;transition:width .25s ease;}
+body.cook-mode-active{overflow:hidden;}
+body.theme-retro .cook-btn,
+body.theme-retro .cook-mode,
+body.theme-retro .cook-top,
+body.theme-retro .cook-step-card,
+body.theme-retro .cook-timer-row{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;}
+body.theme-retro .cook-mode{background:#050705;color:#d7ffd0;text-shadow:0 0 7px rgba(157,255,154,.18);}
+body.theme-retro .cook-top,body.theme-retro .cook-step-card,body.theme-retro .cook-timer-row{background:rgba(0,0,0,.72);border-color:rgba(157,255,154,.28);box-shadow:inset 0 0 24px rgba(157,255,154,.045),0 0 26px rgba(157,255,154,.08);}
+body.theme-retro .cook-title,body.theme-retro .cook-step-text{color:#9dff9a;}
+body.theme-retro .cook-sub,body.theme-retro .cook-step-label{color:#ffb35f;}
+body.theme-retro .cook-pill,body.theme-retro .cook-timer-btn{background:rgba(157,255,154,.08);border-color:rgba(157,255,154,.28);color:#d7ffd0;}
+body.theme-retro .cook-nav button{background:#123014;color:#9dff9a;border:1px solid rgba(157,255,154,.36);}
+@media (max-width:620px){.cook-top{grid-template-columns:1fr auto}.cook-step-card{min-height:46vh}.cook-btn{padding:8px 10px;font-size:.82rem}}
+</style>
+
 </head>
 <body>
 
@@ -1692,8 +1901,12 @@ body.theme-retro .temp-close { color:#9dff9a !important; }
     <section class="content">
       <div class="topbar">
         <button class="menu-toggle" onclick="document.body.classList.add('menu-open')" aria-label="Open menu">☰</button>
-        <button id="themeToggle" class="theme-toggle" type="button" aria-label="Switch theme">KITCHEN_OS</button>
-        <div class="tagline">Family recipes. Coastal comfort. Made to share.</div>
+        <div id="themeLauncher" class="theme-launcher" aria-label="Choose your cookbook theme">
+          <span class="theme-launcher-label">Choose your theme</span>
+          <button class="theme-chip active" type="button" data-theme="classic" aria-pressed="true"><span class="theme-icon">🍲</span><span>Classic</span></button>
+          <button class="theme-chip" type="button" data-theme="retro" aria-pressed="false"><span class="theme-icon">📺</span><span>Retro CRT</span></button>
+          <button class="theme-chip locked" type="button" data-theme="pipboy" aria-pressed="false" aria-label="Pip-Boy theme locked for later"><span class="theme-icon">☢</span><span>Pip-Boy</span><small>Locked</small></button>
+        </div>
         <div class="search-wrap"><input id="search" class="searchbox" type="search" placeholder="Search recipes..." autocomplete="off"><span class="search-icon">⌕</span></div>
       </div>
       <section class="hero">
@@ -1761,6 +1974,7 @@ body.theme-retro .temp-close { color:#9dff9a !important; }
         <div class="detail-head">
           <h2 class="detail-title" id="detailTitle"></h2>
           <div>
+            <button class="cook-btn" id="cookModeBtn" type="button">Cook Mode</button>
             <button class="fav-detail" id="favDetail" aria-label="Favorite">♡</button>
             <button class="close-detail" onclick="document.body.classList.remove('detail-open')" aria-label="Close">×</button>
           </div>
@@ -1830,7 +2044,36 @@ body.theme-retro .temp-close { color:#9dff9a !important; }
   <div class="temp-tip">💡 Don’t panic temps: meat keeps climbing while it rests, so pull delicate stuff a little early when the recipe says to rest it.</div>
 </section>
 
-<script src="recipes.js?v=18"></script>
+
+
+<section class="cook-mode" id="cookMode" aria-hidden="true" aria-label="Cook Mode">
+  <div class="cook-shell">
+    <div class="cook-top">
+      <div>
+        <h2 class="cook-title" id="cookTitle">Cook Mode</h2>
+        <p class="cook-sub" id="cookSub">Step-by-step kitchen view</p>
+        <div class="cook-status">
+          <span class="cook-pill" id="cookTempPill">🌡 Temp: —</span>
+          <span class="cook-pill" id="cookWakePill">📱 Screen awake: checking…</span>
+        </div>
+      </div>
+      <button class="cook-close" id="cookClose" type="button" aria-label="Close Cook Mode">×</button>
+    </div>
+    <div class="cook-progress"><span id="cookProgressBar"></span></div>
+    <article class="cook-step-card">
+      <div class="cook-step-label" id="cookStepLabel">Step 1</div>
+      <div class="cook-step-text" id="cookStepText"></div>
+      <div class="cook-step-timers" id="cookStepTimers"></div>
+      <div class="cook-active-timers" id="cookActiveTimers"></div>
+    </article>
+    <div class="cook-nav">
+      <button id="cookPrev" type="button">← Previous</button>
+      <button id="cookNext" type="button">Next →</button>
+    </div>
+  </div>
+</section>
+
+<script src="recipes.js?v=21"></script>
 <script>
 let activeCategory = 'Main Dishes';
 let activeTag = null;
@@ -2003,7 +2246,7 @@ function render() {
   const title = activeSpecial === 'home' ? 'Welcome to kWen’s Cookbook' : activeSpecial === 'favorites' ? 'Favorites' : activeTag || activeCategory;
   document.getElementById('pageTitle').textContent = title;
   document.getElementById('pageSubtitle').textContent =
-    activeSpecial === 'home' ? 'Family recipes. Coastal comfort. Made to share.' :
+    activeSpecial === 'home' ? 'Good food. Good people. Great memories.' :
     activeSpecial === 'favorites' ? 'Your saved kitchen hits, ready when you are.' :
     activeTag ? 'Prep-ahead recipes built for future-you.' :
     subtitleFor(title);
@@ -2164,6 +2407,147 @@ wireTempPanel();
 render();
 </script>
 
+<script id="kwen-qa21-cook-mode-script">
+(function(){
+  let cookIndex = 0;
+  let wakeLock = null;
+  let timers = [];
+  let timerTick = null;
+
+  function currentRecipe(){
+    return (window.RECIPES || RECIPES)[selectedIndex] || (window.RECIPES || RECIPES)[0];
+  }
+  function stepsFor(r){
+    return (r.method && r.method.length ? r.method : ["No method steps found for this recipe yet."]);
+  }
+  function textTemp(r){
+    try {
+      const tmp = tempForRecipe(r);
+      return tmp ? tmp : "—";
+    } catch(e){ return "—"; }
+  }
+  function extractMinutes(text){
+    const found = [];
+    const add = (min,label) => {
+      if (!min || min < 1 || min > 720) return;
+      if (!found.some(x => x.min === min)) found.push({min, label});
+    };
+    String(text).replace(/(\d+)\s*[–-]\s*(\d+)\s*(?:minutes?|mins?|min)\b/gi, (_,a,b) => {
+      add(parseInt(a,10), `${a} min`); add(parseInt(b,10), `${b} min`);
+    });
+    String(text).replace(/\b(\d+)\s*(?:minutes?|mins?|min)\b/gi, (_,a) => add(parseInt(a,10), `${a} min`));
+    return found.slice(0,4);
+  }
+  function fmt(sec){
+    const s = Math.max(0, Math.ceil(sec));
+    const m = Math.floor(s/60);
+    const r = s%60;
+    return `${m}:${String(r).padStart(2,'0')}`;
+  }
+  function updateTimers(){
+    const box = document.getElementById('cookActiveTimers');
+    const now = Date.now();
+    timers = timers.filter(t => !t.done);
+    box.innerHTML = timers.map((t,idx) => {
+      const left = Math.max(0, Math.ceil((t.end - now)/1000));
+      if (left <= 0 && !t.alerted) {
+        t.alerted = true; t.done = true;
+        if (navigator.vibrate) navigator.vibrate([220,90,220]);
+        setTimeout(() => alert(`Timer done: ${t.label}`), 50);
+      }
+      return `<div class="cook-timer-row"><span>⏱ ${escapeHtml(t.label)}</span><strong>${fmt(left)}</strong><button type="button" data-cancel-timer="${idx}">×</button></div>`;
+    }).join('');
+    box.querySelectorAll('[data-cancel-timer]').forEach(btn => btn.addEventListener('click', () => {
+      timers.splice(parseInt(btn.dataset.cancelTimer,10), 1); updateTimers();
+    }));
+  }
+  function startTimer(min){
+    timers.push({ label:`${min} minute timer`, end:Date.now() + min*60000 });
+    if (!timerTick) timerTick = setInterval(updateTimers, 1000);
+    updateTimers();
+  }
+  async function requestWakeLock(){
+    const pill = document.getElementById('cookWakePill');
+    if (!('wakeLock' in navigator)) {
+      pill.textContent = '📱 Keep screen awake: not supported here';
+      pill.classList.add('warn');
+      return;
+    }
+    try {
+      wakeLock = await navigator.wakeLock.request('screen');
+      pill.textContent = '📱 Screen awake: on';
+      pill.classList.remove('warn');
+      wakeLock.addEventListener('release', () => {
+        pill.textContent = '📱 Screen awake: off';
+        pill.classList.add('warn');
+      });
+    } catch(e) {
+      pill.textContent = '📱 Tap screen if iPhone blocks wake lock';
+      pill.classList.add('warn');
+    }
+  }
+  async function releaseWakeLock(){
+    try { if (wakeLock) await wakeLock.release(); } catch(e) {}
+    wakeLock = null;
+  }
+  function renderCookStep(){
+    const r = currentRecipe();
+    const steps = stepsFor(r);
+    cookIndex = Math.max(0, Math.min(cookIndex, steps.length-1));
+    document.getElementById('cookTitle').textContent = r.title || 'Cook Mode';
+    document.getElementById('cookSub').textContent = `${cookIndex+1} of ${steps.length} • ${r.category || 'Recipe'}`;
+    document.getElementById('cookTempPill').textContent = `🌡 Temp: ${textTemp(r)}`;
+    document.getElementById('cookStepLabel').textContent = `Step ${cookIndex+1}`;
+    document.getElementById('cookStepText').textContent = steps[cookIndex];
+    document.getElementById('cookProgressBar').style.width = `${((cookIndex+1)/steps.length)*100}%`;
+    document.getElementById('cookPrev').disabled = cookIndex === 0;
+    document.getElementById('cookNext').textContent = cookIndex === steps.length-1 ? 'Done ✓' : 'Next →';
+    const timerBox = document.getElementById('cookStepTimers');
+    const mins = extractMinutes(steps[cookIndex]);
+    timerBox.innerHTML = mins.length ? mins.map(t => `<button class="cook-timer-btn" type="button" data-min="${t.min}">Start ${escapeHtml(t.label)}</button>`).join('') : '';
+    timerBox.querySelectorAll('[data-min]').forEach(btn => btn.addEventListener('click', () => startTimer(parseInt(btn.dataset.min,10))));
+  }
+  async function openCookMode(){
+    cookIndex = 0;
+    const el = document.getElementById('cookMode');
+    el.classList.add('open');
+    el.setAttribute('aria-hidden','false');
+    document.body.classList.add('cook-mode-active');
+    renderCookStep();
+    await requestWakeLock();
+  }
+  async function closeCookMode(){
+    const el = document.getElementById('cookMode');
+    el.classList.remove('open');
+    el.setAttribute('aria-hidden','true');
+    document.body.classList.remove('cook-mode-active');
+    await releaseWakeLock();
+  }
+  function wire(){
+    const btn = document.getElementById('cookModeBtn');
+    if (btn && btn.dataset.wired !== '1') { btn.dataset.wired='1'; btn.addEventListener('click', openCookMode); }
+    document.getElementById('cookClose')?.addEventListener('click', closeCookMode);
+    document.getElementById('cookPrev')?.addEventListener('click', () => { cookIndex--; renderCookStep(); });
+    document.getElementById('cookNext')?.addEventListener('click', () => {
+      const r = currentRecipe(); const steps = stepsFor(r);
+      if (cookIndex >= steps.length-1) closeCookMode(); else { cookIndex++; renderCookStep(); }
+    });
+    document.addEventListener('keydown', (e) => {
+      const open = document.getElementById('cookMode')?.classList.contains('open');
+      if (!open) return;
+      if (e.key === 'Escape') closeCookMode();
+      if (e.key === 'ArrowLeft' && cookIndex > 0) { cookIndex--; renderCookStep(); }
+      if (e.key === 'ArrowRight') { document.getElementById('cookNext').click(); }
+    });
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible' && document.getElementById('cookMode')?.classList.contains('open') && !wakeLock) requestWakeLock();
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', wire); else wire();
+})();
+</script>
+
+
 <script id="kwen-category-click-split-fix">
 (function () {
   function mobileMode() {
@@ -2260,13 +2644,36 @@ render();
     "SYSTEM READY."
   ];
 
+  const THEMES = {
+    classic: { bodyClass:"theme-classic", label:"Classic", boot:false },
+    retro: { bodyClass:"theme-retro", label:"Retro CRT", boot:true },
+    pipboy: { bodyClass:"theme-pipboy", label:"Pip-Boy", locked:true }
+  };
+
   let bootTimer = null;
 
+  function normalizeTheme(theme){
+    if (theme === "canon") return "classic";
+    return THEMES[theme] ? theme : "classic";
+  }
+
+  function updateThemeButtons(theme){
+    document.querySelectorAll("[data-theme]").forEach((chip) => {
+      const isActive = chip.dataset.theme === theme;
+      chip.classList.toggle("active", isActive);
+      chip.setAttribute("aria-pressed", isActive ? "true" : "false");
+      if (chip.dataset.theme === "pipboy") {
+        chip.title = "Pip-Boy theme is reserved for the next build.";
+      }
+    });
+  }
+
   function applyTheme(theme) {
-    document.body.classList.toggle("theme-retro", theme === "retro");
+    theme = normalizeTheme(theme);
+    document.body.classList.remove("theme-classic", "theme-retro", "theme-pipboy");
+    document.body.classList.add(THEMES[theme].bodyClass);
     localStorage.setItem("kwenCookbookTheme", theme);
-    const btn = document.getElementById("themeToggle");
-    if (btn) btn.textContent = theme === "retro" ? "CANON MODE" : "KITCHEN_OS";
+    updateThemeButtons(theme);
   }
 
   function runBootSequence() {
@@ -2299,24 +2706,29 @@ render();
     };
   }
 
+  function chooseTheme(nextTheme){
+    nextTheme = normalizeTheme(nextTheme);
+    if (THEMES[nextTheme].locked) {
+      updateThemeButtons(localStorage.getItem("kwenCookbookTheme") || "classic");
+      return;
+    }
+    const current = normalizeTheme(localStorage.getItem("kwenCookbookTheme") || "classic");
+    if (nextTheme === current) return;
+    if (nextTheme === "retro") {
+      runBootSequence();
+      setTimeout(() => applyTheme("retro"), 450);
+    } else {
+      applyTheme(nextTheme);
+    }
+  }
+
   window.addEventListener("DOMContentLoaded", () => {
-    const savedTheme = localStorage.getItem("kwenCookbookTheme") || "canon";
+    const savedTheme = normalizeTheme(localStorage.getItem("kwenCookbookTheme") || "classic");
     applyTheme(savedTheme);
 
-    const btn = document.getElementById("themeToggle");
-    if (btn) {
-      btn.onclick = () => {
-        const isRetro = document.body.classList.contains("theme-retro");
-
-        if (isRetro) {
-          applyTheme("canon");
-          return;
-        }
-
-        runBootSequence();
-        setTimeout(() => applyTheme("retro"), 450);
-      };
-    }
+    document.querySelectorAll("[data-theme]").forEach((chip) => {
+      chip.addEventListener("click", () => chooseTheme(chip.dataset.theme));
+    });
   });
 })();
 </script>
