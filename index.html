@@ -1919,14 +1919,26 @@ body.theme-retro .cook-nav button{background:#123014;color:#9dff9a;border:1px so
 </style>
 
 
-<style id="kwen-pantry-mode-css">
-/* QA27: Pantry Mode visible launcher + panel */
-.pantry-btn{position:fixed;left:18px;bottom:18px;z-index:9997;border:2px solid var(--teal-ink,#053746);background:#f8e7c4;color:var(--teal-ink,#053746);border-radius:16px;padding:12px 15px;font-weight:950;box-shadow:0 10px 22px rgba(20,40,34,.18);cursor:pointer}
-.pantry-panel{position:fixed;left:18px;bottom:76px;width:min(360px,calc(100vw - 36px));max-height:min(70vh,620px);overflow:auto;z-index:9998;background:#fff7e8;color:var(--teal-ink,#053746);border:2px solid var(--teal-ink,#053746);border-radius:20px;padding:16px;box-shadow:0 16px 42px rgba(0,0,0,.28);display:none}
-.pantry-panel.open{display:block}
-.pantry-head{display:flex;align-items:start;justify-content:space-between;gap:12px;margin-bottom:10px}.pantry-head h2{margin:0;font-size:1.25rem}.pantry-close{border:0;background:transparent;font-size:1.5rem;line-height:1;cursor:pointer;color:inherit}.pantry-help{margin:.25rem 0 .8rem;font-size:.92rem;opacity:.86}.pantry-chip-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}.pantry-chip{border:1px solid rgba(5,55,70,.28);border-radius:999px;padding:9px 10px;background:#fff;cursor:pointer;font-weight:800;text-align:left}.pantry-chip input{margin-right:6px}.pantry-actions{display:flex;gap:8px;margin:10px 0}.pantry-actions button{flex:1;border:0;border-radius:12px;padding:10px;font-weight:900;cursor:pointer}.pantry-find{background:var(--teal-ink,#053746);color:white}.pantry-clear{background:#ead9b8;color:var(--teal-ink,#053746)}.pantry-results{border-top:1px solid rgba(5,55,70,.18);padding-top:10px;font-size:.95rem}.pantry-result{padding:9px 0;border-bottom:1px dashed rgba(5,55,70,.18)}.pantry-result strong{display:block}.pantry-result small{opacity:.78}body.theme-retro .pantry-btn,body.theme-retro .pantry-panel{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;background:#071007;color:#d7ffd0;border-color:rgba(157,255,154,.55);box-shadow:0 0 24px rgba(157,255,154,.12)}body.theme-retro .pantry-chip{background:#111b11;color:#d7ffd0;border-color:rgba(157,255,154,.28)}body.theme-retro .pantry-find{background:#123014;color:#9dff9a;border:1px solid rgba(157,255,154,.36)}body.theme-retro .pantry-clear{background:#24190f;color:#ffb35f}
-@media(max-width:620px){.pantry-btn{left:12px;bottom:12px;padding:10px 12px}.pantry-panel{left:12px;bottom:66px;width:calc(100vw - 24px)}}
+
+<style id="kwen-qa28-cleanup-css">
+.pantry-home-card{
+  display:flex;align-items:center;justify-content:space-between;gap:14px;
+  margin:16px 0 18px;padding:16px;border:2px solid rgba(5,55,70,.16);
+  border-radius:22px;background:rgba(248,231,196,.82);box-shadow:0 12px 26px rgba(20,40,34,.10);
+}
+.pantry-home-card h3{margin:0 0 4px;color:var(--teal-ink,#053746);font-size:1.1rem;}
+.pantry-home-card p{margin:0;color:var(--muted,#5f6f6b);font-weight:750;line-height:1.35;}
+.pantry-home-card button{border:0;border-radius:999px;background:var(--teal-ink,#053746);color:white;font-weight:950;padding:11px 14px;white-space:nowrap;cursor:pointer;}
+body.theme-retro .pantry-home-card{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;background:rgba(0,0,0,.62);border-color:rgba(157,255,154,.28);box-shadow:inset 0 0 18px rgba(157,255,154,.04),0 0 18px rgba(157,255,154,.08);}
+body.theme-retro .pantry-home-card h3{color:#9dff9a;}
+body.theme-retro .pantry-home-card p{color:#d7ffd0;}
+body.theme-retro .pantry-home-card button{background:#123014;color:#9dff9a;border:1px solid rgba(157,255,154,.36);}
+/* Pip-Boy alpha bones: class, palette, and component hooks are ready; theme remains locked until the full pass. */
+body.theme-pipboy{--pip-green:#7cff6b;--pip-dim:#1f6f2a;--pip-bg:#061006;--pip-amber:#ffb35f;background:var(--pip-bg);color:var(--pip-green);}
+body.theme-pipboy .sidebar,body.theme-pipboy .content,body.theme-pipboy .detail-card{background:#071407;border-color:rgba(124,255,107,.35);color:var(--pip-green);font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;}
+@media(max-width:620px){.pantry-home-card{align-items:stretch;flex-direction:column}.pantry-home-card button{width:100%;}}
 </style>
+
 </head>
 <body>
 
@@ -1954,7 +1966,6 @@ body.theme-retro .cook-nav button{background:#123014;color:#9dff9a;border:1px so
     <div class="nav-section">
       <button class="nav-item" data-retro-code="HOME.SYS" onclick="setSpecial('home')"><span class="nav-dot">•</span><span class="nav-title">Home</span></button>
       <button class="nav-item" data-retro-code="FAVES.DAT" onclick="setSpecial('favorites')"><span class="nav-dot">•</span><span class="nav-title">Favorites</span></button>
-      <button class="nav-item" data-retro-code="PANTRY.DAT" onclick="openPantryMode()"><span class="nav-dot">•</span><span class="nav-title">Pantry Mode</span></button>
     </div>
     <div class="nav-label">Recipes</div>
     <div id="categoryMenu"></div>
@@ -1971,7 +1982,7 @@ body.theme-retro .cook-nav button{background:#123014;color:#9dff9a;border:1px so
           <span class="theme-launcher-label">Choose your theme</span>
           <button class="theme-chip active" type="button" data-theme="classic" aria-pressed="true"><span class="theme-icon">🍲</span><span>Classic</span></button>
           <button class="theme-chip" type="button" data-theme="retro" aria-pressed="false"><span class="theme-icon">📺</span><span>Retro CRT</span></button>
-          <button class="theme-chip locked" type="button" data-theme="pipboy" aria-pressed="false" aria-label="Pip-Boy Pip-Boy theme locked for later"><span class="theme-icon">☢</span><span>Pip-Boy</span><small>Locked</small></button>
+          <button class="theme-chip locked" type="button" data-theme="pipboy" aria-pressed="false" aria-label="Pip-Boy theme locked for later"><span class="theme-icon">☢</span><span>Pip-Boy</span><small>Locked</small></button>
         </div>
         <div class="search-wrap"><input id="search" class="searchbox" type="search" placeholder="Search recipes..." autocomplete="off"><span class="search-icon">⌕</span></div>
       </div>
@@ -1989,13 +2000,6 @@ body.theme-retro .cook-nav button{background:#123014;color:#9dff9a;border:1px so
       
 <section id="homeWelcome" class="home-welcome">
   <h2>Welcome to kWen’s Cookbook</h2>
-  <div class="helper-card" aria-label="Kitchen_OS kitchen helper">
-    <div class="helper-face" aria-hidden="true"><span></span><span></span><em></em></div>
-    <div>
-      <strong>Kitchen helper online.</strong>
-      <p>Recipes, temps, timers, and mild cookbook chaos are ready.</p>
-    </div>
-  </div>
   <p>
     This cookbook was created to keep family recipes, comfort food favourites, and kitchen experiments intact
     for the people who matter most. It is a place for the dishes worth remembering — the ones made for family,
@@ -2007,6 +2011,14 @@ body.theme-retro .cook-nav button{background:#123014;color:#9dff9a;border:1px so
       cozy stews, classic desserts, seafood, macarons, and the recipes that deserve to live somewhere
       better than scattered notes and half-remembered measurements.
     </p>
+  </div>
+
+  <div class="pantry-home-card">
+    <div>
+      <h3>Pantry Search</h3>
+      <p>Type an ingredient in the search bar — chicken, parmesan, spinach, beef — and the cookbook will search across all recipes.</p>
+    </div>
+    <button type="button" onclick="focusGlobalSearch('chicken')">Try “chicken”</button>
   </div>
 
   <div class="retro-launchpad" aria-label="Retro cookbook quick launch">
@@ -2248,19 +2260,32 @@ function updateHomeWelcome() {
   const home = document.getElementById('homeWelcome');
   const grid = document.getElementById('grid');
   if (!home || !grid) return;
-  const isHome = activeSpecial === 'home';
+  const q = document.getElementById('search') ? document.getElementById('search').value.trim() : '';
+  const isHome = activeSpecial === 'home' && !q;
   document.body.classList.toggle('home-active', isHome);
   home.classList.toggle('active', isHome);
   grid.style.display = isHome ? 'none' : '';
 }
 
+function recipeSearchText(r) {
+  return [r.title, r.category, r.meta, r.note, ...(r.ingredients||[]), ...(r.method||[]), ...((r.tags||[]))]
+    .join(' ')
+    .toLowerCase();
+}
 function filteredRecipes() {
   const q = document.getElementById('search').value.trim().toLowerCase();
   let arr = RECIPES.map((r,i)=>({...r,i}));
+
+  // Any search is global: title, ingredients, category, tags, notes, and method across the whole cookbook.
+  if (q) {
+    const terms = q.split(/\s+/).filter(Boolean);
+    arr = arr.filter(r => terms.every(term => recipeSearchText(r).includes(term)));
+    return arr.sort((a,b)=>a.title.localeCompare(b.title));
+  }
+
   if (activeSpecial === 'favorites') arr = arr.filter(r => isFav(r.title));
   else if (activeTag) arr = arr.filter(r => (r.tags||[]).includes(activeTag));
   else arr = arr.filter(r => r.category === activeCategory);
-  if (q) arr = arr.filter(r => [r.title,r.category,r.meta,r.note,...r.ingredients,...r.method,...(r.tags||[])].join(' ').toLowerCase().includes(q));
   return arr.sort((a,b)=>a.title.localeCompare(b.title));
 }
 function subtitleFor(cat) {
@@ -2316,9 +2341,11 @@ function render() {
   buildMenu();
   updateHomeWelcome();
 
-  const title = activeSpecial === 'home' ? 'Welcome to kWen’s Cookbook' : activeSpecial === 'favorites' ? 'Favorites' : activeTag || activeCategory;
+  const qNow = document.getElementById('search').value.trim();
+  const title = qNow ? 'Search Results' : activeSpecial === 'home' ? 'Welcome to kWen’s Cookbook' : activeSpecial === 'favorites' ? 'Favorites' : activeTag || activeCategory;
   document.getElementById('pageTitle').textContent = title;
   document.getElementById('pageSubtitle').textContent =
+    qNow ? `Searching the whole cookbook for “${qNow}”.` :
     activeSpecial === 'home' ? 'Good food. Good people. Great memories.' :
     activeSpecial === 'favorites' ? 'Your saved kitchen hits, ready when you are.' :
     activeTag ? 'Prep-ahead recipes built for future-you.' :
@@ -2327,7 +2354,7 @@ function render() {
   const grid = document.getElementById('grid');
 
   // Home is its own landing page. Do not render recipe cards under it.
-  if (activeSpecial === 'home') {
+  if (activeSpecial === 'home' && !qNow) {
     grid.innerHTML = '';
     grid.style.display = 'none';
     document.body.classList.remove('detail-open');
@@ -2475,6 +2502,18 @@ function scaleText(text, factor) {
 
   return text;
 }
+
+function focusGlobalSearch(example) {
+  activeSpecial = null;
+  activeTag = null;
+  const search = document.getElementById('search');
+  if (search) {
+    search.value = example || '';
+    search.focus();
+  }
+  render();
+}
+
 document.getElementById('search').addEventListener('input', render);
 wireTempPanel();
 render();
@@ -2737,7 +2776,7 @@ render();
       chip.classList.toggle("active", isActive);
       chip.setAttribute("aria-pressed", isActive ? "true" : "false");
       if (chip.dataset.theme === "pipboy") {
-        chip.title = "Pip-Boy Pip-Boy theme is locked for Lane 3.";
+        chip.title = "Pip-Boy theme is locked for a future pass.";
       }
     });
   }
@@ -2824,61 +2863,6 @@ render();
 </script>
 
 
-<button id="pantryModeBtn" class="pantry-btn" type="button">🥫 Pantry Mode</button>
-<section id="pantryPanel" class="pantry-panel" aria-label="Pantry Mode" aria-hidden="true">
-  <div class="pantry-head">
-    <div><h2>Pantry Mode</h2><p class="pantry-help">Check what you have and find recipes that match.</p></div>
-    <button id="pantryClose" class="pantry-close" type="button" aria-label="Close Pantry Mode">×</button>
-  </div>
-  <div class="pantry-chip-grid" id="pantryIngredients">
-    <label class="pantry-chip"><input type="checkbox" value="chicken">Chicken</label>
-    <label class="pantry-chip"><input type="checkbox" value="beef">Beef</label>
-    <label class="pantry-chip"><input type="checkbox" value="pork">Pork</label>
-    <label class="pantry-chip"><input type="checkbox" value="salmon">Salmon</label>
-    <label class="pantry-chip"><input type="checkbox" value="pasta">Pasta</label>
-    <label class="pantry-chip"><input type="checkbox" value="rice">Rice</label>
-    <label class="pantry-chip"><input type="checkbox" value="potato">Potatoes</label>
-    <label class="pantry-chip"><input type="checkbox" value="spinach">Spinach</label>
-    <label class="pantry-chip"><input type="checkbox" value="mushroom">Mushrooms</label>
-    <label class="pantry-chip"><input type="checkbox" value="parmesan">Parmesan</label>
-    <label class="pantry-chip"><input type="checkbox" value="tomato">Tomatoes</label>
-    <label class="pantry-chip"><input type="checkbox" value="cream">Cream</label>
-  </div>
-  <div class="pantry-actions">
-    <button id="pantryFind" class="pantry-find" type="button">Find Recipes</button>
-    <button id="pantryClear" class="pantry-clear" type="button">Clear</button>
-  </div>
-  <div id="pantryResults" class="pantry-results">Pick a few ingredients to start.</div>
-</section>
-<script id="kwen-pantry-mode-script">
-(function(){
-  function getRecipes(){ return Array.isArray(window.recipes) ? window.recipes : (Array.isArray(window.RECIPES) ? window.RECIPES : []); }
-  function textForRecipe(r){ return [r.title,r.category,(r.tags||[]).join(' '),(r.ingredients||[]).join(' ')].join(' ').toLowerCase(); }
-  window.openPantryMode = function(){
-    const panel=document.getElementById('pantryPanel');
-    if(!panel) return;
-    panel.classList.add('open'); panel.setAttribute('aria-hidden','false');
-  };
-  function closePantry(){ const panel=document.getElementById('pantryPanel'); if(panel){panel.classList.remove('open'); panel.setAttribute('aria-hidden','true');} }
-  function selected(){ return Array.from(document.querySelectorAll('#pantryIngredients input:checked')).map(i=>i.value); }
-  function findMatches(){
-    const picks=selected(); const box=document.getElementById('pantryResults'); if(!box) return;
-    if(!picks.length){ box.textContent='Pick a few ingredients to start.'; return; }
-    const recipes=getRecipes();
-    const scored=recipes.map(r=>{ const t=textForRecipe(r); const hits=picks.filter(p=>t.includes(p)); return {r,hits,score:hits.length}; })
-      .filter(x=>x.score>0).sort((a,b)=>b.score-a.score || String(a.r.title||'').localeCompare(String(b.r.title||''))).slice(0,8);
-    if(!scored.length){ box.innerHTML='No matches yet. Try fewer ingredients or use the regular search.'; return; }
-    box.innerHTML=scored.map(x=>`<div class="pantry-result"><strong>${x.r.title||'Untitled recipe'}</strong><small>Matched: ${x.hits.join(', ')}</small></div>`).join('');
-  }
-  document.addEventListener('DOMContentLoaded',()=>{
-    const btn=document.getElementById('pantryModeBtn'); const close=document.getElementById('pantryClose'); const find=document.getElementById('pantryFind'); const clear=document.getElementById('pantryClear');
-    if(btn) btn.addEventListener('click',()=>{ const panel=document.getElementById('pantryPanel'); if(panel && panel.classList.contains('open')) closePantry(); else window.openPantryMode(); });
-    if(close) close.addEventListener('click', closePantry);
-    if(find) find.addEventListener('click', findMatches);
-    if(clear) clear.addEventListener('click',()=>{ document.querySelectorAll('#pantryIngredients input').forEach(i=>i.checked=false); findMatches(); });
-  });
-})();
-</script>
 
 </body>
 </html>
