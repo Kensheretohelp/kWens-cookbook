@@ -695,6 +695,37 @@ body.theme-retro .temp-fab { filter:saturate(.96) contrast(1.02); }
   .card-foot .temp-badge { margin-left:0; }
 }
 
+
+
+/* QA31: Dedicated Pip-Boy Garden Calendar page */
+.garden-page{grid-column:1 / -1;display:none;position:relative;overflow:hidden;padding:18px;border-radius:24px;background:radial-gradient(circle at 18% 8%, rgba(101,255,72,.14), transparent 22rem),radial-gradient(circle at 80% 2%, rgba(227,168,53,.10), transparent 18rem),linear-gradient(180deg,#07140c 0%,#081b0f 42%,#050b07 100%);border:2px solid rgba(126,255,89,.58);box-shadow:0 24px 70px rgba(0,0,0,.38), inset 0 0 38px rgba(83,255,57,.10);color:#9dff62;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Courier New",monospace;}
+.garden-page.active{display:block;}
+.garden-page::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.16;background:repeating-linear-gradient(0deg,rgba(157,255,98,.20) 0 1px,transparent 1px 4px);mix-blend-mode:screen;}
+.garden-page::after{content:"";position:absolute;inset:-20%;pointer-events:none;opacity:.18;background:radial-gradient(ellipse at center,transparent 0 54%,rgba(0,0,0,.75) 100%);}
+.garden-inner{position:relative;z-index:1;display:grid;gap:16px;}
+.garden-header{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;border-bottom:1px solid rgba(157,255,98,.36);padding-bottom:14px;}
+.garden-kicker{color:#e1b749;font-size:.82rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:7px;}
+.garden-title{margin:0;color:#9dff62;font-size:clamp(1.8rem,5vw,3.3rem);line-height:.95;text-transform:uppercase;text-shadow:0 0 14px rgba(157,255,98,.45);letter-spacing:.04em;}
+.garden-sub{margin:8px 0 0;color:#c9ff9d;opacity:.9;}
+.garden-year-toggle{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;}
+.garden-year-toggle button,.garden-action-btn,.garden-month-btn{border:1px solid rgba(157,255,98,.62);background:rgba(9,34,15,.72);color:#9dff62;border-radius:10px;padding:9px 12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;box-shadow:inset 0 0 18px rgba(157,255,98,.10);cursor:pointer;}
+.garden-year-toggle button.active,.garden-action-btn:hover,.garden-month-btn:hover{background:#9dff62;color:#061007;box-shadow:0 0 18px rgba(157,255,98,.45);}
+.garden-top-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(280px,.75fr);gap:16px;}
+.garden-panel{border:1px solid rgba(157,255,98,.46);background:rgba(1,12,5,.78);border-radius:18px;padding:15px;box-shadow:inset 0 0 24px rgba(157,255,98,.08);}
+.garden-panel h3{margin:0 0 12px;color:#e1b749;text-transform:uppercase;letter-spacing:.10em;font-size:1rem;}
+.garden-week-list{display:grid;gap:9px;}
+.garden-task{display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:start;padding:9px;border-bottom:1px solid rgba(157,255,98,.18);}
+.garden-task:last-child{border-bottom:0;}.garden-task b{color:#d8ffc3;}.garden-task small{display:block;color:#97c987;margin-top:3px;}.garden-task .tag{font-size:.72rem;color:#061007;background:#e1b749;border-radius:999px;padding:5px 8px;font-weight:900;white-space:nowrap;}
+.garden-weather{display:grid;grid-template-columns:1fr;gap:10px;}.garden-weather-card{display:flex;align-items:center;gap:14px;border:1px solid rgba(157,255,98,.30);border-radius:14px;padding:12px;background:rgba(157,255,98,.06);}.garden-weather-card .sun{font-size:2rem;filter:drop-shadow(0 0 8px rgba(225,183,73,.7));}.garden-weather-card strong{font-size:2rem;color:#d8ffc3;}
+.garden-keydates{display:grid;gap:8px;}.garden-keydates div{display:flex;justify-content:space-between;gap:10px;border-bottom:1px dashed rgba(157,255,98,.22);padding-bottom:7px;color:#c9ff9d;}
+.garden-calendar-shell{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:16px;align-items:start;}.garden-calendar-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:12px;}.garden-month-title{color:#d8ffc3;text-transform:uppercase;letter-spacing:.12em;font-weight:900;}
+.garden-cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;}.garden-dow{font-size:.76rem;text-align:center;color:#e1b749;text-transform:uppercase;letter-spacing:.08em;padding-bottom:4px;}.garden-day{min-height:72px;border:1px solid rgba(157,255,98,.24);border-radius:10px;background:rgba(157,255,98,.045);padding:7px;display:flex;flex-direction:column;gap:5px;position:relative;}.garden-day.muted{opacity:.32;}.garden-day.today{border-color:#e1b749;box-shadow:0 0 0 1px rgba(225,183,73,.45),0 0 18px rgba(225,183,73,.2);}.garden-day-num{font-weight:900;color:#d8ffc3;}.garden-icons{display:flex;gap:3px;flex-wrap:wrap;font-size:.84rem;}.garden-legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;color:#c9ff9d;font-size:.85rem;}
+.garden-roster{overflow:auto;max-height:520px;padding-right:4px;}.garden-plant-row{border:1px solid rgba(157,255,98,.25);border-radius:12px;margin-bottom:8px;padding:10px;background:rgba(157,255,98,.04);cursor:pointer;}.garden-plant-row:hover,.garden-plant-row.active{background:rgba(157,255,98,.12);border-color:rgba(157,255,98,.70);}.garden-plant-row b{color:#d8ffc3;display:block;}.garden-plant-row span{display:grid;grid-template-columns:1fr auto;gap:8px;color:#97c987;font-size:.84rem;margin-top:4px;}
+.garden-detail-card{display:grid;grid-template-columns:1.15fr .85fr;gap:16px;}.garden-stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0;}.garden-stat{border:1px solid rgba(157,255,98,.28);border-radius:12px;padding:10px;background:rgba(157,255,98,.045);}.garden-stat small{display:block;color:#97c987;text-transform:uppercase;font-size:.68rem;letter-spacing:.08em;}.garden-stat b{color:#d8ffc3;}.garden-timeline{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-top:12px;}.garden-timeline div{border:1px solid rgba(157,255,98,.28);border-radius:12px;padding:9px;min-height:76px;background:rgba(0,0,0,.20);}.garden-timeline small{display:block;color:#e1b749;text-transform:uppercase;font-size:.66rem;margin-bottom:5px;}.garden-ref-list{display:grid;gap:12px;color:#c9ff9d;}.garden-ref-list div{border-bottom:1px dashed rgba(157,255,98,.22);padding-bottom:10px;}.garden-ref-list b{display:block;color:#e1b749;text-transform:uppercase;margin-bottom:3px;}
+body.garden-active .hero, body.garden-active #homeWelcome, body.garden-active #grid, body.garden-active .wagon-wrap{display:none!important;} body.garden-active .detail{display:none!important;}
+@media (max-width: 980px){.garden-top-grid,.garden-calendar-shell,.garden-detail-card{grid-template-columns:1fr;}.garden-stat-grid{grid-template-columns:repeat(2,1fr);}.garden-timeline{grid-template-columns:1fr;}.garden-header{display:block;}.garden-year-toggle{justify-content:flex-start;margin-top:12px;}.garden-page{border-radius:18px;padding:13px;}.garden-day{min-height:58px;padding:5px;}}
+@media (max-width: 720px){.garden-cal{gap:3px;}.garden-day{min-height:50px;border-radius:8px;font-size:.82rem;}.garden-icons{font-size:.72rem;}.garden-task{grid-template-columns:24px 1fr;}.garden-task .tag{grid-column:2;justify-self:start;}}
+
 </style>
 
 <style id="kwen-polish-overrides">
@@ -803,6 +834,37 @@ body{
     margin:0 auto;
   }
 }
+
+
+/* QA31: Dedicated Pip-Boy Garden Calendar page */
+.garden-page{grid-column:1 / -1;display:none;position:relative;overflow:hidden;padding:18px;border-radius:24px;background:radial-gradient(circle at 18% 8%, rgba(101,255,72,.14), transparent 22rem),radial-gradient(circle at 80% 2%, rgba(227,168,53,.10), transparent 18rem),linear-gradient(180deg,#07140c 0%,#081b0f 42%,#050b07 100%);border:2px solid rgba(126,255,89,.58);box-shadow:0 24px 70px rgba(0,0,0,.38), inset 0 0 38px rgba(83,255,57,.10);color:#9dff62;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Courier New",monospace;}
+.garden-page.active{display:block;}
+.garden-page::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.16;background:repeating-linear-gradient(0deg,rgba(157,255,98,.20) 0 1px,transparent 1px 4px);mix-blend-mode:screen;}
+.garden-page::after{content:"";position:absolute;inset:-20%;pointer-events:none;opacity:.18;background:radial-gradient(ellipse at center,transparent 0 54%,rgba(0,0,0,.75) 100%);}
+.garden-inner{position:relative;z-index:1;display:grid;gap:16px;}
+.garden-header{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;border-bottom:1px solid rgba(157,255,98,.36);padding-bottom:14px;}
+.garden-kicker{color:#e1b749;font-size:.82rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:7px;}
+.garden-title{margin:0;color:#9dff62;font-size:clamp(1.8rem,5vw,3.3rem);line-height:.95;text-transform:uppercase;text-shadow:0 0 14px rgba(157,255,98,.45);letter-spacing:.04em;}
+.garden-sub{margin:8px 0 0;color:#c9ff9d;opacity:.9;}
+.garden-year-toggle{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;}
+.garden-year-toggle button,.garden-action-btn,.garden-month-btn{border:1px solid rgba(157,255,98,.62);background:rgba(9,34,15,.72);color:#9dff62;border-radius:10px;padding:9px 12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;box-shadow:inset 0 0 18px rgba(157,255,98,.10);cursor:pointer;}
+.garden-year-toggle button.active,.garden-action-btn:hover,.garden-month-btn:hover{background:#9dff62;color:#061007;box-shadow:0 0 18px rgba(157,255,98,.45);}
+.garden-top-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(280px,.75fr);gap:16px;}
+.garden-panel{border:1px solid rgba(157,255,98,.46);background:rgba(1,12,5,.78);border-radius:18px;padding:15px;box-shadow:inset 0 0 24px rgba(157,255,98,.08);}
+.garden-panel h3{margin:0 0 12px;color:#e1b749;text-transform:uppercase;letter-spacing:.10em;font-size:1rem;}
+.garden-week-list{display:grid;gap:9px;}
+.garden-task{display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:start;padding:9px;border-bottom:1px solid rgba(157,255,98,.18);}
+.garden-task:last-child{border-bottom:0;}.garden-task b{color:#d8ffc3;}.garden-task small{display:block;color:#97c987;margin-top:3px;}.garden-task .tag{font-size:.72rem;color:#061007;background:#e1b749;border-radius:999px;padding:5px 8px;font-weight:900;white-space:nowrap;}
+.garden-weather{display:grid;grid-template-columns:1fr;gap:10px;}.garden-weather-card{display:flex;align-items:center;gap:14px;border:1px solid rgba(157,255,98,.30);border-radius:14px;padding:12px;background:rgba(157,255,98,.06);}.garden-weather-card .sun{font-size:2rem;filter:drop-shadow(0 0 8px rgba(225,183,73,.7));}.garden-weather-card strong{font-size:2rem;color:#d8ffc3;}
+.garden-keydates{display:grid;gap:8px;}.garden-keydates div{display:flex;justify-content:space-between;gap:10px;border-bottom:1px dashed rgba(157,255,98,.22);padding-bottom:7px;color:#c9ff9d;}
+.garden-calendar-shell{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:16px;align-items:start;}.garden-calendar-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:12px;}.garden-month-title{color:#d8ffc3;text-transform:uppercase;letter-spacing:.12em;font-weight:900;}
+.garden-cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;}.garden-dow{font-size:.76rem;text-align:center;color:#e1b749;text-transform:uppercase;letter-spacing:.08em;padding-bottom:4px;}.garden-day{min-height:72px;border:1px solid rgba(157,255,98,.24);border-radius:10px;background:rgba(157,255,98,.045);padding:7px;display:flex;flex-direction:column;gap:5px;position:relative;}.garden-day.muted{opacity:.32;}.garden-day.today{border-color:#e1b749;box-shadow:0 0 0 1px rgba(225,183,73,.45),0 0 18px rgba(225,183,73,.2);}.garden-day-num{font-weight:900;color:#d8ffc3;}.garden-icons{display:flex;gap:3px;flex-wrap:wrap;font-size:.84rem;}.garden-legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;color:#c9ff9d;font-size:.85rem;}
+.garden-roster{overflow:auto;max-height:520px;padding-right:4px;}.garden-plant-row{border:1px solid rgba(157,255,98,.25);border-radius:12px;margin-bottom:8px;padding:10px;background:rgba(157,255,98,.04);cursor:pointer;}.garden-plant-row:hover,.garden-plant-row.active{background:rgba(157,255,98,.12);border-color:rgba(157,255,98,.70);}.garden-plant-row b{color:#d8ffc3;display:block;}.garden-plant-row span{display:grid;grid-template-columns:1fr auto;gap:8px;color:#97c987;font-size:.84rem;margin-top:4px;}
+.garden-detail-card{display:grid;grid-template-columns:1.15fr .85fr;gap:16px;}.garden-stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0;}.garden-stat{border:1px solid rgba(157,255,98,.28);border-radius:12px;padding:10px;background:rgba(157,255,98,.045);}.garden-stat small{display:block;color:#97c987;text-transform:uppercase;font-size:.68rem;letter-spacing:.08em;}.garden-stat b{color:#d8ffc3;}.garden-timeline{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-top:12px;}.garden-timeline div{border:1px solid rgba(157,255,98,.28);border-radius:12px;padding:9px;min-height:76px;background:rgba(0,0,0,.20);}.garden-timeline small{display:block;color:#e1b749;text-transform:uppercase;font-size:.66rem;margin-bottom:5px;}.garden-ref-list{display:grid;gap:12px;color:#c9ff9d;}.garden-ref-list div{border-bottom:1px dashed rgba(157,255,98,.22);padding-bottom:10px;}.garden-ref-list b{display:block;color:#e1b749;text-transform:uppercase;margin-bottom:3px;}
+body.garden-active .hero, body.garden-active #homeWelcome, body.garden-active #grid, body.garden-active .wagon-wrap{display:none!important;} body.garden-active .detail{display:none!important;}
+@media (max-width: 980px){.garden-top-grid,.garden-calendar-shell,.garden-detail-card{grid-template-columns:1fr;}.garden-stat-grid{grid-template-columns:repeat(2,1fr);}.garden-timeline{grid-template-columns:1fr;}.garden-header{display:block;}.garden-year-toggle{justify-content:flex-start;margin-top:12px;}.garden-page{border-radius:18px;padding:13px;}.garden-day{min-height:58px;padding:5px;}}
+@media (max-width: 720px){.garden-cal{gap:3px;}.garden-day{min-height:50px;border-radius:8px;font-size:.82rem;}.garden-icons{font-size:.72rem;}.garden-task{grid-template-columns:24px 1fr;}.garden-task .tag{grid-column:2;justify-self:start;}}
+
 </style>
 
 
@@ -830,6 +892,37 @@ body{
 .nav-item::first-letter{
   color:inherit !important;
 }
+
+
+/* QA31: Dedicated Pip-Boy Garden Calendar page */
+.garden-page{grid-column:1 / -1;display:none;position:relative;overflow:hidden;padding:18px;border-radius:24px;background:radial-gradient(circle at 18% 8%, rgba(101,255,72,.14), transparent 22rem),radial-gradient(circle at 80% 2%, rgba(227,168,53,.10), transparent 18rem),linear-gradient(180deg,#07140c 0%,#081b0f 42%,#050b07 100%);border:2px solid rgba(126,255,89,.58);box-shadow:0 24px 70px rgba(0,0,0,.38), inset 0 0 38px rgba(83,255,57,.10);color:#9dff62;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Courier New",monospace;}
+.garden-page.active{display:block;}
+.garden-page::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.16;background:repeating-linear-gradient(0deg,rgba(157,255,98,.20) 0 1px,transparent 1px 4px);mix-blend-mode:screen;}
+.garden-page::after{content:"";position:absolute;inset:-20%;pointer-events:none;opacity:.18;background:radial-gradient(ellipse at center,transparent 0 54%,rgba(0,0,0,.75) 100%);}
+.garden-inner{position:relative;z-index:1;display:grid;gap:16px;}
+.garden-header{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;border-bottom:1px solid rgba(157,255,98,.36);padding-bottom:14px;}
+.garden-kicker{color:#e1b749;font-size:.82rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:7px;}
+.garden-title{margin:0;color:#9dff62;font-size:clamp(1.8rem,5vw,3.3rem);line-height:.95;text-transform:uppercase;text-shadow:0 0 14px rgba(157,255,98,.45);letter-spacing:.04em;}
+.garden-sub{margin:8px 0 0;color:#c9ff9d;opacity:.9;}
+.garden-year-toggle{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;}
+.garden-year-toggle button,.garden-action-btn,.garden-month-btn{border:1px solid rgba(157,255,98,.62);background:rgba(9,34,15,.72);color:#9dff62;border-radius:10px;padding:9px 12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;box-shadow:inset 0 0 18px rgba(157,255,98,.10);cursor:pointer;}
+.garden-year-toggle button.active,.garden-action-btn:hover,.garden-month-btn:hover{background:#9dff62;color:#061007;box-shadow:0 0 18px rgba(157,255,98,.45);}
+.garden-top-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(280px,.75fr);gap:16px;}
+.garden-panel{border:1px solid rgba(157,255,98,.46);background:rgba(1,12,5,.78);border-radius:18px;padding:15px;box-shadow:inset 0 0 24px rgba(157,255,98,.08);}
+.garden-panel h3{margin:0 0 12px;color:#e1b749;text-transform:uppercase;letter-spacing:.10em;font-size:1rem;}
+.garden-week-list{display:grid;gap:9px;}
+.garden-task{display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:start;padding:9px;border-bottom:1px solid rgba(157,255,98,.18);}
+.garden-task:last-child{border-bottom:0;}.garden-task b{color:#d8ffc3;}.garden-task small{display:block;color:#97c987;margin-top:3px;}.garden-task .tag{font-size:.72rem;color:#061007;background:#e1b749;border-radius:999px;padding:5px 8px;font-weight:900;white-space:nowrap;}
+.garden-weather{display:grid;grid-template-columns:1fr;gap:10px;}.garden-weather-card{display:flex;align-items:center;gap:14px;border:1px solid rgba(157,255,98,.30);border-radius:14px;padding:12px;background:rgba(157,255,98,.06);}.garden-weather-card .sun{font-size:2rem;filter:drop-shadow(0 0 8px rgba(225,183,73,.7));}.garden-weather-card strong{font-size:2rem;color:#d8ffc3;}
+.garden-keydates{display:grid;gap:8px;}.garden-keydates div{display:flex;justify-content:space-between;gap:10px;border-bottom:1px dashed rgba(157,255,98,.22);padding-bottom:7px;color:#c9ff9d;}
+.garden-calendar-shell{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:16px;align-items:start;}.garden-calendar-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:12px;}.garden-month-title{color:#d8ffc3;text-transform:uppercase;letter-spacing:.12em;font-weight:900;}
+.garden-cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;}.garden-dow{font-size:.76rem;text-align:center;color:#e1b749;text-transform:uppercase;letter-spacing:.08em;padding-bottom:4px;}.garden-day{min-height:72px;border:1px solid rgba(157,255,98,.24);border-radius:10px;background:rgba(157,255,98,.045);padding:7px;display:flex;flex-direction:column;gap:5px;position:relative;}.garden-day.muted{opacity:.32;}.garden-day.today{border-color:#e1b749;box-shadow:0 0 0 1px rgba(225,183,73,.45),0 0 18px rgba(225,183,73,.2);}.garden-day-num{font-weight:900;color:#d8ffc3;}.garden-icons{display:flex;gap:3px;flex-wrap:wrap;font-size:.84rem;}.garden-legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;color:#c9ff9d;font-size:.85rem;}
+.garden-roster{overflow:auto;max-height:520px;padding-right:4px;}.garden-plant-row{border:1px solid rgba(157,255,98,.25);border-radius:12px;margin-bottom:8px;padding:10px;background:rgba(157,255,98,.04);cursor:pointer;}.garden-plant-row:hover,.garden-plant-row.active{background:rgba(157,255,98,.12);border-color:rgba(157,255,98,.70);}.garden-plant-row b{color:#d8ffc3;display:block;}.garden-plant-row span{display:grid;grid-template-columns:1fr auto;gap:8px;color:#97c987;font-size:.84rem;margin-top:4px;}
+.garden-detail-card{display:grid;grid-template-columns:1.15fr .85fr;gap:16px;}.garden-stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0;}.garden-stat{border:1px solid rgba(157,255,98,.28);border-radius:12px;padding:10px;background:rgba(157,255,98,.045);}.garden-stat small{display:block;color:#97c987;text-transform:uppercase;font-size:.68rem;letter-spacing:.08em;}.garden-stat b{color:#d8ffc3;}.garden-timeline{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-top:12px;}.garden-timeline div{border:1px solid rgba(157,255,98,.28);border-radius:12px;padding:9px;min-height:76px;background:rgba(0,0,0,.20);}.garden-timeline small{display:block;color:#e1b749;text-transform:uppercase;font-size:.66rem;margin-bottom:5px;}.garden-ref-list{display:grid;gap:12px;color:#c9ff9d;}.garden-ref-list div{border-bottom:1px dashed rgba(157,255,98,.22);padding-bottom:10px;}.garden-ref-list b{display:block;color:#e1b749;text-transform:uppercase;margin-bottom:3px;}
+body.garden-active .hero, body.garden-active #homeWelcome, body.garden-active #grid, body.garden-active .wagon-wrap{display:none!important;} body.garden-active .detail{display:none!important;}
+@media (max-width: 980px){.garden-top-grid,.garden-calendar-shell,.garden-detail-card{grid-template-columns:1fr;}.garden-stat-grid{grid-template-columns:repeat(2,1fr);}.garden-timeline{grid-template-columns:1fr;}.garden-header{display:block;}.garden-year-toggle{justify-content:flex-start;margin-top:12px;}.garden-page{border-radius:18px;padding:13px;}.garden-day{min-height:58px;padding:5px;}}
+@media (max-width: 720px){.garden-cal{gap:3px;}.garden-day{min-height:50px;border-radius:8px;font-size:.82rem;}.garden-icons{font-size:.72rem;}.garden-task{grid-template-columns:24px 1fr;}.garden-task .tag{grid-column:2;justify-self:start;}}
+
 </style>
 
 
@@ -891,6 +984,37 @@ body{
 .final-wagon-art{
   filter:drop-shadow(0 8px 12px rgba(40,32,18,.10));
 }
+
+
+/* QA31: Dedicated Pip-Boy Garden Calendar page */
+.garden-page{grid-column:1 / -1;display:none;position:relative;overflow:hidden;padding:18px;border-radius:24px;background:radial-gradient(circle at 18% 8%, rgba(101,255,72,.14), transparent 22rem),radial-gradient(circle at 80% 2%, rgba(227,168,53,.10), transparent 18rem),linear-gradient(180deg,#07140c 0%,#081b0f 42%,#050b07 100%);border:2px solid rgba(126,255,89,.58);box-shadow:0 24px 70px rgba(0,0,0,.38), inset 0 0 38px rgba(83,255,57,.10);color:#9dff62;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Courier New",monospace;}
+.garden-page.active{display:block;}
+.garden-page::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.16;background:repeating-linear-gradient(0deg,rgba(157,255,98,.20) 0 1px,transparent 1px 4px);mix-blend-mode:screen;}
+.garden-page::after{content:"";position:absolute;inset:-20%;pointer-events:none;opacity:.18;background:radial-gradient(ellipse at center,transparent 0 54%,rgba(0,0,0,.75) 100%);}
+.garden-inner{position:relative;z-index:1;display:grid;gap:16px;}
+.garden-header{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;border-bottom:1px solid rgba(157,255,98,.36);padding-bottom:14px;}
+.garden-kicker{color:#e1b749;font-size:.82rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:7px;}
+.garden-title{margin:0;color:#9dff62;font-size:clamp(1.8rem,5vw,3.3rem);line-height:.95;text-transform:uppercase;text-shadow:0 0 14px rgba(157,255,98,.45);letter-spacing:.04em;}
+.garden-sub{margin:8px 0 0;color:#c9ff9d;opacity:.9;}
+.garden-year-toggle{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;}
+.garden-year-toggle button,.garden-action-btn,.garden-month-btn{border:1px solid rgba(157,255,98,.62);background:rgba(9,34,15,.72);color:#9dff62;border-radius:10px;padding:9px 12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;box-shadow:inset 0 0 18px rgba(157,255,98,.10);cursor:pointer;}
+.garden-year-toggle button.active,.garden-action-btn:hover,.garden-month-btn:hover{background:#9dff62;color:#061007;box-shadow:0 0 18px rgba(157,255,98,.45);}
+.garden-top-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(280px,.75fr);gap:16px;}
+.garden-panel{border:1px solid rgba(157,255,98,.46);background:rgba(1,12,5,.78);border-radius:18px;padding:15px;box-shadow:inset 0 0 24px rgba(157,255,98,.08);}
+.garden-panel h3{margin:0 0 12px;color:#e1b749;text-transform:uppercase;letter-spacing:.10em;font-size:1rem;}
+.garden-week-list{display:grid;gap:9px;}
+.garden-task{display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:start;padding:9px;border-bottom:1px solid rgba(157,255,98,.18);}
+.garden-task:last-child{border-bottom:0;}.garden-task b{color:#d8ffc3;}.garden-task small{display:block;color:#97c987;margin-top:3px;}.garden-task .tag{font-size:.72rem;color:#061007;background:#e1b749;border-radius:999px;padding:5px 8px;font-weight:900;white-space:nowrap;}
+.garden-weather{display:grid;grid-template-columns:1fr;gap:10px;}.garden-weather-card{display:flex;align-items:center;gap:14px;border:1px solid rgba(157,255,98,.30);border-radius:14px;padding:12px;background:rgba(157,255,98,.06);}.garden-weather-card .sun{font-size:2rem;filter:drop-shadow(0 0 8px rgba(225,183,73,.7));}.garden-weather-card strong{font-size:2rem;color:#d8ffc3;}
+.garden-keydates{display:grid;gap:8px;}.garden-keydates div{display:flex;justify-content:space-between;gap:10px;border-bottom:1px dashed rgba(157,255,98,.22);padding-bottom:7px;color:#c9ff9d;}
+.garden-calendar-shell{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:16px;align-items:start;}.garden-calendar-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:12px;}.garden-month-title{color:#d8ffc3;text-transform:uppercase;letter-spacing:.12em;font-weight:900;}
+.garden-cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;}.garden-dow{font-size:.76rem;text-align:center;color:#e1b749;text-transform:uppercase;letter-spacing:.08em;padding-bottom:4px;}.garden-day{min-height:72px;border:1px solid rgba(157,255,98,.24);border-radius:10px;background:rgba(157,255,98,.045);padding:7px;display:flex;flex-direction:column;gap:5px;position:relative;}.garden-day.muted{opacity:.32;}.garden-day.today{border-color:#e1b749;box-shadow:0 0 0 1px rgba(225,183,73,.45),0 0 18px rgba(225,183,73,.2);}.garden-day-num{font-weight:900;color:#d8ffc3;}.garden-icons{display:flex;gap:3px;flex-wrap:wrap;font-size:.84rem;}.garden-legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;color:#c9ff9d;font-size:.85rem;}
+.garden-roster{overflow:auto;max-height:520px;padding-right:4px;}.garden-plant-row{border:1px solid rgba(157,255,98,.25);border-radius:12px;margin-bottom:8px;padding:10px;background:rgba(157,255,98,.04);cursor:pointer;}.garden-plant-row:hover,.garden-plant-row.active{background:rgba(157,255,98,.12);border-color:rgba(157,255,98,.70);}.garden-plant-row b{color:#d8ffc3;display:block;}.garden-plant-row span{display:grid;grid-template-columns:1fr auto;gap:8px;color:#97c987;font-size:.84rem;margin-top:4px;}
+.garden-detail-card{display:grid;grid-template-columns:1.15fr .85fr;gap:16px;}.garden-stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0;}.garden-stat{border:1px solid rgba(157,255,98,.28);border-radius:12px;padding:10px;background:rgba(157,255,98,.045);}.garden-stat small{display:block;color:#97c987;text-transform:uppercase;font-size:.68rem;letter-spacing:.08em;}.garden-stat b{color:#d8ffc3;}.garden-timeline{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-top:12px;}.garden-timeline div{border:1px solid rgba(157,255,98,.28);border-radius:12px;padding:9px;min-height:76px;background:rgba(0,0,0,.20);}.garden-timeline small{display:block;color:#e1b749;text-transform:uppercase;font-size:.66rem;margin-bottom:5px;}.garden-ref-list{display:grid;gap:12px;color:#c9ff9d;}.garden-ref-list div{border-bottom:1px dashed rgba(157,255,98,.22);padding-bottom:10px;}.garden-ref-list b{display:block;color:#e1b749;text-transform:uppercase;margin-bottom:3px;}
+body.garden-active .hero, body.garden-active #homeWelcome, body.garden-active #grid, body.garden-active .wagon-wrap{display:none!important;} body.garden-active .detail{display:none!important;}
+@media (max-width: 980px){.garden-top-grid,.garden-calendar-shell,.garden-detail-card{grid-template-columns:1fr;}.garden-stat-grid{grid-template-columns:repeat(2,1fr);}.garden-timeline{grid-template-columns:1fr;}.garden-header{display:block;}.garden-year-toggle{justify-content:flex-start;margin-top:12px;}.garden-page{border-radius:18px;padding:13px;}.garden-day{min-height:58px;padding:5px;}}
+@media (max-width: 720px){.garden-cal{gap:3px;}.garden-day{min-height:50px;border-radius:8px;font-size:.82rem;}.garden-icons{font-size:.72rem;}.garden-task{grid-template-columns:24px 1fr;}.garden-task .tag{grid-column:2;justify-self:start;}}
+
 </style>
 
 
@@ -923,6 +1047,37 @@ body{
 @media (max-width:820px){
   .final-wagon-art{width:min(720px, 98vw) !important;}
 }
+
+
+/* QA31: Dedicated Pip-Boy Garden Calendar page */
+.garden-page{grid-column:1 / -1;display:none;position:relative;overflow:hidden;padding:18px;border-radius:24px;background:radial-gradient(circle at 18% 8%, rgba(101,255,72,.14), transparent 22rem),radial-gradient(circle at 80% 2%, rgba(227,168,53,.10), transparent 18rem),linear-gradient(180deg,#07140c 0%,#081b0f 42%,#050b07 100%);border:2px solid rgba(126,255,89,.58);box-shadow:0 24px 70px rgba(0,0,0,.38), inset 0 0 38px rgba(83,255,57,.10);color:#9dff62;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Courier New",monospace;}
+.garden-page.active{display:block;}
+.garden-page::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.16;background:repeating-linear-gradient(0deg,rgba(157,255,98,.20) 0 1px,transparent 1px 4px);mix-blend-mode:screen;}
+.garden-page::after{content:"";position:absolute;inset:-20%;pointer-events:none;opacity:.18;background:radial-gradient(ellipse at center,transparent 0 54%,rgba(0,0,0,.75) 100%);}
+.garden-inner{position:relative;z-index:1;display:grid;gap:16px;}
+.garden-header{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;border-bottom:1px solid rgba(157,255,98,.36);padding-bottom:14px;}
+.garden-kicker{color:#e1b749;font-size:.82rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:7px;}
+.garden-title{margin:0;color:#9dff62;font-size:clamp(1.8rem,5vw,3.3rem);line-height:.95;text-transform:uppercase;text-shadow:0 0 14px rgba(157,255,98,.45);letter-spacing:.04em;}
+.garden-sub{margin:8px 0 0;color:#c9ff9d;opacity:.9;}
+.garden-year-toggle{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;}
+.garden-year-toggle button,.garden-action-btn,.garden-month-btn{border:1px solid rgba(157,255,98,.62);background:rgba(9,34,15,.72);color:#9dff62;border-radius:10px;padding:9px 12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;box-shadow:inset 0 0 18px rgba(157,255,98,.10);cursor:pointer;}
+.garden-year-toggle button.active,.garden-action-btn:hover,.garden-month-btn:hover{background:#9dff62;color:#061007;box-shadow:0 0 18px rgba(157,255,98,.45);}
+.garden-top-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(280px,.75fr);gap:16px;}
+.garden-panel{border:1px solid rgba(157,255,98,.46);background:rgba(1,12,5,.78);border-radius:18px;padding:15px;box-shadow:inset 0 0 24px rgba(157,255,98,.08);}
+.garden-panel h3{margin:0 0 12px;color:#e1b749;text-transform:uppercase;letter-spacing:.10em;font-size:1rem;}
+.garden-week-list{display:grid;gap:9px;}
+.garden-task{display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:start;padding:9px;border-bottom:1px solid rgba(157,255,98,.18);}
+.garden-task:last-child{border-bottom:0;}.garden-task b{color:#d8ffc3;}.garden-task small{display:block;color:#97c987;margin-top:3px;}.garden-task .tag{font-size:.72rem;color:#061007;background:#e1b749;border-radius:999px;padding:5px 8px;font-weight:900;white-space:nowrap;}
+.garden-weather{display:grid;grid-template-columns:1fr;gap:10px;}.garden-weather-card{display:flex;align-items:center;gap:14px;border:1px solid rgba(157,255,98,.30);border-radius:14px;padding:12px;background:rgba(157,255,98,.06);}.garden-weather-card .sun{font-size:2rem;filter:drop-shadow(0 0 8px rgba(225,183,73,.7));}.garden-weather-card strong{font-size:2rem;color:#d8ffc3;}
+.garden-keydates{display:grid;gap:8px;}.garden-keydates div{display:flex;justify-content:space-between;gap:10px;border-bottom:1px dashed rgba(157,255,98,.22);padding-bottom:7px;color:#c9ff9d;}
+.garden-calendar-shell{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:16px;align-items:start;}.garden-calendar-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:12px;}.garden-month-title{color:#d8ffc3;text-transform:uppercase;letter-spacing:.12em;font-weight:900;}
+.garden-cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;}.garden-dow{font-size:.76rem;text-align:center;color:#e1b749;text-transform:uppercase;letter-spacing:.08em;padding-bottom:4px;}.garden-day{min-height:72px;border:1px solid rgba(157,255,98,.24);border-radius:10px;background:rgba(157,255,98,.045);padding:7px;display:flex;flex-direction:column;gap:5px;position:relative;}.garden-day.muted{opacity:.32;}.garden-day.today{border-color:#e1b749;box-shadow:0 0 0 1px rgba(225,183,73,.45),0 0 18px rgba(225,183,73,.2);}.garden-day-num{font-weight:900;color:#d8ffc3;}.garden-icons{display:flex;gap:3px;flex-wrap:wrap;font-size:.84rem;}.garden-legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;color:#c9ff9d;font-size:.85rem;}
+.garden-roster{overflow:auto;max-height:520px;padding-right:4px;}.garden-plant-row{border:1px solid rgba(157,255,98,.25);border-radius:12px;margin-bottom:8px;padding:10px;background:rgba(157,255,98,.04);cursor:pointer;}.garden-plant-row:hover,.garden-plant-row.active{background:rgba(157,255,98,.12);border-color:rgba(157,255,98,.70);}.garden-plant-row b{color:#d8ffc3;display:block;}.garden-plant-row span{display:grid;grid-template-columns:1fr auto;gap:8px;color:#97c987;font-size:.84rem;margin-top:4px;}
+.garden-detail-card{display:grid;grid-template-columns:1.15fr .85fr;gap:16px;}.garden-stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0;}.garden-stat{border:1px solid rgba(157,255,98,.28);border-radius:12px;padding:10px;background:rgba(157,255,98,.045);}.garden-stat small{display:block;color:#97c987;text-transform:uppercase;font-size:.68rem;letter-spacing:.08em;}.garden-stat b{color:#d8ffc3;}.garden-timeline{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-top:12px;}.garden-timeline div{border:1px solid rgba(157,255,98,.28);border-radius:12px;padding:9px;min-height:76px;background:rgba(0,0,0,.20);}.garden-timeline small{display:block;color:#e1b749;text-transform:uppercase;font-size:.66rem;margin-bottom:5px;}.garden-ref-list{display:grid;gap:12px;color:#c9ff9d;}.garden-ref-list div{border-bottom:1px dashed rgba(157,255,98,.22);padding-bottom:10px;}.garden-ref-list b{display:block;color:#e1b749;text-transform:uppercase;margin-bottom:3px;}
+body.garden-active .hero, body.garden-active #homeWelcome, body.garden-active #grid, body.garden-active .wagon-wrap{display:none!important;} body.garden-active .detail{display:none!important;}
+@media (max-width: 980px){.garden-top-grid,.garden-calendar-shell,.garden-detail-card{grid-template-columns:1fr;}.garden-stat-grid{grid-template-columns:repeat(2,1fr);}.garden-timeline{grid-template-columns:1fr;}.garden-header{display:block;}.garden-year-toggle{justify-content:flex-start;margin-top:12px;}.garden-page{border-radius:18px;padding:13px;}.garden-day{min-height:58px;padding:5px;}}
+@media (max-width: 720px){.garden-cal{gap:3px;}.garden-day{min-height:50px;border-radius:8px;font-size:.82rem;}.garden-icons{font-size:.72rem;}.garden-task{grid-template-columns:24px 1fr;}.garden-task .tag{grid-column:2;justify-self:start;}}
+
 </style>
 
 
@@ -973,6 +1128,37 @@ body{
 .detail-hero .photo-placeholder{
   font-size:1rem;
 }
+
+
+/* QA31: Dedicated Pip-Boy Garden Calendar page */
+.garden-page{grid-column:1 / -1;display:none;position:relative;overflow:hidden;padding:18px;border-radius:24px;background:radial-gradient(circle at 18% 8%, rgba(101,255,72,.14), transparent 22rem),radial-gradient(circle at 80% 2%, rgba(227,168,53,.10), transparent 18rem),linear-gradient(180deg,#07140c 0%,#081b0f 42%,#050b07 100%);border:2px solid rgba(126,255,89,.58);box-shadow:0 24px 70px rgba(0,0,0,.38), inset 0 0 38px rgba(83,255,57,.10);color:#9dff62;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Courier New",monospace;}
+.garden-page.active{display:block;}
+.garden-page::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.16;background:repeating-linear-gradient(0deg,rgba(157,255,98,.20) 0 1px,transparent 1px 4px);mix-blend-mode:screen;}
+.garden-page::after{content:"";position:absolute;inset:-20%;pointer-events:none;opacity:.18;background:radial-gradient(ellipse at center,transparent 0 54%,rgba(0,0,0,.75) 100%);}
+.garden-inner{position:relative;z-index:1;display:grid;gap:16px;}
+.garden-header{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;border-bottom:1px solid rgba(157,255,98,.36);padding-bottom:14px;}
+.garden-kicker{color:#e1b749;font-size:.82rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:7px;}
+.garden-title{margin:0;color:#9dff62;font-size:clamp(1.8rem,5vw,3.3rem);line-height:.95;text-transform:uppercase;text-shadow:0 0 14px rgba(157,255,98,.45);letter-spacing:.04em;}
+.garden-sub{margin:8px 0 0;color:#c9ff9d;opacity:.9;}
+.garden-year-toggle{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;}
+.garden-year-toggle button,.garden-action-btn,.garden-month-btn{border:1px solid rgba(157,255,98,.62);background:rgba(9,34,15,.72);color:#9dff62;border-radius:10px;padding:9px 12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;box-shadow:inset 0 0 18px rgba(157,255,98,.10);cursor:pointer;}
+.garden-year-toggle button.active,.garden-action-btn:hover,.garden-month-btn:hover{background:#9dff62;color:#061007;box-shadow:0 0 18px rgba(157,255,98,.45);}
+.garden-top-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(280px,.75fr);gap:16px;}
+.garden-panel{border:1px solid rgba(157,255,98,.46);background:rgba(1,12,5,.78);border-radius:18px;padding:15px;box-shadow:inset 0 0 24px rgba(157,255,98,.08);}
+.garden-panel h3{margin:0 0 12px;color:#e1b749;text-transform:uppercase;letter-spacing:.10em;font-size:1rem;}
+.garden-week-list{display:grid;gap:9px;}
+.garden-task{display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:start;padding:9px;border-bottom:1px solid rgba(157,255,98,.18);}
+.garden-task:last-child{border-bottom:0;}.garden-task b{color:#d8ffc3;}.garden-task small{display:block;color:#97c987;margin-top:3px;}.garden-task .tag{font-size:.72rem;color:#061007;background:#e1b749;border-radius:999px;padding:5px 8px;font-weight:900;white-space:nowrap;}
+.garden-weather{display:grid;grid-template-columns:1fr;gap:10px;}.garden-weather-card{display:flex;align-items:center;gap:14px;border:1px solid rgba(157,255,98,.30);border-radius:14px;padding:12px;background:rgba(157,255,98,.06);}.garden-weather-card .sun{font-size:2rem;filter:drop-shadow(0 0 8px rgba(225,183,73,.7));}.garden-weather-card strong{font-size:2rem;color:#d8ffc3;}
+.garden-keydates{display:grid;gap:8px;}.garden-keydates div{display:flex;justify-content:space-between;gap:10px;border-bottom:1px dashed rgba(157,255,98,.22);padding-bottom:7px;color:#c9ff9d;}
+.garden-calendar-shell{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:16px;align-items:start;}.garden-calendar-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:12px;}.garden-month-title{color:#d8ffc3;text-transform:uppercase;letter-spacing:.12em;font-weight:900;}
+.garden-cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;}.garden-dow{font-size:.76rem;text-align:center;color:#e1b749;text-transform:uppercase;letter-spacing:.08em;padding-bottom:4px;}.garden-day{min-height:72px;border:1px solid rgba(157,255,98,.24);border-radius:10px;background:rgba(157,255,98,.045);padding:7px;display:flex;flex-direction:column;gap:5px;position:relative;}.garden-day.muted{opacity:.32;}.garden-day.today{border-color:#e1b749;box-shadow:0 0 0 1px rgba(225,183,73,.45),0 0 18px rgba(225,183,73,.2);}.garden-day-num{font-weight:900;color:#d8ffc3;}.garden-icons{display:flex;gap:3px;flex-wrap:wrap;font-size:.84rem;}.garden-legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;color:#c9ff9d;font-size:.85rem;}
+.garden-roster{overflow:auto;max-height:520px;padding-right:4px;}.garden-plant-row{border:1px solid rgba(157,255,98,.25);border-radius:12px;margin-bottom:8px;padding:10px;background:rgba(157,255,98,.04);cursor:pointer;}.garden-plant-row:hover,.garden-plant-row.active{background:rgba(157,255,98,.12);border-color:rgba(157,255,98,.70);}.garden-plant-row b{color:#d8ffc3;display:block;}.garden-plant-row span{display:grid;grid-template-columns:1fr auto;gap:8px;color:#97c987;font-size:.84rem;margin-top:4px;}
+.garden-detail-card{display:grid;grid-template-columns:1.15fr .85fr;gap:16px;}.garden-stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0;}.garden-stat{border:1px solid rgba(157,255,98,.28);border-radius:12px;padding:10px;background:rgba(157,255,98,.045);}.garden-stat small{display:block;color:#97c987;text-transform:uppercase;font-size:.68rem;letter-spacing:.08em;}.garden-stat b{color:#d8ffc3;}.garden-timeline{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-top:12px;}.garden-timeline div{border:1px solid rgba(157,255,98,.28);border-radius:12px;padding:9px;min-height:76px;background:rgba(0,0,0,.20);}.garden-timeline small{display:block;color:#e1b749;text-transform:uppercase;font-size:.66rem;margin-bottom:5px;}.garden-ref-list{display:grid;gap:12px;color:#c9ff9d;}.garden-ref-list div{border-bottom:1px dashed rgba(157,255,98,.22);padding-bottom:10px;}.garden-ref-list b{display:block;color:#e1b749;text-transform:uppercase;margin-bottom:3px;}
+body.garden-active .hero, body.garden-active #homeWelcome, body.garden-active #grid, body.garden-active .wagon-wrap{display:none!important;} body.garden-active .detail{display:none!important;}
+@media (max-width: 980px){.garden-top-grid,.garden-calendar-shell,.garden-detail-card{grid-template-columns:1fr;}.garden-stat-grid{grid-template-columns:repeat(2,1fr);}.garden-timeline{grid-template-columns:1fr;}.garden-header{display:block;}.garden-year-toggle{justify-content:flex-start;margin-top:12px;}.garden-page{border-radius:18px;padding:13px;}.garden-day{min-height:58px;padding:5px;}}
+@media (max-width: 720px){.garden-cal{gap:3px;}.garden-day{min-height:50px;border-radius:8px;font-size:.82rem;}.garden-icons{font-size:.72rem;}.garden-task{grid-template-columns:24px 1fr;}.garden-task .tag{grid-column:2;justify-self:start;}}
+
 </style>
 
 
@@ -1034,6 +1220,37 @@ body{
 .card-body h2{
   min-height:auto !important;
 }
+
+
+/* QA31: Dedicated Pip-Boy Garden Calendar page */
+.garden-page{grid-column:1 / -1;display:none;position:relative;overflow:hidden;padding:18px;border-radius:24px;background:radial-gradient(circle at 18% 8%, rgba(101,255,72,.14), transparent 22rem),radial-gradient(circle at 80% 2%, rgba(227,168,53,.10), transparent 18rem),linear-gradient(180deg,#07140c 0%,#081b0f 42%,#050b07 100%);border:2px solid rgba(126,255,89,.58);box-shadow:0 24px 70px rgba(0,0,0,.38), inset 0 0 38px rgba(83,255,57,.10);color:#9dff62;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Courier New",monospace;}
+.garden-page.active{display:block;}
+.garden-page::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.16;background:repeating-linear-gradient(0deg,rgba(157,255,98,.20) 0 1px,transparent 1px 4px);mix-blend-mode:screen;}
+.garden-page::after{content:"";position:absolute;inset:-20%;pointer-events:none;opacity:.18;background:radial-gradient(ellipse at center,transparent 0 54%,rgba(0,0,0,.75) 100%);}
+.garden-inner{position:relative;z-index:1;display:grid;gap:16px;}
+.garden-header{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;border-bottom:1px solid rgba(157,255,98,.36);padding-bottom:14px;}
+.garden-kicker{color:#e1b749;font-size:.82rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:7px;}
+.garden-title{margin:0;color:#9dff62;font-size:clamp(1.8rem,5vw,3.3rem);line-height:.95;text-transform:uppercase;text-shadow:0 0 14px rgba(157,255,98,.45);letter-spacing:.04em;}
+.garden-sub{margin:8px 0 0;color:#c9ff9d;opacity:.9;}
+.garden-year-toggle{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;}
+.garden-year-toggle button,.garden-action-btn,.garden-month-btn{border:1px solid rgba(157,255,98,.62);background:rgba(9,34,15,.72);color:#9dff62;border-radius:10px;padding:9px 12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;box-shadow:inset 0 0 18px rgba(157,255,98,.10);cursor:pointer;}
+.garden-year-toggle button.active,.garden-action-btn:hover,.garden-month-btn:hover{background:#9dff62;color:#061007;box-shadow:0 0 18px rgba(157,255,98,.45);}
+.garden-top-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(280px,.75fr);gap:16px;}
+.garden-panel{border:1px solid rgba(157,255,98,.46);background:rgba(1,12,5,.78);border-radius:18px;padding:15px;box-shadow:inset 0 0 24px rgba(157,255,98,.08);}
+.garden-panel h3{margin:0 0 12px;color:#e1b749;text-transform:uppercase;letter-spacing:.10em;font-size:1rem;}
+.garden-week-list{display:grid;gap:9px;}
+.garden-task{display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:start;padding:9px;border-bottom:1px solid rgba(157,255,98,.18);}
+.garden-task:last-child{border-bottom:0;}.garden-task b{color:#d8ffc3;}.garden-task small{display:block;color:#97c987;margin-top:3px;}.garden-task .tag{font-size:.72rem;color:#061007;background:#e1b749;border-radius:999px;padding:5px 8px;font-weight:900;white-space:nowrap;}
+.garden-weather{display:grid;grid-template-columns:1fr;gap:10px;}.garden-weather-card{display:flex;align-items:center;gap:14px;border:1px solid rgba(157,255,98,.30);border-radius:14px;padding:12px;background:rgba(157,255,98,.06);}.garden-weather-card .sun{font-size:2rem;filter:drop-shadow(0 0 8px rgba(225,183,73,.7));}.garden-weather-card strong{font-size:2rem;color:#d8ffc3;}
+.garden-keydates{display:grid;gap:8px;}.garden-keydates div{display:flex;justify-content:space-between;gap:10px;border-bottom:1px dashed rgba(157,255,98,.22);padding-bottom:7px;color:#c9ff9d;}
+.garden-calendar-shell{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:16px;align-items:start;}.garden-calendar-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:12px;}.garden-month-title{color:#d8ffc3;text-transform:uppercase;letter-spacing:.12em;font-weight:900;}
+.garden-cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;}.garden-dow{font-size:.76rem;text-align:center;color:#e1b749;text-transform:uppercase;letter-spacing:.08em;padding-bottom:4px;}.garden-day{min-height:72px;border:1px solid rgba(157,255,98,.24);border-radius:10px;background:rgba(157,255,98,.045);padding:7px;display:flex;flex-direction:column;gap:5px;position:relative;}.garden-day.muted{opacity:.32;}.garden-day.today{border-color:#e1b749;box-shadow:0 0 0 1px rgba(225,183,73,.45),0 0 18px rgba(225,183,73,.2);}.garden-day-num{font-weight:900;color:#d8ffc3;}.garden-icons{display:flex;gap:3px;flex-wrap:wrap;font-size:.84rem;}.garden-legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;color:#c9ff9d;font-size:.85rem;}
+.garden-roster{overflow:auto;max-height:520px;padding-right:4px;}.garden-plant-row{border:1px solid rgba(157,255,98,.25);border-radius:12px;margin-bottom:8px;padding:10px;background:rgba(157,255,98,.04);cursor:pointer;}.garden-plant-row:hover,.garden-plant-row.active{background:rgba(157,255,98,.12);border-color:rgba(157,255,98,.70);}.garden-plant-row b{color:#d8ffc3;display:block;}.garden-plant-row span{display:grid;grid-template-columns:1fr auto;gap:8px;color:#97c987;font-size:.84rem;margin-top:4px;}
+.garden-detail-card{display:grid;grid-template-columns:1.15fr .85fr;gap:16px;}.garden-stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0;}.garden-stat{border:1px solid rgba(157,255,98,.28);border-radius:12px;padding:10px;background:rgba(157,255,98,.045);}.garden-stat small{display:block;color:#97c987;text-transform:uppercase;font-size:.68rem;letter-spacing:.08em;}.garden-stat b{color:#d8ffc3;}.garden-timeline{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-top:12px;}.garden-timeline div{border:1px solid rgba(157,255,98,.28);border-radius:12px;padding:9px;min-height:76px;background:rgba(0,0,0,.20);}.garden-timeline small{display:block;color:#e1b749;text-transform:uppercase;font-size:.66rem;margin-bottom:5px;}.garden-ref-list{display:grid;gap:12px;color:#c9ff9d;}.garden-ref-list div{border-bottom:1px dashed rgba(157,255,98,.22);padding-bottom:10px;}.garden-ref-list b{display:block;color:#e1b749;text-transform:uppercase;margin-bottom:3px;}
+body.garden-active .hero, body.garden-active #homeWelcome, body.garden-active #grid, body.garden-active .wagon-wrap{display:none!important;} body.garden-active .detail{display:none!important;}
+@media (max-width: 980px){.garden-top-grid,.garden-calendar-shell,.garden-detail-card{grid-template-columns:1fr;}.garden-stat-grid{grid-template-columns:repeat(2,1fr);}.garden-timeline{grid-template-columns:1fr;}.garden-header{display:block;}.garden-year-toggle{justify-content:flex-start;margin-top:12px;}.garden-page{border-radius:18px;padding:13px;}.garden-day{min-height:58px;padding:5px;}}
+@media (max-width: 720px){.garden-cal{gap:3px;}.garden-day{min-height:50px;border-radius:8px;font-size:.82rem;}.garden-icons{font-size:.72rem;}.garden-task{grid-template-columns:24px 1fr;}.garden-task .tag{grid-column:2;justify-self:start;}}
+
 </style>
 
 
@@ -1055,6 +1272,37 @@ body{
     padding-bottom:calc(180px + env(safe-area-inset-bottom)) !important;
   }
 }
+
+
+/* QA31: Dedicated Pip-Boy Garden Calendar page */
+.garden-page{grid-column:1 / -1;display:none;position:relative;overflow:hidden;padding:18px;border-radius:24px;background:radial-gradient(circle at 18% 8%, rgba(101,255,72,.14), transparent 22rem),radial-gradient(circle at 80% 2%, rgba(227,168,53,.10), transparent 18rem),linear-gradient(180deg,#07140c 0%,#081b0f 42%,#050b07 100%);border:2px solid rgba(126,255,89,.58);box-shadow:0 24px 70px rgba(0,0,0,.38), inset 0 0 38px rgba(83,255,57,.10);color:#9dff62;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Courier New",monospace;}
+.garden-page.active{display:block;}
+.garden-page::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.16;background:repeating-linear-gradient(0deg,rgba(157,255,98,.20) 0 1px,transparent 1px 4px);mix-blend-mode:screen;}
+.garden-page::after{content:"";position:absolute;inset:-20%;pointer-events:none;opacity:.18;background:radial-gradient(ellipse at center,transparent 0 54%,rgba(0,0,0,.75) 100%);}
+.garden-inner{position:relative;z-index:1;display:grid;gap:16px;}
+.garden-header{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;border-bottom:1px solid rgba(157,255,98,.36);padding-bottom:14px;}
+.garden-kicker{color:#e1b749;font-size:.82rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:7px;}
+.garden-title{margin:0;color:#9dff62;font-size:clamp(1.8rem,5vw,3.3rem);line-height:.95;text-transform:uppercase;text-shadow:0 0 14px rgba(157,255,98,.45);letter-spacing:.04em;}
+.garden-sub{margin:8px 0 0;color:#c9ff9d;opacity:.9;}
+.garden-year-toggle{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;}
+.garden-year-toggle button,.garden-action-btn,.garden-month-btn{border:1px solid rgba(157,255,98,.62);background:rgba(9,34,15,.72);color:#9dff62;border-radius:10px;padding:9px 12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;box-shadow:inset 0 0 18px rgba(157,255,98,.10);cursor:pointer;}
+.garden-year-toggle button.active,.garden-action-btn:hover,.garden-month-btn:hover{background:#9dff62;color:#061007;box-shadow:0 0 18px rgba(157,255,98,.45);}
+.garden-top-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(280px,.75fr);gap:16px;}
+.garden-panel{border:1px solid rgba(157,255,98,.46);background:rgba(1,12,5,.78);border-radius:18px;padding:15px;box-shadow:inset 0 0 24px rgba(157,255,98,.08);}
+.garden-panel h3{margin:0 0 12px;color:#e1b749;text-transform:uppercase;letter-spacing:.10em;font-size:1rem;}
+.garden-week-list{display:grid;gap:9px;}
+.garden-task{display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:start;padding:9px;border-bottom:1px solid rgba(157,255,98,.18);}
+.garden-task:last-child{border-bottom:0;}.garden-task b{color:#d8ffc3;}.garden-task small{display:block;color:#97c987;margin-top:3px;}.garden-task .tag{font-size:.72rem;color:#061007;background:#e1b749;border-radius:999px;padding:5px 8px;font-weight:900;white-space:nowrap;}
+.garden-weather{display:grid;grid-template-columns:1fr;gap:10px;}.garden-weather-card{display:flex;align-items:center;gap:14px;border:1px solid rgba(157,255,98,.30);border-radius:14px;padding:12px;background:rgba(157,255,98,.06);}.garden-weather-card .sun{font-size:2rem;filter:drop-shadow(0 0 8px rgba(225,183,73,.7));}.garden-weather-card strong{font-size:2rem;color:#d8ffc3;}
+.garden-keydates{display:grid;gap:8px;}.garden-keydates div{display:flex;justify-content:space-between;gap:10px;border-bottom:1px dashed rgba(157,255,98,.22);padding-bottom:7px;color:#c9ff9d;}
+.garden-calendar-shell{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:16px;align-items:start;}.garden-calendar-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:12px;}.garden-month-title{color:#d8ffc3;text-transform:uppercase;letter-spacing:.12em;font-weight:900;}
+.garden-cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;}.garden-dow{font-size:.76rem;text-align:center;color:#e1b749;text-transform:uppercase;letter-spacing:.08em;padding-bottom:4px;}.garden-day{min-height:72px;border:1px solid rgba(157,255,98,.24);border-radius:10px;background:rgba(157,255,98,.045);padding:7px;display:flex;flex-direction:column;gap:5px;position:relative;}.garden-day.muted{opacity:.32;}.garden-day.today{border-color:#e1b749;box-shadow:0 0 0 1px rgba(225,183,73,.45),0 0 18px rgba(225,183,73,.2);}.garden-day-num{font-weight:900;color:#d8ffc3;}.garden-icons{display:flex;gap:3px;flex-wrap:wrap;font-size:.84rem;}.garden-legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;color:#c9ff9d;font-size:.85rem;}
+.garden-roster{overflow:auto;max-height:520px;padding-right:4px;}.garden-plant-row{border:1px solid rgba(157,255,98,.25);border-radius:12px;margin-bottom:8px;padding:10px;background:rgba(157,255,98,.04);cursor:pointer;}.garden-plant-row:hover,.garden-plant-row.active{background:rgba(157,255,98,.12);border-color:rgba(157,255,98,.70);}.garden-plant-row b{color:#d8ffc3;display:block;}.garden-plant-row span{display:grid;grid-template-columns:1fr auto;gap:8px;color:#97c987;font-size:.84rem;margin-top:4px;}
+.garden-detail-card{display:grid;grid-template-columns:1.15fr .85fr;gap:16px;}.garden-stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0;}.garden-stat{border:1px solid rgba(157,255,98,.28);border-radius:12px;padding:10px;background:rgba(157,255,98,.045);}.garden-stat small{display:block;color:#97c987;text-transform:uppercase;font-size:.68rem;letter-spacing:.08em;}.garden-stat b{color:#d8ffc3;}.garden-timeline{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-top:12px;}.garden-timeline div{border:1px solid rgba(157,255,98,.28);border-radius:12px;padding:9px;min-height:76px;background:rgba(0,0,0,.20);}.garden-timeline small{display:block;color:#e1b749;text-transform:uppercase;font-size:.66rem;margin-bottom:5px;}.garden-ref-list{display:grid;gap:12px;color:#c9ff9d;}.garden-ref-list div{border-bottom:1px dashed rgba(157,255,98,.22);padding-bottom:10px;}.garden-ref-list b{display:block;color:#e1b749;text-transform:uppercase;margin-bottom:3px;}
+body.garden-active .hero, body.garden-active #homeWelcome, body.garden-active #grid, body.garden-active .wagon-wrap{display:none!important;} body.garden-active .detail{display:none!important;}
+@media (max-width: 980px){.garden-top-grid,.garden-calendar-shell,.garden-detail-card{grid-template-columns:1fr;}.garden-stat-grid{grid-template-columns:repeat(2,1fr);}.garden-timeline{grid-template-columns:1fr;}.garden-header{display:block;}.garden-year-toggle{justify-content:flex-start;margin-top:12px;}.garden-page{border-radius:18px;padding:13px;}.garden-day{min-height:58px;padding:5px;}}
+@media (max-width: 720px){.garden-cal{gap:3px;}.garden-day{min-height:50px;border-radius:8px;font-size:.82rem;}.garden-icons{font-size:.72rem;}.garden-task{grid-template-columns:24px 1fr;}.garden-task .tag{grid-column:2;justify-self:start;}}
+
 </style>
 
 
@@ -1072,6 +1320,37 @@ body{
   overflow: visible !important;
   white-space: normal !important;
 }
+
+
+/* QA31: Dedicated Pip-Boy Garden Calendar page */
+.garden-page{grid-column:1 / -1;display:none;position:relative;overflow:hidden;padding:18px;border-radius:24px;background:radial-gradient(circle at 18% 8%, rgba(101,255,72,.14), transparent 22rem),radial-gradient(circle at 80% 2%, rgba(227,168,53,.10), transparent 18rem),linear-gradient(180deg,#07140c 0%,#081b0f 42%,#050b07 100%);border:2px solid rgba(126,255,89,.58);box-shadow:0 24px 70px rgba(0,0,0,.38), inset 0 0 38px rgba(83,255,57,.10);color:#9dff62;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Courier New",monospace;}
+.garden-page.active{display:block;}
+.garden-page::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.16;background:repeating-linear-gradient(0deg,rgba(157,255,98,.20) 0 1px,transparent 1px 4px);mix-blend-mode:screen;}
+.garden-page::after{content:"";position:absolute;inset:-20%;pointer-events:none;opacity:.18;background:radial-gradient(ellipse at center,transparent 0 54%,rgba(0,0,0,.75) 100%);}
+.garden-inner{position:relative;z-index:1;display:grid;gap:16px;}
+.garden-header{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;border-bottom:1px solid rgba(157,255,98,.36);padding-bottom:14px;}
+.garden-kicker{color:#e1b749;font-size:.82rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:7px;}
+.garden-title{margin:0;color:#9dff62;font-size:clamp(1.8rem,5vw,3.3rem);line-height:.95;text-transform:uppercase;text-shadow:0 0 14px rgba(157,255,98,.45);letter-spacing:.04em;}
+.garden-sub{margin:8px 0 0;color:#c9ff9d;opacity:.9;}
+.garden-year-toggle{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;}
+.garden-year-toggle button,.garden-action-btn,.garden-month-btn{border:1px solid rgba(157,255,98,.62);background:rgba(9,34,15,.72);color:#9dff62;border-radius:10px;padding:9px 12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;box-shadow:inset 0 0 18px rgba(157,255,98,.10);cursor:pointer;}
+.garden-year-toggle button.active,.garden-action-btn:hover,.garden-month-btn:hover{background:#9dff62;color:#061007;box-shadow:0 0 18px rgba(157,255,98,.45);}
+.garden-top-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(280px,.75fr);gap:16px;}
+.garden-panel{border:1px solid rgba(157,255,98,.46);background:rgba(1,12,5,.78);border-radius:18px;padding:15px;box-shadow:inset 0 0 24px rgba(157,255,98,.08);}
+.garden-panel h3{margin:0 0 12px;color:#e1b749;text-transform:uppercase;letter-spacing:.10em;font-size:1rem;}
+.garden-week-list{display:grid;gap:9px;}
+.garden-task{display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:start;padding:9px;border-bottom:1px solid rgba(157,255,98,.18);}
+.garden-task:last-child{border-bottom:0;}.garden-task b{color:#d8ffc3;}.garden-task small{display:block;color:#97c987;margin-top:3px;}.garden-task .tag{font-size:.72rem;color:#061007;background:#e1b749;border-radius:999px;padding:5px 8px;font-weight:900;white-space:nowrap;}
+.garden-weather{display:grid;grid-template-columns:1fr;gap:10px;}.garden-weather-card{display:flex;align-items:center;gap:14px;border:1px solid rgba(157,255,98,.30);border-radius:14px;padding:12px;background:rgba(157,255,98,.06);}.garden-weather-card .sun{font-size:2rem;filter:drop-shadow(0 0 8px rgba(225,183,73,.7));}.garden-weather-card strong{font-size:2rem;color:#d8ffc3;}
+.garden-keydates{display:grid;gap:8px;}.garden-keydates div{display:flex;justify-content:space-between;gap:10px;border-bottom:1px dashed rgba(157,255,98,.22);padding-bottom:7px;color:#c9ff9d;}
+.garden-calendar-shell{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:16px;align-items:start;}.garden-calendar-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:12px;}.garden-month-title{color:#d8ffc3;text-transform:uppercase;letter-spacing:.12em;font-weight:900;}
+.garden-cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;}.garden-dow{font-size:.76rem;text-align:center;color:#e1b749;text-transform:uppercase;letter-spacing:.08em;padding-bottom:4px;}.garden-day{min-height:72px;border:1px solid rgba(157,255,98,.24);border-radius:10px;background:rgba(157,255,98,.045);padding:7px;display:flex;flex-direction:column;gap:5px;position:relative;}.garden-day.muted{opacity:.32;}.garden-day.today{border-color:#e1b749;box-shadow:0 0 0 1px rgba(225,183,73,.45),0 0 18px rgba(225,183,73,.2);}.garden-day-num{font-weight:900;color:#d8ffc3;}.garden-icons{display:flex;gap:3px;flex-wrap:wrap;font-size:.84rem;}.garden-legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;color:#c9ff9d;font-size:.85rem;}
+.garden-roster{overflow:auto;max-height:520px;padding-right:4px;}.garden-plant-row{border:1px solid rgba(157,255,98,.25);border-radius:12px;margin-bottom:8px;padding:10px;background:rgba(157,255,98,.04);cursor:pointer;}.garden-plant-row:hover,.garden-plant-row.active{background:rgba(157,255,98,.12);border-color:rgba(157,255,98,.70);}.garden-plant-row b{color:#d8ffc3;display:block;}.garden-plant-row span{display:grid;grid-template-columns:1fr auto;gap:8px;color:#97c987;font-size:.84rem;margin-top:4px;}
+.garden-detail-card{display:grid;grid-template-columns:1.15fr .85fr;gap:16px;}.garden-stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0;}.garden-stat{border:1px solid rgba(157,255,98,.28);border-radius:12px;padding:10px;background:rgba(157,255,98,.045);}.garden-stat small{display:block;color:#97c987;text-transform:uppercase;font-size:.68rem;letter-spacing:.08em;}.garden-stat b{color:#d8ffc3;}.garden-timeline{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-top:12px;}.garden-timeline div{border:1px solid rgba(157,255,98,.28);border-radius:12px;padding:9px;min-height:76px;background:rgba(0,0,0,.20);}.garden-timeline small{display:block;color:#e1b749;text-transform:uppercase;font-size:.66rem;margin-bottom:5px;}.garden-ref-list{display:grid;gap:12px;color:#c9ff9d;}.garden-ref-list div{border-bottom:1px dashed rgba(157,255,98,.22);padding-bottom:10px;}.garden-ref-list b{display:block;color:#e1b749;text-transform:uppercase;margin-bottom:3px;}
+body.garden-active .hero, body.garden-active #homeWelcome, body.garden-active #grid, body.garden-active .wagon-wrap{display:none!important;} body.garden-active .detail{display:none!important;}
+@media (max-width: 980px){.garden-top-grid,.garden-calendar-shell,.garden-detail-card{grid-template-columns:1fr;}.garden-stat-grid{grid-template-columns:repeat(2,1fr);}.garden-timeline{grid-template-columns:1fr;}.garden-header{display:block;}.garden-year-toggle{justify-content:flex-start;margin-top:12px;}.garden-page{border-radius:18px;padding:13px;}.garden-day{min-height:58px;padding:5px;}}
+@media (max-width: 720px){.garden-cal{gap:3px;}.garden-day{min-height:50px;border-radius:8px;font-size:.82rem;}.garden-icons{font-size:.72rem;}.garden-task{grid-template-columns:24px 1fr;}.garden-task .tag{grid-column:2;justify-self:start;}}
+
 </style>
 
 
@@ -1080,6 +1359,37 @@ body{
 .detail-card { margin-bottom: calc(160px + env(safe-area-inset-bottom)) !important; }
 .recipe-section { padding-bottom: calc(120px + env(safe-area-inset-bottom)) !important; }
 .note { overflow: visible !important; white-space: normal !important; }
+
+
+/* QA31: Dedicated Pip-Boy Garden Calendar page */
+.garden-page{grid-column:1 / -1;display:none;position:relative;overflow:hidden;padding:18px;border-radius:24px;background:radial-gradient(circle at 18% 8%, rgba(101,255,72,.14), transparent 22rem),radial-gradient(circle at 80% 2%, rgba(227,168,53,.10), transparent 18rem),linear-gradient(180deg,#07140c 0%,#081b0f 42%,#050b07 100%);border:2px solid rgba(126,255,89,.58);box-shadow:0 24px 70px rgba(0,0,0,.38), inset 0 0 38px rgba(83,255,57,.10);color:#9dff62;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Courier New",monospace;}
+.garden-page.active{display:block;}
+.garden-page::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.16;background:repeating-linear-gradient(0deg,rgba(157,255,98,.20) 0 1px,transparent 1px 4px);mix-blend-mode:screen;}
+.garden-page::after{content:"";position:absolute;inset:-20%;pointer-events:none;opacity:.18;background:radial-gradient(ellipse at center,transparent 0 54%,rgba(0,0,0,.75) 100%);}
+.garden-inner{position:relative;z-index:1;display:grid;gap:16px;}
+.garden-header{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;border-bottom:1px solid rgba(157,255,98,.36);padding-bottom:14px;}
+.garden-kicker{color:#e1b749;font-size:.82rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:7px;}
+.garden-title{margin:0;color:#9dff62;font-size:clamp(1.8rem,5vw,3.3rem);line-height:.95;text-transform:uppercase;text-shadow:0 0 14px rgba(157,255,98,.45);letter-spacing:.04em;}
+.garden-sub{margin:8px 0 0;color:#c9ff9d;opacity:.9;}
+.garden-year-toggle{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;}
+.garden-year-toggle button,.garden-action-btn,.garden-month-btn{border:1px solid rgba(157,255,98,.62);background:rgba(9,34,15,.72);color:#9dff62;border-radius:10px;padding:9px 12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;box-shadow:inset 0 0 18px rgba(157,255,98,.10);cursor:pointer;}
+.garden-year-toggle button.active,.garden-action-btn:hover,.garden-month-btn:hover{background:#9dff62;color:#061007;box-shadow:0 0 18px rgba(157,255,98,.45);}
+.garden-top-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(280px,.75fr);gap:16px;}
+.garden-panel{border:1px solid rgba(157,255,98,.46);background:rgba(1,12,5,.78);border-radius:18px;padding:15px;box-shadow:inset 0 0 24px rgba(157,255,98,.08);}
+.garden-panel h3{margin:0 0 12px;color:#e1b749;text-transform:uppercase;letter-spacing:.10em;font-size:1rem;}
+.garden-week-list{display:grid;gap:9px;}
+.garden-task{display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:start;padding:9px;border-bottom:1px solid rgba(157,255,98,.18);}
+.garden-task:last-child{border-bottom:0;}.garden-task b{color:#d8ffc3;}.garden-task small{display:block;color:#97c987;margin-top:3px;}.garden-task .tag{font-size:.72rem;color:#061007;background:#e1b749;border-radius:999px;padding:5px 8px;font-weight:900;white-space:nowrap;}
+.garden-weather{display:grid;grid-template-columns:1fr;gap:10px;}.garden-weather-card{display:flex;align-items:center;gap:14px;border:1px solid rgba(157,255,98,.30);border-radius:14px;padding:12px;background:rgba(157,255,98,.06);}.garden-weather-card .sun{font-size:2rem;filter:drop-shadow(0 0 8px rgba(225,183,73,.7));}.garden-weather-card strong{font-size:2rem;color:#d8ffc3;}
+.garden-keydates{display:grid;gap:8px;}.garden-keydates div{display:flex;justify-content:space-between;gap:10px;border-bottom:1px dashed rgba(157,255,98,.22);padding-bottom:7px;color:#c9ff9d;}
+.garden-calendar-shell{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:16px;align-items:start;}.garden-calendar-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:12px;}.garden-month-title{color:#d8ffc3;text-transform:uppercase;letter-spacing:.12em;font-weight:900;}
+.garden-cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;}.garden-dow{font-size:.76rem;text-align:center;color:#e1b749;text-transform:uppercase;letter-spacing:.08em;padding-bottom:4px;}.garden-day{min-height:72px;border:1px solid rgba(157,255,98,.24);border-radius:10px;background:rgba(157,255,98,.045);padding:7px;display:flex;flex-direction:column;gap:5px;position:relative;}.garden-day.muted{opacity:.32;}.garden-day.today{border-color:#e1b749;box-shadow:0 0 0 1px rgba(225,183,73,.45),0 0 18px rgba(225,183,73,.2);}.garden-day-num{font-weight:900;color:#d8ffc3;}.garden-icons{display:flex;gap:3px;flex-wrap:wrap;font-size:.84rem;}.garden-legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;color:#c9ff9d;font-size:.85rem;}
+.garden-roster{overflow:auto;max-height:520px;padding-right:4px;}.garden-plant-row{border:1px solid rgba(157,255,98,.25);border-radius:12px;margin-bottom:8px;padding:10px;background:rgba(157,255,98,.04);cursor:pointer;}.garden-plant-row:hover,.garden-plant-row.active{background:rgba(157,255,98,.12);border-color:rgba(157,255,98,.70);}.garden-plant-row b{color:#d8ffc3;display:block;}.garden-plant-row span{display:grid;grid-template-columns:1fr auto;gap:8px;color:#97c987;font-size:.84rem;margin-top:4px;}
+.garden-detail-card{display:grid;grid-template-columns:1.15fr .85fr;gap:16px;}.garden-stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0;}.garden-stat{border:1px solid rgba(157,255,98,.28);border-radius:12px;padding:10px;background:rgba(157,255,98,.045);}.garden-stat small{display:block;color:#97c987;text-transform:uppercase;font-size:.68rem;letter-spacing:.08em;}.garden-stat b{color:#d8ffc3;}.garden-timeline{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-top:12px;}.garden-timeline div{border:1px solid rgba(157,255,98,.28);border-radius:12px;padding:9px;min-height:76px;background:rgba(0,0,0,.20);}.garden-timeline small{display:block;color:#e1b749;text-transform:uppercase;font-size:.66rem;margin-bottom:5px;}.garden-ref-list{display:grid;gap:12px;color:#c9ff9d;}.garden-ref-list div{border-bottom:1px dashed rgba(157,255,98,.22);padding-bottom:10px;}.garden-ref-list b{display:block;color:#e1b749;text-transform:uppercase;margin-bottom:3px;}
+body.garden-active .hero, body.garden-active #homeWelcome, body.garden-active #grid, body.garden-active .wagon-wrap{display:none!important;} body.garden-active .detail{display:none!important;}
+@media (max-width: 980px){.garden-top-grid,.garden-calendar-shell,.garden-detail-card{grid-template-columns:1fr;}.garden-stat-grid{grid-template-columns:repeat(2,1fr);}.garden-timeline{grid-template-columns:1fr;}.garden-header{display:block;}.garden-year-toggle{justify-content:flex-start;margin-top:12px;}.garden-page{border-radius:18px;padding:13px;}.garden-day{min-height:58px;padding:5px;}}
+@media (max-width: 720px){.garden-cal{gap:3px;}.garden-day{min-height:50px;border-radius:8px;font-size:.82rem;}.garden-icons{font-size:.72rem;}.garden-task{grid-template-columns:24px 1fr;}.garden-task .tag{grid-column:2;justify-self:start;}}
+
 </style>
 
 
@@ -1111,6 +1421,37 @@ body{
     touch-action: manipulation !important;
   }
 }
+
+
+/* QA31: Dedicated Pip-Boy Garden Calendar page */
+.garden-page{grid-column:1 / -1;display:none;position:relative;overflow:hidden;padding:18px;border-radius:24px;background:radial-gradient(circle at 18% 8%, rgba(101,255,72,.14), transparent 22rem),radial-gradient(circle at 80% 2%, rgba(227,168,53,.10), transparent 18rem),linear-gradient(180deg,#07140c 0%,#081b0f 42%,#050b07 100%);border:2px solid rgba(126,255,89,.58);box-shadow:0 24px 70px rgba(0,0,0,.38), inset 0 0 38px rgba(83,255,57,.10);color:#9dff62;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Courier New",monospace;}
+.garden-page.active{display:block;}
+.garden-page::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.16;background:repeating-linear-gradient(0deg,rgba(157,255,98,.20) 0 1px,transparent 1px 4px);mix-blend-mode:screen;}
+.garden-page::after{content:"";position:absolute;inset:-20%;pointer-events:none;opacity:.18;background:radial-gradient(ellipse at center,transparent 0 54%,rgba(0,0,0,.75) 100%);}
+.garden-inner{position:relative;z-index:1;display:grid;gap:16px;}
+.garden-header{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;border-bottom:1px solid rgba(157,255,98,.36);padding-bottom:14px;}
+.garden-kicker{color:#e1b749;font-size:.82rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:7px;}
+.garden-title{margin:0;color:#9dff62;font-size:clamp(1.8rem,5vw,3.3rem);line-height:.95;text-transform:uppercase;text-shadow:0 0 14px rgba(157,255,98,.45);letter-spacing:.04em;}
+.garden-sub{margin:8px 0 0;color:#c9ff9d;opacity:.9;}
+.garden-year-toggle{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;}
+.garden-year-toggle button,.garden-action-btn,.garden-month-btn{border:1px solid rgba(157,255,98,.62);background:rgba(9,34,15,.72);color:#9dff62;border-radius:10px;padding:9px 12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;box-shadow:inset 0 0 18px rgba(157,255,98,.10);cursor:pointer;}
+.garden-year-toggle button.active,.garden-action-btn:hover,.garden-month-btn:hover{background:#9dff62;color:#061007;box-shadow:0 0 18px rgba(157,255,98,.45);}
+.garden-top-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(280px,.75fr);gap:16px;}
+.garden-panel{border:1px solid rgba(157,255,98,.46);background:rgba(1,12,5,.78);border-radius:18px;padding:15px;box-shadow:inset 0 0 24px rgba(157,255,98,.08);}
+.garden-panel h3{margin:0 0 12px;color:#e1b749;text-transform:uppercase;letter-spacing:.10em;font-size:1rem;}
+.garden-week-list{display:grid;gap:9px;}
+.garden-task{display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:start;padding:9px;border-bottom:1px solid rgba(157,255,98,.18);}
+.garden-task:last-child{border-bottom:0;}.garden-task b{color:#d8ffc3;}.garden-task small{display:block;color:#97c987;margin-top:3px;}.garden-task .tag{font-size:.72rem;color:#061007;background:#e1b749;border-radius:999px;padding:5px 8px;font-weight:900;white-space:nowrap;}
+.garden-weather{display:grid;grid-template-columns:1fr;gap:10px;}.garden-weather-card{display:flex;align-items:center;gap:14px;border:1px solid rgba(157,255,98,.30);border-radius:14px;padding:12px;background:rgba(157,255,98,.06);}.garden-weather-card .sun{font-size:2rem;filter:drop-shadow(0 0 8px rgba(225,183,73,.7));}.garden-weather-card strong{font-size:2rem;color:#d8ffc3;}
+.garden-keydates{display:grid;gap:8px;}.garden-keydates div{display:flex;justify-content:space-between;gap:10px;border-bottom:1px dashed rgba(157,255,98,.22);padding-bottom:7px;color:#c9ff9d;}
+.garden-calendar-shell{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:16px;align-items:start;}.garden-calendar-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:12px;}.garden-month-title{color:#d8ffc3;text-transform:uppercase;letter-spacing:.12em;font-weight:900;}
+.garden-cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;}.garden-dow{font-size:.76rem;text-align:center;color:#e1b749;text-transform:uppercase;letter-spacing:.08em;padding-bottom:4px;}.garden-day{min-height:72px;border:1px solid rgba(157,255,98,.24);border-radius:10px;background:rgba(157,255,98,.045);padding:7px;display:flex;flex-direction:column;gap:5px;position:relative;}.garden-day.muted{opacity:.32;}.garden-day.today{border-color:#e1b749;box-shadow:0 0 0 1px rgba(225,183,73,.45),0 0 18px rgba(225,183,73,.2);}.garden-day-num{font-weight:900;color:#d8ffc3;}.garden-icons{display:flex;gap:3px;flex-wrap:wrap;font-size:.84rem;}.garden-legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;color:#c9ff9d;font-size:.85rem;}
+.garden-roster{overflow:auto;max-height:520px;padding-right:4px;}.garden-plant-row{border:1px solid rgba(157,255,98,.25);border-radius:12px;margin-bottom:8px;padding:10px;background:rgba(157,255,98,.04);cursor:pointer;}.garden-plant-row:hover,.garden-plant-row.active{background:rgba(157,255,98,.12);border-color:rgba(157,255,98,.70);}.garden-plant-row b{color:#d8ffc3;display:block;}.garden-plant-row span{display:grid;grid-template-columns:1fr auto;gap:8px;color:#97c987;font-size:.84rem;margin-top:4px;}
+.garden-detail-card{display:grid;grid-template-columns:1.15fr .85fr;gap:16px;}.garden-stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0;}.garden-stat{border:1px solid rgba(157,255,98,.28);border-radius:12px;padding:10px;background:rgba(157,255,98,.045);}.garden-stat small{display:block;color:#97c987;text-transform:uppercase;font-size:.68rem;letter-spacing:.08em;}.garden-stat b{color:#d8ffc3;}.garden-timeline{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-top:12px;}.garden-timeline div{border:1px solid rgba(157,255,98,.28);border-radius:12px;padding:9px;min-height:76px;background:rgba(0,0,0,.20);}.garden-timeline small{display:block;color:#e1b749;text-transform:uppercase;font-size:.66rem;margin-bottom:5px;}.garden-ref-list{display:grid;gap:12px;color:#c9ff9d;}.garden-ref-list div{border-bottom:1px dashed rgba(157,255,98,.22);padding-bottom:10px;}.garden-ref-list b{display:block;color:#e1b749;text-transform:uppercase;margin-bottom:3px;}
+body.garden-active .hero, body.garden-active #homeWelcome, body.garden-active #grid, body.garden-active .wagon-wrap{display:none!important;} body.garden-active .detail{display:none!important;}
+@media (max-width: 980px){.garden-top-grid,.garden-calendar-shell,.garden-detail-card{grid-template-columns:1fr;}.garden-stat-grid{grid-template-columns:repeat(2,1fr);}.garden-timeline{grid-template-columns:1fr;}.garden-header{display:block;}.garden-year-toggle{justify-content:flex-start;margin-top:12px;}.garden-page{border-radius:18px;padding:13px;}.garden-day{min-height:58px;padding:5px;}}
+@media (max-width: 720px){.garden-cal{gap:3px;}.garden-day{min-height:50px;border-radius:8px;font-size:.82rem;}.garden-icons{font-size:.72rem;}.garden-task{grid-template-columns:24px 1fr;}.garden-task .tag{grid-column:2;justify-self:start;}}
+
 </style>
 
 
@@ -1132,6 +1473,37 @@ body.home-active .detail {
     border-right: 0 !important;
   }
 }
+
+
+/* QA31: Dedicated Pip-Boy Garden Calendar page */
+.garden-page{grid-column:1 / -1;display:none;position:relative;overflow:hidden;padding:18px;border-radius:24px;background:radial-gradient(circle at 18% 8%, rgba(101,255,72,.14), transparent 22rem),radial-gradient(circle at 80% 2%, rgba(227,168,53,.10), transparent 18rem),linear-gradient(180deg,#07140c 0%,#081b0f 42%,#050b07 100%);border:2px solid rgba(126,255,89,.58);box-shadow:0 24px 70px rgba(0,0,0,.38), inset 0 0 38px rgba(83,255,57,.10);color:#9dff62;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Courier New",monospace;}
+.garden-page.active{display:block;}
+.garden-page::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.16;background:repeating-linear-gradient(0deg,rgba(157,255,98,.20) 0 1px,transparent 1px 4px);mix-blend-mode:screen;}
+.garden-page::after{content:"";position:absolute;inset:-20%;pointer-events:none;opacity:.18;background:radial-gradient(ellipse at center,transparent 0 54%,rgba(0,0,0,.75) 100%);}
+.garden-inner{position:relative;z-index:1;display:grid;gap:16px;}
+.garden-header{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;border-bottom:1px solid rgba(157,255,98,.36);padding-bottom:14px;}
+.garden-kicker{color:#e1b749;font-size:.82rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:7px;}
+.garden-title{margin:0;color:#9dff62;font-size:clamp(1.8rem,5vw,3.3rem);line-height:.95;text-transform:uppercase;text-shadow:0 0 14px rgba(157,255,98,.45);letter-spacing:.04em;}
+.garden-sub{margin:8px 0 0;color:#c9ff9d;opacity:.9;}
+.garden-year-toggle{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;}
+.garden-year-toggle button,.garden-action-btn,.garden-month-btn{border:1px solid rgba(157,255,98,.62);background:rgba(9,34,15,.72);color:#9dff62;border-radius:10px;padding:9px 12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;box-shadow:inset 0 0 18px rgba(157,255,98,.10);cursor:pointer;}
+.garden-year-toggle button.active,.garden-action-btn:hover,.garden-month-btn:hover{background:#9dff62;color:#061007;box-shadow:0 0 18px rgba(157,255,98,.45);}
+.garden-top-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(280px,.75fr);gap:16px;}
+.garden-panel{border:1px solid rgba(157,255,98,.46);background:rgba(1,12,5,.78);border-radius:18px;padding:15px;box-shadow:inset 0 0 24px rgba(157,255,98,.08);}
+.garden-panel h3{margin:0 0 12px;color:#e1b749;text-transform:uppercase;letter-spacing:.10em;font-size:1rem;}
+.garden-week-list{display:grid;gap:9px;}
+.garden-task{display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:start;padding:9px;border-bottom:1px solid rgba(157,255,98,.18);}
+.garden-task:last-child{border-bottom:0;}.garden-task b{color:#d8ffc3;}.garden-task small{display:block;color:#97c987;margin-top:3px;}.garden-task .tag{font-size:.72rem;color:#061007;background:#e1b749;border-radius:999px;padding:5px 8px;font-weight:900;white-space:nowrap;}
+.garden-weather{display:grid;grid-template-columns:1fr;gap:10px;}.garden-weather-card{display:flex;align-items:center;gap:14px;border:1px solid rgba(157,255,98,.30);border-radius:14px;padding:12px;background:rgba(157,255,98,.06);}.garden-weather-card .sun{font-size:2rem;filter:drop-shadow(0 0 8px rgba(225,183,73,.7));}.garden-weather-card strong{font-size:2rem;color:#d8ffc3;}
+.garden-keydates{display:grid;gap:8px;}.garden-keydates div{display:flex;justify-content:space-between;gap:10px;border-bottom:1px dashed rgba(157,255,98,.22);padding-bottom:7px;color:#c9ff9d;}
+.garden-calendar-shell{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:16px;align-items:start;}.garden-calendar-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:12px;}.garden-month-title{color:#d8ffc3;text-transform:uppercase;letter-spacing:.12em;font-weight:900;}
+.garden-cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;}.garden-dow{font-size:.76rem;text-align:center;color:#e1b749;text-transform:uppercase;letter-spacing:.08em;padding-bottom:4px;}.garden-day{min-height:72px;border:1px solid rgba(157,255,98,.24);border-radius:10px;background:rgba(157,255,98,.045);padding:7px;display:flex;flex-direction:column;gap:5px;position:relative;}.garden-day.muted{opacity:.32;}.garden-day.today{border-color:#e1b749;box-shadow:0 0 0 1px rgba(225,183,73,.45),0 0 18px rgba(225,183,73,.2);}.garden-day-num{font-weight:900;color:#d8ffc3;}.garden-icons{display:flex;gap:3px;flex-wrap:wrap;font-size:.84rem;}.garden-legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;color:#c9ff9d;font-size:.85rem;}
+.garden-roster{overflow:auto;max-height:520px;padding-right:4px;}.garden-plant-row{border:1px solid rgba(157,255,98,.25);border-radius:12px;margin-bottom:8px;padding:10px;background:rgba(157,255,98,.04);cursor:pointer;}.garden-plant-row:hover,.garden-plant-row.active{background:rgba(157,255,98,.12);border-color:rgba(157,255,98,.70);}.garden-plant-row b{color:#d8ffc3;display:block;}.garden-plant-row span{display:grid;grid-template-columns:1fr auto;gap:8px;color:#97c987;font-size:.84rem;margin-top:4px;}
+.garden-detail-card{display:grid;grid-template-columns:1.15fr .85fr;gap:16px;}.garden-stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0;}.garden-stat{border:1px solid rgba(157,255,98,.28);border-radius:12px;padding:10px;background:rgba(157,255,98,.045);}.garden-stat small{display:block;color:#97c987;text-transform:uppercase;font-size:.68rem;letter-spacing:.08em;}.garden-stat b{color:#d8ffc3;}.garden-timeline{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-top:12px;}.garden-timeline div{border:1px solid rgba(157,255,98,.28);border-radius:12px;padding:9px;min-height:76px;background:rgba(0,0,0,.20);}.garden-timeline small{display:block;color:#e1b749;text-transform:uppercase;font-size:.66rem;margin-bottom:5px;}.garden-ref-list{display:grid;gap:12px;color:#c9ff9d;}.garden-ref-list div{border-bottom:1px dashed rgba(157,255,98,.22);padding-bottom:10px;}.garden-ref-list b{display:block;color:#e1b749;text-transform:uppercase;margin-bottom:3px;}
+body.garden-active .hero, body.garden-active #homeWelcome, body.garden-active #grid, body.garden-active .wagon-wrap{display:none!important;} body.garden-active .detail{display:none!important;}
+@media (max-width: 980px){.garden-top-grid,.garden-calendar-shell,.garden-detail-card{grid-template-columns:1fr;}.garden-stat-grid{grid-template-columns:repeat(2,1fr);}.garden-timeline{grid-template-columns:1fr;}.garden-header{display:block;}.garden-year-toggle{justify-content:flex-start;margin-top:12px;}.garden-page{border-radius:18px;padding:13px;}.garden-day{min-height:58px;padding:5px;}}
+@media (max-width: 720px){.garden-cal{gap:3px;}.garden-day{min-height:50px;border-radius:8px;font-size:.82rem;}.garden-icons{font-size:.72rem;}.garden-task{grid-template-columns:24px 1fr;}.garden-task .tag{grid-column:2;justify-self:start;}}
+
 </style>
 
 
@@ -1145,6 +1517,37 @@ body.home-active .detail { display: none !important; }
   body.home-active .main { grid-template-columns: minmax(0,1fr) !important; }
   body.home-active .content { border-right: 0 !important; }
 }
+
+
+/* QA31: Dedicated Pip-Boy Garden Calendar page */
+.garden-page{grid-column:1 / -1;display:none;position:relative;overflow:hidden;padding:18px;border-radius:24px;background:radial-gradient(circle at 18% 8%, rgba(101,255,72,.14), transparent 22rem),radial-gradient(circle at 80% 2%, rgba(227,168,53,.10), transparent 18rem),linear-gradient(180deg,#07140c 0%,#081b0f 42%,#050b07 100%);border:2px solid rgba(126,255,89,.58);box-shadow:0 24px 70px rgba(0,0,0,.38), inset 0 0 38px rgba(83,255,57,.10);color:#9dff62;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Courier New",monospace;}
+.garden-page.active{display:block;}
+.garden-page::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.16;background:repeating-linear-gradient(0deg,rgba(157,255,98,.20) 0 1px,transparent 1px 4px);mix-blend-mode:screen;}
+.garden-page::after{content:"";position:absolute;inset:-20%;pointer-events:none;opacity:.18;background:radial-gradient(ellipse at center,transparent 0 54%,rgba(0,0,0,.75) 100%);}
+.garden-inner{position:relative;z-index:1;display:grid;gap:16px;}
+.garden-header{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;border-bottom:1px solid rgba(157,255,98,.36);padding-bottom:14px;}
+.garden-kicker{color:#e1b749;font-size:.82rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:7px;}
+.garden-title{margin:0;color:#9dff62;font-size:clamp(1.8rem,5vw,3.3rem);line-height:.95;text-transform:uppercase;text-shadow:0 0 14px rgba(157,255,98,.45);letter-spacing:.04em;}
+.garden-sub{margin:8px 0 0;color:#c9ff9d;opacity:.9;}
+.garden-year-toggle{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;}
+.garden-year-toggle button,.garden-action-btn,.garden-month-btn{border:1px solid rgba(157,255,98,.62);background:rgba(9,34,15,.72);color:#9dff62;border-radius:10px;padding:9px 12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;box-shadow:inset 0 0 18px rgba(157,255,98,.10);cursor:pointer;}
+.garden-year-toggle button.active,.garden-action-btn:hover,.garden-month-btn:hover{background:#9dff62;color:#061007;box-shadow:0 0 18px rgba(157,255,98,.45);}
+.garden-top-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(280px,.75fr);gap:16px;}
+.garden-panel{border:1px solid rgba(157,255,98,.46);background:rgba(1,12,5,.78);border-radius:18px;padding:15px;box-shadow:inset 0 0 24px rgba(157,255,98,.08);}
+.garden-panel h3{margin:0 0 12px;color:#e1b749;text-transform:uppercase;letter-spacing:.10em;font-size:1rem;}
+.garden-week-list{display:grid;gap:9px;}
+.garden-task{display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:start;padding:9px;border-bottom:1px solid rgba(157,255,98,.18);}
+.garden-task:last-child{border-bottom:0;}.garden-task b{color:#d8ffc3;}.garden-task small{display:block;color:#97c987;margin-top:3px;}.garden-task .tag{font-size:.72rem;color:#061007;background:#e1b749;border-radius:999px;padding:5px 8px;font-weight:900;white-space:nowrap;}
+.garden-weather{display:grid;grid-template-columns:1fr;gap:10px;}.garden-weather-card{display:flex;align-items:center;gap:14px;border:1px solid rgba(157,255,98,.30);border-radius:14px;padding:12px;background:rgba(157,255,98,.06);}.garden-weather-card .sun{font-size:2rem;filter:drop-shadow(0 0 8px rgba(225,183,73,.7));}.garden-weather-card strong{font-size:2rem;color:#d8ffc3;}
+.garden-keydates{display:grid;gap:8px;}.garden-keydates div{display:flex;justify-content:space-between;gap:10px;border-bottom:1px dashed rgba(157,255,98,.22);padding-bottom:7px;color:#c9ff9d;}
+.garden-calendar-shell{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:16px;align-items:start;}.garden-calendar-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:12px;}.garden-month-title{color:#d8ffc3;text-transform:uppercase;letter-spacing:.12em;font-weight:900;}
+.garden-cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;}.garden-dow{font-size:.76rem;text-align:center;color:#e1b749;text-transform:uppercase;letter-spacing:.08em;padding-bottom:4px;}.garden-day{min-height:72px;border:1px solid rgba(157,255,98,.24);border-radius:10px;background:rgba(157,255,98,.045);padding:7px;display:flex;flex-direction:column;gap:5px;position:relative;}.garden-day.muted{opacity:.32;}.garden-day.today{border-color:#e1b749;box-shadow:0 0 0 1px rgba(225,183,73,.45),0 0 18px rgba(225,183,73,.2);}.garden-day-num{font-weight:900;color:#d8ffc3;}.garden-icons{display:flex;gap:3px;flex-wrap:wrap;font-size:.84rem;}.garden-legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;color:#c9ff9d;font-size:.85rem;}
+.garden-roster{overflow:auto;max-height:520px;padding-right:4px;}.garden-plant-row{border:1px solid rgba(157,255,98,.25);border-radius:12px;margin-bottom:8px;padding:10px;background:rgba(157,255,98,.04);cursor:pointer;}.garden-plant-row:hover,.garden-plant-row.active{background:rgba(157,255,98,.12);border-color:rgba(157,255,98,.70);}.garden-plant-row b{color:#d8ffc3;display:block;}.garden-plant-row span{display:grid;grid-template-columns:1fr auto;gap:8px;color:#97c987;font-size:.84rem;margin-top:4px;}
+.garden-detail-card{display:grid;grid-template-columns:1.15fr .85fr;gap:16px;}.garden-stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0;}.garden-stat{border:1px solid rgba(157,255,98,.28);border-radius:12px;padding:10px;background:rgba(157,255,98,.045);}.garden-stat small{display:block;color:#97c987;text-transform:uppercase;font-size:.68rem;letter-spacing:.08em;}.garden-stat b{color:#d8ffc3;}.garden-timeline{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-top:12px;}.garden-timeline div{border:1px solid rgba(157,255,98,.28);border-radius:12px;padding:9px;min-height:76px;background:rgba(0,0,0,.20);}.garden-timeline small{display:block;color:#e1b749;text-transform:uppercase;font-size:.66rem;margin-bottom:5px;}.garden-ref-list{display:grid;gap:12px;color:#c9ff9d;}.garden-ref-list div{border-bottom:1px dashed rgba(157,255,98,.22);padding-bottom:10px;}.garden-ref-list b{display:block;color:#e1b749;text-transform:uppercase;margin-bottom:3px;}
+body.garden-active .hero, body.garden-active #homeWelcome, body.garden-active #grid, body.garden-active .wagon-wrap{display:none!important;} body.garden-active .detail{display:none!important;}
+@media (max-width: 980px){.garden-top-grid,.garden-calendar-shell,.garden-detail-card{grid-template-columns:1fr;}.garden-stat-grid{grid-template-columns:repeat(2,1fr);}.garden-timeline{grid-template-columns:1fr;}.garden-header{display:block;}.garden-year-toggle{justify-content:flex-start;margin-top:12px;}.garden-page{border-radius:18px;padding:13px;}.garden-day{min-height:58px;padding:5px;}}
+@media (max-width: 720px){.garden-cal{gap:3px;}.garden-day{min-height:50px;border-radius:8px;font-size:.82rem;}.garden-icons{font-size:.72rem;}.garden-task{grid-template-columns:24px 1fr;}.garden-task .tag{grid-column:2;justify-self:start;}}
+
 </style>
 
 
@@ -1175,6 +1578,37 @@ body.home-active .detail { display: none !important; }
   border: 0;
   max-width: 760px;
 }
+
+
+/* QA31: Dedicated Pip-Boy Garden Calendar page */
+.garden-page{grid-column:1 / -1;display:none;position:relative;overflow:hidden;padding:18px;border-radius:24px;background:radial-gradient(circle at 18% 8%, rgba(101,255,72,.14), transparent 22rem),radial-gradient(circle at 80% 2%, rgba(227,168,53,.10), transparent 18rem),linear-gradient(180deg,#07140c 0%,#081b0f 42%,#050b07 100%);border:2px solid rgba(126,255,89,.58);box-shadow:0 24px 70px rgba(0,0,0,.38), inset 0 0 38px rgba(83,255,57,.10);color:#9dff62;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Courier New",monospace;}
+.garden-page.active{display:block;}
+.garden-page::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.16;background:repeating-linear-gradient(0deg,rgba(157,255,98,.20) 0 1px,transparent 1px 4px);mix-blend-mode:screen;}
+.garden-page::after{content:"";position:absolute;inset:-20%;pointer-events:none;opacity:.18;background:radial-gradient(ellipse at center,transparent 0 54%,rgba(0,0,0,.75) 100%);}
+.garden-inner{position:relative;z-index:1;display:grid;gap:16px;}
+.garden-header{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;border-bottom:1px solid rgba(157,255,98,.36);padding-bottom:14px;}
+.garden-kicker{color:#e1b749;font-size:.82rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:7px;}
+.garden-title{margin:0;color:#9dff62;font-size:clamp(1.8rem,5vw,3.3rem);line-height:.95;text-transform:uppercase;text-shadow:0 0 14px rgba(157,255,98,.45);letter-spacing:.04em;}
+.garden-sub{margin:8px 0 0;color:#c9ff9d;opacity:.9;}
+.garden-year-toggle{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;}
+.garden-year-toggle button,.garden-action-btn,.garden-month-btn{border:1px solid rgba(157,255,98,.62);background:rgba(9,34,15,.72);color:#9dff62;border-radius:10px;padding:9px 12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;box-shadow:inset 0 0 18px rgba(157,255,98,.10);cursor:pointer;}
+.garden-year-toggle button.active,.garden-action-btn:hover,.garden-month-btn:hover{background:#9dff62;color:#061007;box-shadow:0 0 18px rgba(157,255,98,.45);}
+.garden-top-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(280px,.75fr);gap:16px;}
+.garden-panel{border:1px solid rgba(157,255,98,.46);background:rgba(1,12,5,.78);border-radius:18px;padding:15px;box-shadow:inset 0 0 24px rgba(157,255,98,.08);}
+.garden-panel h3{margin:0 0 12px;color:#e1b749;text-transform:uppercase;letter-spacing:.10em;font-size:1rem;}
+.garden-week-list{display:grid;gap:9px;}
+.garden-task{display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:start;padding:9px;border-bottom:1px solid rgba(157,255,98,.18);}
+.garden-task:last-child{border-bottom:0;}.garden-task b{color:#d8ffc3;}.garden-task small{display:block;color:#97c987;margin-top:3px;}.garden-task .tag{font-size:.72rem;color:#061007;background:#e1b749;border-radius:999px;padding:5px 8px;font-weight:900;white-space:nowrap;}
+.garden-weather{display:grid;grid-template-columns:1fr;gap:10px;}.garden-weather-card{display:flex;align-items:center;gap:14px;border:1px solid rgba(157,255,98,.30);border-radius:14px;padding:12px;background:rgba(157,255,98,.06);}.garden-weather-card .sun{font-size:2rem;filter:drop-shadow(0 0 8px rgba(225,183,73,.7));}.garden-weather-card strong{font-size:2rem;color:#d8ffc3;}
+.garden-keydates{display:grid;gap:8px;}.garden-keydates div{display:flex;justify-content:space-between;gap:10px;border-bottom:1px dashed rgba(157,255,98,.22);padding-bottom:7px;color:#c9ff9d;}
+.garden-calendar-shell{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:16px;align-items:start;}.garden-calendar-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:12px;}.garden-month-title{color:#d8ffc3;text-transform:uppercase;letter-spacing:.12em;font-weight:900;}
+.garden-cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;}.garden-dow{font-size:.76rem;text-align:center;color:#e1b749;text-transform:uppercase;letter-spacing:.08em;padding-bottom:4px;}.garden-day{min-height:72px;border:1px solid rgba(157,255,98,.24);border-radius:10px;background:rgba(157,255,98,.045);padding:7px;display:flex;flex-direction:column;gap:5px;position:relative;}.garden-day.muted{opacity:.32;}.garden-day.today{border-color:#e1b749;box-shadow:0 0 0 1px rgba(225,183,73,.45),0 0 18px rgba(225,183,73,.2);}.garden-day-num{font-weight:900;color:#d8ffc3;}.garden-icons{display:flex;gap:3px;flex-wrap:wrap;font-size:.84rem;}.garden-legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;color:#c9ff9d;font-size:.85rem;}
+.garden-roster{overflow:auto;max-height:520px;padding-right:4px;}.garden-plant-row{border:1px solid rgba(157,255,98,.25);border-radius:12px;margin-bottom:8px;padding:10px;background:rgba(157,255,98,.04);cursor:pointer;}.garden-plant-row:hover,.garden-plant-row.active{background:rgba(157,255,98,.12);border-color:rgba(157,255,98,.70);}.garden-plant-row b{color:#d8ffc3;display:block;}.garden-plant-row span{display:grid;grid-template-columns:1fr auto;gap:8px;color:#97c987;font-size:.84rem;margin-top:4px;}
+.garden-detail-card{display:grid;grid-template-columns:1.15fr .85fr;gap:16px;}.garden-stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0;}.garden-stat{border:1px solid rgba(157,255,98,.28);border-radius:12px;padding:10px;background:rgba(157,255,98,.045);}.garden-stat small{display:block;color:#97c987;text-transform:uppercase;font-size:.68rem;letter-spacing:.08em;}.garden-stat b{color:#d8ffc3;}.garden-timeline{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-top:12px;}.garden-timeline div{border:1px solid rgba(157,255,98,.28);border-radius:12px;padding:9px;min-height:76px;background:rgba(0,0,0,.20);}.garden-timeline small{display:block;color:#e1b749;text-transform:uppercase;font-size:.66rem;margin-bottom:5px;}.garden-ref-list{display:grid;gap:12px;color:#c9ff9d;}.garden-ref-list div{border-bottom:1px dashed rgba(157,255,98,.22);padding-bottom:10px;}.garden-ref-list b{display:block;color:#e1b749;text-transform:uppercase;margin-bottom:3px;}
+body.garden-active .hero, body.garden-active #homeWelcome, body.garden-active #grid, body.garden-active .wagon-wrap{display:none!important;} body.garden-active .detail{display:none!important;}
+@media (max-width: 980px){.garden-top-grid,.garden-calendar-shell,.garden-detail-card{grid-template-columns:1fr;}.garden-stat-grid{grid-template-columns:repeat(2,1fr);}.garden-timeline{grid-template-columns:1fr;}.garden-header{display:block;}.garden-year-toggle{justify-content:flex-start;margin-top:12px;}.garden-page{border-radius:18px;padding:13px;}.garden-day{min-height:58px;padding:5px;}}
+@media (max-width: 720px){.garden-cal{gap:3px;}.garden-day{min-height:50px;border-radius:8px;font-size:.82rem;}.garden-icons{font-size:.72rem;}.garden-task{grid-template-columns:24px 1fr;}.garden-task .tag{grid-column:2;justify-self:start;}}
+
 </style>
 
 
@@ -1431,6 +1865,37 @@ body.theme-retro .scale-buttons button.active {
   background: rgba(255,179,95,.24) !important;
   color:#ffb35f !important;
 }
+
+
+/* QA31: Dedicated Pip-Boy Garden Calendar page */
+.garden-page{grid-column:1 / -1;display:none;position:relative;overflow:hidden;padding:18px;border-radius:24px;background:radial-gradient(circle at 18% 8%, rgba(101,255,72,.14), transparent 22rem),radial-gradient(circle at 80% 2%, rgba(227,168,53,.10), transparent 18rem),linear-gradient(180deg,#07140c 0%,#081b0f 42%,#050b07 100%);border:2px solid rgba(126,255,89,.58);box-shadow:0 24px 70px rgba(0,0,0,.38), inset 0 0 38px rgba(83,255,57,.10);color:#9dff62;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Courier New",monospace;}
+.garden-page.active{display:block;}
+.garden-page::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.16;background:repeating-linear-gradient(0deg,rgba(157,255,98,.20) 0 1px,transparent 1px 4px);mix-blend-mode:screen;}
+.garden-page::after{content:"";position:absolute;inset:-20%;pointer-events:none;opacity:.18;background:radial-gradient(ellipse at center,transparent 0 54%,rgba(0,0,0,.75) 100%);}
+.garden-inner{position:relative;z-index:1;display:grid;gap:16px;}
+.garden-header{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;border-bottom:1px solid rgba(157,255,98,.36);padding-bottom:14px;}
+.garden-kicker{color:#e1b749;font-size:.82rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:7px;}
+.garden-title{margin:0;color:#9dff62;font-size:clamp(1.8rem,5vw,3.3rem);line-height:.95;text-transform:uppercase;text-shadow:0 0 14px rgba(157,255,98,.45);letter-spacing:.04em;}
+.garden-sub{margin:8px 0 0;color:#c9ff9d;opacity:.9;}
+.garden-year-toggle{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;}
+.garden-year-toggle button,.garden-action-btn,.garden-month-btn{border:1px solid rgba(157,255,98,.62);background:rgba(9,34,15,.72);color:#9dff62;border-radius:10px;padding:9px 12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;box-shadow:inset 0 0 18px rgba(157,255,98,.10);cursor:pointer;}
+.garden-year-toggle button.active,.garden-action-btn:hover,.garden-month-btn:hover{background:#9dff62;color:#061007;box-shadow:0 0 18px rgba(157,255,98,.45);}
+.garden-top-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(280px,.75fr);gap:16px;}
+.garden-panel{border:1px solid rgba(157,255,98,.46);background:rgba(1,12,5,.78);border-radius:18px;padding:15px;box-shadow:inset 0 0 24px rgba(157,255,98,.08);}
+.garden-panel h3{margin:0 0 12px;color:#e1b749;text-transform:uppercase;letter-spacing:.10em;font-size:1rem;}
+.garden-week-list{display:grid;gap:9px;}
+.garden-task{display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:start;padding:9px;border-bottom:1px solid rgba(157,255,98,.18);}
+.garden-task:last-child{border-bottom:0;}.garden-task b{color:#d8ffc3;}.garden-task small{display:block;color:#97c987;margin-top:3px;}.garden-task .tag{font-size:.72rem;color:#061007;background:#e1b749;border-radius:999px;padding:5px 8px;font-weight:900;white-space:nowrap;}
+.garden-weather{display:grid;grid-template-columns:1fr;gap:10px;}.garden-weather-card{display:flex;align-items:center;gap:14px;border:1px solid rgba(157,255,98,.30);border-radius:14px;padding:12px;background:rgba(157,255,98,.06);}.garden-weather-card .sun{font-size:2rem;filter:drop-shadow(0 0 8px rgba(225,183,73,.7));}.garden-weather-card strong{font-size:2rem;color:#d8ffc3;}
+.garden-keydates{display:grid;gap:8px;}.garden-keydates div{display:flex;justify-content:space-between;gap:10px;border-bottom:1px dashed rgba(157,255,98,.22);padding-bottom:7px;color:#c9ff9d;}
+.garden-calendar-shell{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:16px;align-items:start;}.garden-calendar-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:12px;}.garden-month-title{color:#d8ffc3;text-transform:uppercase;letter-spacing:.12em;font-weight:900;}
+.garden-cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;}.garden-dow{font-size:.76rem;text-align:center;color:#e1b749;text-transform:uppercase;letter-spacing:.08em;padding-bottom:4px;}.garden-day{min-height:72px;border:1px solid rgba(157,255,98,.24);border-radius:10px;background:rgba(157,255,98,.045);padding:7px;display:flex;flex-direction:column;gap:5px;position:relative;}.garden-day.muted{opacity:.32;}.garden-day.today{border-color:#e1b749;box-shadow:0 0 0 1px rgba(225,183,73,.45),0 0 18px rgba(225,183,73,.2);}.garden-day-num{font-weight:900;color:#d8ffc3;}.garden-icons{display:flex;gap:3px;flex-wrap:wrap;font-size:.84rem;}.garden-legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;color:#c9ff9d;font-size:.85rem;}
+.garden-roster{overflow:auto;max-height:520px;padding-right:4px;}.garden-plant-row{border:1px solid rgba(157,255,98,.25);border-radius:12px;margin-bottom:8px;padding:10px;background:rgba(157,255,98,.04);cursor:pointer;}.garden-plant-row:hover,.garden-plant-row.active{background:rgba(157,255,98,.12);border-color:rgba(157,255,98,.70);}.garden-plant-row b{color:#d8ffc3;display:block;}.garden-plant-row span{display:grid;grid-template-columns:1fr auto;gap:8px;color:#97c987;font-size:.84rem;margin-top:4px;}
+.garden-detail-card{display:grid;grid-template-columns:1.15fr .85fr;gap:16px;}.garden-stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0;}.garden-stat{border:1px solid rgba(157,255,98,.28);border-radius:12px;padding:10px;background:rgba(157,255,98,.045);}.garden-stat small{display:block;color:#97c987;text-transform:uppercase;font-size:.68rem;letter-spacing:.08em;}.garden-stat b{color:#d8ffc3;}.garden-timeline{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-top:12px;}.garden-timeline div{border:1px solid rgba(157,255,98,.28);border-radius:12px;padding:9px;min-height:76px;background:rgba(0,0,0,.20);}.garden-timeline small{display:block;color:#e1b749;text-transform:uppercase;font-size:.66rem;margin-bottom:5px;}.garden-ref-list{display:grid;gap:12px;color:#c9ff9d;}.garden-ref-list div{border-bottom:1px dashed rgba(157,255,98,.22);padding-bottom:10px;}.garden-ref-list b{display:block;color:#e1b749;text-transform:uppercase;margin-bottom:3px;}
+body.garden-active .hero, body.garden-active #homeWelcome, body.garden-active #grid, body.garden-active .wagon-wrap{display:none!important;} body.garden-active .detail{display:none!important;}
+@media (max-width: 980px){.garden-top-grid,.garden-calendar-shell,.garden-detail-card{grid-template-columns:1fr;}.garden-stat-grid{grid-template-columns:repeat(2,1fr);}.garden-timeline{grid-template-columns:1fr;}.garden-header{display:block;}.garden-year-toggle{justify-content:flex-start;margin-top:12px;}.garden-page{border-radius:18px;padding:13px;}.garden-day{min-height:58px;padding:5px;}}
+@media (max-width: 720px){.garden-cal{gap:3px;}.garden-day{min-height:50px;border-radius:8px;font-size:.82rem;}.garden-icons{font-size:.72rem;}.garden-task{grid-template-columns:24px 1fr;}.garden-task .tag{grid-column:2;justify-self:start;}}
+
 </style>
 
 
@@ -1455,6 +1920,37 @@ body.theme-retro .scale-buttons button.active {
     padding-bottom: 12px !important;
   }
 }
+
+
+/* QA31: Dedicated Pip-Boy Garden Calendar page */
+.garden-page{grid-column:1 / -1;display:none;position:relative;overflow:hidden;padding:18px;border-radius:24px;background:radial-gradient(circle at 18% 8%, rgba(101,255,72,.14), transparent 22rem),radial-gradient(circle at 80% 2%, rgba(227,168,53,.10), transparent 18rem),linear-gradient(180deg,#07140c 0%,#081b0f 42%,#050b07 100%);border:2px solid rgba(126,255,89,.58);box-shadow:0 24px 70px rgba(0,0,0,.38), inset 0 0 38px rgba(83,255,57,.10);color:#9dff62;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Courier New",monospace;}
+.garden-page.active{display:block;}
+.garden-page::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.16;background:repeating-linear-gradient(0deg,rgba(157,255,98,.20) 0 1px,transparent 1px 4px);mix-blend-mode:screen;}
+.garden-page::after{content:"";position:absolute;inset:-20%;pointer-events:none;opacity:.18;background:radial-gradient(ellipse at center,transparent 0 54%,rgba(0,0,0,.75) 100%);}
+.garden-inner{position:relative;z-index:1;display:grid;gap:16px;}
+.garden-header{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;border-bottom:1px solid rgba(157,255,98,.36);padding-bottom:14px;}
+.garden-kicker{color:#e1b749;font-size:.82rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:7px;}
+.garden-title{margin:0;color:#9dff62;font-size:clamp(1.8rem,5vw,3.3rem);line-height:.95;text-transform:uppercase;text-shadow:0 0 14px rgba(157,255,98,.45);letter-spacing:.04em;}
+.garden-sub{margin:8px 0 0;color:#c9ff9d;opacity:.9;}
+.garden-year-toggle{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;}
+.garden-year-toggle button,.garden-action-btn,.garden-month-btn{border:1px solid rgba(157,255,98,.62);background:rgba(9,34,15,.72);color:#9dff62;border-radius:10px;padding:9px 12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;box-shadow:inset 0 0 18px rgba(157,255,98,.10);cursor:pointer;}
+.garden-year-toggle button.active,.garden-action-btn:hover,.garden-month-btn:hover{background:#9dff62;color:#061007;box-shadow:0 0 18px rgba(157,255,98,.45);}
+.garden-top-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(280px,.75fr);gap:16px;}
+.garden-panel{border:1px solid rgba(157,255,98,.46);background:rgba(1,12,5,.78);border-radius:18px;padding:15px;box-shadow:inset 0 0 24px rgba(157,255,98,.08);}
+.garden-panel h3{margin:0 0 12px;color:#e1b749;text-transform:uppercase;letter-spacing:.10em;font-size:1rem;}
+.garden-week-list{display:grid;gap:9px;}
+.garden-task{display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:start;padding:9px;border-bottom:1px solid rgba(157,255,98,.18);}
+.garden-task:last-child{border-bottom:0;}.garden-task b{color:#d8ffc3;}.garden-task small{display:block;color:#97c987;margin-top:3px;}.garden-task .tag{font-size:.72rem;color:#061007;background:#e1b749;border-radius:999px;padding:5px 8px;font-weight:900;white-space:nowrap;}
+.garden-weather{display:grid;grid-template-columns:1fr;gap:10px;}.garden-weather-card{display:flex;align-items:center;gap:14px;border:1px solid rgba(157,255,98,.30);border-radius:14px;padding:12px;background:rgba(157,255,98,.06);}.garden-weather-card .sun{font-size:2rem;filter:drop-shadow(0 0 8px rgba(225,183,73,.7));}.garden-weather-card strong{font-size:2rem;color:#d8ffc3;}
+.garden-keydates{display:grid;gap:8px;}.garden-keydates div{display:flex;justify-content:space-between;gap:10px;border-bottom:1px dashed rgba(157,255,98,.22);padding-bottom:7px;color:#c9ff9d;}
+.garden-calendar-shell{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:16px;align-items:start;}.garden-calendar-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:12px;}.garden-month-title{color:#d8ffc3;text-transform:uppercase;letter-spacing:.12em;font-weight:900;}
+.garden-cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;}.garden-dow{font-size:.76rem;text-align:center;color:#e1b749;text-transform:uppercase;letter-spacing:.08em;padding-bottom:4px;}.garden-day{min-height:72px;border:1px solid rgba(157,255,98,.24);border-radius:10px;background:rgba(157,255,98,.045);padding:7px;display:flex;flex-direction:column;gap:5px;position:relative;}.garden-day.muted{opacity:.32;}.garden-day.today{border-color:#e1b749;box-shadow:0 0 0 1px rgba(225,183,73,.45),0 0 18px rgba(225,183,73,.2);}.garden-day-num{font-weight:900;color:#d8ffc3;}.garden-icons{display:flex;gap:3px;flex-wrap:wrap;font-size:.84rem;}.garden-legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;color:#c9ff9d;font-size:.85rem;}
+.garden-roster{overflow:auto;max-height:520px;padding-right:4px;}.garden-plant-row{border:1px solid rgba(157,255,98,.25);border-radius:12px;margin-bottom:8px;padding:10px;background:rgba(157,255,98,.04);cursor:pointer;}.garden-plant-row:hover,.garden-plant-row.active{background:rgba(157,255,98,.12);border-color:rgba(157,255,98,.70);}.garden-plant-row b{color:#d8ffc3;display:block;}.garden-plant-row span{display:grid;grid-template-columns:1fr auto;gap:8px;color:#97c987;font-size:.84rem;margin-top:4px;}
+.garden-detail-card{display:grid;grid-template-columns:1.15fr .85fr;gap:16px;}.garden-stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0;}.garden-stat{border:1px solid rgba(157,255,98,.28);border-radius:12px;padding:10px;background:rgba(157,255,98,.045);}.garden-stat small{display:block;color:#97c987;text-transform:uppercase;font-size:.68rem;letter-spacing:.08em;}.garden-stat b{color:#d8ffc3;}.garden-timeline{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-top:12px;}.garden-timeline div{border:1px solid rgba(157,255,98,.28);border-radius:12px;padding:9px;min-height:76px;background:rgba(0,0,0,.20);}.garden-timeline small{display:block;color:#e1b749;text-transform:uppercase;font-size:.66rem;margin-bottom:5px;}.garden-ref-list{display:grid;gap:12px;color:#c9ff9d;}.garden-ref-list div{border-bottom:1px dashed rgba(157,255,98,.22);padding-bottom:10px;}.garden-ref-list b{display:block;color:#e1b749;text-transform:uppercase;margin-bottom:3px;}
+body.garden-active .hero, body.garden-active #homeWelcome, body.garden-active #grid, body.garden-active .wagon-wrap{display:none!important;} body.garden-active .detail{display:none!important;}
+@media (max-width: 980px){.garden-top-grid,.garden-calendar-shell,.garden-detail-card{grid-template-columns:1fr;}.garden-stat-grid{grid-template-columns:repeat(2,1fr);}.garden-timeline{grid-template-columns:1fr;}.garden-header{display:block;}.garden-year-toggle{justify-content:flex-start;margin-top:12px;}.garden-page{border-radius:18px;padding:13px;}.garden-day{min-height:58px;padding:5px;}}
+@media (max-width: 720px){.garden-cal{gap:3px;}.garden-day{min-height:50px;border-radius:8px;font-size:.82rem;}.garden-icons{font-size:.72rem;}.garden-task{grid-template-columns:24px 1fr;}.garden-task .tag{grid-column:2;justify-self:start;}}
+
 </style>
 
 
@@ -1651,6 +2147,37 @@ body.theme-retro .temp-close { color:#9dff9a !important; }
   body.theme-retro .temp-fab { bottom:calc(16px + env(safe-area-inset-bottom)) !important; }
   body.theme-retro .hero { margin-top:6px; }
 }
+
+
+/* QA31: Dedicated Pip-Boy Garden Calendar page */
+.garden-page{grid-column:1 / -1;display:none;position:relative;overflow:hidden;padding:18px;border-radius:24px;background:radial-gradient(circle at 18% 8%, rgba(101,255,72,.14), transparent 22rem),radial-gradient(circle at 80% 2%, rgba(227,168,53,.10), transparent 18rem),linear-gradient(180deg,#07140c 0%,#081b0f 42%,#050b07 100%);border:2px solid rgba(126,255,89,.58);box-shadow:0 24px 70px rgba(0,0,0,.38), inset 0 0 38px rgba(83,255,57,.10);color:#9dff62;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Courier New",monospace;}
+.garden-page.active{display:block;}
+.garden-page::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.16;background:repeating-linear-gradient(0deg,rgba(157,255,98,.20) 0 1px,transparent 1px 4px);mix-blend-mode:screen;}
+.garden-page::after{content:"";position:absolute;inset:-20%;pointer-events:none;opacity:.18;background:radial-gradient(ellipse at center,transparent 0 54%,rgba(0,0,0,.75) 100%);}
+.garden-inner{position:relative;z-index:1;display:grid;gap:16px;}
+.garden-header{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;border-bottom:1px solid rgba(157,255,98,.36);padding-bottom:14px;}
+.garden-kicker{color:#e1b749;font-size:.82rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:7px;}
+.garden-title{margin:0;color:#9dff62;font-size:clamp(1.8rem,5vw,3.3rem);line-height:.95;text-transform:uppercase;text-shadow:0 0 14px rgba(157,255,98,.45);letter-spacing:.04em;}
+.garden-sub{margin:8px 0 0;color:#c9ff9d;opacity:.9;}
+.garden-year-toggle{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;}
+.garden-year-toggle button,.garden-action-btn,.garden-month-btn{border:1px solid rgba(157,255,98,.62);background:rgba(9,34,15,.72);color:#9dff62;border-radius:10px;padding:9px 12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;box-shadow:inset 0 0 18px rgba(157,255,98,.10);cursor:pointer;}
+.garden-year-toggle button.active,.garden-action-btn:hover,.garden-month-btn:hover{background:#9dff62;color:#061007;box-shadow:0 0 18px rgba(157,255,98,.45);}
+.garden-top-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(280px,.75fr);gap:16px;}
+.garden-panel{border:1px solid rgba(157,255,98,.46);background:rgba(1,12,5,.78);border-radius:18px;padding:15px;box-shadow:inset 0 0 24px rgba(157,255,98,.08);}
+.garden-panel h3{margin:0 0 12px;color:#e1b749;text-transform:uppercase;letter-spacing:.10em;font-size:1rem;}
+.garden-week-list{display:grid;gap:9px;}
+.garden-task{display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:start;padding:9px;border-bottom:1px solid rgba(157,255,98,.18);}
+.garden-task:last-child{border-bottom:0;}.garden-task b{color:#d8ffc3;}.garden-task small{display:block;color:#97c987;margin-top:3px;}.garden-task .tag{font-size:.72rem;color:#061007;background:#e1b749;border-radius:999px;padding:5px 8px;font-weight:900;white-space:nowrap;}
+.garden-weather{display:grid;grid-template-columns:1fr;gap:10px;}.garden-weather-card{display:flex;align-items:center;gap:14px;border:1px solid rgba(157,255,98,.30);border-radius:14px;padding:12px;background:rgba(157,255,98,.06);}.garden-weather-card .sun{font-size:2rem;filter:drop-shadow(0 0 8px rgba(225,183,73,.7));}.garden-weather-card strong{font-size:2rem;color:#d8ffc3;}
+.garden-keydates{display:grid;gap:8px;}.garden-keydates div{display:flex;justify-content:space-between;gap:10px;border-bottom:1px dashed rgba(157,255,98,.22);padding-bottom:7px;color:#c9ff9d;}
+.garden-calendar-shell{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:16px;align-items:start;}.garden-calendar-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:12px;}.garden-month-title{color:#d8ffc3;text-transform:uppercase;letter-spacing:.12em;font-weight:900;}
+.garden-cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;}.garden-dow{font-size:.76rem;text-align:center;color:#e1b749;text-transform:uppercase;letter-spacing:.08em;padding-bottom:4px;}.garden-day{min-height:72px;border:1px solid rgba(157,255,98,.24);border-radius:10px;background:rgba(157,255,98,.045);padding:7px;display:flex;flex-direction:column;gap:5px;position:relative;}.garden-day.muted{opacity:.32;}.garden-day.today{border-color:#e1b749;box-shadow:0 0 0 1px rgba(225,183,73,.45),0 0 18px rgba(225,183,73,.2);}.garden-day-num{font-weight:900;color:#d8ffc3;}.garden-icons{display:flex;gap:3px;flex-wrap:wrap;font-size:.84rem;}.garden-legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;color:#c9ff9d;font-size:.85rem;}
+.garden-roster{overflow:auto;max-height:520px;padding-right:4px;}.garden-plant-row{border:1px solid rgba(157,255,98,.25);border-radius:12px;margin-bottom:8px;padding:10px;background:rgba(157,255,98,.04);cursor:pointer;}.garden-plant-row:hover,.garden-plant-row.active{background:rgba(157,255,98,.12);border-color:rgba(157,255,98,.70);}.garden-plant-row b{color:#d8ffc3;display:block;}.garden-plant-row span{display:grid;grid-template-columns:1fr auto;gap:8px;color:#97c987;font-size:.84rem;margin-top:4px;}
+.garden-detail-card{display:grid;grid-template-columns:1.15fr .85fr;gap:16px;}.garden-stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0;}.garden-stat{border:1px solid rgba(157,255,98,.28);border-radius:12px;padding:10px;background:rgba(157,255,98,.045);}.garden-stat small{display:block;color:#97c987;text-transform:uppercase;font-size:.68rem;letter-spacing:.08em;}.garden-stat b{color:#d8ffc3;}.garden-timeline{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-top:12px;}.garden-timeline div{border:1px solid rgba(157,255,98,.28);border-radius:12px;padding:9px;min-height:76px;background:rgba(0,0,0,.20);}.garden-timeline small{display:block;color:#e1b749;text-transform:uppercase;font-size:.66rem;margin-bottom:5px;}.garden-ref-list{display:grid;gap:12px;color:#c9ff9d;}.garden-ref-list div{border-bottom:1px dashed rgba(157,255,98,.22);padding-bottom:10px;}.garden-ref-list b{display:block;color:#e1b749;text-transform:uppercase;margin-bottom:3px;}
+body.garden-active .hero, body.garden-active #homeWelcome, body.garden-active #grid, body.garden-active .wagon-wrap{display:none!important;} body.garden-active .detail{display:none!important;}
+@media (max-width: 980px){.garden-top-grid,.garden-calendar-shell,.garden-detail-card{grid-template-columns:1fr;}.garden-stat-grid{grid-template-columns:repeat(2,1fr);}.garden-timeline{grid-template-columns:1fr;}.garden-header{display:block;}.garden-year-toggle{justify-content:flex-start;margin-top:12px;}.garden-page{border-radius:18px;padding:13px;}.garden-day{min-height:58px;padding:5px;}}
+@media (max-width: 720px){.garden-cal{gap:3px;}.garden-day{min-height:50px;border-radius:8px;font-size:.82rem;}.garden-icons{font-size:.72rem;}.garden-task{grid-template-columns:24px 1fr;}.garden-task .tag{grid-column:2;justify-self:start;}}
+
 </style>
 
 
@@ -1762,6 +2289,37 @@ body.theme-retro .temp-fab{
   body.theme-retro .topbar{padding-bottom:12px !important;}
   body.theme-retro .temp-fab{bottom:calc(18px + env(safe-area-inset-bottom)) !important;}
 }
+
+
+/* QA31: Dedicated Pip-Boy Garden Calendar page */
+.garden-page{grid-column:1 / -1;display:none;position:relative;overflow:hidden;padding:18px;border-radius:24px;background:radial-gradient(circle at 18% 8%, rgba(101,255,72,.14), transparent 22rem),radial-gradient(circle at 80% 2%, rgba(227,168,53,.10), transparent 18rem),linear-gradient(180deg,#07140c 0%,#081b0f 42%,#050b07 100%);border:2px solid rgba(126,255,89,.58);box-shadow:0 24px 70px rgba(0,0,0,.38), inset 0 0 38px rgba(83,255,57,.10);color:#9dff62;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Courier New",monospace;}
+.garden-page.active{display:block;}
+.garden-page::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.16;background:repeating-linear-gradient(0deg,rgba(157,255,98,.20) 0 1px,transparent 1px 4px);mix-blend-mode:screen;}
+.garden-page::after{content:"";position:absolute;inset:-20%;pointer-events:none;opacity:.18;background:radial-gradient(ellipse at center,transparent 0 54%,rgba(0,0,0,.75) 100%);}
+.garden-inner{position:relative;z-index:1;display:grid;gap:16px;}
+.garden-header{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;border-bottom:1px solid rgba(157,255,98,.36);padding-bottom:14px;}
+.garden-kicker{color:#e1b749;font-size:.82rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:7px;}
+.garden-title{margin:0;color:#9dff62;font-size:clamp(1.8rem,5vw,3.3rem);line-height:.95;text-transform:uppercase;text-shadow:0 0 14px rgba(157,255,98,.45);letter-spacing:.04em;}
+.garden-sub{margin:8px 0 0;color:#c9ff9d;opacity:.9;}
+.garden-year-toggle{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;}
+.garden-year-toggle button,.garden-action-btn,.garden-month-btn{border:1px solid rgba(157,255,98,.62);background:rgba(9,34,15,.72);color:#9dff62;border-radius:10px;padding:9px 12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;box-shadow:inset 0 0 18px rgba(157,255,98,.10);cursor:pointer;}
+.garden-year-toggle button.active,.garden-action-btn:hover,.garden-month-btn:hover{background:#9dff62;color:#061007;box-shadow:0 0 18px rgba(157,255,98,.45);}
+.garden-top-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(280px,.75fr);gap:16px;}
+.garden-panel{border:1px solid rgba(157,255,98,.46);background:rgba(1,12,5,.78);border-radius:18px;padding:15px;box-shadow:inset 0 0 24px rgba(157,255,98,.08);}
+.garden-panel h3{margin:0 0 12px;color:#e1b749;text-transform:uppercase;letter-spacing:.10em;font-size:1rem;}
+.garden-week-list{display:grid;gap:9px;}
+.garden-task{display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:start;padding:9px;border-bottom:1px solid rgba(157,255,98,.18);}
+.garden-task:last-child{border-bottom:0;}.garden-task b{color:#d8ffc3;}.garden-task small{display:block;color:#97c987;margin-top:3px;}.garden-task .tag{font-size:.72rem;color:#061007;background:#e1b749;border-radius:999px;padding:5px 8px;font-weight:900;white-space:nowrap;}
+.garden-weather{display:grid;grid-template-columns:1fr;gap:10px;}.garden-weather-card{display:flex;align-items:center;gap:14px;border:1px solid rgba(157,255,98,.30);border-radius:14px;padding:12px;background:rgba(157,255,98,.06);}.garden-weather-card .sun{font-size:2rem;filter:drop-shadow(0 0 8px rgba(225,183,73,.7));}.garden-weather-card strong{font-size:2rem;color:#d8ffc3;}
+.garden-keydates{display:grid;gap:8px;}.garden-keydates div{display:flex;justify-content:space-between;gap:10px;border-bottom:1px dashed rgba(157,255,98,.22);padding-bottom:7px;color:#c9ff9d;}
+.garden-calendar-shell{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:16px;align-items:start;}.garden-calendar-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:12px;}.garden-month-title{color:#d8ffc3;text-transform:uppercase;letter-spacing:.12em;font-weight:900;}
+.garden-cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;}.garden-dow{font-size:.76rem;text-align:center;color:#e1b749;text-transform:uppercase;letter-spacing:.08em;padding-bottom:4px;}.garden-day{min-height:72px;border:1px solid rgba(157,255,98,.24);border-radius:10px;background:rgba(157,255,98,.045);padding:7px;display:flex;flex-direction:column;gap:5px;position:relative;}.garden-day.muted{opacity:.32;}.garden-day.today{border-color:#e1b749;box-shadow:0 0 0 1px rgba(225,183,73,.45),0 0 18px rgba(225,183,73,.2);}.garden-day-num{font-weight:900;color:#d8ffc3;}.garden-icons{display:flex;gap:3px;flex-wrap:wrap;font-size:.84rem;}.garden-legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;color:#c9ff9d;font-size:.85rem;}
+.garden-roster{overflow:auto;max-height:520px;padding-right:4px;}.garden-plant-row{border:1px solid rgba(157,255,98,.25);border-radius:12px;margin-bottom:8px;padding:10px;background:rgba(157,255,98,.04);cursor:pointer;}.garden-plant-row:hover,.garden-plant-row.active{background:rgba(157,255,98,.12);border-color:rgba(157,255,98,.70);}.garden-plant-row b{color:#d8ffc3;display:block;}.garden-plant-row span{display:grid;grid-template-columns:1fr auto;gap:8px;color:#97c987;font-size:.84rem;margin-top:4px;}
+.garden-detail-card{display:grid;grid-template-columns:1.15fr .85fr;gap:16px;}.garden-stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0;}.garden-stat{border:1px solid rgba(157,255,98,.28);border-radius:12px;padding:10px;background:rgba(157,255,98,.045);}.garden-stat small{display:block;color:#97c987;text-transform:uppercase;font-size:.68rem;letter-spacing:.08em;}.garden-stat b{color:#d8ffc3;}.garden-timeline{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-top:12px;}.garden-timeline div{border:1px solid rgba(157,255,98,.28);border-radius:12px;padding:9px;min-height:76px;background:rgba(0,0,0,.20);}.garden-timeline small{display:block;color:#e1b749;text-transform:uppercase;font-size:.66rem;margin-bottom:5px;}.garden-ref-list{display:grid;gap:12px;color:#c9ff9d;}.garden-ref-list div{border-bottom:1px dashed rgba(157,255,98,.22);padding-bottom:10px;}.garden-ref-list b{display:block;color:#e1b749;text-transform:uppercase;margin-bottom:3px;}
+body.garden-active .hero, body.garden-active #homeWelcome, body.garden-active #grid, body.garden-active .wagon-wrap{display:none!important;} body.garden-active .detail{display:none!important;}
+@media (max-width: 980px){.garden-top-grid,.garden-calendar-shell,.garden-detail-card{grid-template-columns:1fr;}.garden-stat-grid{grid-template-columns:repeat(2,1fr);}.garden-timeline{grid-template-columns:1fr;}.garden-header{display:block;}.garden-year-toggle{justify-content:flex-start;margin-top:12px;}.garden-page{border-radius:18px;padding:13px;}.garden-day{min-height:58px;padding:5px;}}
+@media (max-width: 720px){.garden-cal{gap:3px;}.garden-day{min-height:50px;border-radius:8px;font-size:.82rem;}.garden-icons{font-size:.72rem;}.garden-task{grid-template-columns:24px 1fr;}.garden-task .tag{grid-column:2;justify-self:start;}}
+
 </style>
 
 
@@ -1820,6 +2378,37 @@ body.theme-retro .helper-face em{border-bottom-color:#9dff9a;filter:drop-shadow(
   opacity:0;pointer-events:none;transition:opacity .2s ease, transform .2s ease;
 }
 .helper-toast.open{opacity:1;transform:translateX(-50%) translateY(0);}
+
+
+/* QA31: Dedicated Pip-Boy Garden Calendar page */
+.garden-page{grid-column:1 / -1;display:none;position:relative;overflow:hidden;padding:18px;border-radius:24px;background:radial-gradient(circle at 18% 8%, rgba(101,255,72,.14), transparent 22rem),radial-gradient(circle at 80% 2%, rgba(227,168,53,.10), transparent 18rem),linear-gradient(180deg,#07140c 0%,#081b0f 42%,#050b07 100%);border:2px solid rgba(126,255,89,.58);box-shadow:0 24px 70px rgba(0,0,0,.38), inset 0 0 38px rgba(83,255,57,.10);color:#9dff62;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Courier New",monospace;}
+.garden-page.active{display:block;}
+.garden-page::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.16;background:repeating-linear-gradient(0deg,rgba(157,255,98,.20) 0 1px,transparent 1px 4px);mix-blend-mode:screen;}
+.garden-page::after{content:"";position:absolute;inset:-20%;pointer-events:none;opacity:.18;background:radial-gradient(ellipse at center,transparent 0 54%,rgba(0,0,0,.75) 100%);}
+.garden-inner{position:relative;z-index:1;display:grid;gap:16px;}
+.garden-header{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;border-bottom:1px solid rgba(157,255,98,.36);padding-bottom:14px;}
+.garden-kicker{color:#e1b749;font-size:.82rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:7px;}
+.garden-title{margin:0;color:#9dff62;font-size:clamp(1.8rem,5vw,3.3rem);line-height:.95;text-transform:uppercase;text-shadow:0 0 14px rgba(157,255,98,.45);letter-spacing:.04em;}
+.garden-sub{margin:8px 0 0;color:#c9ff9d;opacity:.9;}
+.garden-year-toggle{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;}
+.garden-year-toggle button,.garden-action-btn,.garden-month-btn{border:1px solid rgba(157,255,98,.62);background:rgba(9,34,15,.72);color:#9dff62;border-radius:10px;padding:9px 12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;box-shadow:inset 0 0 18px rgba(157,255,98,.10);cursor:pointer;}
+.garden-year-toggle button.active,.garden-action-btn:hover,.garden-month-btn:hover{background:#9dff62;color:#061007;box-shadow:0 0 18px rgba(157,255,98,.45);}
+.garden-top-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(280px,.75fr);gap:16px;}
+.garden-panel{border:1px solid rgba(157,255,98,.46);background:rgba(1,12,5,.78);border-radius:18px;padding:15px;box-shadow:inset 0 0 24px rgba(157,255,98,.08);}
+.garden-panel h3{margin:0 0 12px;color:#e1b749;text-transform:uppercase;letter-spacing:.10em;font-size:1rem;}
+.garden-week-list{display:grid;gap:9px;}
+.garden-task{display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:start;padding:9px;border-bottom:1px solid rgba(157,255,98,.18);}
+.garden-task:last-child{border-bottom:0;}.garden-task b{color:#d8ffc3;}.garden-task small{display:block;color:#97c987;margin-top:3px;}.garden-task .tag{font-size:.72rem;color:#061007;background:#e1b749;border-radius:999px;padding:5px 8px;font-weight:900;white-space:nowrap;}
+.garden-weather{display:grid;grid-template-columns:1fr;gap:10px;}.garden-weather-card{display:flex;align-items:center;gap:14px;border:1px solid rgba(157,255,98,.30);border-radius:14px;padding:12px;background:rgba(157,255,98,.06);}.garden-weather-card .sun{font-size:2rem;filter:drop-shadow(0 0 8px rgba(225,183,73,.7));}.garden-weather-card strong{font-size:2rem;color:#d8ffc3;}
+.garden-keydates{display:grid;gap:8px;}.garden-keydates div{display:flex;justify-content:space-between;gap:10px;border-bottom:1px dashed rgba(157,255,98,.22);padding-bottom:7px;color:#c9ff9d;}
+.garden-calendar-shell{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:16px;align-items:start;}.garden-calendar-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:12px;}.garden-month-title{color:#d8ffc3;text-transform:uppercase;letter-spacing:.12em;font-weight:900;}
+.garden-cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;}.garden-dow{font-size:.76rem;text-align:center;color:#e1b749;text-transform:uppercase;letter-spacing:.08em;padding-bottom:4px;}.garden-day{min-height:72px;border:1px solid rgba(157,255,98,.24);border-radius:10px;background:rgba(157,255,98,.045);padding:7px;display:flex;flex-direction:column;gap:5px;position:relative;}.garden-day.muted{opacity:.32;}.garden-day.today{border-color:#e1b749;box-shadow:0 0 0 1px rgba(225,183,73,.45),0 0 18px rgba(225,183,73,.2);}.garden-day-num{font-weight:900;color:#d8ffc3;}.garden-icons{display:flex;gap:3px;flex-wrap:wrap;font-size:.84rem;}.garden-legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;color:#c9ff9d;font-size:.85rem;}
+.garden-roster{overflow:auto;max-height:520px;padding-right:4px;}.garden-plant-row{border:1px solid rgba(157,255,98,.25);border-radius:12px;margin-bottom:8px;padding:10px;background:rgba(157,255,98,.04);cursor:pointer;}.garden-plant-row:hover,.garden-plant-row.active{background:rgba(157,255,98,.12);border-color:rgba(157,255,98,.70);}.garden-plant-row b{color:#d8ffc3;display:block;}.garden-plant-row span{display:grid;grid-template-columns:1fr auto;gap:8px;color:#97c987;font-size:.84rem;margin-top:4px;}
+.garden-detail-card{display:grid;grid-template-columns:1.15fr .85fr;gap:16px;}.garden-stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0;}.garden-stat{border:1px solid rgba(157,255,98,.28);border-radius:12px;padding:10px;background:rgba(157,255,98,.045);}.garden-stat small{display:block;color:#97c987;text-transform:uppercase;font-size:.68rem;letter-spacing:.08em;}.garden-stat b{color:#d8ffc3;}.garden-timeline{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-top:12px;}.garden-timeline div{border:1px solid rgba(157,255,98,.28);border-radius:12px;padding:9px;min-height:76px;background:rgba(0,0,0,.20);}.garden-timeline small{display:block;color:#e1b749;text-transform:uppercase;font-size:.66rem;margin-bottom:5px;}.garden-ref-list{display:grid;gap:12px;color:#c9ff9d;}.garden-ref-list div{border-bottom:1px dashed rgba(157,255,98,.22);padding-bottom:10px;}.garden-ref-list b{display:block;color:#e1b749;text-transform:uppercase;margin-bottom:3px;}
+body.garden-active .hero, body.garden-active #homeWelcome, body.garden-active #grid, body.garden-active .wagon-wrap{display:none!important;} body.garden-active .detail{display:none!important;}
+@media (max-width: 980px){.garden-top-grid,.garden-calendar-shell,.garden-detail-card{grid-template-columns:1fr;}.garden-stat-grid{grid-template-columns:repeat(2,1fr);}.garden-timeline{grid-template-columns:1fr;}.garden-header{display:block;}.garden-year-toggle{justify-content:flex-start;margin-top:12px;}.garden-page{border-radius:18px;padding:13px;}.garden-day{min-height:58px;padding:5px;}}
+@media (max-width: 720px){.garden-cal{gap:3px;}.garden-day{min-height:50px;border-radius:8px;font-size:.82rem;}.garden-icons{font-size:.72rem;}.garden-task{grid-template-columns:24px 1fr;}.garden-task .tag{grid-column:2;justify-self:start;}}
+
 </style>
 
 <style id="kwen-qa21-cook-mode">
@@ -1916,6 +2505,37 @@ body.theme-retro .cook-sub,body.theme-retro .cook-step-label{color:#ffb35f;}
 body.theme-retro .cook-pill,body.theme-retro .cook-timer-btn{background:rgba(157,255,154,.08);border-color:rgba(157,255,154,.28);color:#d7ffd0;}
 body.theme-retro .cook-nav button{background:#123014;color:#9dff9a;border:1px solid rgba(157,255,154,.36);}
 @media (max-width:620px){.cook-top{grid-template-columns:1fr auto}.cook-step-card{min-height:46vh}.cook-btn{padding:8px 10px;font-size:.82rem}}
+
+
+/* QA31: Dedicated Pip-Boy Garden Calendar page */
+.garden-page{grid-column:1 / -1;display:none;position:relative;overflow:hidden;padding:18px;border-radius:24px;background:radial-gradient(circle at 18% 8%, rgba(101,255,72,.14), transparent 22rem),radial-gradient(circle at 80% 2%, rgba(227,168,53,.10), transparent 18rem),linear-gradient(180deg,#07140c 0%,#081b0f 42%,#050b07 100%);border:2px solid rgba(126,255,89,.58);box-shadow:0 24px 70px rgba(0,0,0,.38), inset 0 0 38px rgba(83,255,57,.10);color:#9dff62;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Courier New",monospace;}
+.garden-page.active{display:block;}
+.garden-page::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.16;background:repeating-linear-gradient(0deg,rgba(157,255,98,.20) 0 1px,transparent 1px 4px);mix-blend-mode:screen;}
+.garden-page::after{content:"";position:absolute;inset:-20%;pointer-events:none;opacity:.18;background:radial-gradient(ellipse at center,transparent 0 54%,rgba(0,0,0,.75) 100%);}
+.garden-inner{position:relative;z-index:1;display:grid;gap:16px;}
+.garden-header{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;border-bottom:1px solid rgba(157,255,98,.36);padding-bottom:14px;}
+.garden-kicker{color:#e1b749;font-size:.82rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:7px;}
+.garden-title{margin:0;color:#9dff62;font-size:clamp(1.8rem,5vw,3.3rem);line-height:.95;text-transform:uppercase;text-shadow:0 0 14px rgba(157,255,98,.45);letter-spacing:.04em;}
+.garden-sub{margin:8px 0 0;color:#c9ff9d;opacity:.9;}
+.garden-year-toggle{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;}
+.garden-year-toggle button,.garden-action-btn,.garden-month-btn{border:1px solid rgba(157,255,98,.62);background:rgba(9,34,15,.72);color:#9dff62;border-radius:10px;padding:9px 12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;box-shadow:inset 0 0 18px rgba(157,255,98,.10);cursor:pointer;}
+.garden-year-toggle button.active,.garden-action-btn:hover,.garden-month-btn:hover{background:#9dff62;color:#061007;box-shadow:0 0 18px rgba(157,255,98,.45);}
+.garden-top-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(280px,.75fr);gap:16px;}
+.garden-panel{border:1px solid rgba(157,255,98,.46);background:rgba(1,12,5,.78);border-radius:18px;padding:15px;box-shadow:inset 0 0 24px rgba(157,255,98,.08);}
+.garden-panel h3{margin:0 0 12px;color:#e1b749;text-transform:uppercase;letter-spacing:.10em;font-size:1rem;}
+.garden-week-list{display:grid;gap:9px;}
+.garden-task{display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:start;padding:9px;border-bottom:1px solid rgba(157,255,98,.18);}
+.garden-task:last-child{border-bottom:0;}.garden-task b{color:#d8ffc3;}.garden-task small{display:block;color:#97c987;margin-top:3px;}.garden-task .tag{font-size:.72rem;color:#061007;background:#e1b749;border-radius:999px;padding:5px 8px;font-weight:900;white-space:nowrap;}
+.garden-weather{display:grid;grid-template-columns:1fr;gap:10px;}.garden-weather-card{display:flex;align-items:center;gap:14px;border:1px solid rgba(157,255,98,.30);border-radius:14px;padding:12px;background:rgba(157,255,98,.06);}.garden-weather-card .sun{font-size:2rem;filter:drop-shadow(0 0 8px rgba(225,183,73,.7));}.garden-weather-card strong{font-size:2rem;color:#d8ffc3;}
+.garden-keydates{display:grid;gap:8px;}.garden-keydates div{display:flex;justify-content:space-between;gap:10px;border-bottom:1px dashed rgba(157,255,98,.22);padding-bottom:7px;color:#c9ff9d;}
+.garden-calendar-shell{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:16px;align-items:start;}.garden-calendar-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:12px;}.garden-month-title{color:#d8ffc3;text-transform:uppercase;letter-spacing:.12em;font-weight:900;}
+.garden-cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;}.garden-dow{font-size:.76rem;text-align:center;color:#e1b749;text-transform:uppercase;letter-spacing:.08em;padding-bottom:4px;}.garden-day{min-height:72px;border:1px solid rgba(157,255,98,.24);border-radius:10px;background:rgba(157,255,98,.045);padding:7px;display:flex;flex-direction:column;gap:5px;position:relative;}.garden-day.muted{opacity:.32;}.garden-day.today{border-color:#e1b749;box-shadow:0 0 0 1px rgba(225,183,73,.45),0 0 18px rgba(225,183,73,.2);}.garden-day-num{font-weight:900;color:#d8ffc3;}.garden-icons{display:flex;gap:3px;flex-wrap:wrap;font-size:.84rem;}.garden-legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;color:#c9ff9d;font-size:.85rem;}
+.garden-roster{overflow:auto;max-height:520px;padding-right:4px;}.garden-plant-row{border:1px solid rgba(157,255,98,.25);border-radius:12px;margin-bottom:8px;padding:10px;background:rgba(157,255,98,.04);cursor:pointer;}.garden-plant-row:hover,.garden-plant-row.active{background:rgba(157,255,98,.12);border-color:rgba(157,255,98,.70);}.garden-plant-row b{color:#d8ffc3;display:block;}.garden-plant-row span{display:grid;grid-template-columns:1fr auto;gap:8px;color:#97c987;font-size:.84rem;margin-top:4px;}
+.garden-detail-card{display:grid;grid-template-columns:1.15fr .85fr;gap:16px;}.garden-stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0;}.garden-stat{border:1px solid rgba(157,255,98,.28);border-radius:12px;padding:10px;background:rgba(157,255,98,.045);}.garden-stat small{display:block;color:#97c987;text-transform:uppercase;font-size:.68rem;letter-spacing:.08em;}.garden-stat b{color:#d8ffc3;}.garden-timeline{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-top:12px;}.garden-timeline div{border:1px solid rgba(157,255,98,.28);border-radius:12px;padding:9px;min-height:76px;background:rgba(0,0,0,.20);}.garden-timeline small{display:block;color:#e1b749;text-transform:uppercase;font-size:.66rem;margin-bottom:5px;}.garden-ref-list{display:grid;gap:12px;color:#c9ff9d;}.garden-ref-list div{border-bottom:1px dashed rgba(157,255,98,.22);padding-bottom:10px;}.garden-ref-list b{display:block;color:#e1b749;text-transform:uppercase;margin-bottom:3px;}
+body.garden-active .hero, body.garden-active #homeWelcome, body.garden-active #grid, body.garden-active .wagon-wrap{display:none!important;} body.garden-active .detail{display:none!important;}
+@media (max-width: 980px){.garden-top-grid,.garden-calendar-shell,.garden-detail-card{grid-template-columns:1fr;}.garden-stat-grid{grid-template-columns:repeat(2,1fr);}.garden-timeline{grid-template-columns:1fr;}.garden-header{display:block;}.garden-year-toggle{justify-content:flex-start;margin-top:12px;}.garden-page{border-radius:18px;padding:13px;}.garden-day{min-height:58px;padding:5px;}}
+@media (max-width: 720px){.garden-cal{gap:3px;}.garden-day{min-height:50px;border-radius:8px;font-size:.82rem;}.garden-icons{font-size:.72rem;}.garden-task{grid-template-columns:24px 1fr;}.garden-task .tag{grid-column:2;justify-self:start;}}
+
 </style>
 
 
@@ -1937,6 +2557,37 @@ body.theme-retro .pantry-home-card button{background:#123014;color:#9dff9a;borde
 body.theme-pipboy{--pip-green:#7cff6b;--pip-dim:#1f6f2a;--pip-bg:#061006;--pip-amber:#ffb35f;background:var(--pip-bg);color:var(--pip-green);}
 body.theme-pipboy .sidebar,body.theme-pipboy .content,body.theme-pipboy .detail-card{background:#071407;border-color:rgba(124,255,107,.35);color:var(--pip-green);font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;}
 @media(max-width:620px){.pantry-home-card{align-items:stretch;flex-direction:column}.pantry-home-card button{width:100%;}}
+
+
+/* QA31: Dedicated Pip-Boy Garden Calendar page */
+.garden-page{grid-column:1 / -1;display:none;position:relative;overflow:hidden;padding:18px;border-radius:24px;background:radial-gradient(circle at 18% 8%, rgba(101,255,72,.14), transparent 22rem),radial-gradient(circle at 80% 2%, rgba(227,168,53,.10), transparent 18rem),linear-gradient(180deg,#07140c 0%,#081b0f 42%,#050b07 100%);border:2px solid rgba(126,255,89,.58);box-shadow:0 24px 70px rgba(0,0,0,.38), inset 0 0 38px rgba(83,255,57,.10);color:#9dff62;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Courier New",monospace;}
+.garden-page.active{display:block;}
+.garden-page::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.16;background:repeating-linear-gradient(0deg,rgba(157,255,98,.20) 0 1px,transparent 1px 4px);mix-blend-mode:screen;}
+.garden-page::after{content:"";position:absolute;inset:-20%;pointer-events:none;opacity:.18;background:radial-gradient(ellipse at center,transparent 0 54%,rgba(0,0,0,.75) 100%);}
+.garden-inner{position:relative;z-index:1;display:grid;gap:16px;}
+.garden-header{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;border-bottom:1px solid rgba(157,255,98,.36);padding-bottom:14px;}
+.garden-kicker{color:#e1b749;font-size:.82rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:7px;}
+.garden-title{margin:0;color:#9dff62;font-size:clamp(1.8rem,5vw,3.3rem);line-height:.95;text-transform:uppercase;text-shadow:0 0 14px rgba(157,255,98,.45);letter-spacing:.04em;}
+.garden-sub{margin:8px 0 0;color:#c9ff9d;opacity:.9;}
+.garden-year-toggle{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;}
+.garden-year-toggle button,.garden-action-btn,.garden-month-btn{border:1px solid rgba(157,255,98,.62);background:rgba(9,34,15,.72);color:#9dff62;border-radius:10px;padding:9px 12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;box-shadow:inset 0 0 18px rgba(157,255,98,.10);cursor:pointer;}
+.garden-year-toggle button.active,.garden-action-btn:hover,.garden-month-btn:hover{background:#9dff62;color:#061007;box-shadow:0 0 18px rgba(157,255,98,.45);}
+.garden-top-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(280px,.75fr);gap:16px;}
+.garden-panel{border:1px solid rgba(157,255,98,.46);background:rgba(1,12,5,.78);border-radius:18px;padding:15px;box-shadow:inset 0 0 24px rgba(157,255,98,.08);}
+.garden-panel h3{margin:0 0 12px;color:#e1b749;text-transform:uppercase;letter-spacing:.10em;font-size:1rem;}
+.garden-week-list{display:grid;gap:9px;}
+.garden-task{display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:start;padding:9px;border-bottom:1px solid rgba(157,255,98,.18);}
+.garden-task:last-child{border-bottom:0;}.garden-task b{color:#d8ffc3;}.garden-task small{display:block;color:#97c987;margin-top:3px;}.garden-task .tag{font-size:.72rem;color:#061007;background:#e1b749;border-radius:999px;padding:5px 8px;font-weight:900;white-space:nowrap;}
+.garden-weather{display:grid;grid-template-columns:1fr;gap:10px;}.garden-weather-card{display:flex;align-items:center;gap:14px;border:1px solid rgba(157,255,98,.30);border-radius:14px;padding:12px;background:rgba(157,255,98,.06);}.garden-weather-card .sun{font-size:2rem;filter:drop-shadow(0 0 8px rgba(225,183,73,.7));}.garden-weather-card strong{font-size:2rem;color:#d8ffc3;}
+.garden-keydates{display:grid;gap:8px;}.garden-keydates div{display:flex;justify-content:space-between;gap:10px;border-bottom:1px dashed rgba(157,255,98,.22);padding-bottom:7px;color:#c9ff9d;}
+.garden-calendar-shell{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:16px;align-items:start;}.garden-calendar-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:12px;}.garden-month-title{color:#d8ffc3;text-transform:uppercase;letter-spacing:.12em;font-weight:900;}
+.garden-cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;}.garden-dow{font-size:.76rem;text-align:center;color:#e1b749;text-transform:uppercase;letter-spacing:.08em;padding-bottom:4px;}.garden-day{min-height:72px;border:1px solid rgba(157,255,98,.24);border-radius:10px;background:rgba(157,255,98,.045);padding:7px;display:flex;flex-direction:column;gap:5px;position:relative;}.garden-day.muted{opacity:.32;}.garden-day.today{border-color:#e1b749;box-shadow:0 0 0 1px rgba(225,183,73,.45),0 0 18px rgba(225,183,73,.2);}.garden-day-num{font-weight:900;color:#d8ffc3;}.garden-icons{display:flex;gap:3px;flex-wrap:wrap;font-size:.84rem;}.garden-legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;color:#c9ff9d;font-size:.85rem;}
+.garden-roster{overflow:auto;max-height:520px;padding-right:4px;}.garden-plant-row{border:1px solid rgba(157,255,98,.25);border-radius:12px;margin-bottom:8px;padding:10px;background:rgba(157,255,98,.04);cursor:pointer;}.garden-plant-row:hover,.garden-plant-row.active{background:rgba(157,255,98,.12);border-color:rgba(157,255,98,.70);}.garden-plant-row b{color:#d8ffc3;display:block;}.garden-plant-row span{display:grid;grid-template-columns:1fr auto;gap:8px;color:#97c987;font-size:.84rem;margin-top:4px;}
+.garden-detail-card{display:grid;grid-template-columns:1.15fr .85fr;gap:16px;}.garden-stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0;}.garden-stat{border:1px solid rgba(157,255,98,.28);border-radius:12px;padding:10px;background:rgba(157,255,98,.045);}.garden-stat small{display:block;color:#97c987;text-transform:uppercase;font-size:.68rem;letter-spacing:.08em;}.garden-stat b{color:#d8ffc3;}.garden-timeline{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-top:12px;}.garden-timeline div{border:1px solid rgba(157,255,98,.28);border-radius:12px;padding:9px;min-height:76px;background:rgba(0,0,0,.20);}.garden-timeline small{display:block;color:#e1b749;text-transform:uppercase;font-size:.66rem;margin-bottom:5px;}.garden-ref-list{display:grid;gap:12px;color:#c9ff9d;}.garden-ref-list div{border-bottom:1px dashed rgba(157,255,98,.22);padding-bottom:10px;}.garden-ref-list b{display:block;color:#e1b749;text-transform:uppercase;margin-bottom:3px;}
+body.garden-active .hero, body.garden-active #homeWelcome, body.garden-active #grid, body.garden-active .wagon-wrap{display:none!important;} body.garden-active .detail{display:none!important;}
+@media (max-width: 980px){.garden-top-grid,.garden-calendar-shell,.garden-detail-card{grid-template-columns:1fr;}.garden-stat-grid{grid-template-columns:repeat(2,1fr);}.garden-timeline{grid-template-columns:1fr;}.garden-header{display:block;}.garden-year-toggle{justify-content:flex-start;margin-top:12px;}.garden-page{border-radius:18px;padding:13px;}.garden-day{min-height:58px;padding:5px;}}
+@media (max-width: 720px){.garden-cal{gap:3px;}.garden-day{min-height:50px;border-radius:8px;font-size:.82rem;}.garden-icons{font-size:.72rem;}.garden-task{grid-template-columns:24px 1fr;}.garden-task .tag{grid-column:2;justify-self:start;}}
+
 </style>
 
 
@@ -1971,6 +2622,37 @@ body.theme-retro .search-results-note{
   color:#9dff9a;
   font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
 }
+
+
+/* QA31: Dedicated Pip-Boy Garden Calendar page */
+.garden-page{grid-column:1 / -1;display:none;position:relative;overflow:hidden;padding:18px;border-radius:24px;background:radial-gradient(circle at 18% 8%, rgba(101,255,72,.14), transparent 22rem),radial-gradient(circle at 80% 2%, rgba(227,168,53,.10), transparent 18rem),linear-gradient(180deg,#07140c 0%,#081b0f 42%,#050b07 100%);border:2px solid rgba(126,255,89,.58);box-shadow:0 24px 70px rgba(0,0,0,.38), inset 0 0 38px rgba(83,255,57,.10);color:#9dff62;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Courier New",monospace;}
+.garden-page.active{display:block;}
+.garden-page::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.16;background:repeating-linear-gradient(0deg,rgba(157,255,98,.20) 0 1px,transparent 1px 4px);mix-blend-mode:screen;}
+.garden-page::after{content:"";position:absolute;inset:-20%;pointer-events:none;opacity:.18;background:radial-gradient(ellipse at center,transparent 0 54%,rgba(0,0,0,.75) 100%);}
+.garden-inner{position:relative;z-index:1;display:grid;gap:16px;}
+.garden-header{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;border-bottom:1px solid rgba(157,255,98,.36);padding-bottom:14px;}
+.garden-kicker{color:#e1b749;font-size:.82rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:7px;}
+.garden-title{margin:0;color:#9dff62;font-size:clamp(1.8rem,5vw,3.3rem);line-height:.95;text-transform:uppercase;text-shadow:0 0 14px rgba(157,255,98,.45);letter-spacing:.04em;}
+.garden-sub{margin:8px 0 0;color:#c9ff9d;opacity:.9;}
+.garden-year-toggle{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;}
+.garden-year-toggle button,.garden-action-btn,.garden-month-btn{border:1px solid rgba(157,255,98,.62);background:rgba(9,34,15,.72);color:#9dff62;border-radius:10px;padding:9px 12px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;box-shadow:inset 0 0 18px rgba(157,255,98,.10);cursor:pointer;}
+.garden-year-toggle button.active,.garden-action-btn:hover,.garden-month-btn:hover{background:#9dff62;color:#061007;box-shadow:0 0 18px rgba(157,255,98,.45);}
+.garden-top-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(280px,.75fr);gap:16px;}
+.garden-panel{border:1px solid rgba(157,255,98,.46);background:rgba(1,12,5,.78);border-radius:18px;padding:15px;box-shadow:inset 0 0 24px rgba(157,255,98,.08);}
+.garden-panel h3{margin:0 0 12px;color:#e1b749;text-transform:uppercase;letter-spacing:.10em;font-size:1rem;}
+.garden-week-list{display:grid;gap:9px;}
+.garden-task{display:grid;grid-template-columns:28px 1fr auto;gap:10px;align-items:start;padding:9px;border-bottom:1px solid rgba(157,255,98,.18);}
+.garden-task:last-child{border-bottom:0;}.garden-task b{color:#d8ffc3;}.garden-task small{display:block;color:#97c987;margin-top:3px;}.garden-task .tag{font-size:.72rem;color:#061007;background:#e1b749;border-radius:999px;padding:5px 8px;font-weight:900;white-space:nowrap;}
+.garden-weather{display:grid;grid-template-columns:1fr;gap:10px;}.garden-weather-card{display:flex;align-items:center;gap:14px;border:1px solid rgba(157,255,98,.30);border-radius:14px;padding:12px;background:rgba(157,255,98,.06);}.garden-weather-card .sun{font-size:2rem;filter:drop-shadow(0 0 8px rgba(225,183,73,.7));}.garden-weather-card strong{font-size:2rem;color:#d8ffc3;}
+.garden-keydates{display:grid;gap:8px;}.garden-keydates div{display:flex;justify-content:space-between;gap:10px;border-bottom:1px dashed rgba(157,255,98,.22);padding-bottom:7px;color:#c9ff9d;}
+.garden-calendar-shell{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:16px;align-items:start;}.garden-calendar-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:12px;}.garden-month-title{color:#d8ffc3;text-transform:uppercase;letter-spacing:.12em;font-weight:900;}
+.garden-cal{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;}.garden-dow{font-size:.76rem;text-align:center;color:#e1b749;text-transform:uppercase;letter-spacing:.08em;padding-bottom:4px;}.garden-day{min-height:72px;border:1px solid rgba(157,255,98,.24);border-radius:10px;background:rgba(157,255,98,.045);padding:7px;display:flex;flex-direction:column;gap:5px;position:relative;}.garden-day.muted{opacity:.32;}.garden-day.today{border-color:#e1b749;box-shadow:0 0 0 1px rgba(225,183,73,.45),0 0 18px rgba(225,183,73,.2);}.garden-day-num{font-weight:900;color:#d8ffc3;}.garden-icons{display:flex;gap:3px;flex-wrap:wrap;font-size:.84rem;}.garden-legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;color:#c9ff9d;font-size:.85rem;}
+.garden-roster{overflow:auto;max-height:520px;padding-right:4px;}.garden-plant-row{border:1px solid rgba(157,255,98,.25);border-radius:12px;margin-bottom:8px;padding:10px;background:rgba(157,255,98,.04);cursor:pointer;}.garden-plant-row:hover,.garden-plant-row.active{background:rgba(157,255,98,.12);border-color:rgba(157,255,98,.70);}.garden-plant-row b{color:#d8ffc3;display:block;}.garden-plant-row span{display:grid;grid-template-columns:1fr auto;gap:8px;color:#97c987;font-size:.84rem;margin-top:4px;}
+.garden-detail-card{display:grid;grid-template-columns:1.15fr .85fr;gap:16px;}.garden-stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0;}.garden-stat{border:1px solid rgba(157,255,98,.28);border-radius:12px;padding:10px;background:rgba(157,255,98,.045);}.garden-stat small{display:block;color:#97c987;text-transform:uppercase;font-size:.68rem;letter-spacing:.08em;}.garden-stat b{color:#d8ffc3;}.garden-timeline{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-top:12px;}.garden-timeline div{border:1px solid rgba(157,255,98,.28);border-radius:12px;padding:9px;min-height:76px;background:rgba(0,0,0,.20);}.garden-timeline small{display:block;color:#e1b749;text-transform:uppercase;font-size:.66rem;margin-bottom:5px;}.garden-ref-list{display:grid;gap:12px;color:#c9ff9d;}.garden-ref-list div{border-bottom:1px dashed rgba(157,255,98,.22);padding-bottom:10px;}.garden-ref-list b{display:block;color:#e1b749;text-transform:uppercase;margin-bottom:3px;}
+body.garden-active .hero, body.garden-active #homeWelcome, body.garden-active #grid, body.garden-active .wagon-wrap{display:none!important;} body.garden-active .detail{display:none!important;}
+@media (max-width: 980px){.garden-top-grid,.garden-calendar-shell,.garden-detail-card{grid-template-columns:1fr;}.garden-stat-grid{grid-template-columns:repeat(2,1fr);}.garden-timeline{grid-template-columns:1fr;}.garden-header{display:block;}.garden-year-toggle{justify-content:flex-start;margin-top:12px;}.garden-page{border-radius:18px;padding:13px;}.garden-day{min-height:58px;padding:5px;}}
+@media (max-width: 720px){.garden-cal{gap:3px;}.garden-day{min-height:50px;border-radius:8px;font-size:.82rem;}.garden-icons{font-size:.72rem;}.garden-task{grid-template-columns:24px 1fr;}.garden-task .tag{grid-column:2;justify-self:start;}}
+
 </style>
 
 </head>
@@ -2004,7 +2686,7 @@ body.theme-retro .search-results-note{
     <div class="nav-label">Recipes</div>
     <div id="categoryMenu"></div>
     <div class="nav-section">
-      <button class="nav-item" data-retro-code="NOTES.TXT" onclick="setSpecial('notes')"><span class="nav-dot">•</span><span class="nav-title">Garden Calendar</span></button>
+      <button class="nav-item" data-retro-code="GARDEN.CAL" onclick="setSpecial('garden')"><span class="nav-dot">•</span><span class="nav-title">Garden Calendar</span></button>
       <button class="nav-item" data-retro-code="FREEZER.DAT" onclick="setTagFilter('Freezer Friendly')"><span class="nav-dot">•</span><span class="nav-title">Freezer Friendly</span></button>
       <button class="nav-item" data-retro-code="PANTRY.SEARCH" onclick="openIngredientSearch()"><span class="nav-dot">•</span><span class="nav-title">Ingredient Search</span></button>
     </div>
@@ -2064,6 +2746,32 @@ body.theme-retro .search-results-note{
 </section>
 
       <section id="grid" class="card-grid"></section>
+
+      <section id="gardenPage" class="garden-page" aria-label="Garden Calendar">
+        <div class="garden-inner">
+          <div class="garden-header">
+            <div>
+              <div class="garden-kicker">kWen’s Cookbook // Garden Mode</div>
+              <h1 class="garden-title">Garden Calendar</h1>
+              <p class="garden-sub">Plan · Plant · Feed · Harvest — Riverview / Moncton, NB timing for this year and next year.</p>
+            </div>
+            <div class="garden-year-toggle" id="gardenYearToggle"></div>
+          </div>
+          <div class="garden-top-grid">
+            <div class="garden-panel"><h3>This Week / Right Now</h3><div class="garden-week-list" id="gardenThisWeek"></div></div>
+            <div class="garden-panel garden-weather"><h3>Quick Reference</h3><div class="garden-weather-card"><span class="sun">☀</span><div><strong>Late May</strong><br><span>After average last frost, start moving warm-season crops outside gradually.</span></div></div><div class="garden-keydates" id="gardenKeyDates"></div></div>
+          </div>
+          <div class="garden-calendar-shell">
+            <div class="garden-panel"><div class="garden-calendar-head"><button class="garden-month-btn" id="gardenPrevMonth" type="button">←</button><div class="garden-month-title" id="gardenMonthTitle">Month</div><button class="garden-month-btn" id="gardenNextMonth" type="button">→</button></div><div class="garden-cal" id="gardenCalendarGrid"></div><div class="garden-legend"><span>🌱 Sow</span><span>🪴 Transplant</span><span>💧 Fertilize</span><span>🧺 Harvest</span><span>🛒 Buy starter</span></div></div>
+            <div class="garden-panel"><h3>Plant Roster</h3><div class="garden-roster" id="gardenPlantRoster"></div></div>
+          </div>
+          <div class="garden-detail-card">
+            <div class="garden-panel"><h3 id="gardenPlantTitle">Plant Details</h3><div class="garden-stat-grid" id="gardenPlantStats"></div><div class="garden-timeline" id="gardenTimeline"></div></div>
+            <div class="garden-panel"><h3>Water + Fertilizer</h3><div class="garden-ref-list" id="gardenReference"></div></div>
+          </div>
+        </div>
+      </section>
+
       <div class="wagon-wrap" aria-hidden="true">
         <img class="final-wagon-art" src="images/kwens-wagon.PNG" alt="Vintage beige station wagon by the coast with George Johnson quote">
       </div>
@@ -2277,6 +2985,7 @@ function updateHomeWelcome() {
   const q = document.getElementById('search') ? document.getElementById('search').value.trim() : '';
   const isHome = activeSpecial === 'home' && !q;
   document.body.classList.toggle('home-active', isHome);
+  document.body.classList.toggle('garden-active', activeSpecial === 'garden' && !q);
   home.classList.toggle('active', isHome);
   grid.style.display = isHome ? 'none' : '';
 }
@@ -2366,6 +3075,17 @@ function render() {
     subtitleFor(title);
 
   const grid = document.getElementById('grid');
+
+  if (activeSpecial === 'garden' && !qNow) {
+    grid.innerHTML = '';
+    grid.style.display = 'none';
+    document.body.classList.remove('detail-open');
+    renderGardenCalendar();
+    return;
+  }
+
+  const gardenPage = document.getElementById('gardenPage');
+  if (gardenPage) gardenPage.classList.remove('active');
 
   // Home is its own landing page. Do not render recipe cards under it.
   if (activeSpecial === 'home' && !qNow) {
@@ -2529,6 +3249,85 @@ function focusGlobalSearch(example) {
   render();
 }
 
+
+
+
+/* QA31 Garden Calendar: dedicated Pip-Boy style calendar page */
+const GARDEN_STATE = { year: new Date().getFullYear(), month: 4, plant: 0 };
+const GARDEN_YEARS = [new Date().getFullYear(), new Date().getFullYear()+1];
+const GARDEN_PLANTS = [
+  {name:'Tomatoes (San Marzano)', icon:'🍅', type:'Start indoors → transplant', where:'10–15 gal grow bag or raised bed', light:'Full sun', spacing:'24–30 in', sow:'Mar 1 – Mar 20', transplant:'Jun 5 – Jun 15', fertilize:'10-10-10 after transplant; 5-10-10 every 2 weeks when flowering/fruiting', water:'Deep water 2–3x/week; keep soil evenly moist to prevent blossom-end rot.', harvest:'Aug 1 – Sep 30', notes:'Stake or cage. Keep watering consistent; add calcium/eggshells or calcium nitrate if needed.', tasks:[['sow','03-01','03-20'],['transplant','06-05','06-15'],['fertilize','06-20','09-05'],['harvest','08-01','09-30']]},
+  {name:'Cherry Tomatoes', icon:'🍅', type:'Start indoors → transplant', where:'10 gal grow bag or raised bed', light:'Full sun', spacing:'18–24 in', sow:'Mar 1 – Mar 20', transplant:'Jun 5 – Jun 15', fertilize:'10-10-10 after transplant; 5-10-10 when flowering/fruiting', water:'Consistent deep watering 2–3x/week; containers may need daily water in heat.', harvest:'Jul 20 – Sep 30', notes:'Very container-friendly. Cage early before it sprawls.', tasks:[['sow','03-01','03-20'],['transplant','06-05','06-15'],['fertilize','06-20','09-05'],['harvest','07-20','09-30']]},
+  {name:'Cucumbers', icon:'🥒', type:'Direct sow', where:'Raised bed with trellis or 7–10 gal grow bag', light:'Full sun', spacing:'12 in at trellis', sow:'May 25 – Jun 10', transplant:'Optional starts: Jun 1 – Jun 10', fertilize:'10-10-10 at planting; 5-10-10 once flowering starts', water:'Heavy drinkers. Keep evenly moist; avoid drying out or fruit can turn bitter.', harvest:'Jul 15 – Sep 5', notes:'Trellis them to save space and improve airflow.', tasks:[['sow','05-25','06-10'],['transplant','06-01','06-10'],['fertilize','06-15','08-15'],['harvest','07-15','09-05']]},
+  {name:'Peas', icon:'🫛', type:'Direct sow', where:'Raised bed with short trellis', light:'Full sun / cool season', spacing:'2 in', sow:'Apr 15 – May 10', transplant:'Not recommended', fertilize:'Light compost only; avoid heavy nitrogen', water:'Keep moist during germination and pod set.', harvest:'Jun 20 – Jul 20', notes:'Best early. For next year, sow as soon as soil can be worked.', tasks:[['sow','04-15','05-10'],['harvest','06-20','07-20']]},
+  {name:'Yellow Wax Beans', icon:'🫘', type:'Direct sow', where:'Raised bed', light:'Full sun', spacing:'4–6 in', sow:'May 25 – Jun 20', transplant:'Not recommended', fertilize:'Light 10-10-10 at planting; avoid too much nitrogen', water:'Water deeply 1–2x/week; increase during flowering.', harvest:'Jul 25 – Sep 1', notes:'Succession sow every 2 weeks until late June for a longer harvest.', tasks:[['sow','05-25','06-20'],['fertilize','05-25','06-20'],['harvest','07-25','09-01']]},
+  {name:'Golden Beets', icon:'🟡', type:'Direct sow', where:'Raised bed', light:'Full sun / part sun', spacing:'3–4 in after thinning', sow:'May 1 – Jul 15', transplant:'Not recommended', fertilize:'10-10-10 or compost at sowing; light side-dress midseason', water:'Keep evenly moist so roots stay tender.', harvest:'Jul 1 – Oct 1', notes:'Thin seedlings; beet greens are edible.', tasks:[['sow','05-01','07-15'],['fertilize','05-15','08-01'],['harvest','07-01','10-01']]},
+  {name:'Green Peppers', icon:'🫑', type:'Starter plant this year; start seed next year', where:'5–7 gal grow bag or warm raised bed', light:'Full sun / warmest spot', spacing:'18 in', sow:'Feb 15 – Mar 15', transplant:'Jun 5 – Jun 15', fertilize:'10-10-10 after transplant; 5-10-10 once flowering', water:'Even moisture; containers dry fast in heat.', harvest:'Aug 1 – Sep 30', notes:'For this year: buy a healthy starter plant now and transplant after nights stay mild.', tasks:[['buy','05-26','06-10'],['sow','02-15','03-15'],['transplant','06-05','06-15'],['fertilize','06-20','09-01'],['harvest','08-01','09-30']]},
+  {name:'Garlic', icon:'🧄', type:'Plant cloves in fall', where:'Raised bed', light:'Full sun', spacing:'6 in', sow:'Sep 25 – Oct 15', transplant:'Plant cloves directly', fertilize:'10-10-10 or high-nitrogen organic feed in early spring', water:'Water in spring; ease off as leaves yellow before harvest.', harvest:'Jul 20 – Aug 10', notes:'Plant pointed side up in fall. Mulch before winter.', tasks:[['sow','09-25','10-15'],['fertilize','04-10','05-15'],['harvest','07-20','08-10']]},
+  {name:'Thai Basil', icon:'🌿', type:'Start indoors → transplant', where:'3 gal grow bag / pot', light:'Full sun / warm', spacing:'10–12 in', sow:'Apr 1 – Apr 25', transplant:'Jun 1 – Jun 10', fertilize:'Light 10-10-10 every 3–4 weeks', water:'Keep moist, not soggy. Pinch often.', harvest:'Jul 1 – Sep 15', notes:'Very frost-sensitive. Loves heat.', tasks:[['sow','04-01','04-25'],['transplant','06-01','06-10'],['fertilize','06-20','08-20'],['harvest','07-01','09-15']]},
+  {name:'Basil', icon:'🌱', type:'Start indoors → transplant', where:'3 gal grow bag / pot', light:'Full sun', spacing:'10–12 in', sow:'Apr 1 – Apr 25', transplant:'Jun 1 – Jun 10', fertilize:'Light 10-10-10 every 3–4 weeks', water:'Consistent moisture. Pinch flower buds.', harvest:'Jul 1 – Sep 15', notes:'Great near tomatoes. Harvest tips regularly for bushy growth.', tasks:[['sow','04-01','04-25'],['transplant','06-01','06-10'],['fertilize','06-20','08-20'],['harvest','07-01','09-15']]},
+  {name:'Thyme', icon:'🌿', type:'Start indoors or buy small start', where:'Raised bed edge or pot', light:'Full sun', spacing:'12 in', sow:'Mar 15 – Apr 15', transplant:'May 25 – Jun 10', fertilize:'Very light compost only; avoid rich feeding', water:'Let dry slightly between waterings. Hates wet feet.', harvest:'Jul 1 – Oct 1', notes:'Excellent bed edge herb. More drought-tolerant than basil.', tasks:[['sow','03-15','04-15'],['transplant','05-25','06-10'],['harvest','07-01','10-01']]}
+];
+const GARDEN_ICON = {sow:'🌱', transplant:'🪴', fertilize:'💧', harvest:'🧺', buy:'🛒'};
+const GARDEN_LABEL = {sow:'Sow seeds', transplant:'Transplant / move outside', fertilize:'Fertilize', harvest:'Harvest', buy:'Buy starter plant'};
+function gardenMD(md){ const [m,d]=md.split('-').map(Number); return {m:m-1,d}; }
+function gardenInRange(month, day, start, end){ const s=gardenMD(start), e=gardenMD(end); const val=month*100+day, sv=s.m*100+s.d, ev=e.m*100+e.d; return val>=sv && val<=ev; }
+function gardenTaskMatchesMonth(month, plant){ return plant.tasks.some(t=>{const s=gardenMD(t[1]), e=gardenMD(t[2]); return month>=s.m && month<=e.m;}); }
+function renderGardenCalendar(){
+  const page=document.getElementById('gardenPage'); if(!page) return; page.classList.add('active');
+  const title=document.getElementById('pageTitle'); if(title) title.textContent='Garden Calendar';
+  const sub=document.getElementById('pageSubtitle'); if(sub) sub.textContent='Pip-Boy style planting calendar for seeds, grow bags, beds, watering, and fertilizer.';
+  const yWrap=document.getElementById('gardenYearToggle');
+  yWrap.innerHTML=GARDEN_YEARS.map(y=>`<button class="${y===GARDEN_STATE.year?'active':''}" onclick="GARDEN_STATE.year=${y}; renderGardenCalendar();">${y}</button>`).join('');
+  const rightNow=[
+    ['🌱','Direct sow cucumbers','Raised bed or grow bag with trellis','Sow'],
+    ['🌱','Direct sow yellow wax beans','Raised bed','Sow'],
+    ['🌱','Direct sow golden beets','Raised bed; thin seedlings','Sow'],
+    ['🛒','Buy starter plant for green peppers','Then transplant after frost risk / mild nights','This year'],
+    ['🪴','Harden off tomatoes, basil, and thyme','A few hours outside, increasing daily','Move outside']
+  ];
+  document.getElementById('gardenThisWeek').innerHTML=rightNow.map(t=>`<div class="garden-task"><span>${t[0]}</span><div><b>${t[1]}</b><small>${t[2]}</small></div><span class="tag">${t[3]}</span></div>`).join('');
+  document.getElementById('gardenKeyDates').innerHTML=[
+    ['Average last frost note','Mid-May-ish; use caution with warm crops'],['Tomato / pepper transplant','Jun 5 – Jun 15'],['Garlic planting','Sep 25 – Oct 15'],['Main harvest window','Jul – Sep']
+  ].map(x=>`<div><span>${x[0]}</span><b>${x[1]}</b></div>`).join('');
+  renderGardenMonth(); renderGardenRoster(); renderGardenPlantDetail();
+}
+function renderGardenMonth(){
+  const month=GARDEN_STATE.month, year=GARDEN_STATE.year;
+  const names=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  document.getElementById('gardenMonthTitle').textContent=`${names[month]} ${year}`;
+  const grid=document.getElementById('gardenCalendarGrid');
+  const dows=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  let html=dows.map(d=>`<div class="garden-dow">${d}</div>`).join('');
+  const first=new Date(year,month,1), start=first.getDay();
+  const days=new Date(year,month+1,0).getDate();
+  const prevDays=new Date(year,month,0).getDate();
+  const today=new Date();
+  const cells=[];
+  for(let i=0;i<start;i++) cells.push({day:prevDays-start+i+1, muted:true});
+  for(let day=1;day<=days;day++) cells.push({day, muted:false});
+  while(cells.length%7!==0) cells.push({day:cells.length, muted:true});
+  html += cells.map(c=>{
+    const icons = !c.muted ? GARDEN_PLANTS.flatMap(p=>p.tasks.filter(t=>gardenInRange(month,c.day,t[1],t[2])).map(t=>GARDEN_ICON[t[0]])).slice(0,5) : [];
+    const cls = (!c.muted && today.getFullYear()===year && today.getMonth()===month && today.getDate()===c.day) ? ' today' : '';
+    return `<div class="garden-day ${c.muted?'muted':''}${cls}"><span class="garden-day-num">${c.day}</span><span class="garden-icons">${[...new Set(icons)].join('')}</span></div>`;
+  }).join('');
+  grid.innerHTML=html;
+  const prev=document.getElementById('gardenPrevMonth'), next=document.getElementById('gardenNextMonth');
+  prev.onclick=()=>{GARDEN_STATE.month=(GARDEN_STATE.month+11)%12; renderGardenCalendar();};
+  next.onclick=()=>{GARDEN_STATE.month=(GARDEN_STATE.month+1)%12; renderGardenCalendar();};
+}
+function renderGardenRoster(){
+  const roster=document.getElementById('gardenPlantRoster');
+  roster.innerHTML=GARDEN_PLANTS.map((p,i)=>`<div class="garden-plant-row ${i===GARDEN_STATE.plant?'active':''}" onclick="GARDEN_STATE.plant=${i}; renderGardenCalendar();"><b>${p.icon} ${p.name}</b><span><em>${p.type}</em><strong>${p.transplant || p.sow}</strong></span><span><em>${p.where}</em><strong>${p.tasks.some(t=>gardenTaskMatchesMonth(GARDEN_STATE.month,p))?'Active':'Later'}</strong></span></div>`).join('');
+}
+function renderGardenPlantDetail(){
+  const p=GARDEN_PLANTS[GARDEN_STATE.plant] || GARDEN_PLANTS[0];
+  document.getElementById('gardenPlantTitle').textContent=`${p.icon} ${p.name}`;
+  document.getElementById('gardenPlantStats').innerHTML=[['Type',p.type],['Where',p.where],['Light',p.light],['Spacing',p.spacing]].map(x=>`<div class="garden-stat"><small>${x[0]}</small><b>${x[1]}</b></div>`).join('');
+  document.getElementById('gardenTimeline').innerHTML=[['Start/Sow',p.sow],['Transplant',p.transplant],['Fertilize',p.fertilize],['Harvest',p.harvest],['Notes',p.notes]].map(x=>`<div><small>${x[0]}</small><b>${x[1]}</b></div>`).join('');
+  document.getElementById('gardenReference').innerHTML=[['Watering',p.water],['Fertilizer',p.fertilize],['Best Location',p.where],['Reminder',p.notes]].map(x=>`<div><b>${x[0]}</b>${x[1]}</div>`).join('');
+}
 
 /* QA29 robust global search: searches ALL recipes no matter which page/category is active. */
 function recipeGlobalBlob(r) {
@@ -2922,51 +3721,6 @@ render();
 </script>
 
 
-
-
-<section id="garden-calendar" style="padding:24px;background:#f5ecd9;border-top:2px solid #d8c7a3;">
-<h2 style="font-size:2rem;margin-bottom:12px;">🌱 Garden Calendar</h2>
-
-<div style="background:#fff8eb;padding:16px;border-radius:16px;border:2px solid #d6c29c;margin-bottom:20px;">
-<h3>This Week</h3>
-<ul>
-<li>Direct sow cucumbers</li>
-<li>Direct sow yellow wax beans</li>
-<li>Harden off tomatoes outdoors</li>
-<li>Buy starter plant for green peppers</li>
-</ul>
-</div>
-
-<div style="background:#fff8eb;padding:16px;border-radius:16px;border:2px solid #d6c29c;margin-bottom:20px;">
-<h3>June 2026</h3>
-<p>🌱 Sow • 🪴 Transplant • 💧 Fertilize • 🧺 Harvest</p>
-<p>5–15: Transplant tomatoes outdoors</p>
-<p>1–10: Transplant basil outdoors</p>
-<p>Now: Direct sow cucumbers & beans</p>
-</div>
-
-<div style="display:grid;gap:16px;">
-<div style="background:#fff8eb;padding:16px;border-radius:16px;border:2px solid #d6c29c;">
-<h3>🍅 Tomatoes (San Marzano & Cherry)</h3>
-<p><strong>Best:</strong> Grow bag (10–15 gal)</p>
-<p><strong>Fertilizer:</strong> 10-10-10 early, 5-10-10 when fruiting</p>
-<p><strong>Water:</strong> Deep watering 2–3x/week</p>
-</div>
-
-<div style="background:#fff8eb;padding:16px;border-radius:16px;border:2px solid #d6c29c;">
-<h3>🥒 Cucumbers</h3>
-<p><strong>Best:</strong> Raised bed or grow bag with trellis</p>
-<p><strong>Fertilizer:</strong> 10-10-10</p>
-<p><strong>Water:</strong> Keep consistently moist</p>
-</div>
-
-<div style="background:#fff8eb;padding:16px;border-radius:16px;border:2px solid #d6c29c;">
-<h3>🌿 Basil & Thai Basil</h3>
-<p><strong>Best:</strong> Grow bags or pots</p>
-<p><strong>Fertilizer:</strong> Light 10-10-10 every 2–3 weeks</p>
-</div>
-</div>
-</section>
 
 </body>
 </html>
