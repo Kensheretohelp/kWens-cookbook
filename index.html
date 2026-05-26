@@ -1767,9 +1767,9 @@ body.theme-retro .temp-fab{
 
 
 
-<style id="kwen-qa22-bmo-lane2-css">
-/* QA22 Lane 2: BMO helper identity + Lane 3 seed for BMO-Tec/Pip-Boy. */
-.bmo-helper-card{
+<style id="kwen-qa27-helper-css">
+/* QA22 Lane 2: Kitchen_OS helper identity + Lane 3 seed for Pip-Boy/Pip-Boy. */
+.helper-card{
   margin:16px 0 2px;
   display:grid;
   grid-template-columns:62px minmax(0,1fr);
@@ -1781,7 +1781,7 @@ body.theme-retro .temp-fab{
   background:linear-gradient(180deg, rgba(255,247,232,.82), rgba(248,231,196,.76));
   box-shadow:0 10px 24px rgba(20,40,34,.10);
 }
-.bmo-helper-card strong{
+.helper-card strong{
   display:block;
   color:var(--rust-dark);
   font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;
@@ -1790,28 +1790,28 @@ body.theme-retro .temp-fab{
   text-transform:uppercase;
   font-size:.82rem;
 }
-.bmo-helper-card p{margin:5px 0 0 !important;font-size:.98rem !important;line-height:1.35 !important;color:var(--teal-ink) !important;}
-.bmo-face{
+.helper-card p{margin:5px 0 0 !important;font-size:.98rem !important;line-height:1.35 !important;color:var(--teal-ink) !important;}
+.helper-face{
   width:58px;height:46px;border-radius:13px;
   background:linear-gradient(180deg,#a9dfcf,#6db6a7);
   border:3px solid rgba(5,55,70,.72);
   box-shadow:inset 0 -5px rgba(5,55,70,.10),0 6px 12px rgba(20,40,34,.12);
   position:relative;
 }
-.bmo-face span{position:absolute;top:13px;width:8px;height:8px;border-radius:99px;background:#07323a;}
-.bmo-face span:first-child{left:15px}.bmo-face span:nth-child(2){right:15px}
-.bmo-face em{position:absolute;left:21px;bottom:10px;width:16px;height:8px;border-bottom:3px solid #07323a;border-radius:0 0 99px 99px;}
-body.theme-retro .bmo-helper-card{
+.helper-face span{position:absolute;top:13px;width:8px;height:8px;border-radius:99px;background:#07323a;}
+.helper-face span:first-child{left:15px}.helper-face span:nth-child(2){right:15px}
+.helper-face em{position:absolute;left:21px;bottom:10px;width:16px;height:8px;border-bottom:3px solid #07323a;border-radius:0 0 99px 99px;}
+body.theme-retro .helper-card{
   background:rgba(0,0,0,.62);border-color:rgba(157,255,154,.30);box-shadow:inset 0 0 22px rgba(157,255,154,.045),0 0 24px rgba(157,255,154,.08);
   font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
 }
-body.theme-retro .bmo-helper-card strong{color:#9dff9a;font-family:inherit;text-shadow:0 0 8px rgba(157,255,154,.2);}
-body.theme-retro .bmo-helper-card strong::before{content:"> ";}
-body.theme-retro .bmo-helper-card p{color:#d7ffd0 !important;}
-body.theme-retro .bmo-face{background:linear-gradient(180deg,#163719,#071007);border-color:rgba(157,255,154,.55);box-shadow:0 0 16px rgba(157,255,154,.16), inset 0 0 14px rgba(157,255,154,.08);}
-body.theme-retro .bmo-face span{background:#9dff9a;box-shadow:0 0 8px rgba(157,255,154,.75);}
-body.theme-retro .bmo-face em{border-bottom-color:#9dff9a;filter:drop-shadow(0 0 4px rgba(157,255,154,.6));}
-.bmo-toast{
+body.theme-retro .helper-card strong{color:#9dff9a;font-family:inherit;text-shadow:0 0 8px rgba(157,255,154,.2);}
+body.theme-retro .helper-card strong::before{content:"> ";}
+body.theme-retro .helper-card p{color:#d7ffd0 !important;}
+body.theme-retro .helper-face{background:linear-gradient(180deg,#163719,#071007);border-color:rgba(157,255,154,.55);box-shadow:0 0 16px rgba(157,255,154,.16), inset 0 0 14px rgba(157,255,154,.08);}
+body.theme-retro .helper-face span{background:#9dff9a;box-shadow:0 0 8px rgba(157,255,154,.75);}
+body.theme-retro .helper-face em{border-bottom-color:#9dff9a;filter:drop-shadow(0 0 4px rgba(157,255,154,.6));}
+.helper-toast{
   position:fixed;left:50%;bottom:calc(88px + env(safe-area-inset-bottom));transform:translateX(-50%) translateY(12px);
   max-width:min(92vw,420px);padding:12px 15px;border-radius:16px;z-index:10000;
   background:#0b2b19;color:#9dff9a;border:1px solid rgba(157,255,154,.44);
@@ -1819,7 +1819,7 @@ body.theme-retro .bmo-face em{border-bottom-color:#9dff9a;filter:drop-shadow(0 0
   font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;font-weight:850;letter-spacing:.02em;
   opacity:0;pointer-events:none;transition:opacity .2s ease, transform .2s ease;
 }
-.bmo-toast.open{opacity:1;transform:translateX(-50%) translateY(0);}
+.helper-toast.open{opacity:1;transform:translateX(-50%) translateY(0);}
 </style>
 
 <style id="kwen-qa21-cook-mode">
@@ -1918,15 +1918,24 @@ body.theme-retro .cook-nav button{background:#123014;color:#9dff9a;border:1px so
 @media (max-width:620px){.cook-top{grid-template-columns:1fr auto}.cook-step-card{min-height:46vh}.cook-btn{padding:8px 10px;font-size:.82rem}}
 </style>
 
+
+<style id="kwen-pantry-mode-css">
+/* QA27: Pantry Mode visible launcher + panel */
+.pantry-btn{position:fixed;left:18px;bottom:18px;z-index:9997;border:2px solid var(--teal-ink,#053746);background:#f8e7c4;color:var(--teal-ink,#053746);border-radius:16px;padding:12px 15px;font-weight:950;box-shadow:0 10px 22px rgba(20,40,34,.18);cursor:pointer}
+.pantry-panel{position:fixed;left:18px;bottom:76px;width:min(360px,calc(100vw - 36px));max-height:min(70vh,620px);overflow:auto;z-index:9998;background:#fff7e8;color:var(--teal-ink,#053746);border:2px solid var(--teal-ink,#053746);border-radius:20px;padding:16px;box-shadow:0 16px 42px rgba(0,0,0,.28);display:none}
+.pantry-panel.open{display:block}
+.pantry-head{display:flex;align-items:start;justify-content:space-between;gap:12px;margin-bottom:10px}.pantry-head h2{margin:0;font-size:1.25rem}.pantry-close{border:0;background:transparent;font-size:1.5rem;line-height:1;cursor:pointer;color:inherit}.pantry-help{margin:.25rem 0 .8rem;font-size:.92rem;opacity:.86}.pantry-chip-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}.pantry-chip{border:1px solid rgba(5,55,70,.28);border-radius:999px;padding:9px 10px;background:#fff;cursor:pointer;font-weight:800;text-align:left}.pantry-chip input{margin-right:6px}.pantry-actions{display:flex;gap:8px;margin:10px 0}.pantry-actions button{flex:1;border:0;border-radius:12px;padding:10px;font-weight:900;cursor:pointer}.pantry-find{background:var(--teal-ink,#053746);color:white}.pantry-clear{background:#ead9b8;color:var(--teal-ink,#053746)}.pantry-results{border-top:1px solid rgba(5,55,70,.18);padding-top:10px;font-size:.95rem}.pantry-result{padding:9px 0;border-bottom:1px dashed rgba(5,55,70,.18)}.pantry-result strong{display:block}.pantry-result small{opacity:.78}body.theme-retro .pantry-btn,body.theme-retro .pantry-panel{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;background:#071007;color:#d7ffd0;border-color:rgba(157,255,154,.55);box-shadow:0 0 24px rgba(157,255,154,.12)}body.theme-retro .pantry-chip{background:#111b11;color:#d7ffd0;border-color:rgba(157,255,154,.28)}body.theme-retro .pantry-find{background:#123014;color:#9dff9a;border:1px solid rgba(157,255,154,.36)}body.theme-retro .pantry-clear{background:#24190f;color:#ffb35f}
+@media(max-width:620px){.pantry-btn{left:12px;bottom:12px;padding:10px 12px}.pantry-panel{left:12px;bottom:66px;width:calc(100vw - 24px)}}
+</style>
 </head>
 <body>
 
 <div id="bootScreen" class="boot-screen" aria-hidden="true">
   <div class="boot-terminal">
-    <div class="boot-brand">BMO FOOD SYSTEMS INC.</div>
-    <div class="boot-os">BMO_OS // KITCHEN_OS v2.0</div>
+    <div class="boot-brand">KWEN’S KITCHEN SYSTEMS</div>
+    <div class="boot-os">KITCHEN_OS v2.0</div>
     <pre id="bootLines"></pre>
-    <button id="bootSkip" class="boot-skip" type="button">PRESS START, BMO</button>
+    <button id="bootSkip" class="boot-skip" type="button">PRESS START</button>
   </div>
 </div>
 
@@ -1945,6 +1954,7 @@ body.theme-retro .cook-nav button{background:#123014;color:#9dff9a;border:1px so
     <div class="nav-section">
       <button class="nav-item" data-retro-code="HOME.SYS" onclick="setSpecial('home')"><span class="nav-dot">•</span><span class="nav-title">Home</span></button>
       <button class="nav-item" data-retro-code="FAVES.DAT" onclick="setSpecial('favorites')"><span class="nav-dot">•</span><span class="nav-title">Favorites</span></button>
+      <button class="nav-item" data-retro-code="PANTRY.DAT" onclick="openPantryMode()"><span class="nav-dot">•</span><span class="nav-title">Pantry Mode</span></button>
     </div>
     <div class="nav-label">Recipes</div>
     <div id="categoryMenu"></div>
@@ -1961,7 +1971,7 @@ body.theme-retro .cook-nav button{background:#123014;color:#9dff9a;border:1px so
           <span class="theme-launcher-label">Choose your theme</span>
           <button class="theme-chip active" type="button" data-theme="classic" aria-pressed="true"><span class="theme-icon">🍲</span><span>Classic</span></button>
           <button class="theme-chip" type="button" data-theme="retro" aria-pressed="false"><span class="theme-icon">📺</span><span>Retro CRT</span></button>
-          <button class="theme-chip locked" type="button" data-theme="pipboy" aria-pressed="false" aria-label="BMO-Tec Pip-Boy theme locked for later"><span class="theme-icon">☢</span><span>BMO-Tec</span><small>Locked</small></button>
+          <button class="theme-chip locked" type="button" data-theme="pipboy" aria-pressed="false" aria-label="Pip-Boy Pip-Boy theme locked for later"><span class="theme-icon">☢</span><span>Pip-Boy</span><small>Locked</small></button>
         </div>
         <div class="search-wrap"><input id="search" class="searchbox" type="search" placeholder="Search recipes..." autocomplete="off"><span class="search-icon">⌕</span></div>
       </div>
@@ -1979,11 +1989,11 @@ body.theme-retro .cook-nav button{background:#123014;color:#9dff9a;border:1px so
       
 <section id="homeWelcome" class="home-welcome">
   <h2>Welcome to kWen’s Cookbook</h2>
-  <div class="bmo-helper-card" aria-label="BMO kitchen helper">
-    <div class="bmo-face" aria-hidden="true"><span></span><span></span><em></em></div>
+  <div class="helper-card" aria-label="Kitchen_OS kitchen helper">
+    <div class="helper-face" aria-hidden="true"><span></span><span></span><em></em></div>
     <div>
-      <strong>BMO is online.</strong>
-      <p>Your retro kitchen helper is ready for recipes, temps, timers, and mild cookbook chaos.</p>
+      <strong>Kitchen helper online.</strong>
+      <p>Recipes, temps, timers, and mild cookbook chaos are ready.</p>
     </div>
   </div>
   <p>
@@ -2000,7 +2010,7 @@ body.theme-retro .cook-nav button{background:#123014;color:#9dff9a;border:1px so
   </div>
 
   <div class="retro-launchpad" aria-label="Retro cookbook quick launch">
-    <div class="retro-launch-title">BMO_OS QUICK LAUNCH</div>
+    <div class="retro-launch-title">KITCHEN_OS QUICK LAUNCH</div>
     <div class="retro-launch-grid">
       <button type="button" onclick="setCategory('Soups & Stews')">SOUPS.EXE</button>
       <button type="button" onclick="setCategory('Pasta & Dough')">PASTA.EXE</button>
@@ -2114,7 +2124,7 @@ body.theme-retro .cook-nav button{background:#123014;color:#9dff9a;border:1px so
     <div class="cook-top">
       <div>
         <h2 class="cook-title" id="cookTitle">Cook Mode</h2>
-        <p class="cook-sub" id="cookSub">BMO step-by-step kitchen view</p>
+        <p class="cook-sub" id="cookSub">Step-by-step kitchen view</p>
         <div class="cook-status">
           <span class="cook-pill" id="cookTempPill">🌡 Temp: —</span>
           <span class="cook-pill" id="cookWakePill">📱 Screen awake: checking…</span>
@@ -2697,7 +2707,7 @@ render();
 <script id="kwen-retro-theme-script">
 (function(){
   const bootLines = [
-    "HELLO KWEN. BMO IS WAKING UP...",
+    "HELLO KWEN. KITCHEN_OS IS WAKING UP...",
     "INITIALIZING CRT DISPLAY...",
     "LOADING VHS RECIPE ARCHIVE...",
     "SYNCING KITCHEN RADIO...",
@@ -2705,7 +2715,7 @@ render();
     "MOUNTING MACARON MODULE...",
     "CALIBRATING BUTTER CONVERSION TABLE...",
     "WARNING: LOW PARMESAN DETECTED.",
-    "BMO_OS READY. LET'S COOK."
+    "KITCHEN_OS READY. LET'S COOK."
   ];
 
   const THEMES = {
@@ -2727,24 +2737,24 @@ render();
       chip.classList.toggle("active", isActive);
       chip.setAttribute("aria-pressed", isActive ? "true" : "false");
       if (chip.dataset.theme === "pipboy") {
-        chip.title = "BMO-Tec Pip-Boy theme is locked for Lane 3.";
+        chip.title = "Pip-Boy Pip-Boy theme is locked for Lane 3.";
       }
     });
   }
 
-  let bmoToastTimer = null;
-  function showBmoToast(message){
-    let toast = document.getElementById("bmoToast");
+  let helperToastTimer = null;
+  function showHelperToast(message){
+    let toast = document.getElementById("helperToast");
     if (!toast) {
       toast = document.createElement("div");
-      toast.id = "bmoToast";
-      toast.className = "bmo-toast";
+      toast.id = "helperToast";
+      toast.className = "helper-toast";
       document.body.appendChild(toast);
     }
     toast.textContent = message;
     toast.classList.add("open");
-    if (bmoToastTimer) clearTimeout(bmoToastTimer);
-    bmoToastTimer = setTimeout(() => toast.classList.remove("open"), 2600);
+    if (helperToastTimer) clearTimeout(helperToastTimer);
+    helperToastTimer = setTimeout(() => toast.classList.remove("open"), 2600);
   }
 
   function applyTheme(theme) {
@@ -2789,7 +2799,7 @@ render();
     nextTheme = normalizeTheme(nextTheme);
     if (THEMES[nextTheme].locked) {
       updateThemeButtons(localStorage.getItem("kwenCookbookTheme") || "classic");
-      showBmoToast("BMO-TEC ACCESS DENIED // Pip-Boy theme is queued for Lane 3.");
+      showHelperToast("PIP-BOY ACCESS DENIED // Theme queued for a future pass.");
       return;
     }
     const current = normalizeTheme(localStorage.getItem("kwenCookbookTheme") || "classic");
@@ -2814,76 +2824,61 @@ render();
 </script>
 
 
-    <button id="pantryModeBtn" style="
-      position:fixed;
-      right:18px;
-      bottom:90px;
-      z-index:9999;
-      padding:12px 16px;
-      border-radius:14px;
-      border:2px solid #0F4C5C;
-      background:#F8E7C4;
-      color:#0F4C5C;
-      font-weight:bold;
-      box-shadow:0 8px 20px rgba(0,0,0,.18);
-      cursor:pointer;
-    ">🥫 Pantry Mode</button>
+<button id="pantryModeBtn" class="pantry-btn" type="button">🥫 Pantry Mode</button>
+<section id="pantryPanel" class="pantry-panel" aria-label="Pantry Mode" aria-hidden="true">
+  <div class="pantry-head">
+    <div><h2>Pantry Mode</h2><p class="pantry-help">Check what you have and find recipes that match.</p></div>
+    <button id="pantryClose" class="pantry-close" type="button" aria-label="Close Pantry Mode">×</button>
+  </div>
+  <div class="pantry-chip-grid" id="pantryIngredients">
+    <label class="pantry-chip"><input type="checkbox" value="chicken">Chicken</label>
+    <label class="pantry-chip"><input type="checkbox" value="beef">Beef</label>
+    <label class="pantry-chip"><input type="checkbox" value="pork">Pork</label>
+    <label class="pantry-chip"><input type="checkbox" value="salmon">Salmon</label>
+    <label class="pantry-chip"><input type="checkbox" value="pasta">Pasta</label>
+    <label class="pantry-chip"><input type="checkbox" value="rice">Rice</label>
+    <label class="pantry-chip"><input type="checkbox" value="potato">Potatoes</label>
+    <label class="pantry-chip"><input type="checkbox" value="spinach">Spinach</label>
+    <label class="pantry-chip"><input type="checkbox" value="mushroom">Mushrooms</label>
+    <label class="pantry-chip"><input type="checkbox" value="parmesan">Parmesan</label>
+    <label class="pantry-chip"><input type="checkbox" value="tomato">Tomatoes</label>
+    <label class="pantry-chip"><input type="checkbox" value="cream">Cream</label>
+  </div>
+  <div class="pantry-actions">
+    <button id="pantryFind" class="pantry-find" type="button">Find Recipes</button>
+    <button id="pantryClear" class="pantry-clear" type="button">Clear</button>
+  </div>
+  <div id="pantryResults" class="pantry-results">Pick a few ingredients to start.</div>
+</section>
+<script id="kwen-pantry-mode-script">
+(function(){
+  function getRecipes(){ return Array.isArray(window.recipes) ? window.recipes : (Array.isArray(window.RECIPES) ? window.RECIPES : []); }
+  function textForRecipe(r){ return [r.title,r.category,(r.tags||[]).join(' '),(r.ingredients||[]).join(' ')].join(' ').toLowerCase(); }
+  window.openPantryMode = function(){
+    const panel=document.getElementById('pantryPanel');
+    if(!panel) return;
+    panel.classList.add('open'); panel.setAttribute('aria-hidden','false');
+  };
+  function closePantry(){ const panel=document.getElementById('pantryPanel'); if(panel){panel.classList.remove('open'); panel.setAttribute('aria-hidden','true');} }
+  function selected(){ return Array.from(document.querySelectorAll('#pantryIngredients input:checked')).map(i=>i.value); }
+  function findMatches(){
+    const picks=selected(); const box=document.getElementById('pantryResults'); if(!box) return;
+    if(!picks.length){ box.textContent='Pick a few ingredients to start.'; return; }
+    const recipes=getRecipes();
+    const scored=recipes.map(r=>{ const t=textForRecipe(r); const hits=picks.filter(p=>t.includes(p)); return {r,hits,score:hits.length}; })
+      .filter(x=>x.score>0).sort((a,b)=>b.score-a.score || String(a.r.title||'').localeCompare(String(b.r.title||''))).slice(0,8);
+    if(!scored.length){ box.innerHTML='No matches yet. Try fewer ingredients or use the regular search.'; return; }
+    box.innerHTML=scored.map(x=>`<div class="pantry-result"><strong>${x.r.title||'Untitled recipe'}</strong><small>Matched: ${x.hits.join(', ')}</small></div>`).join('');
+  }
+  document.addEventListener('DOMContentLoaded',()=>{
+    const btn=document.getElementById('pantryModeBtn'); const close=document.getElementById('pantryClose'); const find=document.getElementById('pantryFind'); const clear=document.getElementById('pantryClear');
+    if(btn) btn.addEventListener('click',()=>{ const panel=document.getElementById('pantryPanel'); if(panel && panel.classList.contains('open')) closePantry(); else window.openPantryMode(); });
+    if(close) close.addEventListener('click', closePantry);
+    if(find) find.addEventListener('click', findMatches);
+    if(clear) clear.addEventListener('click',()=>{ document.querySelectorAll('#pantryIngredients input').forEach(i=>i.checked=false); findMatches(); });
+  });
+})();
+</script>
 
-    <div id="pantryPanel" style="
-      display:none;
-      position:fixed;
-      inset:auto 18px 150px auto;
-      width:300px;
-      max-width:85vw;
-      background:#FFF7E8;
-      border:2px solid #0F4C5C;
-      border-radius:18px;
-      padding:16px;
-      z-index:10000;
-      box-shadow:0 12px 28px rgba(0,0,0,.24);
-    ">
-      <h3 style="margin-top:0;">Pantry Mode</h3>
-      <p style="font-size:.95rem;">Select ingredients you have:</p>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-        <label><input type="checkbox"> Chicken</label>
-        <label><input type="checkbox"> Pasta</label>
-        <label><input type="checkbox"> Spinach</label>
-        <label><input type="checkbox"> Parmesan</label>
-        <label><input type="checkbox"> Rice</label>
-        <label><input type="checkbox"> Ground Beef</label>
-      </div>
-      <button id="closePantryBtn" style="
-        margin-top:14px;
-        width:100%;
-        padding:10px;
-        border:none;
-        border-radius:10px;
-        background:#0F4C5C;
-        color:white;
-        font-weight:bold;
-      ">Close</button>
-    </div>
-
-    <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const pantryBtn = document.getElementById('pantryModeBtn');
-      const pantryPanel = document.getElementById('pantryPanel');
-      const closeBtn = document.getElementById('closePantryBtn');
-
-      if (pantryBtn && pantryPanel) {
-        pantryBtn.addEventListener('click', () => {
-          pantryPanel.style.display =
-            pantryPanel.style.display === 'block' ? 'none' : 'block';
-        });
-      }
-
-      if (closeBtn) {
-        closeBtn.addEventListener('click', () => {
-          pantryPanel.style.display = 'none';
-        });
-      }
-    });
-    </script>
-    
 </body>
 </html>
