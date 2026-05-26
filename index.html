@@ -1457,6 +1457,202 @@ body.theme-retro .scale-buttons button.active {
 }
 </style>
 
+
+
+<style id="kwen-retro-ui-polish-pass">
+/* QA19 Retro UI polish: make KITCHEN_OS feel like its own place without changing recipe data. */
+.retro-launchpad { display:none; }
+body.theme-retro .sidebar {
+  background:
+    radial-gradient(circle at 18% 0%, rgba(157,255,154,.08), transparent 14rem),
+    linear-gradient(180deg, rgba(6,9,6,.96), rgba(18,13,18,.98)) !important;
+}
+body.theme-retro .brand {
+  border:1px solid rgba(157,255,154,.22) !important;
+  border-radius:16px !important;
+  padding:14px 10px 16px !important;
+  background:rgba(0,0,0,.28) !important;
+  box-shadow:inset 0 0 24px rgba(157,255,154,.06), 0 0 18px rgba(0,0,0,.22) !important;
+}
+body.theme-retro .hat-img {
+  filter:drop-shadow(0 0 10px rgba(157,255,154,.18)) saturate(.8) contrast(1.08) !important;
+  mix-blend-mode:screen !important;
+  opacity:.86 !important;
+}
+body.theme-retro .logo-title { letter-spacing:.02em !important; }
+body.theme-retro .logo-sub::after {
+  content:" // ARCHIVE";
+  color:#9dff9a;
+}
+body.theme-retro .nav-label {
+  border-top:1px dashed rgba(157,255,154,.24);
+  border-bottom:1px dashed rgba(157,255,154,.18);
+  padding:9px 2px !important;
+}
+body.theme-retro .nav-label::before { content:"> "; color:#9dff9a; }
+body.theme-retro .nav-item,
+body.theme-retro .cat-head,
+body.theme-retro .recipe-link {
+  border:1px solid transparent !important;
+  border-radius:6px !important;
+  margin:3px 0 !important;
+  padding:10px 9px !important;
+}
+body.theme-retro .nav-item:hover,
+body.theme-retro .cat-head:hover,
+body.theme-retro .recipe-link:hover {
+  background:rgba(157,255,154,.09) !important;
+  border-color:rgba(157,255,154,.24) !important;
+  box-shadow:0 0 14px rgba(157,255,154,.08) !important;
+}
+body.theme-retro .cat-head.active,
+body.theme-retro .recipe-link.active {
+  background:linear-gradient(90deg, rgba(157,255,154,.18), rgba(255,179,95,.10)) !important;
+  border-color:rgba(157,255,154,.36) !important;
+}
+body.theme-retro .cat-head.active::before,
+body.theme-retro .recipe-link.active::before,
+body.theme-retro .nav-item:hover::before {
+  content:">";
+  color:#ffb35f;
+  margin-right:2px;
+}
+body.theme-retro .cat-dot,
+body.theme-retro .nav-dot { display:none !important; }
+body.theme-retro .cat-title,
+body.theme-retro .nav-title { font-size:0 !important; }
+body.theme-retro .cat-title::after,
+body.theme-retro .nav-item::after {
+  font-size:.78rem !important;
+  letter-spacing:.08em !important;
+  text-transform:uppercase !important;
+}
+body.theme-retro .cat-title::after { content:attr(data-retro-code); }
+body.theme-retro .nav-item::after { content:attr(data-retro-code); }
+body.theme-retro .recipe-list {
+  padding-left:18px !important;
+  border-left:1px dashed rgba(157,255,154,.20) !important;
+  margin-left:13px !important;
+}
+body.theme-retro .recipe-link {
+  color:#d7ffd0 !important;
+  font-size:.78rem !important;
+  line-height:1.16 !important;
+  text-transform:uppercase !important;
+  letter-spacing:.04em !important;
+}
+body.theme-retro .recipe-link::after {
+  content:" .RCP";
+  color:rgba(255,179,95,.72);
+}
+body.theme-retro .hero {
+  overflow:hidden;
+  min-height:150px;
+}
+body.theme-retro .hero::before {
+  content:"READY_";
+  position:absolute;
+  right:22px;
+  bottom:16px;
+  color:rgba(157,255,154,.38);
+  font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
+  font-size:.78rem;
+  letter-spacing:.12em;
+}
+body.theme-retro .hero::after {
+  border-bottom:1px solid rgba(157,255,154,.30) !important;
+}
+body.theme-retro.home-active .hero h1::before {
+  content:"C:\\KWEN\\COOKBOOK> ";
+  display:block;
+  margin-bottom:8px;
+  color:#9dff9a;
+  font-size:.78rem;
+  letter-spacing:.09em;
+}
+body.theme-retro .home-welcome.active {
+  position:relative;
+  overflow:hidden;
+}
+body.theme-retro .home-welcome.active::before {
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:repeating-linear-gradient(to bottom, rgba(255,255,255,.025) 0px, rgba(255,255,255,.025) 1px, transparent 2px, transparent 6px);
+  opacity:.7;
+}
+body.theme-retro .home-welcome h2::before { content:"// "; color:#ffb35f; }
+body.theme-retro .retro-launchpad {
+  display:block;
+  position:relative;
+  z-index:1;
+  margin:20px 0 2px;
+  padding:16px;
+  border:1.8px solid rgba(157,255,154,.28);
+  border-radius:14px;
+  background:rgba(0,0,0,.36);
+  box-shadow:inset 0 0 24px rgba(157,255,154,.055);
+}
+body.theme-retro .retro-launch-title {
+  color:#ffb35f;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
+  font-weight:900;
+  letter-spacing:.12em;
+  font-size:.78rem;
+  margin-bottom:12px;
+}
+body.theme-retro .retro-launch-grid {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(135px,1fr));
+  gap:10px;
+}
+body.theme-retro .retro-launch-grid button {
+  border:1px solid rgba(157,255,154,.32);
+  border-radius:8px;
+  background:linear-gradient(180deg, rgba(157,255,154,.10), rgba(0,0,0,.28));
+  color:#9dff9a;
+  padding:12px 10px;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
+  font-weight:900;
+  letter-spacing:.08em;
+  cursor:pointer;
+  text-align:left;
+}
+body.theme-retro .retro-launch-grid button:hover {
+  border-color:rgba(255,179,95,.55);
+  color:#ffb35f;
+  box-shadow:0 0 16px rgba(255,179,95,.10);
+}
+body.theme-retro .kitchen-radio h3,
+body.theme-retro .kitchen-radio p { display:none; }
+body.theme-retro .temp-fab {
+  background:linear-gradient(180deg, #131713, #050705) !important;
+  border-color:rgba(157,255,154,.52) !important;
+  color:#9dff9a !important;
+  box-shadow:0 0 20px rgba(157,255,154,.18), 0 12px 26px rgba(0,0,0,.42) !important;
+}
+body.theme-retro .temp-panel {
+  background:linear-gradient(180deg, rgba(20,22,18,.98), rgba(7,8,7,.98)) !important;
+  border-color:rgba(157,255,154,.34) !important;
+  color:#d7ffd0 !important;
+  border-radius:12px !important;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace !important;
+}
+body.theme-retro .temp-panel h2,
+body.theme-retro .temp-group h3 { color:#ffb35f !important; font-family:inherit !important; }
+body.theme-retro .temp-row,
+body.theme-retro .temp-tip { color:#d7ffd0 !important; }
+body.theme-retro .temp-row strong { color:#9dff9a !important; }
+body.theme-retro .temp-close { color:#9dff9a !important; }
+@media (max-width:820px){
+  body.theme-retro .topbar { padding-bottom:66px !important; }
+  body.theme-retro .theme-toggle { bottom:calc(78px + env(safe-area-inset-bottom)) !important; }
+  body.theme-retro .temp-fab { bottom:calc(16px + env(safe-area-inset-bottom)) !important; }
+  body.theme-retro .hero { margin-top:6px; }
+}
+</style>
+
 </head>
 <body>
 
@@ -1482,14 +1678,14 @@ body.theme-retro .scale-buttons button.active {
       <small>Good food.<br>Made to share.</small>
     </div>
     <div class="nav-section">
-      <button class="nav-item" onclick="setSpecial('home')">• Home</button>
-      <button class="nav-item" onclick="setSpecial('favorites')">• Favorites</button>
+      <button class="nav-item" data-retro-code="HOME.SYS" onclick="setSpecial('home')"><span class="nav-dot">•</span><span class="nav-title">Home</span></button>
+      <button class="nav-item" data-retro-code="FAVES.DAT" onclick="setSpecial('favorites')"><span class="nav-dot">•</span><span class="nav-title">Favorites</span></button>
     </div>
     <div class="nav-label">Recipes</div>
     <div id="categoryMenu"></div>
     <div class="nav-section">
-      <button class="nav-item" onclick="setSpecial('notes')">• Kitchen Notes</button>
-      <button class="nav-item" onclick="setTagFilter('Freezer Friendly')">• Freezer Friendly</button>
+      <button class="nav-item" data-retro-code="NOTES.TXT" onclick="setSpecial('notes')"><span class="nav-dot">•</span><span class="nav-title">Kitchen Notes</span></button>
+      <button class="nav-item" data-retro-code="FREEZER.DAT" onclick="setTagFilter('Freezer Friendly')"><span class="nav-dot">•</span><span class="nav-title">Freezer Friendly</span></button>
     </div>
   </aside>
   <main class="main">
@@ -1525,6 +1721,18 @@ body.theme-retro .scale-buttons button.active {
       cozy stews, classic desserts, seafood, macarons, and the recipes that deserve to live somewhere
       better than scattered notes and half-remembered measurements.
     </p>
+  </div>
+
+  <div class="retro-launchpad" aria-label="Retro cookbook quick launch">
+    <div class="retro-launch-title">KITCHEN_OS QUICK LAUNCH</div>
+    <div class="retro-launch-grid">
+      <button type="button" onclick="setCategory('Soups & Stews')">SOUPS.EXE</button>
+      <button type="button" onclick="setCategory('Pasta & Dough')">PASTA.EXE</button>
+      <button type="button" onclick="setCategory('Main Dishes')">MAINS.EXE</button>
+      <button type="button" onclick="setCategory('Seafood')">SEAFOOD.BAT</button>
+      <button type="button" onclick="setCategory('Baking & Breakfast')">BAKE_SYS</button>
+      <button type="button" onclick="setTagFilter('Freezer Friendly')">FREEZER.DAT</button>
+    </div>
   </div>
 
   <div class="kitchen-radio">
@@ -1673,6 +1881,20 @@ function cats() {
 function catIcon(cat) {
   return '•';
 }
+function retroCatCode(cat) {
+  const m = {
+    'Main Dishes':'MAINS.EXE',
+    'Soups & Stews':'SOUPS.EXE',
+    'Pasta & Dough':'PASTA.EXE',
+    'Seafood':'SEAFOOD.BAT',
+    'Baking & Breakfast':'BAKE_SYS',
+    'Desserts':'SWEETS.EXE',
+    'Macarons':'MACARON.OS',
+    'Sides':'SIDES.DAT',
+    'Basics':'BASICS.TXT'
+  };
+  return m[cat] || String(cat).toUpperCase().replace(/[^A-Z0-9]+/g,'_').slice(0,10) + '.EXE';
+}
 function buildMenu() {
   const menu = document.getElementById('categoryMenu');
   menu.innerHTML = cats().map(cat => {
@@ -1683,7 +1905,7 @@ function buildMenu() {
       .join('');
     return `<div class="cat ${(!activeSpecial && !activeTag && cat===activeCategory)?'open':''}">
       <button class="cat-head ${cat===activeCategory&&!activeSpecial&&!activeTag?'active':''}" onclick="setCategory('${escapeAttr(cat)}')">
-        <span>${catIcon(cat)}</span><span>${escapeHtml(cat)}</span><span class="chev">›</span>
+        <span class="cat-dot">${catIcon(cat)}</span><span class="cat-title" data-retro-code="${escapeAttr(retroCatCode(cat))}">${escapeHtml(cat)}</span><span class="chev">›</span>
       </button>
       <div class="recipe-list">${items}</div>
     </div>`;
