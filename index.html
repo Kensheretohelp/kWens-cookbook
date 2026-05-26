@@ -1939,6 +1939,40 @@ body.theme-pipboy .sidebar,body.theme-pipboy .content,body.theme-pipboy .detail-
 @media(max-width:620px){.pantry-home-card{align-items:stretch;flex-direction:column}.pantry-home-card button{width:100%;}}
 </style>
 
+
+<style id="kwen-qa29-search-sidebar-fixes">
+/* QA29: clean ingredient search + mobile sidebar scroll fix */
+.pantry-float, #pantryModeBtn, #pantryPanel { display:none !important; }
+.pantry-home-card { display:none !important; }
+@media (max-width:820px){
+  .sidebar{
+    height:100dvh !important;
+    max-height:100dvh !important;
+    overflow-y:auto !important;
+    overflow-x:hidden !important;
+    -webkit-overflow-scrolling:touch !important;
+    overscroll-behavior:contain !important;
+    padding-bottom:calc(180px + env(safe-area-inset-bottom)) !important;
+  }
+  body.menu-open{ overflow:hidden !important; }
+}
+.search-results-note{
+  grid-column:1 / -1;
+  padding:12px 14px;
+  border:1px solid rgba(5,55,70,.15);
+  border-radius:14px;
+  background:rgba(255,247,232,.72);
+  color:var(--teal-ink,#053746);
+  font-weight:850;
+}
+body.theme-retro .search-results-note{
+  background:rgba(0,0,0,.55);
+  border-color:rgba(157,255,154,.25);
+  color:#9dff9a;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
+}
+</style>
+
 </head>
 <body>
 
@@ -1970,8 +2004,9 @@ body.theme-pipboy .sidebar,body.theme-pipboy .content,body.theme-pipboy .detail-
     <div class="nav-label">Recipes</div>
     <div id="categoryMenu"></div>
     <div class="nav-section">
-      <button class="nav-item" data-retro-code="NOTES.TXT" onclick="setSpecial('notes')"><span class="nav-dot">•</span><span class="nav-title">Kitchen Notes</span></button>
+      <button class="nav-item" data-retro-code="NOTES.TXT" onclick="setSpecial('notes')"><span class="nav-dot">•</span><span class="nav-title">Garden Calendar</span></button>
       <button class="nav-item" data-retro-code="FREEZER.DAT" onclick="setTagFilter('Freezer Friendly')"><span class="nav-dot">•</span><span class="nav-title">Freezer Friendly</span></button>
+      <button class="nav-item" data-retro-code="PANTRY.SEARCH" onclick="openIngredientSearch()"><span class="nav-dot">•</span><span class="nav-title">Ingredient Search</span></button>
     </div>
   </aside>
   <main class="main">
@@ -2012,27 +2047,6 @@ body.theme-pipboy .sidebar,body.theme-pipboy .content,body.theme-pipboy .detail-
       better than scattered notes and half-remembered measurements.
     </p>
   </div>
-
-  <div class="pantry-home-card">
-    <div>
-      <h3>Pantry Search</h3>
-      <p>Type an ingredient in the search bar — chicken, parmesan, spinach, beef — and the cookbook will search across all recipes.</p>
-    </div>
-    <button type="button" onclick="focusGlobalSearch('chicken')">Try “chicken”</button>
-  </div>
-
-  <div class="retro-launchpad" aria-label="Retro cookbook quick launch">
-    <div class="retro-launch-title">KITCHEN_OS QUICK LAUNCH</div>
-    <div class="retro-launch-grid">
-      <button type="button" onclick="setCategory('Soups & Stews')">SOUPS.EXE</button>
-      <button type="button" onclick="setCategory('Pasta & Dough')">PASTA.EXE</button>
-      <button type="button" onclick="setCategory('Main Dishes')">MAINS.EXE</button>
-      <button type="button" onclick="setCategory('Seafood')">SEAFOOD.BAT</button>
-      <button type="button" onclick="setCategory('Baking & Breakfast')">BAKE_SYS</button>
-      <button type="button" onclick="setTagFilter('Freezer Friendly')">FREEZER.DAT</button>
-    </div>
-  </div>
-
   <div class="kitchen-radio">
     <h3>Kitchen Radio</h3>
     <p>Cookbook soundtrack curated by kWen.</p>
@@ -2364,6 +2378,7 @@ function render() {
   grid.style.display = '';
 
   const arr = filteredRecipes();
+  const qSearchNow = document.getElementById('search') ? document.getElementById('search').value.trim() : '';
   if (!arr.length) {
     grid.innerHTML = `<div class="empty">No recipes found. The cookbook gremlins came up empty.</div>`;
     return;
@@ -2371,7 +2386,7 @@ function render() {
 
   if (!arr.some(r => r.i === selectedIndex)) selectedIndex = arr[0].i;
 
-  grid.innerHTML = arr.map(r => `
+  grid.innerHTML = (qSearchNow ? `<div class="search-results-note">${arr.length} recipe${arr.length === 1 ? '' : 's'} found across the whole cookbook for “${escapeHtml(qSearchNow)}”.</div>` : '') + arr.map(r => `
     <article class="recipe-card ${r.i===selectedIndex?'active':''}" onclick="selectRecipe(${r.i})">
       <div class="thumb">${iconFor(r)}<button class="heart ${isFav(r.title)?'faved':''}" onclick="event.stopPropagation(); toggleFav('${escapeAttr(r.title)}')">${isFav(r.title)?'♥':'♡'}</button></div>
       <div class="card-body">
@@ -2514,7 +2529,51 @@ function focusGlobalSearch(example) {
   render();
 }
 
+
+/* QA29 robust global search: searches ALL recipes no matter which page/category is active. */
+function recipeGlobalBlob(r) {
+  return [
+    r.title, r.category, r.meta, r.note,
+    ...(r.ingredients || []),
+    ...(r.method || []),
+    ...((r.tags || []))
+  ].filter(Boolean).join(' ').toLowerCase();
+}
+function filteredRecipes() {
+  const searchEl = document.getElementById('search');
+  const q = searchEl ? searchEl.value.trim().toLowerCase() : '';
+  let arr = RECIPES.map((r,i)=>({...r,i, _blob: recipeGlobalBlob(r)}));
+
+  if (q) {
+    const terms = q.split(/\s+/).filter(Boolean);
+    arr = arr.filter(r => terms.every(term => r._blob.includes(term)));
+    return arr.sort((a,b)=>{
+      const at = a.title.toLowerCase().includes(q) ? 0 : 1;
+      const bt = b.title.toLowerCase().includes(q) ? 0 : 1;
+      return at - bt || a.title.localeCompare(b.title);
+    });
+  }
+
+  if (activeSpecial === 'favorites') arr = arr.filter(r => isFav(r.title));
+  else if (activeTag) arr = arr.filter(r => (r.tags||[]).includes(activeTag));
+  else arr = arr.filter(r => r.category === activeCategory);
+  return arr.sort((a,b)=>a.title.localeCompare(b.title));
+}
+function openIngredientSearch(){
+  activeSpecial = null;
+  activeTag = null;
+  document.body.classList.remove('menu-open');
+  const s = document.getElementById('search');
+  if (s){
+    s.value = '';
+    setTimeout(()=>s.focus(), 50);
+  }
+  render();
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
 document.getElementById('search').addEventListener('input', render);
+['keyup','change','search'].forEach(evt=>document.getElementById('search').addEventListener(evt, render));
 wireTempPanel();
 render();
 </script>
@@ -2863,6 +2922,51 @@ render();
 </script>
 
 
+
+
+<section id="garden-calendar" style="padding:24px;background:#f5ecd9;border-top:2px solid #d8c7a3;">
+<h2 style="font-size:2rem;margin-bottom:12px;">🌱 Garden Calendar</h2>
+
+<div style="background:#fff8eb;padding:16px;border-radius:16px;border:2px solid #d6c29c;margin-bottom:20px;">
+<h3>This Week</h3>
+<ul>
+<li>Direct sow cucumbers</li>
+<li>Direct sow yellow wax beans</li>
+<li>Harden off tomatoes outdoors</li>
+<li>Buy starter plant for green peppers</li>
+</ul>
+</div>
+
+<div style="background:#fff8eb;padding:16px;border-radius:16px;border:2px solid #d6c29c;margin-bottom:20px;">
+<h3>June 2026</h3>
+<p>🌱 Sow • 🪴 Transplant • 💧 Fertilize • 🧺 Harvest</p>
+<p>5–15: Transplant tomatoes outdoors</p>
+<p>1–10: Transplant basil outdoors</p>
+<p>Now: Direct sow cucumbers & beans</p>
+</div>
+
+<div style="display:grid;gap:16px;">
+<div style="background:#fff8eb;padding:16px;border-radius:16px;border:2px solid #d6c29c;">
+<h3>🍅 Tomatoes (San Marzano & Cherry)</h3>
+<p><strong>Best:</strong> Grow bag (10–15 gal)</p>
+<p><strong>Fertilizer:</strong> 10-10-10 early, 5-10-10 when fruiting</p>
+<p><strong>Water:</strong> Deep watering 2–3x/week</p>
+</div>
+
+<div style="background:#fff8eb;padding:16px;border-radius:16px;border:2px solid #d6c29c;">
+<h3>🥒 Cucumbers</h3>
+<p><strong>Best:</strong> Raised bed or grow bag with trellis</p>
+<p><strong>Fertilizer:</strong> 10-10-10</p>
+<p><strong>Water:</strong> Keep consistently moist</p>
+</div>
+
+<div style="background:#fff8eb;padding:16px;border-radius:16px;border:2px solid #d6c29c;">
+<h3>🌿 Basil & Thai Basil</h3>
+<p><strong>Best:</strong> Grow bags or pots</p>
+<p><strong>Fertilizer:</strong> Light 10-10-10 every 2–3 weeks</p>
+</div>
+</div>
+</section>
 
 </body>
 </html>
