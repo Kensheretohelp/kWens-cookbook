@@ -2037,7 +2037,7 @@ body.theme-retro .cook-nav button{background:#123014;color:#9dff9a;border:1px so
         <div class="detail-head">
           <h2 class="detail-title" id="detailTitle"></h2>
           <div>
-            <button class="cook-btn" id="cookModeBtn" type="button">BMO Cook Mode</button>
+            <button class="cook-btn" id="cookModeBtn" type="button">Cook Mode</button>
             <button class="fav-detail" id="favDetail" aria-label="Favorite">♡</button>
             <button class="close-detail" onclick="document.body.classList.remove('detail-open')" aria-label="Close">×</button>
           </div>
@@ -2813,5 +2813,77 @@ render();
 })();
 </script>
 
+
+    <button id="pantryModeBtn" style="
+      position:fixed;
+      right:18px;
+      bottom:90px;
+      z-index:9999;
+      padding:12px 16px;
+      border-radius:14px;
+      border:2px solid #0F4C5C;
+      background:#F8E7C4;
+      color:#0F4C5C;
+      font-weight:bold;
+      box-shadow:0 8px 20px rgba(0,0,0,.18);
+      cursor:pointer;
+    ">🥫 Pantry Mode</button>
+
+    <div id="pantryPanel" style="
+      display:none;
+      position:fixed;
+      inset:auto 18px 150px auto;
+      width:300px;
+      max-width:85vw;
+      background:#FFF7E8;
+      border:2px solid #0F4C5C;
+      border-radius:18px;
+      padding:16px;
+      z-index:10000;
+      box-shadow:0 12px 28px rgba(0,0,0,.24);
+    ">
+      <h3 style="margin-top:0;">Pantry Mode</h3>
+      <p style="font-size:.95rem;">Select ingredients you have:</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+        <label><input type="checkbox"> Chicken</label>
+        <label><input type="checkbox"> Pasta</label>
+        <label><input type="checkbox"> Spinach</label>
+        <label><input type="checkbox"> Parmesan</label>
+        <label><input type="checkbox"> Rice</label>
+        <label><input type="checkbox"> Ground Beef</label>
+      </div>
+      <button id="closePantryBtn" style="
+        margin-top:14px;
+        width:100%;
+        padding:10px;
+        border:none;
+        border-radius:10px;
+        background:#0F4C5C;
+        color:white;
+        font-weight:bold;
+      ">Close</button>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const pantryBtn = document.getElementById('pantryModeBtn');
+      const pantryPanel = document.getElementById('pantryPanel');
+      const closeBtn = document.getElementById('closePantryBtn');
+
+      if (pantryBtn && pantryPanel) {
+        pantryBtn.addEventListener('click', () => {
+          pantryPanel.style.display =
+            pantryPanel.style.display === 'block' ? 'none' : 'block';
+        });
+      }
+
+      if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+          pantryPanel.style.display = 'none';
+        });
+      }
+    });
+    </script>
+    
 </body>
 </html>
