@@ -2880,7 +2880,7 @@ body.garden-active .hero, body.garden-active #homeWelcome, body.garden-active #g
   </div>
 </section>
 
-<script src="recipes.js?v=21"></script>
+<script src="recipes.js?v=22"></script>
 <script>
 let activeCategory = 'Main Dishes';
 let activeTag = null;
@@ -2924,7 +2924,7 @@ function toggleFav(title) {
   renderDetail(selectedIndex);
 }
 function cats() {
-  const preferred = ['Main Dishes','Soups & Stews','Pasta & Dough','Seafood','Baking & Breakfast','Desserts','Macarons','Sides','Basics'];
+  const preferred = ['Main Dishes','Soups & Stews','Pasta & Dough','Seafood','Baking & Breakfast','Macarons','Desserts','Sides','Basics'];
   const found = [...new Set(RECIPES.map(r => r.category))];
   return preferred.filter(c => found.includes(c)).concat(found.filter(c => !preferred.includes(c)).sort());
 }
