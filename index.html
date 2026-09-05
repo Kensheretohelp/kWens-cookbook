@@ -711,6 +711,81 @@ body.theme-retro .cook-sub,body.theme-retro .cook-step-label{color:#ffb35f;}
 
 .search-results-note{grid-column:1 / -1;padding:12px 14px;border:1px solid rgba(5,55,70,.15);border-radius:14px;background:rgba(255,247,232,.72);color:var(--teal-ink);font-weight:850;}
 body.theme-retro .search-results-note{background:rgba(0,0,0,.55);border-color:rgba(157,255,154,.25);color:#9dff9a;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;}
+
+/* ===== Local recipe editor — v1 ===== */
+.add-recipe-btn{
+  border:0;border-radius:14px;padding:11px 14px;font-weight:900;cursor:pointer;
+  background:var(--teal-ink,#053746);color:#fff;white-space:nowrap;
+  box-shadow:0 5px 14px rgba(5,55,70,.14);
+}
+.add-recipe-btn:active{transform:translateY(1px)}
+.local-recipe-badge{
+  margin-left:auto;padding:3px 7px;border-radius:999px;font-size:.72rem;font-weight:900;
+  background:rgba(5,55,70,.10);color:var(--teal-ink,#053746);
+}
+body.theme-retro .add-recipe-btn{
+  background:#9dff9a;color:#061b07;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
+}
+body.theme-retro .local-recipe-badge{background:rgba(157,255,154,.15);color:#9dff9a}
+
+.recipe-editor-backdrop{
+  position:fixed;inset:0;background:rgba(0,0,0,.48);z-index:5000;display:none;
+}
+.recipe-editor-backdrop.open{display:block}
+.recipe-editor{
+  position:fixed;inset:0;z-index:5001;display:none;overflow:auto;
+  background:#f8f1e4;color:var(--teal-ink,#053746);
+}
+.recipe-editor.open{display:block}
+.recipe-editor-inner{max-width:760px;margin:0 auto;padding:20px 18px 48px}
+.recipe-editor-head{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px;
+  position:sticky;top:0;background:#f8f1e4;padding:10px 0;z-index:1;
+}
+.recipe-editor-head h2{margin:0;font-size:1.55rem}
+.recipe-editor-close{
+  border:0;background:rgba(5,55,70,.10);color:inherit;width:42px;height:42px;border-radius:50%;
+  font-size:1.6rem;cursor:pointer;
+}
+.recipe-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.recipe-field{display:flex;flex-direction:column;gap:6px}
+.recipe-field.full{grid-column:1/-1}
+.recipe-field label{font-weight:900;font-size:.9rem}
+.recipe-field input,.recipe-field select,.recipe-field textarea{
+  width:100%;box-sizing:border-box;border:1px solid rgba(5,55,70,.25);border-radius:12px;
+  background:#fffdf8;color:#173c44;padding:12px;font:inherit;
+}
+.recipe-field textarea{min-height:120px;resize:vertical;line-height:1.45}
+.recipe-field small{opacity:.75;line-height:1.35}
+.recipe-photo-preview{
+  min-height:150px;border:1px dashed rgba(5,55,70,.28);border-radius:14px;
+  background:rgba(255,255,255,.55);display:flex;align-items:center;justify-content:center;
+  overflow:hidden;text-align:center;padding:8px;
+}
+.recipe-photo-preview img{width:100%;max-height:280px;object-fit:cover;border-radius:10px}
+.recipe-editor-actions{display:flex;gap:10px;margin-top:18px}
+.recipe-editor-actions button{flex:1;border:0;border-radius:13px;padding:13px;font-weight:900;cursor:pointer}
+.recipe-save-btn{background:var(--teal-ink,#053746);color:white}
+.recipe-cancel-btn{background:rgba(5,55,70,.10);color:inherit}
+.recipe-save-status{margin-top:10px;font-weight:800;min-height:1.4em}
+@media(max-width:650px){
+  .recipe-form-grid{grid-template-columns:1fr}
+  .recipe-field.full{grid-column:1}
+  .add-recipe-btn{padding:10px 12px}
+}
+body.theme-retro .recipe-editor,
+body.theme-retro .recipe-editor-head{
+  background:#061006;color:#9dff9a;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
+}
+body.theme-retro .recipe-field input,
+body.theme-retro .recipe-field select,
+body.theme-retro .recipe-field textarea{
+  background:#020802;color:#d7ffd0;border-color:rgba(157,255,154,.4);
+}
+body.theme-retro .recipe-photo-preview{background:#020802;border-color:rgba(157,255,154,.4)}
+body.theme-retro .recipe-save-btn{background:#9dff9a;color:#061b07}
+
 </style>
 
 <link rel="manifest" href="manifest.json">
@@ -761,6 +836,7 @@ body.theme-retro .search-results-note{background:rgba(0,0,0,.55);border-color:rg
           <button class="theme-chip" type="button" data-theme="retro" aria-pressed="false"><span class="theme-icon">📺</span><span>Retro CRT</span></button>
           <button class="theme-chip locked" type="button" data-theme="pipboy" aria-pressed="false"><span class="theme-icon">☢</span><span>Pip-Boy</span><small>Locked</small></button>
         </div>
+        <button class="add-recipe-btn" id="addRecipeBtn" type="button">＋ Add Recipe</button>
         <div class="search-wrap">
           <input id="search" class="searchbox" type="search" placeholder="Search recipes..." autocomplete="off">
           <span class="search-icon">⌕</span>
@@ -850,6 +926,74 @@ body.theme-retro .search-results-note{background:rgba(0,0,0,.55);border-color:rg
   </main>
 </div>
 
+
+<div class="recipe-editor-backdrop" id="recipeEditorBackdrop" aria-hidden="true"></div>
+<section class="recipe-editor" id="recipeEditor" aria-label="Add recipe" aria-hidden="true">
+  <div class="recipe-editor-inner">
+    <div class="recipe-editor-head">
+      <h2>Add Recipe</h2>
+      <button class="recipe-editor-close" id="recipeEditorClose" type="button" aria-label="Close">×</button>
+    </div>
+    <form id="recipeForm">
+      <div class="recipe-form-grid">
+        <div class="recipe-field full">
+          <label for="recipeTitleInput">Recipe name</label>
+          <input id="recipeTitleInput" name="title" required maxlength="120" autocomplete="off">
+        </div>
+
+        <div class="recipe-field">
+          <label for="recipeCategoryInput">Category</label>
+          <select id="recipeCategoryInput" name="category" required></select>
+        </div>
+
+        <div class="recipe-field">
+          <label for="recipeMetaInput">Description / meta</label>
+          <input id="recipeMetaInput" name="meta" maxlength="220" placeholder="Short description or yield">
+        </div>
+
+        <div class="recipe-field full">
+          <label for="recipePhotoInput">Photo</label>
+          <input id="recipePhotoInput" type="file" accept="image/*">
+          <small>The photo stays on this device for now. GitHub upload comes later.</small>
+          <div class="recipe-photo-preview" id="recipePhotoPreview">No photo selected</div>
+        </div>
+
+        <div class="recipe-field full">
+          <label for="recipeImageNameInput">Photo filename</label>
+          <input id="recipeImageNameInput" name="imageName" maxlength="160" placeholder="example-recipe.JPG">
+          <small>This is the filename we’ll use later when exporting/publishing to GitHub.</small>
+        </div>
+
+        <div class="recipe-field full">
+          <label for="recipeIngredientsInput">Ingredients</label>
+          <textarea id="recipeIngredientsInput" name="ingredients" required placeholder="One ingredient per line"></textarea>
+        </div>
+
+        <div class="recipe-field full">
+          <label for="recipeMethodInput">Method</label>
+          <textarea id="recipeMethodInput" name="method" required placeholder="One step per line"></textarea>
+        </div>
+
+        <div class="recipe-field full">
+          <label for="recipeNoteInput">Notes</label>
+          <textarea id="recipeNoteInput" name="note" placeholder="Optional notes" style="min-height:90px"></textarea>
+        </div>
+
+        <div class="recipe-field full">
+          <label for="recipeTagsInput">Tags</label>
+          <input id="recipeTagsInput" name="tags" placeholder="Comma separated, e.g. Macarons, Test Version">
+        </div>
+      </div>
+
+      <div class="recipe-editor-actions">
+        <button class="recipe-cancel-btn" id="recipeCancelBtn" type="button">Cancel</button>
+        <button class="recipe-save-btn" type="submit">Save Recipe</button>
+      </div>
+      <div class="recipe-save-status" id="recipeSaveStatus" aria-live="polite"></div>
+    </form>
+  </div>
+</section>
+
 <button class="temp-fab" id="tempGuideBtn" aria-label="Open Kitchen Temps">🌡</button>
 <div class="temp-panel-backdrop" id="tempBackdrop" aria-hidden="true"></div>
 <section class="temp-panel" id="tempPanel" aria-label="Kitchen Temps quick reference" aria-hidden="true">
@@ -917,7 +1061,7 @@ body.theme-retro .search-results-note{background:rgba(0,0,0,.55);border-color:rg
   </div>
 </section>
 
-<script src="recipes.js?v=25"></script>
+<script src="recipes.js?v=26"></script>
 <script>
 let activeCategory = 'Main Dishes';
 let activeTag = null;
@@ -1113,7 +1257,7 @@ function render() {
         <div class="thumb">${iconFor(r)}<button class="heart ${isFav(r.title)?'faved':''}" onclick="event.stopPropagation(); toggleFav('${escapeAttr(r.title)}')">${isFav(r.title)?'♥':'♡'}</button></div>
         <div class="card-body">
           <h2>${escapeHtml(r.title)}</h2>
-          <div class="card-foot"><span>•</span><span>${escapeHtml(r.category)}</span>${tempBadgeMarkup(r)}</div>
+          <div class="card-foot"><span>•</span><span>${escapeHtml(r.category)}</span>${tempBadgeMarkup(r)}${r._local?'<span class="local-recipe-badge">My Recipe</span>':''}</div>
         </div>
       </article>
     `).join('');
@@ -1201,10 +1345,180 @@ function openIngredientSearch(){
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
+
+/* ===== Local recipe storage ===== */
+const KWEN_RECIPE_DB = 'kwenCookbookDB';
+const KWEN_RECIPE_STORE = 'localRecipes';
+let pendingRecipeImageData = '';
+
+function openRecipeDB(){
+  return new Promise((resolve,reject)=>{
+    const req = indexedDB.open(KWEN_RECIPE_DB,1);
+    req.onupgradeneeded = () => {
+      const db = req.result;
+      if (!db.objectStoreNames.contains(KWEN_RECIPE_STORE)) {
+        db.createObjectStore(KWEN_RECIPE_STORE,{keyPath:'_localId'});
+      }
+    };
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => reject(req.error);
+  });
+}
+async function getLocalRecipes(){
+  const db = await openRecipeDB();
+  return new Promise((resolve,reject)=>{
+    const tx = db.transaction(KWEN_RECIPE_STORE,'readonly');
+    const req = tx.objectStore(KWEN_RECIPE_STORE).getAll();
+    req.onsuccess = () => resolve(req.result || []);
+    req.onerror = () => reject(req.error);
+  });
+}
+async function saveLocalRecipe(recipe){
+  const db = await openRecipeDB();
+  return new Promise((resolve,reject)=>{
+    const tx = db.transaction(KWEN_RECIPE_STORE,'readwrite');
+    tx.objectStore(KWEN_RECIPE_STORE).put(recipe);
+    tx.oncomplete = () => resolve();
+    tx.onerror = () => reject(tx.error);
+  });
+}
+function splitRecipeLines(value){
+  return String(value || '').split(/\r?\n/).map(x=>x.trim()).filter(Boolean);
+}
+function populateRecipeCategories(){
+  const select = document.getElementById('recipeCategoryInput');
+  if (!select) return;
+  const current = select.value;
+  select.innerHTML = cats().map(cat=>`<option value="${escapeAttr(cat)}">${escapeHtml(cat)}</option>`).join('');
+  if (current && [...select.options].some(o=>o.value===current)) select.value=current;
+  else if ([...select.options].some(o=>o.value===activeCategory)) select.value=activeCategory;
+}
+function openRecipeEditor(){
+  populateRecipeCategories();
+  const editor = document.getElementById('recipeEditor');
+  const backdrop = document.getElementById('recipeEditorBackdrop');
+  document.getElementById('recipeSaveStatus').textContent = '';
+  editor.classList.add('open');
+  backdrop.classList.add('open');
+  editor.setAttribute('aria-hidden','false');
+  backdrop.setAttribute('aria-hidden','false');
+  document.body.style.overflow='hidden';
+  setTimeout(()=>document.getElementById('recipeTitleInput').focus(),50);
+}
+function closeRecipeEditor(reset=true){
+  const editor = document.getElementById('recipeEditor');
+  const backdrop = document.getElementById('recipeEditorBackdrop');
+  editor.classList.remove('open');
+  backdrop.classList.remove('open');
+  editor.setAttribute('aria-hidden','true');
+  backdrop.setAttribute('aria-hidden','true');
+  document.body.style.overflow='';
+  if (reset) {
+    document.getElementById('recipeForm').reset();
+    document.getElementById('recipePhotoPreview').innerHTML='No photo selected';
+    pendingRecipeImageData='';
+  }
+}
+function normalizeImageFilename(name,title,file){
+  let value=String(name||'').trim();
+  if (!value && file && file.name) value=file.name;
+  if (!value) {
+    value=String(title||'recipe').toLowerCase()
+      .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+      .replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'') + '.JPG';
+  }
+  if (!/\.[a-z0-9]{2,5}$/i.test(value)) value += '.JPG';
+  return value;
+}
+async function loadLocalRecipesIntoCookbook(){
+  try{
+    const locals = await getLocalRecipes();
+    const existingIds = new Set(RECIPES.filter(r=>r._localId).map(r=>r._localId));
+    locals.sort((a,b)=>String(a.title).localeCompare(String(b.title))).forEach(r=>{
+      if (!existingIds.has(r._localId)) RECIPES.push(r);
+    });
+  }catch(err){
+    console.warn('Local recipe storage unavailable:',err);
+  }
+}
+
+document.getElementById('addRecipeBtn').addEventListener('click',openRecipeEditor);
+document.getElementById('recipeEditorClose').addEventListener('click',()=>closeRecipeEditor(true));
+document.getElementById('recipeCancelBtn').addEventListener('click',()=>closeRecipeEditor(true));
+document.getElementById('recipeEditorBackdrop').addEventListener('click',()=>closeRecipeEditor(true));
+
+document.getElementById('recipePhotoInput').addEventListener('change',e=>{
+  const file=e.target.files && e.target.files[0];
+  const preview=document.getElementById('recipePhotoPreview');
+  if(!file){pendingRecipeImageData='';preview.innerHTML='No photo selected';return;}
+  const reader=new FileReader();
+  reader.onload=()=>{
+    pendingRecipeImageData=String(reader.result||'');
+    preview.innerHTML=`<img src="${escapeAttr(pendingRecipeImageData)}" alt="Selected recipe photo">`;
+    const name=document.getElementById('recipeImageNameInput');
+    if(!name.value.trim()) name.value=file.name || '';
+  };
+  reader.onerror=()=>{pendingRecipeImageData='';preview.textContent='Could not read that photo.';};
+  reader.readAsDataURL(file);
+});
+
+document.getElementById('recipeForm').addEventListener('submit',async e=>{
+  e.preventDefault();
+  const status=document.getElementById('recipeSaveStatus');
+  const title=document.getElementById('recipeTitleInput').value.trim();
+  const category=document.getElementById('recipeCategoryInput').value;
+  const ingredients=splitRecipeLines(document.getElementById('recipeIngredientsInput').value);
+  const method=splitRecipeLines(document.getElementById('recipeMethodInput').value);
+  if(!title || !category || !ingredients.length || !method.length){
+    status.textContent='Recipe name, category, ingredients, and method are required.';
+    return;
+  }
+  const photoFile=document.getElementById('recipePhotoInput').files[0];
+  const imageName=normalizeImageFilename(document.getElementById('recipeImageNameInput').value,title,photoFile);
+  const id='local-'+Date.now()+'-'+Math.random().toString(36).slice(2,8);
+  const recipe={
+    title,
+    category,
+    meta:document.getElementById('recipeMetaInput').value.trim(),
+    ingredients,
+    method,
+    note:document.getElementById('recipeNoteInput').value.trim(),
+    tags:document.getElementById('recipeTagsInput').value.split(',').map(x=>x.trim()).filter(Boolean),
+    image:pendingRecipeImageData || '',
+    imageName,
+    _local:true,
+    _localId:id,
+    _createdAt:new Date().toISOString()
+  };
+  try{
+    await saveLocalRecipe(recipe);
+    RECIPES.push(recipe);
+    selectedIndex=RECIPES.length-1;
+    activeCategory=category;
+    activeSpecial=null;
+    activeTag=null;
+    status.textContent='Saved on this device.';
+    render();
+    setTimeout(()=>{
+      closeRecipeEditor(true);
+      document.body.classList.add('detail-open');
+      renderDetail(selectedIndex);
+    },350);
+  }catch(err){
+    console.error(err);
+    status.textContent='Could not save this recipe on the device.';
+  }
+});
+
+async function initCookbook(){
+  await loadLocalRecipesIntoCookbook();
+  wireTempPanel();
+  render();
+}
+
 document.getElementById('search').addEventListener('input', render);
 ['keyup','change','search'].forEach(evt => document.getElementById('search').addEventListener(evt, render));
-wireTempPanel();
-render();
+initCookbook();
 </script>
 
 <script>

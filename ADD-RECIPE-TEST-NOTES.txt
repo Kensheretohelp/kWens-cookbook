@@ -1,0 +1,28 @@
+kWen's Cookbook — Add Recipe test build
+
+FILES TO REPLACE IN GITHUB ROOT
+- index.html
+- sw.js
+
+KEEP / USE
+- recipes.js (included in this ZIP too for convenience)
+
+FIRST-BATCH FEATURES
+- + Add Recipe button
+- Recipe name
+- Existing category dropdown
+- Optional description/meta
+- Photo picker
+- Editable photo filename
+- Ingredients: one per line
+- Method: one step per line
+- Notes
+- Comma-separated tags
+- Saves locally on the device using IndexedDB
+- Local recipes appear in categories, search, menu, details, and favorites
+- Local recipe cards show "My Recipe"
+
+IMPORTANT
+- Local recipes and their photos currently live only on the device/browser where they were created.
+- Clearing site/app data can remove them.
+- GitHub publishing/export/edit/delete are deliberately NOT in this first batch.
