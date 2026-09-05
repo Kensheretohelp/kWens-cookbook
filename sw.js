@@ -1,11 +1,10 @@
-// kWen's Cookbook service worker — v1
-const CACHE_NAME = 'kwen-cookbook-v1';
+// kWen's Cookbook service worker — v2
+const CACHE_NAME = 'kwen-cookbook-v2';
 
 const APP_SHELL = [
   './',
   './index.html',
   './recipes.js',
-  './recipes-aug2026-patch.js',
   './manifest.json'
 ];
 
