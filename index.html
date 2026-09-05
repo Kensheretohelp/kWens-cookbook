@@ -786,6 +786,21 @@ body.theme-retro .recipe-field textarea{
 body.theme-retro .recipe-photo-preview{background:#020802;border-color:rgba(157,255,154,.4)}
 body.theme-retro .recipe-save-btn{background:#9dff9a;color:#061b07}
 
+
+.home-recipe-actions{display:flex;justify-content:flex-start;margin:0 0 18px}
+.recipe-manage-actions{display:flex;gap:9px;flex-wrap:wrap;margin:12px 0 2px}
+.recipe-manage-actions button{
+  border:0;border-radius:11px;padding:9px 12px;font-weight:900;cursor:pointer;
+}
+.recipe-edit-btn{background:rgba(5,55,70,.10);color:var(--teal-ink,#053746)}
+.recipe-delete-btn{background:#8f2f2a;color:#fff}
+.recipe-delete-btn[hidden]{display:none !important}
+body.theme-retro .recipe-edit-btn{background:rgba(157,255,154,.15);color:#9dff9a}
+body.theme-retro .recipe-delete-btn{background:#ff8f8f;color:#210000}
+.recipe-field input[readonly]{
+  opacity:.72;background:rgba(5,55,70,.05);cursor:not-allowed
+}
+
 </style>
 
 <link rel="manifest" href="manifest.json">
@@ -836,7 +851,6 @@ body.theme-retro .recipe-save-btn{background:#9dff9a;color:#061b07}
           <button class="theme-chip" type="button" data-theme="retro" aria-pressed="false"><span class="theme-icon">📺</span><span>Retro CRT</span></button>
           <button class="theme-chip locked" type="button" data-theme="pipboy" aria-pressed="false"><span class="theme-icon">☢</span><span>Pip-Boy</span><small>Locked</small></button>
         </div>
-        <button class="add-recipe-btn" id="addRecipeBtn" type="button">＋ Add Recipe</button>
         <div class="search-wrap">
           <input id="search" class="searchbox" type="search" placeholder="Search recipes..." autocomplete="off">
           <span class="search-icon">⌕</span>
@@ -862,6 +876,9 @@ body.theme-retro .recipe-save-btn{background:#9dff9a;color:#061b07}
           for the people who matter most. It is a place for the dishes worth remembering — the ones made for family,
           shared with friends, and passed around the table.
         </p>
+        <div class="home-recipe-actions">
+          <button class="add-recipe-btn" id="addRecipeBtn" type="button">＋ Add Recipe</button>
+        </div>
         <div class="intro-card">
           <p>
             Built by kWen, this collection blends New Brunswick comfort food, handmade pasta projects,
@@ -909,6 +926,10 @@ body.theme-retro .recipe-save-btn{background:#9dff9a;color:#061b07}
         </div>
         <div class="tags" id="detailTags"></div>
         <div class="detail-temp-wrap" id="detailTemp"></div>
+        <div class="recipe-manage-actions" id="recipeManageActions">
+          <button class="recipe-edit-btn" id="editRecipeBtn" type="button">✎ Edit Recipe</button>
+          <button class="recipe-delete-btn" id="deleteRecipeBtn" type="button">Delete Recipe</button>
+        </div>
         <div class="scale-buttons">
           <button class="active" onclick="setScale(1, this)">1x</button>
           <button onclick="setScale(2, this)">2x</button>
@@ -931,7 +952,7 @@ body.theme-retro .recipe-save-btn{background:#9dff9a;color:#061b07}
 <section class="recipe-editor" id="recipeEditor" aria-label="Add recipe" aria-hidden="true">
   <div class="recipe-editor-inner">
     <div class="recipe-editor-head">
-      <h2>Add Recipe</h2>
+      <h2 id="recipeEditorTitle">Add Recipe</h2>
       <button class="recipe-editor-close" id="recipeEditorClose" type="button" aria-label="Close">×</button>
     </div>
     <form id="recipeForm">
@@ -1061,7 +1082,7 @@ body.theme-retro .recipe-save-btn{background:#9dff9a;color:#061b07}
   </div>
 </section>
 
-<script src="recipes.js?v=26"></script>
+<script src="recipes.js?v=27"></script>
 <script>
 let activeCategory = 'Main Dishes';
 let activeTag = null;
@@ -1289,6 +1310,12 @@ function renderDetail(i) {
   document.getElementById('detailIngredients').innerHTML = r.ingredients.map(x => `<li>${scaleText(x, currentScale)}</li>`).join('');
   document.getElementById('detailMethod').innerHTML = r.method.map(x => `<li>${escapeHtml(x)}</li>`).join('');
   document.getElementById('detailNote').innerHTML = `<strong>kWen note:</strong> ${escapeHtml(r.note || r.meta || '')}`;
+
+  const editBtn=document.getElementById('editRecipeBtn');
+  const deleteBtn=document.getElementById('deleteRecipeBtn');
+  editBtn.onclick=()=>openEditRecipe(i);
+  deleteBtn.hidden=!r._local;
+  deleteBtn.onclick=r._local ? ()=>deleteLocalRecipe(i) : null;
 }
 function setScale(scale, btn) {
   currentScale = scale;
@@ -1350,6 +1377,8 @@ function openIngredientSearch(){
 const KWEN_RECIPE_DB = 'kwenCookbookDB';
 const KWEN_RECIPE_STORE = 'localRecipes';
 let pendingRecipeImageData = '';
+let recipeEditorMode = 'add';
+let recipeEditingIndex = -1;
 
 function openRecipeDB(){
   return new Promise((resolve,reject)=>{
@@ -1393,7 +1422,7 @@ function populateRecipeCategories(){
   if (current && [...select.options].some(o=>o.value===current)) select.value=current;
   else if ([...select.options].some(o=>o.value===activeCategory)) select.value=activeCategory;
 }
-function openRecipeEditor(){
+function showRecipeEditor(){
   populateRecipeCategories();
   const editor = document.getElementById('recipeEditor');
   const backdrop = document.getElementById('recipeEditorBackdrop');
@@ -1403,7 +1432,46 @@ function openRecipeEditor(){
   editor.setAttribute('aria-hidden','false');
   backdrop.setAttribute('aria-hidden','false');
   document.body.style.overflow='hidden';
+}
+function openRecipeEditor(){
+  recipeEditorMode='add';
+  recipeEditingIndex=-1;
+  pendingRecipeImageData='';
+  document.getElementById('recipeForm').reset();
+  document.getElementById('recipeEditorTitle').textContent='Add Recipe';
+  document.getElementById('recipeTitleInput').readOnly=false;
+  document.getElementById('recipePhotoPreview').innerHTML='No photo selected';
+  showRecipeEditor();
   setTimeout(()=>document.getElementById('recipeTitleInput').focus(),50);
+}
+function openEditRecipe(i){
+  const r=RECIPES[i];
+  if(!r) return;
+  recipeEditorMode='edit';
+  recipeEditingIndex=i;
+  pendingRecipeImageData = (r.image && /^data:image\//.test(r.image)) ? r.image : '';
+
+  document.getElementById('recipeEditorTitle').textContent='Edit Recipe';
+  document.getElementById('recipeTitleInput').value=r.title || '';
+  document.getElementById('recipeTitleInput').readOnly=!r._local;
+  populateRecipeCategories();
+  document.getElementById('recipeCategoryInput').value=r.category || '';
+  document.getElementById('recipeMetaInput').value=r.meta || '';
+  document.getElementById('recipeIngredientsInput').value=(r.ingredients||[]).join('\n');
+  document.getElementById('recipeMethodInput').value=(r.method||[]).join('\n');
+  document.getElementById('recipeNoteInput').value=r.note || '';
+  document.getElementById('recipeTagsInput').value=(r.tags||[]).join(', ');
+  document.getElementById('recipeImageNameInput').value=r.imageName || String(r.image||'').replace(/^images\//,'');
+  document.getElementById('recipePhotoInput').value='';
+
+  const preview=document.getElementById('recipePhotoPreview');
+  if(r.image){
+    preview.innerHTML=`<img src="${escapeAttr(r.image)}" alt="${escapeAttr(r.title)}">`;
+  }else{
+    preview.innerHTML='No photo selected';
+  }
+
+  showRecipeEditor();
 }
 function closeRecipeEditor(reset=true){
   const editor = document.getElementById('recipeEditor');
@@ -1432,11 +1500,29 @@ function normalizeImageFilename(name,title,file){
 }
 async function loadLocalRecipesIntoCookbook(){
   try{
-    const locals = await getLocalRecipes();
-    const existingIds = new Set(RECIPES.filter(r=>r._localId).map(r=>r._localId));
-    locals.sort((a,b)=>String(a.title).localeCompare(String(b.title))).forEach(r=>{
-      if (!existingIds.has(r._localId)) RECIPES.push(r);
+    const saved = await getLocalRecipes();
+
+    // Apply local overrides to built-in recipes by their fixed title.
+    saved.filter(r=>r._overrideFor).forEach(override=>{
+      const idx = RECIPES.findIndex(r=>r.title === override._overrideFor && !r._local);
+      if(idx >= 0){
+        RECIPES[idx] = {
+          ...RECIPES[idx],
+          ...override,
+          title: override._overrideFor,
+          _local:false,
+          _override:true
+        };
+      }
     });
+
+    // Add recipes created manually in the app.
+    const existingIds = new Set(RECIPES.filter(r=>r._localId).map(r=>r._localId));
+    saved.filter(r=>r._local && !r._overrideFor)
+      .sort((a,b)=>String(a.title).localeCompare(String(b.title)))
+      .forEach(r=>{
+        if (!existingIds.has(r._localId)) RECIPES.push(r);
+      });
   }catch(err){
     console.warn('Local recipe storage unavailable:',err);
   }
@@ -1465,7 +1551,12 @@ document.getElementById('recipePhotoInput').addEventListener('change',e=>{
 document.getElementById('recipeForm').addEventListener('submit',async e=>{
   e.preventDefault();
   const status=document.getElementById('recipeSaveStatus');
-  const title=document.getElementById('recipeTitleInput').value.trim();
+  const original = recipeEditorMode==='edit' ? RECIPES[recipeEditingIndex] : null;
+  let title=document.getElementById('recipeTitleInput').value.trim();
+
+  // Built-in recipe titles are fixed identifiers and cannot be renamed locally.
+  if(original && !original._local) title=original.title;
+
   const category=document.getElementById('recipeCategoryInput').value;
   const ingredients=splitRecipeLines(document.getElementById('recipeIngredientsInput').value);
   const method=splitRecipeLines(document.getElementById('recipeMethodInput').value);
@@ -1473,42 +1564,108 @@ document.getElementById('recipeForm').addEventListener('submit',async e=>{
     status.textContent='Recipe name, category, ingredients, and method are required.';
     return;
   }
+
   const photoFile=document.getElementById('recipePhotoInput').files[0];
   const imageName=normalizeImageFilename(document.getElementById('recipeImageNameInput').value,title,photoFile);
-  const id='local-'+Date.now()+'-'+Math.random().toString(36).slice(2,8);
-  const recipe={
-    title,
-    category,
-    meta:document.getElementById('recipeMetaInput').value.trim(),
-    ingredients,
-    method,
-    note:document.getElementById('recipeNoteInput').value.trim(),
-    tags:document.getElementById('recipeTagsInput').value.split(',').map(x=>x.trim()).filter(Boolean),
-    image:pendingRecipeImageData || '',
-    imageName,
-    _local:true,
-    _localId:id,
-    _createdAt:new Date().toISOString()
-  };
+  const chosenImage = pendingRecipeImageData || (original ? original.image || '' : '');
+
+  let recipe;
+  if(original && original._local){
+    recipe={
+      ...original,
+      title, category,
+      meta:document.getElementById('recipeMetaInput').value.trim(),
+      ingredients, method,
+      note:document.getElementById('recipeNoteInput').value.trim(),
+      tags:document.getElementById('recipeTagsInput').value.split(',').map(x=>x.trim()).filter(Boolean),
+      image:chosenImage,
+      imageName,
+      _local:true,
+      _updatedAt:new Date().toISOString()
+    };
+  }else if(original){
+    const fixedTitle=original.title;
+    recipe={
+      ...original,
+      title:fixedTitle,
+      category,
+      meta:document.getElementById('recipeMetaInput').value.trim(),
+      ingredients, method,
+      note:document.getElementById('recipeNoteInput').value.trim(),
+      tags:document.getElementById('recipeTagsInput').value.split(',').map(x=>x.trim()).filter(Boolean),
+      image:chosenImage,
+      imageName,
+      _local:false,
+      _override:true,
+      _overrideFor:fixedTitle,
+      _localId:'override-'+fixedTitle.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,''),
+      _updatedAt:new Date().toISOString()
+    };
+  }else{
+    const id='local-'+Date.now()+'-'+Math.random().toString(36).slice(2,8);
+    recipe={
+      title, category,
+      meta:document.getElementById('recipeMetaInput').value.trim(),
+      ingredients, method,
+      note:document.getElementById('recipeNoteInput').value.trim(),
+      tags:document.getElementById('recipeTagsInput').value.split(',').map(x=>x.trim()).filter(Boolean),
+      image:chosenImage,
+      imageName,
+      _local:true,
+      _localId:id,
+      _createdAt:new Date().toISOString()
+    };
+  }
+
   try{
     await saveLocalRecipe(recipe);
-    RECIPES.push(recipe);
-    selectedIndex=RECIPES.length-1;
+    if(original){
+      RECIPES[recipeEditingIndex]=recipe;
+      selectedIndex=recipeEditingIndex;
+    }else{
+      RECIPES.push(recipe);
+      selectedIndex=RECIPES.length-1;
+    }
     activeCategory=category;
     activeSpecial=null;
     activeTag=null;
-    status.textContent='Saved on this device.';
+    status.textContent=original ? 'Changes saved on this device.' : 'Saved on this device.';
     render();
     setTimeout(()=>{
       closeRecipeEditor(true);
       document.body.classList.add('detail-open');
       renderDetail(selectedIndex);
-    },350);
+    },250);
   }catch(err){
     console.error(err);
     status.textContent='Could not save this recipe on the device.';
   }
 });
+
+async function deleteLocalRecipe(i){
+  const r=RECIPES[i];
+  if(!r || !r._local || !r._localId) return;
+  const ok=confirm(`Delete "${r.title}" from this device?`);
+  if(!ok) return;
+
+  try{
+    const db=await openRecipeDB();
+    await new Promise((resolve,reject)=>{
+      const tx=db.transaction(KWEN_RECIPE_STORE,'readwrite');
+      tx.objectStore(KWEN_RECIPE_STORE).delete(r._localId);
+      tx.oncomplete=()=>resolve();
+      tx.onerror=()=>reject(tx.error);
+    });
+
+    RECIPES.splice(i,1);
+    document.body.classList.remove('detail-open');
+    selectedIndex=Math.max(0,Math.min(selectedIndex,RECIPES.length-1));
+    render();
+  }catch(err){
+    console.error(err);
+    alert('Could not delete this recipe from the device.');
+  }
+}
 
 async function initCookbook(){
   await loadLocalRecipesIntoCookbook();
