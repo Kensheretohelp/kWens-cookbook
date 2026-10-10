@@ -434,6 +434,8 @@ button, input { font:inherit; }
   border-bottom:1px dashed rgba(180,68,34,.55);
 }
 .recipe-section li { margin:7px 0; line-height:1.35; }
+.recipe-section li.ingredient-group-heading { list-style:none; margin:17px 0 4px -1.2em; color:var(--rust-dark); font-family:Arial,sans-serif; font-size:.9em; font-weight:700; letter-spacing:.06em; text-transform:uppercase; }
+.recipe-section li.ingredient-group-heading:first-child { margin-top:5px; }
 .note {
   margin-top:16px;
   border-left:5px solid var(--mustard);
@@ -1307,7 +1309,10 @@ function renderDetail(i) {
   document.getElementById('detailTags').innerHTML = (r.tags||[]).map(t => `<span class="tag">${escapeHtml(t)}</span>`).join('');
   document.getElementById('detailTemp').innerHTML = tempBadgeMarkup(r);
   document.querySelectorAll('.scale-buttons button').forEach(b => b.classList.toggle('active', b.textContent.trim().startsWith(currentScale + 'x')));
-  document.getElementById('detailIngredients').innerHTML = r.ingredients.map(x => `<li>${scaleText(x, currentScale)}</li>`).join('');
+  const ingredientGroups = Array.isArray(r.ingredientGroups) ? r.ingredientGroups : null;
+  document.getElementById('detailIngredients').innerHTML = ingredientGroups
+    ? ingredientGroups.map(group => `<li class="ingredient-group-heading">${escapeHtml(group.name)}</li>${group.ingredients.map(x => `<li>${scaleText(x, currentScale)}</li>`).join('')}`).join('')
+    : r.ingredients.map(x => `<li>${scaleText(x, currentScale)}</li>`).join('');
   document.getElementById('detailMethod').innerHTML = r.method.map(x => `<li>${escapeHtml(x)}</li>`).join('');
   document.getElementById('detailNote').innerHTML = `<strong>kWen note:</strong> ${escapeHtml(r.note || r.meta || '')}`;
 
@@ -1508,9 +1513,10 @@ async function loadLocalRecipesIntoCookbook(){
       for(const override of saved.filter(r=>r._overrideFor === 'Old-Fashioned Graham Pie')){
         const hasCurrentShell = Array.isArray(override.method) &&
           override.method.some(step=>step.includes('Make the graham shell:'));
-        if(!hasCurrentShell){
+        if(!hasCurrentShell || (currentGrahamPie.ingredientGroups && !Array.isArray(override.ingredientGroups))){
           override.ingredients = currentGrahamPie.ingredients;
-          override.method = currentGrahamPie.method;
+          override.ingredientGroups = currentGrahamPie.ingredientGroups;
+          if(!hasCurrentShell) override.method = currentGrahamPie.method;
           await saveLocalRecipe(override);
         }
       }
