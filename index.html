@@ -1082,7 +1082,7 @@ body.theme-retro .recipe-delete-btn{background:#ff8f8f;color:#210000}
   </div>
 </section>
 
-<script src="recipes.js?v=28"></script>
+<script src="recipes.js?v=29"></script>
 <script>
 let activeCategory = 'Main Dishes';
 let activeTag = null;
@@ -1501,6 +1501,20 @@ function normalizeImageFilename(name,title,file){
 async function loadLocalRecipesIntoCookbook(){
   try{
     const saved = await getLocalRecipes();
+
+    // Bring an older locally edited Graham Pie forward to the current shell method.
+    const currentGrahamPie = RECIPES.find(r=>r.title === 'Old-Fashioned Graham Pie' && !r._local);
+    if(currentGrahamPie){
+      for(const override of saved.filter(r=>r._overrideFor === 'Old-Fashioned Graham Pie')){
+        const hasCurrentShell = Array.isArray(override.method) &&
+          override.method.some(step=>step.includes('Make the graham shell:'));
+        if(!hasCurrentShell){
+          override.ingredients = currentGrahamPie.ingredients;
+          override.method = currentGrahamPie.method;
+          await saveLocalRecipe(override);
+        }
+      }
+    }
 
     // Apply local overrides to built-in recipes by their fixed title.
     saved.filter(r=>r._overrideFor).forEach(override=>{
